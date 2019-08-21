@@ -35,9 +35,9 @@
                     @csrf
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" placeholder="{{ __('Name') }}" required autofocus>
+                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }} form-control-lg" name="name" placeholder="{{ __('Name') }}" required autofocus>
                             <div class="input-group-append">
-                                <div class="input-group-text">
+                                <div class="input-group-text input-lg">
                                     <span class="fa fa-user"></span>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" required autofocus>
+                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} form-control-lg" name="password" placeholder="{{ __('Password') }}" required autofocus>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -79,13 +79,13 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Login') }}</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-flat btn-lg">{{ __('Login') }}</button>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <button type="button" class="btn btn-danger btn-block btn-flat">清空</button>
+                            <button type="button" class="btn btn-danger btn-block btn-lg">清空</button>
                         </div>
                     </div>
                     <p class="text-muted text-center">V1.0</p>
