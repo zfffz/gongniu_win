@@ -79,7 +79,7 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat btn-lg">{{ __('Login') }}</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">{{ __('Login') }}</button>
                         </div>
                     </div>
 
