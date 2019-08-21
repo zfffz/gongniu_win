@@ -16492,3 +16492,7 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
 }
 
+.login-page .login-page {
+  font-size: 18px;
+}
+
