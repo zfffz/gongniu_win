@@ -1,55 +1,44 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>@yield('title', 'liang') - 智慧门店</title>
+    <title>@yield('title', 'BULL') - 上海公牛</title>
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @yield('include')
     <link rel="stylesheet" href="{{asset('AdminLTE/dist/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/toastr/toastr.min.css')}}">
-
 </head>
-
 <body class="hold-transition layout-top-nav">
-<div id="app" class="{{ route_class() }}-page">
-    <div class="wrapper">
-        @include('layouts._header')
+    <div id="app" class="{{ route_class() }}-page"><div>
+        <div class="wrapper">
+            @include('layouts._header')
 
-        <div class="content-wrapper">
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="container">
+                        @yield('content_header')
+                    </div>
+                </div>
 
-            @yield('section')
+                <div class="content">
+                    <div class="container">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
 
-            <section class="content container-fluid">
-                @yield('content')
-
-            </section>
+            @include('layouts._footer')
         </div>
-
-        @include('layouts._footer')
     </div>
-</div>
-
-<!-- Scripts -->
-<script src="{{ mix('js/app.js') }}"></script>
-<script src="/AdminLTE/dist/js/adminlte.min.js"></script>
-<script src="/AdminLTE/plugins/toastr/toastr.min.js"></script>
-
-@yield('script')
-
-<script>
-
-</script>
-
-
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="/AdminLTE/dist/js/adminlte.min.js"></script>
+    <script src="/AdminLTE/plugins/toastr/toastr.min.js"></script>
+        @yield('script')
+    </div>
 </body>
-
 </html>
