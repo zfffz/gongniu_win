@@ -32,10 +32,10 @@
                 <p class="login-box-msg">{{ __('Login') }}</p>
 
                 <form method="POST" action="{{ route('login') }}">
-                    @csrf
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }} form-control-lg" name="name" placeholder="{{ __('Name') }}" required autofocus>
+                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }} form-control-lg" name="name" id="name" placeholder="{{ __('Name') }}" required autofocus>
                             <div class="input-group-append">
                                 <div class="input-group-text input-lg">
                                     <span class="fa fa-user"></span>
@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} form-control-lg" name="password" placeholder="{{ __('Password') }}" required autofocus>
+                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} form-control-lg" name="password" id="password" placeholder="{{ __('Password') }}" required autofocus>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -79,7 +79,7 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <button type="submit" class="btn btn-primary btn-block btn-lg">{{ __('Login') }}</button>
+                            <button id="login" type="submit" class="btn btn-primary btn-block btn-lg">{{ __('Login') }}</button>
                         </div>
                     </div>
 
@@ -104,6 +104,79 @@
 <!-- Scripts -->
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="/AdminLTE/dist/js/adminlte.min.js"></script>
+
+<script>
+    $(function () {
+
+        initView();
+
+        $("#login").click(function () {
+            if ($("#remember").is(":checked")) {
+                setCookie("cookie_name", $("#name").val());
+                setCookie("cookie_password", $("#password").val());
+                setCookie("remember", true);
+            } else {
+                delCookie("cookie_name");
+                delCookie("cookie_password");
+                delCookie("remember");
+            }
+
+
+            window.location.reload()
+        });
+    });
+
+    function initView() {
+        if (getCookie("cookie_name")) {
+            $("#name").val(getCookie("cookie_name"));
+        }
+        if (getCookie("cookie_password")) {
+            $("#password").val(getCookie("cookie_password"));
+        }
+        if (getCookie("remember")) {
+            $("#remember").attr("checked", getCookie("remember"));
+        }
+        $("#name").focus(function () {
+            this.select();
+        });
+        $("#password").focus(function () {
+            this.select();
+        });
+    }
+
+    /**
+     * 写入cookie
+     * @param name  cookie 名
+     * @param value  cookie 值
+     */
+    function setCookie(name, value) {
+        var Days = 30; //此 cookie 将被保存 30 天
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+    /**
+     * 删除cookie
+     * @param name
+     */
+    function delCookie(name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval = getCookie(name);
+        if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+    }
+    /**
+     * 读取cookie
+     * @param name
+     * @returns
+     */
+    function getCookie(name) {
+        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+        if (arr != null)
+            return unescape(arr[2]);
+        return null;
+    }
+</script>
 
 
 </body>

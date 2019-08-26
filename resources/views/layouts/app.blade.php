@@ -19,11 +19,10 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition layout-top-nav">
 <div id="app" class="{{ route_class() }}-page">
     <div class="wrapper">
         @include('layouts._header')
-        @include('layouts._sidebar')
 
         <div class="content-wrapper">
 
@@ -47,25 +46,7 @@
 @yield('script')
 
 <script>
-    $(function(){
-        $('.nav-sidebar li:not(.nav-item) > a').on('click', function(){
-            var $parent = $(this).parent().addClass('active');
-            $parent.siblings('.treeview.active').find('> a').trigger('click');
-            $parent.siblings().removeClass('active').find('li').removeClass('active');
-        });
-        $('.nav-sidebar a').each(function(){
-            if(this.href === window.location.href){
-                $(this).addClass('active');
-                $(this).parent().addClass('active');
-            }
-        });
 
-        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-        @if(session()->has($msg))
-        toastr.{{$msg}}('{{ session()->get($msg) }}');
-        @endif
-        @endforeach
-    });
 </script>
 
 
