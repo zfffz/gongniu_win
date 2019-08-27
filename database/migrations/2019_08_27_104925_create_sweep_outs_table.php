@@ -13,7 +13,7 @@ class CreateSweepOutsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sweep_outs', function (Blueprint $table) {
+        Schema::create('zzz_sweep_outs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateSweepOutsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sweep_outs');
+        Schema::dropIfExists('zzz_sweep_outs');
     }
 }

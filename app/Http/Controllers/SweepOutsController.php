@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SweepOutsController extends CommonsController
 {
@@ -13,7 +14,12 @@ class SweepOutsController extends CommonsController
      */
     public function index()
     {
-        return view('sweepOuts.index');
+        //打包员
+        $packagers = DB::table('bs_gn_wl')
+            ->select('cpersoncode as no','cpersonname as name')
+            ->where('wlcode','=','03')
+            ->get();
+        return view('sweepOuts.index',compact('packagers'));
     }
 
     /**
@@ -80,5 +86,16 @@ class SweepOutsController extends CommonsController
     public function destroy($id)
     {
         //
+    }
+
+    public function dispatch_data(Request $request){
+        $dispatch_no = $request->dispatch_no;
+        $data = DB:: table('dispatchlist as t1')
+            ->select('t1.cDLCode','t1.cCusCode','t2.name')
+            ->join('zzz_storage_locations as t2','t1.cCusCode','=','t2.customer_no')
+            ->where('t1.cDLCode','=',$dispatch_no)->get();
+
+        echo json_encode($data);
+
     }
 }

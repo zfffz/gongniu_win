@@ -10,6 +10,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'PagesController@root')->name('root');
 
     //打包出库
+    Route::get('sweepOut/dispatch_data', 'SweepOutsController@dispatch_data')->name('sweepOut.dispatch_data');
     Route::resource('sweepOut', 'SweepOutsController', ['only' => ['index','create', 'store','show', 'edit','update','destroy']]);
 
 

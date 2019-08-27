@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateStorageLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->string('id');
-            $table->string('no')->unique();//工号或者U8用户
+        Schema::create('zzz_storage_locations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('customer_no')->unique();
             $table->string('name');
-            $table->string('dept_name');//部门
-            $table->string('password');//U8密码
+            $table->timestamps();
         });
     }
 
@@ -29,6 +28,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('zzz_storage_locations');
     }
 }
