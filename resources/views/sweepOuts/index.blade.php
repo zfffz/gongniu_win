@@ -5,7 +5,7 @@
 @section('title', '扫码出库')
 
 @section('header')
-    <label style="margin-top:8px;margin-right:20px;">打包员</label>
+    <label style="margin-top:8px;margin-right:10px;">打包员</label>
     <select class="form-control select2">
         <option value="">请选择</option>
         <option>Alaska</option>
@@ -29,7 +29,7 @@
                     <!-- Block buttons -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title text-center">扫码出库</h3>
+                            <h3 class="card-title text-center">打包出库</h3>
                         </div>
                         <form class="form-horizontal" role="form" action="{{ route('sweepOut.store') }}" method="post">
                             {{ csrf_field() }}
