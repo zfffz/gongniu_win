@@ -5,7 +5,7 @@
 @section('title', '扫码出库')
 
 @section('header')
-    <label style="margin-top:8px;margin-right:10px;">打包员</label>
+    <label style="margin-top:8px;margin-right:2px;">打包员</label>
     <select class="form-control select2">
         <option value="">请选择</option>
         <option>Alaska</option>
