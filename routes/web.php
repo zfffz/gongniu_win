@@ -6,5 +6,11 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => 'auth'], function() {
+    //首页
     Route::get('/', 'PagesController@root')->name('root');
+
+    //打包出库
+    Route::resource('sweepOut', 'SweepOutsController', ['only' => ['index','create', 'store','show', 'edit','update','destroy']]);
+
+
 });
