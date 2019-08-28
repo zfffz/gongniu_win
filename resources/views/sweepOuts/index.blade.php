@@ -7,7 +7,7 @@
 @section('title', '扫码出库')
 
 @section('header_left')
-    <label style="margin-top:8px;margin-right:10px;">打包员</label>
+    打包员
     <select class="form-control select2" name="packager">
         <option value="">请选择</option>
         @foreach ($packagers as $packager)
