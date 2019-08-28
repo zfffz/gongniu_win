@@ -91,7 +91,7 @@
                     <p class="text-muted text-center">V1.0</p>
                     <div class="form-group">
                         <div class="text-center">
-                            <p class="text-muted">技术支持：信息中心-上海业务模块</p>
+                            <p class="text-muted">技术支持：上海业务模块</p>
                         </div>
                     </div>
                 </form>
