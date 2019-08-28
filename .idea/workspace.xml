@@ -29,8 +29,8 @@
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="240" column="55" lean-forward="false" selection-start-line="240" selection-start-column="50" selection-end-line="240" selection-end-column="55" />
+            <state relative-caret-position="359">
+              <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
               <folding>
                 <element signature="e#998#1024#0#HTML" expanded="true" />
               </folding>
@@ -296,12 +296,12 @@
       <workItem from="1566793416811" duration="1689000" />
       <workItem from="1566803220583" duration="8369000" />
       <workItem from="1566868647717" duration="25539000" />
-      <workItem from="1566955702998" duration="17545000" />
+      <workItem from="1566955702998" duration="18333000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69927000" />
+    <option name="totallyTimeSpent" value="70715000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -677,8 +677,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="240" column="55" lean-forward="false" selection-start-line="240" selection-start-column="50" selection-end-line="240" selection-end-column="55" />
+        <state relative-caret-position="359">
+          <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
           <folding>
             <element signature="e#998#1024#0#HTML" expanded="true" />
           </folding>

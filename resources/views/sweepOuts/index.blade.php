@@ -143,9 +143,7 @@
 
             $("#location_no").val("");
 
-            $("#dispatch_no").focus(function(){
-                document.activeElement.blur();
-            });
+            $("#dispatch_no").focus();
 
             //添加成功提示
             Toast.fire({
@@ -200,9 +198,7 @@
         $(function(){
             $('.select2').select2();
             //聚焦发货单号
-            $('#dispatch_no').focus(function(){
-                document.activeElement.blur();
-            });
+            $('#dispatch_no').focus();
 
             $('#dispatch_no').bind('input propertychange', function() {
                 var dispatch_no = $(this).val();
@@ -238,9 +234,7 @@
                                 $("#dispatch_no").addClass("is-valid");
                                 $('#location_no_default').val(data[0].name);
                                 //焦点跳转到库位
-                                $('#location_no').focus(function(){
-                                    document.activeElement.blur();
-                                });
+                                $('#location_no').focus();
                             }
 
                         },
