@@ -7,9 +7,8 @@
 @section('title', '扫码出库')
 
 @section('header_left')
-    打包员
     <select class="form-control select2" name="packager">
-        <option value="">请选择</option>
+        <option value="">打包员</option>
         @foreach ($packagers as $packager)
             <option value="{{ $packager->no }}">
                 {{ $packager->name }}
