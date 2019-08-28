@@ -150,6 +150,7 @@
                 type: 'success',
                 title: '添加成功！'
             });
+            $('#chatAudio')[0].play();
         }
 
         function deleteCurrentRow(obj) {
@@ -196,13 +197,26 @@
         }
 
         $(function(){
+            $('<audio id="chatAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+
+
             $('.select2').select2();
             //聚焦发货单号
             $('#dispatch_no').focus();
 
+            $('#dispatch_no').blur(function(){
+                var dispatch_no = $(this).val();
+                if(dispatch_no.length < 12){
+                    $('#dispatch_no').focus();
+                }
+
+            });
+
+
+
             $('#dispatch_no').bind('input propertychange', function() {
                 var dispatch_no = $(this).val();
-                if(dispatch_no.length == 12){
+                if(dispatch_no.length >= 12){
                     //判断发货单号合法性，同时获取该单号的默认库位
                     $.ajax({
                         url:'sweepOut/dispatch_data?dispatch_no='+dispatch_no,
@@ -248,9 +262,21 @@
 
             $('#location_no').bind('input propertychange', function() {
                 var location_no = $(this).val();
+                //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
+                if( $('#dispatch_no').val()==''){
+                    $("#dispatch_no").addClass("is-invalid");
+                    Toast.fire({
+                        type: 'error',
+                        title: '请先扫发货单号！'
+                    });
+                    $('#location_no').val('');
+                    $('#dispatch_no').focus();
+                }
+
+
                 //判断库位是否等于默认库位
                 //如果不等于，弹窗提示
-                if(location_no.length == 3){
+                if(location_no.length >=4){
                     if(location_no != $('#location_no_default').val()){
                         Swal.fire({
                             title: '非默认库位，确定添加吗?',
