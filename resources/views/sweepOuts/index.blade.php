@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('include')
     <link rel="stylesheet" href="/AdminLTE/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="{{asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('AdminLTE/plugins/toastr/toastr.min.css')}}">
 @endsection
 @section('title', '扫码出库')
 
@@ -27,7 +29,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- Block buttons -->
-                    <div class="card">
+                    <div class="card" style="margin-top: -15px;">
                         <div class="card-header">
                             <h3 class="card-title text-center">打包出库</h3>
                         </div>
@@ -78,7 +80,7 @@
                         <!-- /.card-header -->
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table m-0">
+                                <table class="table m-0" id="dispatch_table">
                                     <thead>
                                     <tr>
                                         <th>发货单号</th>
@@ -87,41 +89,6 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>XSFH00123456</td>
-                                        <td>A01</td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick=""><i class="far fa-trash-alt" ></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>XSFH00123456</td>
-                                        <td>A01</td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick=""><i class="far fa-trash-alt" ></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>XSFH00123456</td>
-                                        <td>A01</td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick=""><i class="far fa-trash-alt" ></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>XSFH00123456</td>
-                                        <td>A01</td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick=""><i class="far fa-trash-alt" ></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>XSFH00123456</td>
-                                        <td>A01</td>
-                                        <td>
-                                            <a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick=""><i class="far fa-trash-alt" ></i></a>
-                                        </td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -129,7 +96,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="javascript:void(0)" class="btn btn-danger float-left">清空</a>
+                            <button onclick="deleteTable()" class="btn btn-danger float-left">清空</button>
                             <a href="javascript:void(0)" class="btn btn-primary float-right">上传</a>
                         </div>
                         <!-- /.card-footer -->
@@ -143,11 +110,95 @@
     </div>
 @endsection
 
+@section('footer')
+    <div class="float-right d-none d-sm-inline">
+
+    </div>
+    <!-- Default to the left -->
+    <a onclick="javascript:history.back(-1);"><i class="fas fa-arrow-left"></i> 上一步</a>
+@endsection
+
 @section('script')
     <script src="/AdminLTE/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="/AdminLTE/plugins/toastr/toastr.min.js"></script>
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        function addRow(type){
+            //直接添加入列表
+            var trcomp="<tr>" +
+                '<td>'+$('#dispatch_no').val()+'</td>'+
+                '<td class="'+type+'">'+$('#location_no').val()+'</td>'+
+                '<td><a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="far fa-trash-alt" ></i></a></td>'
+            "</tr>";
+            $("#dispatch_table").append(trcomp);
+            //清空发货单号、库位
+            $("#dispatch_no").removeClass("is-valid");
+            $("#dispatch_no").val("");
+
+            $("#location_no").val("");
+
+            $("#dispatch_no").focus();
+
+            //添加成功提示
+            Toast.fire({
+                type: 'success',
+                title: '添加成功！'
+            });
+        }
+
+        function deleteCurrentRow(obj) {
+            Swal.fire({
+                title: '确认删除吗?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.value) {
+                var tr=obj.parentNode.parentNode;
+
+                var tbody=tr.parentNode;
+                tbody.removeChild(tr);
+
+            }else{
+
+
+            }
+        })
+        }
+
+        function deleteTable() {
+            Swal.fire({
+                title: '确认清空列表吗?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.value) {
+                $('#dispatch_table tbody').html('');
+
+            }else{
+
+
+            }
+        })
+        }
+
         $(function(){
             $('.select2').select2();
+            //聚焦发货单号
+            $('#dispatch_no').focus();
 
             $('#dispatch_no').bind('input propertychange', function() {
                 var dispatch_no = $(this).val();
@@ -163,16 +214,27 @@
                         },
                         processData:false,
                         cache:false,
-                        timeout: 1000,
+                        timeout: 3000,
                         beforeSend:function(){
 
                         },
                         success:function(data){
                             if(data.length==0){
-                                alert('发货单号不存在');
+                                //发货单号红框提示,toast提示
+                                $("#dispatch_no").addClass("is-invalid");
+                                Toast.fire({
+                                    type: 'error',
+                                    title: '发货单号非法或不存在！'
+                                });
+                                //清空发货单号
+                                $('#dispatch_no').val('');
                             }else{
+                                //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+                                $("#dispatch_no").removeClass("is-invalid");
+                                $("#dispatch_no").addClass("is-valid");
                                 $('#location_no_default').val(data[0].name);
-                                alert($('#location_no_default').val());
+                                //焦点跳转到库位
+                                $('#location_no').focus();
                             }
 
                         },
@@ -180,23 +242,37 @@
                             alert("error");
                         }
                     });
-
-                    //如果不合法，给出提示，并且清空发货单号框，焦点重新回到文本框
-
-                    //如果合法，给默认库位赋值，焦点回到库位框
                 }
 
             });
 
             $('#location_no').bind('input propertychange', function() {
-                if($(this).val().length == 4){
-                    //判断库位是否等于默认库位
+                var location_no = $(this).val();
+                //判断库位是否等于默认库位
+                //如果不等于，弹窗提示
+                if(location_no.length == 3){
+                    if(location_no != $('#location_no_default').val()){
+                        Swal.fire({
+                            title: '非默认库位，确定添加吗?',
+                            text: "默认库位"+$('#location_no_default').val(),
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消'
+                        }).then((result) => {
+                            if (result.value) {
+                                addRow('text-danger');
 
-                    //如果不是，弹出提示框，确定/取消
-                    //确定：信息放入暂存区（库位普通字体），清空文本框，焦点回到发货单号
-                    //取消：清空库位，焦点回到库位框
+                            }else{
+                            $('#location_no').val('');
 
-                    //如果是，信息放入暂存区（库位红色字体），清空文本框，焦点回到发货单号
+                            }
+                        })
+                    }else{
+                        addRow('text-success');
+                    }
                 }
 
             });

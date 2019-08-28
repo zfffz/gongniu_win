@@ -49,4 +49,10 @@
             </div>
         </div>
     </div>
-@stop
+@endsection
+
+@section('footer')
+<div class="text-center">
+    <strong>Copyright &copy; 2019 BULL</strong>
+</div>
+@endsection

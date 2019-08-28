@@ -11,7 +11,6 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @yield('include')
     <link rel="stylesheet" href="{{asset('AdminLTE/dist/css/adminlte.min.css')}}">
-    <link rel="stylesheet" href="{{asset('AdminLTE/plugins/toastr/toastr.min.css')}}">
 </head>
 <body class="hold-transition layout-top-nav">
     <div id="app" class="{{ route_class() }}-page">
@@ -37,7 +36,6 @@
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="/AdminLTE/dist/js/adminlte.min.js"></script>
-    <script src="/AdminLTE/plugins/toastr/toastr.min.js"></script>
         @yield('script')
 </body>
 </html>

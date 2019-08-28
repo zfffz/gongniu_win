@@ -92,7 +92,7 @@ class SweepOutsController extends CommonsController
         $dispatch_no = $request->dispatch_no;
         $data = DB:: table('dispatchlist as t1')
             ->select('t1.cDLCode','t1.cCusCode','t2.name')
-            ->join('zzz_storage_locations as t2','t1.cCusCode','=','t2.customer_no')
+            ->leftJoin('zzz_storage_locations as t2','t1.cCusCode','=','t2.customer_no')
             ->where('t1.cDLCode','=',$dispatch_no)->get();
 
         echo json_encode($data);

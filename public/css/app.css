@@ -16506,3 +16506,10 @@ readers do not read off random characters that represent icons */
   display: inline-block;
 }
 
+.form-title {
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #ccc;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
