@@ -7,7 +7,7 @@
         </a>
 
         <ul class="navbar-nav">
-
+            @yield('header_left')
         </ul>
         <ul class="navbar-nav ml-auto">
             @yield('header')
