@@ -128,6 +128,11 @@
             showConfirmButton: false,
             timer: 3000
         });
+        //添加成功提示
+        Toast.fire({
+            type: 'success',
+            title: '添加成功！'
+        });
         function addRow(type){
             //直接添加入列表
             var trcomp="<tr>" +
