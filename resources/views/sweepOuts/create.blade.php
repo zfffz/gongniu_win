@@ -137,6 +137,30 @@
                 timer: 3000
             });
 
+            function addRow(type){
+                //直接添加入列表
+                var trcomp="<tr>" +
+                    '<td>'+$('#dispatch_no').val()+'</td>'+
+                    '<td class="'+type+'">'+$('#location_no').val()+'</td>'+
+                    '<td><a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="far fa-trash-alt" ></i></a></td>'
+                "</tr>";
+                $("#dispatch_table").append(trcomp);
+                //清空发货单号、库位
+                $("#dispatch_no").removeClass("is-valid");
+                $("#dispatch_no").val("");
+
+                $("#location_no").val("");
+
+                $("#dispatch_no").focus();
+
+                //添加成功提示
+                Toast.fire({
+                    type: 'success',
+                    title: '添加成功！'
+                });
+                $('#chatAudio')[0].play();
+            }
+
 
             //添加成功提示
             Toast.fire({
@@ -212,14 +236,22 @@
                 if(location_no.length >=4){
                     if(location_no != $('#location_no_default').val()){
                         Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
+                            title: '非默认库位，确定添加吗?',
+                            text: "默认库位"+$('#location_no_default').val(),
                             type: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!'
-                        })
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消'
+                        }).then(
+                            function(n){
+                                if(n.value){
+                                    addRow('text-danger');
+                                }else{
+                                    $('#location_no').val('');
+                                }
+                            })
                     }else{
                         addRow('text-success');
                     }
