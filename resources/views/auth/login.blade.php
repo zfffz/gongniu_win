@@ -35,7 +35,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }} form-control-lg" name="name" id="name" placeholder="{{ __('Name') }}" required autofocus>
+                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('Name') }}" required autofocus>
                             <div class="input-group-append">
                                 <div class="input-group-text input-lg">
                                     <span class="fa fa-user"></span>
@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} form-control-lg" name="password" id="password" placeholder="{{ __('Password') }}" required autofocus>
+                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder="{{ __('Password') }}" required autofocus>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -79,13 +79,13 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <button id="login" type="submit" class="btn btn-primary btn-block btn-lg">{{ __('Login') }}</button>
+                            <button id="login" type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <button type="button" class="btn btn-danger btn-block btn-lg">清空</button>
+                            <button type="button" class="btn btn-danger btn-block" onclick="delCookies()">清空</button>
                         </div>
                     </div>
                     <p class="text-muted text-center">V1.0</p>
@@ -165,6 +165,15 @@
         var cval = getCookie(name);
         if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
     }
+
+    function delCookies(){
+        delCookie("cookie_name");
+        delCookie("cookie_password");
+        delCookie("remember");
+        $('#name').val('');
+        $('#password').val('');
+    }
+
     /**
      * 读取cookie
      * @param name
