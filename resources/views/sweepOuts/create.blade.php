@@ -158,7 +158,6 @@
                     type: 'success',
                     title: '添加成功！'
                 });
-                $('#chatAudio')[0].play();
             }
 
             //添加成功提示
