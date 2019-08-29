@@ -221,13 +221,9 @@
                             confirmButtonText: 'Yes, delete it!'
                         }).then((result) => {
                             if (result.value) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+
                         }
-                    });
+                    })
                     }else{
                         addRow('text-success');
                     }
