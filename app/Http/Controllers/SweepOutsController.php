@@ -19,7 +19,7 @@ class SweepOutsController extends CommonsController
             ->select('cpersoncode as no','cpersonname as name')
             ->where('wlcode','=','03')
             ->get();
-        return view('sweepOuts.index',compact('packagers'));
+        return view('sweepOuts.create',compact('packagers'));
     }
 
     /**

@@ -54,9 +54,6 @@
                                         </ul>
                                     </div>
                                 @endif
-                                    <button type="button" class="btn btn-success swalDefaultSuccess">
-                                        Launch Success Toast
-                                    </button>
                                 <div class="form-group">
                                     <label>发货单号</label>
                                     <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="">
@@ -132,6 +129,17 @@
     <script src="/AdminLTE/plugins/select2/js/select2.full.min.js"></script>
     <script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        //添加成功提示
+        Toast.fire({
+            type: 'warning',
+            title: '请选择打包员！'
+        });
         function addRow(type){
             //直接添加入列表
             var trcomp="<tr>" +
@@ -200,23 +208,6 @@
         }
 
         $(function(){
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            });
-            $('.swalDefaultSuccess').click(function() {
-                Toast.fire({
-                    type: 'success',
-                    title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-                })
-            });
-            //添加成功提示
-            Toast.fire({
-                type: 'warning',
-                title: '请选择打包员！'
-            });
             $('<audio id="chatAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
 
 
