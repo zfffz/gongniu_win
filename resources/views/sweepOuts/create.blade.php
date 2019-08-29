@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('include')
-    <link rel="stylesheet" href="/AdminLTE/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css')}}">
 @endsection
 @section('title', '扫码出库')
@@ -126,7 +125,6 @@
 @endsection
 
 @section('script')
-    <script src="/AdminLTE/plugins/select2/js/select2.full.min.js"></script>
     <script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script>
         $(function() {
@@ -163,19 +161,17 @@
                 $('#chatAudio')[0].play();
             }
 
-
-            //添加成功提示
-            if($('#packager').val()==''){
-                Toast.fire({
-                    type: 'warning',
-                    title: '请选择打包员！'
-                });
-            }
-
-
-            $('.select2').select2();
             //聚焦发货单号
             $('#dispatch_no').focus();
+
+            //打包员提示
+            if($('#packager').val()==''){
+//                Toast.fire({
+//                    type: 'warning',
+//                    title: '请选择打包员！'
+//                });
+                $('#packager').trigger('click');
+            }
 
             $('#dispatch_no').keydown(function(event) {
                 if(event.keyCode == 13){
