@@ -10,7 +10,7 @@
              style="opacity: .8;margin-left:0px;margin-right:0px;">
     </a>
     <ul class="navbar-nav ml-auto">
-        <label style="margin-top: 8px;margin-right: 10px;">打包员</label>
+        <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">打包员</label>
         <select class="form-control select2" name="packager" id="packager">
             <option value=""></option>
             @foreach ($packagers as $packager)
@@ -166,11 +166,11 @@
 
             //打包员提示
             if($('#packager').val()==''){
-//                Toast.fire({
-//                    type: 'warning',
-//                    title: '请选择打包员！'
-//                });
-                $('#packager').trigger('click');
+                Toast.fire({
+                    type: 'warning',
+                    title: '请选择打包员！'
+                });
+                $('#packager').focus();
             }
 
             $('#dispatch_no').keydown(function(event) {
