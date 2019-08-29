@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27539095-6813-4977-a3dc-a7979819041e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,8 +39,8 @@
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="142" column="8" lean-forward="true" selection-start-line="142" selection-start-column="8" selection-end-line="164" selection-end-column="9" />
+            <state relative-caret-position="784">
+              <caret line="312" column="17" lean-forward="true" selection-start-line="287" selection-start-column="16" selection-end-line="312" selection-end-column="17" />
               <folding>
                 <element signature="e#418#471#0#HTML" expanded="true" />
                 <element signature="e#533#576#0#HTML" expanded="true" />
@@ -61,8 +62,8 @@
       <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="205" column="46" lean-forward="true" selection-start-line="205" selection-start-column="46" selection-end-line="205" selection-end-column="46" />
+            <state relative-caret-position="117">
+              <caret line="213" column="33" lean-forward="false" selection-start-line="213" selection-start-column="33" selection-end-line="213" selection-end-column="33" />
               <folding>
                 <element signature="e#418#471#0#HTML" expanded="true" />
                 <element signature="e#533#576#0#HTML" expanded="true" />
@@ -148,8 +149,9 @@
       <find>delCookie</find>
       <find>img</find>
       <find>Swal.mixin</find>
-      <find>addRow</find>
       <find>swalDefaultSuccess</find>
+      <find>location_no_default</find>
+      <find>addRow</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Homestead\Code\gongniu</dir>
@@ -333,12 +335,12 @@
       <workItem from="1566803220583" duration="8369000" />
       <workItem from="1566868647717" duration="25539000" />
       <workItem from="1566955702998" duration="23456000" />
-      <workItem from="1567041604970" duration="9339000" />
+      <workItem from="1567041604970" duration="9759000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85177000" />
+    <option name="totallyTimeSpent" value="85597000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -699,17 +701,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="142" column="8" lean-forward="true" selection-start-line="142" selection-start-column="8" selection-end-line="164" selection-end-column="9" />
-          <folding>
-            <element signature="e#418#471#0#HTML" expanded="true" />
-            <element signature="e#533#576#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/AdminLTE/pages/UI/modals.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -718,10 +709,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="784">
+          <caret line="312" column="17" lean-forward="true" selection-start-line="287" selection-start-column="16" selection-end-line="312" selection-end-column="17" />
+          <folding>
+            <element signature="e#418#471#0#HTML" expanded="true" />
+            <element signature="e#533#576#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="205" column="46" lean-forward="true" selection-start-line="205" selection-start-column="46" selection-end-line="205" selection-end-column="46" />
+        <state relative-caret-position="117">
+          <caret line="213" column="33" lean-forward="false" selection-start-line="213" selection-start-column="33" selection-end-line="213" selection-end-column="33" />
           <folding>
             <element signature="e#418#471#0#HTML" expanded="true" />
             <element signature="e#533#576#0#HTML" expanded="true" />

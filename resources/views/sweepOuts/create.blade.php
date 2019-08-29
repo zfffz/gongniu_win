@@ -207,6 +207,17 @@
                     $('#dispatch_no').focus();
                 }
 
+                //判断库位是否等于默认库位
+                //如果不等于，弹窗提示
+                if(location_no.length >=4){
+                    if(location_no != $('#location_no_default').val()){
+                        alert(1);
+                    }else{
+                        addRow('text-success');
+                    }
+                }
+
+
 
 
             });
