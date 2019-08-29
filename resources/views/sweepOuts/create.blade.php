@@ -143,5 +143,9 @@
             });
         })
 
+        $('.select2').select2();
+        //聚焦发货单号
+        $('#dispatch_no').focus();
+
     </script>
 @endsection
