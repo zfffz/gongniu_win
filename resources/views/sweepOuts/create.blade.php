@@ -219,11 +219,7 @@
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Yes, delete it!'
-                        }).then((result) => {
-                            if (result.value) {
-
-                        }
-                    })
+                        })
                     }else{
                         addRow('text-success');
                     }
