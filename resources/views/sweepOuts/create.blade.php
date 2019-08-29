@@ -136,7 +136,7 @@
             timer: 3000
         });
         //添加成功提示
-        Swal.fire({
+        Toast.fire({
             type: 'warning',
             title: '请选择打包员！'
         });
