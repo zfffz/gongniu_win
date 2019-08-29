@@ -2,20 +2,28 @@
 @section('include')
     <link rel="stylesheet" href="/AdminLTE/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('AdminLTE/plugins/toastr/toastr.min.css')}}">
 @endsection
 @section('title', '扫码出库')
 
-@section('header_left')
-    <select class="form-control select2" name="packager">
-        <option value="">打包员</option>
-        @foreach ($packagers as $packager)
-            <option value="{{ $packager->no }}">
-                {{ $packager->name }}
-            </option>
-        @endforeach
+@section('header')
+    <a href="#" class="navbar-brand">
+        <img src="/AdminLTE/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image"
+             style="opacity: .8;margin-left:0px;margin-right:0px;">
+    </a>
+    <ul class="navbar-nav ml-auto">
+        <label style="margin-top: 8px;margin-right: 10px;">打包员</label>
+        <select class="form-control select2" name="packager">
+            <option value=""></option>
+            @foreach ($packagers as $packager)
+                <option value="{{ $packager->no }}">
+                    {{ $packager->name }}
+                </option>
+            @endforeach
 
-    </select>
+        </select>
+    </ul>
+
+
 @endsection
 
 @section('content_header')
@@ -120,7 +128,6 @@
 @section('script')
     <script src="/AdminLTE/plugins/select2/js/select2.full.min.js"></script>
     <script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
-    <script src="/AdminLTE/plugins/toastr/toastr.min.js"></script>
     <script>
         const Toast = Swal.mixin({
             toast: true,
@@ -130,8 +137,8 @@
         });
         //添加成功提示
         Toast.fire({
-            type: 'success',
-            title: '添加成功！'
+            type: 'warning',
+            title: '请选择打包员！'
         });
         function addRow(type){
             //直接添加入列表
