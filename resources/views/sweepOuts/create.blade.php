@@ -208,32 +208,6 @@
                 }
 
 
-                //判断库位是否等于默认库位
-                //如果不等于，弹窗提示
-                if(location_no.length >=4){
-                    if(location_no != $('#location_no_default').val()){
-                        Swal.fire({
-                            title: '非默认库位，确定添加吗?',
-                            text: "默认库位"+$('#location_no_default').val(),
-                            type: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: '确定',
-                            cancelButtonText: '取消'
-                        }).then((result) => {
-                            if (result.value) {
-                            //addRow('text-danger');
-
-                        }else{
-                            $('#location_no').val('');
-
-                        }
-                    })
-                    }else{
-                        //addRow('text-success');
-                    }
-                }
 
             });
         })
