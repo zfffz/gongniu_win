@@ -129,12 +129,12 @@
     <script src="/AdminLTE/plugins/select2/js/select2.full.min.js"></script>
     <script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script>
-//        const Toast = Swal.mixin({
-//            toast: true,
-//            position: 'top-end',
-//            showConfirmButton: false,
-//            timer: 3000
-//        });
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
         //添加成功提示
         Swal.fire({
             type: 'warning',
