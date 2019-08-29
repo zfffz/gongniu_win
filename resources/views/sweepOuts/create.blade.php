@@ -12,7 +12,7 @@
     </a>
     <ul class="navbar-nav ml-auto">
         <label style="margin-top: 8px;margin-right: 10px;">打包员</label>
-        <select class="form-control select2" name="packager">
+        <select class="form-control select2" name="packager" id="packager">
             <option value=""></option>
             @foreach ($packagers as $packager)
                 <option value="{{ $packager->no }}">
@@ -130,6 +130,7 @@
     <script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script>
         $(function() {
+            $('<audio id="chatAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -147,6 +148,7 @@
                 $("#dispatch_table").append(trcomp);
                 //清空发货单号、库位
                 $("#dispatch_no").removeClass("is-valid");
+                $("#location_no").removeClass("is-valid");
                 $("#dispatch_no").val("");
 
                 $("#location_no").val("");
@@ -163,77 +165,96 @@
 
 
             //添加成功提示
-            Toast.fire({
-                type: 'warning',
-                title: '请选择打包员！'
-            });
+            if($('#packager').val()==''){
+                Toast.fire({
+                    type: 'warning',
+                    title: '请选择打包员！'
+                });
+            }
+
 
             $('.select2').select2();
             //聚焦发货单号
             $('#dispatch_no').focus();
 
-            $('#dispatch_no').bind('input propertychange', function() {
-                var dispatch_no = $(this).val();
-                if(dispatch_no.length >= 12){
-                    //判断发货单号合法性，同时获取该单号的默认库位
-                    $.ajax({
-                        url:'sweepOut/dispatch_data?dispatch_no='+dispatch_no,
-                        type:'get',
-                        dataType:'json',
-                        headers:{
-                            Accept:"application/json",
-                            "Content-Type":"application/json"
-                        },
-                        processData:false,
-                        cache:false,
-                        timeout: 3000,
-                        beforeSend:function(){
+            $('#dispatch_no').keydown(function(event) {
+                if(event.keyCode == 13){
+                    var dispatch_no = $(this).val();
+                    if(dispatch_no.length >= 12){
+                        //判断发货单号合法性，同时获取该单号的默认库位
+                        $.ajax({
+                            url:'sweepOut/dispatch_data?dispatch_no='+dispatch_no,
+                            type:'get',
+                            dataType:'json',
+                            headers:{
+                                Accept:"application/json",
+                                "Content-Type":"application/json"
+                            },
+                            processData:false,
+                            cache:false,
+                            timeout: 3000,
+                            beforeSend:function(){
 
-                        },
-                        success:function(data){
-                            if(data.length==0){
-                                //发货单号红框提示,toast提示
-                                $("#dispatch_no").addClass("is-invalid");
-                                Toast.fire({
-                                    type: 'error',
-                                    title: '发货单号非法或不存在！'
-                                });
-                                //清空发货单号
-                                $('#dispatch_no').val('');
-                            }else{
-                                //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
-                                $("#dispatch_no").removeClass("is-invalid");
-                                $("#dispatch_no").addClass("is-valid");
-                                $('#location_no_default').val(data[0].name);
-                                //焦点跳转到库位
-                                $('#location_no').focus();
+                            },
+                            success:function(data){
+                                if(data.length==0){
+                                    //发货单号红框提示,toast提示
+                                    $("#dispatch_no").addClass("is-invalid");
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: '发货单号非法或不存在！'
+                                    });
+                                    //清空发货单号
+                                    $('#dispatch_no').val('');
+                                }else{
+                                    //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+                                    $("#dispatch_no").removeClass("is-invalid");
+                                    $("#dispatch_no").addClass("is-valid");
+                                    $('#location_no_default').val(data[0].name);
+                                    //焦点跳转到库位
+                                    $('#location_no').focus();
+                                }
+
+                            },
+                            error:function(){
+                                alert("error");
                             }
+                        });
+                    }else{
 
-                        },
-                        error:function(){
-                            alert("error");
-                        }
-                    });
+                    }
                 }
 
             });
 
-            $('#location_no').bind('input propertychange', function() {
-                var location_no = $(this).val();
-                //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
-                if( $('#dispatch_no').val()==''){
-                    $("#dispatch_no").addClass("is-invalid");
-                    Toast.fire({
-                        type: 'error',
-                        title: '请先扫发货单号！'
-                    });
-                    $('#location_no').val('');
-                    $('#dispatch_no').focus();
-                }
+            $('#location_no').keydown(function(event) {
+                if(event.keyCode == 13){
+                    var location_no = $(this).val();
+                    //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
+                    if( $('#dispatch_no').val()==''){
+                        $("#dispatch_no").addClass("is-invalid");
+                        Toast.fire({
+                            type: 'error',
+                            title: '请先扫发货单号！'
+                        });
+                        $('#location_no').val('');
+                        $('#dispatch_no').focus();
+                        return false;
+                    }
 
-                //判断库位是否等于默认库位
-                //如果不等于，弹窗提示
-                if(location_no.length >=4){
+                    //如果库位为空,直接报错提示
+                    if( $('#location_no').val()==''){
+                        $("#location_no").addClass("is-invalid");
+                        Toast.fire({
+                            type: 'error',
+                            title: '请扫库位号！'
+                        });
+                        $('#location_no').focus();
+                        return false;
+                    }
+
+                    //判断库位是否等于默认库位
+                    //如果不等于，弹窗提示
                     if(location_no != $('#location_no_default').val()){
                         Swal.fire({
                             title: '非默认库位，确定添加吗?',
@@ -243,7 +264,9 @@
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
                             confirmButtonText: '确定',
-                            cancelButtonText: '取消'
+                            cancelButtonText: '取消',
+                            focusConfirm: false,
+                            allowEnterKey:false
                         }).then(
                             function(n){
                                 if(n.value){
