@@ -69,7 +69,7 @@
 
                             </div>
                             {{--<div class="card-footer">--}}
-                                {{----}}
+                            {{----}}
                             {{--</div>--}}
                         </form>
                     </div>
@@ -140,5 +140,181 @@
             type: 'warning',
             title: '请选择打包员！'
         });
+        function addRow(type){
+            //直接添加入列表
+            var trcomp="<tr>" +
+                '<td>'+$('#dispatch_no').val()+'</td>'+
+                '<td class="'+type+'">'+$('#location_no').val()+'</td>'+
+                '<td><a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="far fa-trash-alt" ></i></a></td>'
+            "</tr>";
+            $("#dispatch_table").append(trcomp);
+            //清空发货单号、库位
+            $("#dispatch_no").removeClass("is-valid");
+            $("#dispatch_no").val("");
+
+            $("#location_no").val("");
+
+            $("#dispatch_no").focus();
+
+            //添加成功提示
+            Toast.fire({
+                type: 'success',
+                title: '添加成功！'
+            });
+            $('#chatAudio')[0].play();
+        }
+
+        function deleteCurrentRow(obj) {
+            Swal.fire({
+                title: '确认删除吗?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.value) {
+                var tr=obj.parentNode.parentNode;
+
+                var tbody=tr.parentNode;
+                tbody.removeChild(tr);
+
+            }else{
+
+
+            }
+        })
+        }
+
+        function deleteTable() {
+            Swal.fire({
+                title: '确认清空列表吗?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.value) {
+                $('#dispatch_table tbody').html('');
+
+            }else{
+
+
+            }
+        })
+        }
+
+        $(function(){
+            $('<audio id="chatAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+
+
+            $('.select2').select2();
+            //聚焦发货单号
+            $('#dispatch_no').focus();
+
+            $('#dispatch_no').blur(function(){
+                var dispatch_no = $(this).val();
+                if(dispatch_no.length < 12){
+                    $('#dispatch_no').focus();
+                }
+
+            });
+
+
+
+            $('#dispatch_no').bind('input propertychange', function() {
+                var dispatch_no = $(this).val();
+                if(dispatch_no.length >= 12){
+                    //判断发货单号合法性，同时获取该单号的默认库位
+                    $.ajax({
+                        url:'sweepOut/dispatch_data?dispatch_no='+dispatch_no,
+                        type:'get',
+                        dataType:'json',
+                        headers:{
+                            Accept:"application/json",
+                            "Content-Type":"application/json"
+                        },
+                        processData:false,
+                        cache:false,
+                        timeout: 3000,
+                        beforeSend:function(){
+
+                        },
+                        success:function(data){
+                            if(data.length==0){
+                                //发货单号红框提示,toast提示
+                                $("#dispatch_no").addClass("is-invalid");
+                                Toast.fire({
+                                    type: 'error',
+                                    title: '发货单号非法或不存在！'
+                                });
+                                //清空发货单号
+                                $('#dispatch_no').val('');
+                            }else{
+                                //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+                                $("#dispatch_no").removeClass("is-invalid");
+                                $("#dispatch_no").addClass("is-valid");
+                                $('#location_no_default').val(data[0].name);
+                                //焦点跳转到库位
+                                $('#location_no').focus();
+                            }
+
+                        },
+                        error:function(){
+                            alert("error");
+                        }
+                    });
+                }
+
+            });
+
+            $('#location_no').bind('input propertychange', function() {
+                var location_no = $(this).val();
+                //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
+                if( $('#dispatch_no').val()==''){
+                    $("#dispatch_no").addClass("is-invalid");
+                    Toast.fire({
+                        type: 'error',
+                        title: '请先扫发货单号！'
+                    });
+                    $('#location_no').val('');
+                    $('#dispatch_no').focus();
+                }
+
+
+                //判断库位是否等于默认库位
+                //如果不等于，弹窗提示
+                if(location_no.length >=4){
+                    if(location_no != $('#location_no_default').val()){
+                        Swal.fire({
+                            title: '非默认库位，确定添加吗?',
+                            text: "默认库位"+$('#location_no_default').val(),
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消'
+                        }).then((result) => {
+                            if (result.value) {
+                            addRow('text-danger');
+
+                        }else{
+                            $('#location_no').val('');
+
+                        }
+                    })
+                    }else{
+                        addRow('text-success');
+                    }
+                }
+
+            });
+
+
+        })
     </script>
 @endsection
