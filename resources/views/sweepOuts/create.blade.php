@@ -137,28 +137,6 @@
                 timer: 3000
             });
 
-            function addRow(type){
-                //直接添加入列表
-                var trcomp="<tr>" +
-                    '<td>'+$('#dispatch_no').val()+'</td>'+
-                    '<td class="'+type+'">'+$('#location_no').val()+'</td>'+
-                    '<td><a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="far fa-trash-alt" ></i></a></td>'
-                "</tr>";
-                $("#dispatch_table").append(trcomp);
-                //清空发货单号、库位
-                $("#dispatch_no").removeClass("is-valid");
-                $("#dispatch_no").val("");
-
-                $("#location_no").val("");
-
-                $("#dispatch_no").focus();
-
-                //添加成功提示
-                Toast.fire({
-                    type: 'success',
-                    title: '添加成功！'
-                });
-            }
 
             //添加成功提示
             Toast.fire({
@@ -245,7 +223,7 @@
                             cancelButtonText: '取消'
                         }).then((result) => {
                             if (result.value) {
-                            addRow('text-danger');
+                            //addRow('text-danger');
 
                         }else{
                             $('#location_no').val('');
@@ -253,7 +231,7 @@
                         }
                     })
                     }else{
-                        addRow('text-success');
+                        //addRow('text-success');
                     }
                 }
 
