@@ -141,11 +141,59 @@
                 type: 'warning',
                 title: '请选择打包员！'
             });
+
+            $('.select2').select2();
+            //聚焦发货单号
+            $('#dispatch_no').focus();
+
+            $('#dispatch_no').bind('input propertychange', function() {
+                var dispatch_no = $(this).val();
+                if(dispatch_no.length >= 12){
+                    //判断发货单号合法性，同时获取该单号的默认库位
+                    $.ajax({
+                        url:'sweepOut/dispatch_data?dispatch_no='+dispatch_no,
+                        type:'get',
+                        dataType:'json',
+                        headers:{
+                            Accept:"application/json",
+                            "Content-Type":"application/json"
+                        },
+                        processData:false,
+                        cache:false,
+                        timeout: 3000,
+                        beforeSend:function(){
+
+                        },
+                        success:function(data){
+                            if(data.length==0){
+                                //发货单号红框提示,toast提示
+                                $("#dispatch_no").addClass("is-invalid");
+                                Toast.fire({
+                                    type: 'error',
+                                    title: '发货单号非法或不存在！'
+                                });
+                                //清空发货单号
+                                $('#dispatch_no').val('');
+                            }else{
+                                //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+                                $("#dispatch_no").removeClass("is-invalid");
+                                $("#dispatch_no").addClass("is-valid");
+                                $('#location_no_default').val(data[0].name);
+                                //焦点跳转到库位
+                                $('#location_no').focus();
+                            }
+
+                        },
+                        error:function(){
+                            alert("error");
+                        }
+                    });
+                }
+
+            });
         })
 
-        $('.select2').select2();
-        //聚焦发货单号
-        $('#dispatch_no').focus();
+
 
     </script>
 @endsection
