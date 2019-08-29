@@ -13,29 +13,27 @@
     <link rel="stylesheet" href="{{asset('AdminLTE/dist/css/adminlte.min.css')}}">
 </head>
 <body class="hold-transition layout-top-nav">
-    <div id="app" class="{{ route_class() }}-page">
-        <div class="wrapper">
-            @include('layouts._header')
+<div id="app" class="{{ route_class() }}-page">
+    <div class="wrapper">
+        @include('layouts._header')
 
-            <div class="content-wrapper">
-                <div class="content-header">
-                    <div class="container">
-                        @yield('content_header')
-                    </div>
-                </div>
-
-                <div class="content">
-                    <div class="container">
-                        @yield('content')
-                    </div>
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container">
+                    @yield('content_header')
                 </div>
             </div>
 
-            @include('layouts._footer')
+            <div>
+                @yield('content')
+            </div>
         </div>
+
+        @include('layouts._footer')
     </div>
-    <script src="{{ mix('js/app.js') }}"></script>
-    <script src="/AdminLTE/dist/js/adminlte.min.js"></script>
-        @yield('script')
+</div>
+<script src="{{ mix('js/app.js') }}"></script>
+<script src="/AdminLTE/dist/js/adminlte.min.js"></script>
+@yield('script')
 </body>
 </html>

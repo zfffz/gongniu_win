@@ -55,13 +55,13 @@
                                 @endif
                                 <div class="form-group">
                                     <label>发货单号</label>
-                                    <input type="text" class="form-control" name="dispatch_no" id="dispatch_no" autocomplete="off" value="">
+                                    <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="">
                                     <input type="hidden" name="location_no_default" id="location_no_default" value="">
 
                                 </div>
                                 <div class="form-group">
                                     <label>库位</label>
-                                    <input type="text" class="form-control" name="location_no" id="location_no" autocomplete="off" value="">
+                                    <input type="text" class="form-control form-control-lg" name="location_no" id="location_no" autocomplete="off" value="">
                                 </div>
 
 
