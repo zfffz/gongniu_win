@@ -175,8 +175,9 @@
 
                         var tbody=tr.parentNode;
                         tbody.removeChild(tr);
+                        $("#dispatch_no").focus();
                     }else{
-                        return false;
+                        $("#dispatch_no").focus();
                     }
                 })
         }
@@ -194,8 +195,9 @@
                 function(n){
                     if(n.value){
                         $('#dispatch_table tbody').html('');
+                        $("#dispatch_no").focus();
                     }else{
-                        return false;
+                        $("#dispatch_no").focus();
                     }
                 })
         }
