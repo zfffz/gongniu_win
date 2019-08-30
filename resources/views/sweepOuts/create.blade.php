@@ -207,6 +207,21 @@
 
             //聚焦发货单号
             $('#dispatch_no').focus();
+
+            $('#dispatch_no').blur(function(){
+                var dispatch_no = $(this).val();
+                if(dispatch_no.length < 12){
+                    $('#dispatch_no').focus();
+                }
+
+            });
+
+            $('#location_no').focus(function(){
+                if($('#dispatch_no').val()==''){
+                    $('#dispatch_no').focus();
+                }
+            });
+
             //打包员提示
             if($('#packager').val()==''){
                 Toast.fire({
@@ -322,10 +337,6 @@
                         addRow('text-success');
                     }
                 }
-
-
-
-
             });
         })
     </script>
