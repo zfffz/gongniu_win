@@ -15,6 +15,9 @@ class CreateSweepOutsTable extends Migration
     {
         Schema::create('zzz_sweep_outs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('packager_no')->index();//打包员
+            $table->string('user_no')->index();//登录U8用户
+            $table->integer('count')->default(0);//配单数
             $table->timestamps();
         });
     }

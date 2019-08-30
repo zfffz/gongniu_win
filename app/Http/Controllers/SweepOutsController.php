@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SweepOut;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class SweepOutsController extends CommonsController
 {
@@ -40,7 +43,37 @@ class SweepOutsController extends CommonsController
      */
     public function store(Request $request)
     {
-        //
+        $sweep_out=\DB::transaction(function() use ($request){
+            //创建一张新的预约单
+            $sweep_out = new SweepOut([
+                'packager_no'=>$request->input('packager'),
+                'user_no'=>Auth::id()
+            ]);
+            $sweep_out->save();
+
+            //创建一张新的项目清单
+            $sweep_out_items = $request->input('items');
+            $i=1;
+
+            foreach($sweep_out_items as $data){
+                $sweep_out_item = $sweep_out->sweep_out_items()->make([
+                    'entry_id'=>$i,
+                    'dispatch_no'=> $data['dispatch_no'],
+                    'location_no'=> $data['location_no']
+                ]);
+
+                $sweep_out_item->save();
+
+                $i++;
+            }
+
+            // 更新
+            $sweep_out->update(['count' => ($i-1)]);
+
+            return $sweep_out;
+        });
+
+        return $sweep_out;
     }
 
     /**

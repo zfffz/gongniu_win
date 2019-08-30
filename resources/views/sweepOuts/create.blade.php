@@ -94,7 +94,7 @@
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="table_body">
                                     </tbody>
                                 </table>
                             </div>
@@ -103,7 +103,7 @@
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
                             <button onclick="deleteTable()" class="btn btn-danger float-left">清空</button>
-                            <a href="javascript:void(0)" class="btn btn-primary float-right">上传</a>
+                            <button onclick="batchSave()" class="btn btn-primary float-right">上传</button>
                         </div>
                         <!-- /.card-footer -->
                     </div>
@@ -134,11 +134,124 @@
             timer: 3000
         });
 
+        function batchSave(){
+            var packager = $('#packager').val();
+
+            //打包员提示
+            if(packager == ''){
+                Toast.fire({
+                    type: 'error',
+                    title: '请选择打包员！'
+                });
+                $('#packager').addClass('is-invalid');
+                return false;
+            }
+            var trList = $("#table_body").children("tr");
+
+            var length = trList.length;
+
+            if(length == 0){
+                Toast.fire({
+                    type: 'error',
+                    title: '空数据无法提交！'
+                });
+                $('#dispatch_no').focus();
+                return false;
+            }
+
+            var datas={};
+            datas.packager = packager;
+            datas.items = {};
+            for (var i=0;i<length;i++){
+                datas.items[i] = {};
+                var tdArr = trList.eq(i).find("td");
+                datas.items[i].dispatch_no = tdArr.eq(0).html();
+                datas.items[i].location_no = tdArr.eq(1).html();
+            }
+
+            Swal.fire({
+                title: '确认上传暂存区数据到系统吗?',
+                text:'共'+length+'条',
+                footer: '打包员'+$('#packager option:selected').text(),
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then(
+                function(n){
+                    if(n.value){
+                        $.ajax({
+                            url:"{{route('sweepOut.store')}}",
+                            data:JSON.stringify(datas),
+                            type:'post',
+                            dataType:'json',
+                            headers:{
+                                Accept:"application/json",
+                                "Content-Type":"application/json",
+                                'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                            },
+                            processData:false,
+                            cache:false,
+                            timeout: 10000,
+                            beforeSend: function() {
+                            },
+                            success:function(t){
+                                //上传成功提示
+                                Toast.fire({
+                                    type: 'success',
+                                    title: '上传成功,共'+length+'条！'
+                                });
+                                $('#chatAudio')[0].play();
+
+                                $('#dispatch_table tbody').html('');
+                                $("#dispatch_no").focus();
+                            },
+                            error: function() {
+                                alert("error");
+                            }
+                        });
+                    }else{
+                        $("#dispatch_no").focus();
+                        return false;
+                    }
+                })
+        }
+
+        function checkRow(dispatch_no){
+            //添加之前检查发货单是否重复录入
+            var trList = $("#table_body").children("tr");
+
+            var length = trList.length;
+
+            for (var i=0;i<length;i++){
+                var tdArr = trList.eq(i).find("td");
+                if(dispatch_no == tdArr.eq(0).html()){
+                    Toast.fire({
+                        type: 'error',
+                        title: '发货单号'+dispatch_no+'已存在，不允许重复录入！'
+                    });
+                    $("#dispatch_no").val("");
+                    $("#location_no").val("");
+                    $("#dispatch_no").focus();
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
+
+
         function addRow(type){
+            var dispatch_no = $('#dispatch_no').val();
+            var location_no = $('#location_no').val();
+
             //直接添加入列表
             var trcomp="<tr>" +
-                '<td>'+$('#dispatch_no').val()+'</td>'+
-                '<td class="'+type+'">'+$('#location_no').val()+'</td>'+
+                '<td>'+dispatch_no+'</td>'+
+                '<td class="'+type+'">'+location_no+'</td>'+
                 '<td><a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="far fa-trash-alt" ></i></a></td>'
             "</tr>";
             $("#dispatch_table").append(trcomp);
@@ -228,10 +341,10 @@
                     type: 'warning',
                     title: '请选择打包员！'
                 });
-                $('#packager').click();
             }
 
             $('#packager').change(function(){
+                $('#packager').removeClass('is-invalid');
                 $('#dispatch_no').focus();
             });
 
@@ -239,6 +352,13 @@
                 if(event.keyCode == 13){
                     var dispatch_no = $(this).val();
                     if(dispatch_no.length >= 12){
+                        //判断发货单号是否重复录入
+                        var result = checkRow(dispatch_no);
+                        if(!result){
+                            return false;
+                        }
+
+
                         //判断发货单号合法性，同时获取该单号的默认库位
                         $.ajax({
                             url:'sweepOut/dispatch_data?dispatch_no='+dispatch_no,
