@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="27539095-6813-4977-a3dc-a7979819041e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/_header.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/_header.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/session.php" afterPath="$PROJECT_DIR$/config/session.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,7 +18,7 @@
       <file leaf-file-name="SweepOutsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SweepOutsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
+            <state relative-caret-position="380">
               <caret line="21" column="37" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
@@ -31,12 +30,9 @@
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="803">
-              <caret line="219" column="44" lean-forward="true" selection-start-line="219" selection-start-column="44" selection-end-line="219" selection-end-column="44" />
-              <folding>
-                <element signature="e#418#471#0#HTML" expanded="true" />
-                <element signature="e#533#576#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="4161">
+              <caret line="219" column="44" lean-forward="false" selection-start-line="219" selection-start-column="44" selection-end-line="219" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -44,7 +40,7 @@
       <file leaf-file-name="modals.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/AdminLTE/pages/UI/modals.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-348">
+            <state relative-caret-position="19494">
               <caret line="1026" column="7" lean-forward="false" selection-start-line="1026" selection-start-column="7" selection-end-line="1026" selection-end-column="7" />
               <folding />
             </state>
@@ -54,21 +50,18 @@
       <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="88" column="55" lean-forward="false" selection-start-line="88" selection-start-column="51" selection-end-line="88" selection-end-column="55" />
-              <folding>
-                <element signature="e#337#390#0#HTML" expanded="true" />
-                <element signature="e#452#513#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="316">
+              <caret line="172" column="39" lean-forward="false" selection-start-line="172" selection-start-column="39" selection-end-line="172" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bundle.js" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Desktop/bundle.js">
+      <file leaf-file-name="session.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/session.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7946">
-              <caret line="0" column="58039" lean-forward="false" selection-start-line="0" selection-start-column="58039" selection-end-line="0" selection-end-column="58558" />
+            <state relative-caret-position="342">
+              <caret line="33" column="47" lean-forward="true" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -84,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="29" column="14" lean-forward="true" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
+            <state relative-caret-position="513">
+              <caret line="27" column="33" lean-forward="false" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -97,7 +90,7 @@
       <file leaf-file-name="fixed-topnav.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/AdminLTE/pages/layout/fixed-topnav.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-76">
+            <state relative-caret-position="12122">
               <caret line="638" column="7" lean-forward="false" selection-start-line="638" selection-start-column="7" selection-end-line="638" selection-end-column="7" />
               <folding />
             </state>
@@ -117,11 +110,9 @@
       <file leaf-file-name="root.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/pages/root.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-57">
+            <state relative-caret-position="228">
               <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-              <folding>
-                <element signature="e#247#300#0#HTML" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -199,9 +190,10 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/SweepOutsController.php" />
         <option value="$PROJECT_DIR$/public/AdminLTE/pages/UI/modals.html" />
         <option value="$USER_HOME$/Desktop/bundle.js" />
-        <option value="$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/_header.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php" />
+        <option value="$PROJECT_DIR$/config/session.php" />
       </list>
     </option>
   </component>
@@ -224,7 +216,7 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
@@ -245,6 +237,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -256,39 +249,17 @@
             <path>
               <item name="gongniu" type="b2602c69:ProjectViewProjectNode" />
               <item name="gongniu" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="gongniu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gongniu" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="AdminLTE" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="gongniu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gongniu" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="AdminLTE" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="gongniu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gongniu" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="AdminLTE" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="layout" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="config" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="D:/xampps/htdocs/gongniu" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="D:/Program Files/nodejs/node" />
   </component>
   <component name="RecentsManager">
@@ -332,18 +303,19 @@
       <workItem from="1566803220583" duration="8369000" />
       <workItem from="1566868647717" duration="25539000" />
       <workItem from="1566955702998" duration="23456000" />
-      <workItem from="1567041604970" duration="26237000" />
+      <workItem from="1567041604970" duration="26729000" />
+      <workItem from="1567129450844" duration="1606000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102075000" />
+    <option name="totallyTimeSpent" value="104173000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30559757" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31013617" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -374,13 +346,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/auth/register.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3002">
-          <caret line="158" column="28" lean-forward="false" selection-start-line="158" selection-start-column="28" selection-end-line="158" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/_sidebar.blade.php" />
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/_header.blade.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -400,7 +365,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1900">
           <caret line="100" column="10" lean-forward="true" selection-start-line="100" selection-start-column="10" selection-end-line="100" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -537,7 +501,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -545,7 +508,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -553,7 +515,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="302">
           <caret line="29" column="11" lean-forward="false" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -590,7 +551,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -612,7 +572,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -620,7 +579,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="17" column="52" lean-forward="false" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -628,7 +586,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="23" column="6" lean-forward="false" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -636,17 +593,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="23" column="27" lean-forward="false" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pages/root.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-57">
+        <state relative-caret-position="228">
           <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding>
-            <element signature="e#247#300#0#HTML" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -660,7 +614,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SweepOutsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
+        <state relative-caret-position="380">
           <caret line="21" column="37" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
@@ -670,7 +624,7 @@
     </entry>
     <entry file="file://$USER_HOME$/Desktop/bundle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7946">
+        <state relative-caret-position="0">
           <caret line="0" column="58039" lean-forward="false" selection-start-line="0" selection-start-column="58039" selection-end-line="0" selection-end-column="58558" />
           <folding />
         </state>
@@ -678,31 +632,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="803">
-          <caret line="219" column="44" lean-forward="true" selection-start-line="219" selection-start-column="44" selection-end-line="219" selection-end-column="44" />
-          <folding>
-            <element signature="e#418#471#0#HTML" expanded="true" />
-            <element signature="e#533#576#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="4161">
+          <caret line="219" column="44" lean-forward="false" selection-start-line="219" selection-start-column="44" selection-end-line="219" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/AdminLTE/pages/UI/modals.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-348">
+        <state relative-caret-position="19494">
           <caret line="1026" column="7" lean-forward="false" selection-start-line="1026" selection-start-column="7" selection-end-line="1026" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/AdminLTE/pages/layout/fixed-topnav.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="88" column="55" lean-forward="false" selection-start-line="88" selection-start-column="51" selection-end-line="88" selection-end-column="55" />
-          <folding>
-            <element signature="e#337#390#0#HTML" expanded="true" />
-            <element signature="e#452#513#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="12122">
+          <caret line="638" column="7" lean-forward="false" selection-start-line="638" selection-start-column="7" selection-end-line="638" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="27" column="33" lean-forward="false" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -714,18 +670,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/AdminLTE/pages/layout/fixed-topnav.html">
+    <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-76">
-          <caret line="638" column="7" lean-forward="false" selection-start-line="638" selection-start-column="7" selection-end-line="638" selection-end-column="7" />
+        <state relative-caret-position="316">
+          <caret line="172" column="39" lean-forward="false" selection-start-line="172" selection-start-column="39" selection-end-line="172" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+    <entry file="file://$PROJECT_DIR$/config/session.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="29" column="14" lean-forward="true" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
+        <state relative-caret-position="342">
+          <caret line="33" column="47" lean-forward="true" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
           <folding />
         </state>
       </provider>

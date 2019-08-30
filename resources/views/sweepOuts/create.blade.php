@@ -127,49 +127,50 @@
 @section('script')
     <script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+
+        function addRow(type){
+            //直接添加入列表
+            var trcomp="<tr>" +
+                '<td>'+$('#dispatch_no').val()+'</td>'+
+                '<td class="'+type+'">'+$('#location_no').val()+'</td>'+
+                '<td><a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="far fa-trash-alt" ></i></a></td>'
+            "</tr>";
+            $("#dispatch_table").append(trcomp);
+            //清空发货单号、库位
+            $("#dispatch_no").removeClass("is-valid");
+            $("#location_no").removeClass("is-valid");
+            $("#dispatch_no").val("");
+
+            $("#location_no").val("");
+
+            $("#dispatch_no").focus();
+
+            //添加成功提示
+            Toast.fire({
+                type: 'success',
+                title: '添加成功！'
+            });
+            $('#chatAudio')[0].play();
+        }
+
         $(function() {
             $('<audio id="chatAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            });
-
-            function addRow(type){
-                //直接添加入列表
-                var trcomp="<tr>" +
-                    '<td>'+$('#dispatch_no').val()+'</td>'+
-                    '<td class="'+type+'">'+$('#location_no').val()+'</td>'+
-                    '<td><a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="far fa-trash-alt" ></i></a></td>'
-                "</tr>";
-                $("#dispatch_table").append(trcomp);
-                //清空发货单号、库位
-                $("#dispatch_no").removeClass("is-valid");
-                $("#location_no").removeClass("is-valid");
-                $("#dispatch_no").val("");
-
-                $("#location_no").val("");
-
-                $("#dispatch_no").focus();
-
-                //添加成功提示
-                Toast.fire({
-                    type: 'success',
-                    title: '添加成功！'
-                });
-                $('#chatAudio')[0].play();
-            }
 
             //聚焦发货单号
             $('#dispatch_no').focus();
-
             //打包员提示
             if($('#packager').val()==''){
                 Toast.fire({
                     type: 'warning',
                     title: '请选择打包员！'
                 });
+                $('#packager').click();
             }
 
             $('#packager').change(function(){
@@ -284,8 +285,5 @@
 
             });
         })
-
-
-
     </script>
 @endsection
