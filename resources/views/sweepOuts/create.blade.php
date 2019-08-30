@@ -159,6 +159,47 @@
             $('#chatAudio')[0].play();
         }
 
+        function deleteCurrentRow(obj) {
+            Swal.fire({
+                title: '确认删除吗?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then(
+                function(n){
+                    if(n.value){
+                        var tr=obj.parentNode.parentNode;
+
+                        var tbody=tr.parentNode;
+                        tbody.removeChild(tr);
+                    }else{
+                        return false;
+                    }
+                })
+        }
+
+        function deleteTable() {
+            Swal.fire({
+                title: '确认清空列表吗?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then(
+                function(n){
+                    if(n.value){
+                        $('#dispatch_table tbody').html('');
+                    }else{
+                        return false;
+                    }
+                })
+        }
+
         $(function() {
             $('<audio id="chatAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
 
