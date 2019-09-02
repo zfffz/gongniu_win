@@ -39,37 +39,18 @@
                         <div class="card-header">
                             <h3 class="card-title text-center">打包出库</h3>
                         </div>
-                        <form class="form-horizontal" role="form" action="{{ route('sweepOut.store') }}" method="post">
+                        <form class="form-horizontal" role="form" method="post">
                             {{ csrf_field() }}
-                            @include('shared._error')
                             <div class="card-body">
-                                @if (count($errors) > 0)
-                                    <div class="alert alert-danger">
-                                        <h4>有错误发生：</h4>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li><i class="glyphicon glyphicon-remove"></i> {{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                                 <div class="form-group">
-                                    <label>发货单号</label>
-                                    <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="">
+                                    <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
                                     <input type="hidden" name="location_no_default" id="location_no_default" value="">
 
                                 </div>
                                 <div class="form-group">
-                                    <label>库位</label>
-                                    <input type="text" class="form-control form-control-lg" name="location_no" id="location_no" autocomplete="off" value="">
+                                    <input type="text" class="form-control form-control-lg" name="location_no" id="location_no" autocomplete="off" value="" placeholder="库位">
                                 </div>
-
-
-
                             </div>
-                            {{--<div class="card-footer">--}}
-                                {{----}}
-                            {{--</div>--}}
                         </form>
                     </div>
 
@@ -252,7 +233,7 @@
             var trcomp="<tr>" +
                 '<td>'+dispatch_no+'</td>'+
                 '<td class="'+type+'">'+location_no+'</td>'+
-                '<td><a href="javascript:void(0)" class="text-danger" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="far fa-trash-alt" ></i></a></td>'
+                '<td class="text-right py-0 align-middle"><a href="javascript:void(0)" class="btn btn-danger btn-sm" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="fas fa-trash" ></i></a></td>'
             "</tr>";
             $("#dispatch_table").append(trcomp);
             //清空发货单号、库位
@@ -316,10 +297,20 @@
         }
 
         $(function() {
-            $('<audio id="chatAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+            //打包员提示
+            if($('#packager').val()==''){
+                Toast.fire({
+                    type: 'warning',
+                    title: '请选择打包员！'
+                });
+                //聚焦打包员
+                $('#packager').focus();
+            }else{
+                //聚焦发货单号
+                $('#dispatch_no').focus();
+            }
 
-            //聚焦发货单号
-            $('#dispatch_no').focus();
+            $('<audio id="chatAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
 
             $('#dispatch_no').blur(function(){
                 var dispatch_no = $(this).val();
@@ -334,14 +325,6 @@
                     $('#dispatch_no').focus();
                 }
             });
-
-            //打包员提示
-            if($('#packager').val()==''){
-                Toast.fire({
-                    type: 'warning',
-                    title: '请选择打包员！'
-                });
-            }
 
             $('#packager').change(function(){
                 $('#packager').removeClass('is-invalid');
