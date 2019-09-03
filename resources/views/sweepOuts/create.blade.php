@@ -116,7 +116,7 @@
         });
 
         function batchSave(){
-            document.activeElement.blur();//屏蔽默认键盘弹出；
+            $('#dispatch_no').blur();
             var packager = $('#packager').val();
 
             //打包员提示
@@ -157,6 +157,8 @@
                 text:'共'+length+'条',
                 footer: '打包员'+$('#packager option:selected').text(),
                 type: 'question',
+                focusConfirm: false,
+                allowEnterKey:false,
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -256,10 +258,13 @@
         }
 
         function deleteCurrentRow(obj) {
+            $('#dispatch_no').blur();
             Swal.fire({
                 title: '确认删除吗?',
                 type: 'warning',
                 showCancelButton: true,
+                focusConfirm: false,
+                allowEnterKey:false,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: '确定',
@@ -279,6 +284,7 @@
         }
 
         function deleteTable() {
+            $('#dispatch_no').blur();
             var trList = $("#table_body").children("tr");
 
             var length = trList.length;
