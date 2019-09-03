@@ -44,10 +44,10 @@
                             <h3 class="card-title text-center">工作台</h3>
                         </div>
                         <div class="card-body">
-                            <a class="btn-block" href="{{route('sweepOut.index')}}">
+                            <a class="btn-block" href="{{route('sweepOut.create')}}">
                                 <button type="button" class="btn btn-primary btn-block btn-flat btn-lg">打包出库</button>
                             </a>
-                            <a class="btn-block" href="{{route('sweepOut.index')}}">
+                            <a class="btn-block" href="{{route('sweepCar.create')}}">
                                 <button type="button" class="btn btn-danger btn-block btn-flat btn-lg">扫码上车</button>
                             </a>
                         </div>

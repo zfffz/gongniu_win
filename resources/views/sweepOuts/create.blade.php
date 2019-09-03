@@ -2,7 +2,7 @@
 @section('include')
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css')}}">
 @endsection
-@section('title', '扫码出库')
+@section('title', '打包出库')
 
 @section('header')
     <a href="#" class="navbar-brand">
@@ -11,7 +11,7 @@
     </a>
     <ul class="navbar-nav ml-auto">
         <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">打包员</label>
-        <select class="form-control select2" name="packager" id="packager">
+        <select class="form-control" name="packager" id="packager">
             <option value=""></option>
             @foreach ($packagers as $packager)
                 <option value="{{ $packager->no }}">
@@ -39,19 +39,16 @@
                         <div class="card-header">
                             <h3 class="card-title text-center">打包出库</h3>
                         </div>
-                        <form class="form-horizontal" role="form" method="post">
-                            {{ csrf_field() }}
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
-                                    <input type="hidden" name="location_no_default" id="location_no_default" value="">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
+                                <input type="hidden" name="location_no_default" id="location_no_default" value="">
 
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" name="location_no" id="location_no" autocomplete="off" value="" placeholder="库位">
-                                </div>
                             </div>
-                        </form>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" name="location_no" id="location_no" autocomplete="off" value="" placeholder="库位">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card">
@@ -188,7 +185,7 @@
                                     type: 'success',
                                     title: '上传成功,共'+length+'条！'
                                 });
-                                $('#chatAudio')[0].play();
+                                $('#successAudio')[0].play();
 
                                 $('#dispatch_table tbody').html('');
                                 $("#dispatch_no").focus();
@@ -242,7 +239,7 @@
             $("#dispatch_table").append(trcomp);
             //清空发货单号、库位
             $("#dispatch_no").removeClass("is-valid");
-            $("#location_no").removeClass("is-valid");
+            $("#location_no").removeClass("is-invalid");
             $("#dispatch_no").val("");
 
             $("#location_no").val("");
@@ -254,7 +251,7 @@
                 type: 'success',
                 title: '添加成功！'
             });
-            $('#chatAudio')[0].play();
+            $('#successAudio')[0].play();
         }
 
         function deleteCurrentRow(obj) {
@@ -297,6 +294,8 @@
                 title: '确认清空列表吗?',
                 type: 'warning',
                 showCancelButton: true,
+                focusConfirm: false,
+                allowEnterKey:false,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: '确定',
@@ -326,7 +325,8 @@
                 $('#dispatch_no').focus();
             }
 
-            $('<audio id="chatAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+            $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+            $('<audio id="notifyAudio"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
 
             $('#dispatch_no').blur(function(){
                 var dispatch_no = $(this).val();
@@ -360,7 +360,7 @@
 
                         //判断发货单号合法性，同时获取该单号的默认库位
                         $.ajax({
-                            url:'sweepOut/dispatch_data?dispatch_no='+dispatch_no,
+                            url:'dispatch_data?dispatch_no='+dispatch_no,
                             type:'get',
                             dataType:'json',
                             headers:{
@@ -375,6 +375,7 @@
                             },
                             success:function(data){
                                 if(data.length==0){
+                                    $('#notifyAudio')[0].play();
                                     //发货单号红框提示,toast提示
                                     $("#dispatch_no").addClass("is-invalid");
                                     Toast.fire({
@@ -411,6 +412,7 @@
                     //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
                     if( $('#dispatch_no').val()==''){
                         $("#dispatch_no").addClass("is-invalid");
+                        $('#notifyAudio')[0].play();
                         Toast.fire({
                             type: 'error',
                             title: '请先扫发货单号！'
@@ -423,6 +425,7 @@
                     //如果库位为空,直接报错提示
                     if( $('#location_no').val()==''){
                         $("#location_no").addClass("is-invalid");
+                        $('#notifyAudio')[0].play();
                         Toast.fire({
                             type: 'error',
                             title: '请扫库位号！'
