@@ -116,6 +116,7 @@
         });
 
         function batchSave(){
+            document.activeElement.blur();//屏蔽默认键盘弹出；
             var packager = $('#packager').val();
 
             //打包员提示
@@ -125,6 +126,7 @@
                     title: '请选择打包员！'
                 });
                 $('#packager').addClass('is-invalid');
+                $('#packager').focus();
                 return false;
             }
             var trList = $("#table_body").children("tr");
@@ -277,6 +279,14 @@
         }
 
         function deleteTable() {
+            var trList = $("#table_body").children("tr");
+
+            var length = trList.length;
+
+            if(length == 0){
+                return false;
+            }
+
             Swal.fire({
                 title: '确认清空列表吗?',
                 type: 'warning',
@@ -371,6 +381,7 @@
                                     //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
                                     $("#dispatch_no").removeClass("is-invalid");
                                     $("#dispatch_no").addClass("is-valid");
+
                                     $('#location_no_default').val(data[0].name);
                                     //焦点跳转到库位
                                     $('#location_no').focus();
@@ -437,6 +448,7 @@
                                 }
                             })
                     }else{
+                        $("#location_no").removeClass("is-invalid");
                         addRow('text-success');
                     }
                 }
