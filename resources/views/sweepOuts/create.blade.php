@@ -39,6 +39,8 @@
                             <h3 class="card-title text-center">打包出库</h3>
                         </div>
                         <div class="card-body">
+                            <audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>
+                            <audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
                                 <input type="hidden" name="location_no_default" id="location_no_default" value="">
@@ -184,7 +186,7 @@
                                     type: 'success',
                                     title: '上传成功,共'+length+'条！'
                                 });
-                                $('#audio')[0].play();
+                                $('#successAudio').play();
 
                                 $('#dispatch_table tbody').html('');
                                 $("#dispatch_no").focus();
@@ -250,7 +252,7 @@
                 type: 'success',
                 title: '添加成功！'
             });
-            $('#audio')[0].play();
+            $('#successAudio').play();
         }
 
         function deleteCurrentRow(obj) {
@@ -324,15 +326,6 @@
                 $('#dispatch_no').focus();
             }
 
-            $('<audio id="audio">' +
-                '<source src="/music/success.ogg" type="audio/ogg">' +
-                '<source src="/music/success.mp3" type="audio/mpeg">' +
-                '<source src="/music/success.wav" type="audio/wav">' +
-                '<source src="/music/notify.ogg" type="audio/ogg">' +
-                '<source src="/music/notify.mp3" type="audio/mpeg">' +
-                '<source src="/music/notify.wav" type="audio/wav">'
-            ).appendTo('body');
-
             $('#dispatch_no').blur(function(){
                 var dispatch_no = $(this).val();
                 if(dispatch_no.length < 12){
@@ -380,7 +373,7 @@
                             },
                             success:function(data){
                                 if(data.length==0){
-                                    $('#audio')[3].play();
+                                    $('#notifyAudio').play();
                                     //发货单号红框提示,toast提示
                                     $("#dispatch_no").addClass("is-invalid");
                                     Toast.fire({
@@ -417,7 +410,7 @@
                     //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
                     if( $('#dispatch_no').val()==''){
                         $("#dispatch_no").addClass("is-invalid");
-                        $('#audio')[3].play();
+                        $('#notifyAudio').play();
                         Toast.fire({
                             type: 'error',
                             title: '请先扫发货单号！'
@@ -430,7 +423,7 @@
                     //如果库位为空,直接报错提示
                     if( $('#location_no').val()==''){
                         $("#location_no").addClass("is-invalid");
-                        $('#audio')[3].play();
+                        $('#notifyAudio').play();
                         Toast.fire({
                             type: 'error',
                             title: '请扫库位号！'

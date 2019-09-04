@@ -47,8 +47,8 @@
       <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/sweepCars/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="254" column="37" lean-forward="false" selection-start-line="254" selection-start-column="26" selection-end-line="254" selection-end-column="37" />
+            <state relative-caret-position="247">
+              <caret line="253" column="219" lean-forward="false" selection-start-line="253" selection-start-column="12" selection-end-line="253" selection-end-column="219" />
               <folding />
             </state>
           </provider>
@@ -89,8 +89,8 @@
       <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="332" column="67" lean-forward="true" selection-start-line="332" selection-start-column="67" selection-end-line="332" selection-end-column="67" />
+            <state relative-caret-position="176">
+              <caret line="254" column="35" lean-forward="false" selection-start-line="254" selection-start-column="31" selection-end-line="254" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -120,8 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>deleteCurrentRow</find>
-      <find>deleteTable</find>
       <find>danger</find>
       <find>fire</find>
       <find>is-invalid</find>
@@ -150,6 +148,8 @@
       <find>notifyAudio</find>
       <find>successA</find>
       <find>audio</find>
+      <find>$('#audio')[3].play()</find>
+      <find>play</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Homestead\Code\gongniu</dir>
@@ -342,12 +342,12 @@
       <workItem from="1567389256399" duration="9843000" />
       <workItem from="1567415749201" duration="2985000" />
       <workItem from="1567474910212" duration="18499000" />
-      <workItem from="1567560023797" duration="17398000" />
+      <workItem from="1567560023797" duration="18338000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169925000" />
+    <option name="totallyTimeSpent" value="170865000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -711,14 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/pages/root.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="26" column="25" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1140">
@@ -745,18 +737,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/pages/root.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="26" column="25" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/sweepCars/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="254" column="37" lean-forward="false" selection-start-line="254" selection-start-column="26" selection-end-line="254" selection-end-column="37" />
+        <state relative-caret-position="247">
+          <caret line="253" column="219" lean-forward="false" selection-start-line="253" selection-start-column="12" selection-end-line="253" selection-end-column="219" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="332" column="67" lean-forward="true" selection-start-line="332" selection-start-column="67" selection-end-line="332" selection-end-column="67" />
+        <state relative-caret-position="176">
+          <caret line="254" column="35" lean-forward="false" selection-start-line="254" selection-start-column="31" selection-end-line="254" selection-end-column="35" />
           <folding />
         </state>
       </provider>
