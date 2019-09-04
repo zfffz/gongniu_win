@@ -324,7 +324,14 @@
                 $('#dispatch_no').focus();
             }
 
-            $('<audio id="audio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav">').appendTo('body');
+            $('<audio id="audio">' +
+                '<source src="/music/success.ogg" type="audio/ogg">' +
+                '<source src="/music/success.mp3" type="audio/mpeg">' +
+                '<source src="/music/success.wav" type="audio/wav">' +
+                '<source src="/music/notify.ogg" type="audio/ogg">' +
+                '<source src="/music/notify.mp3" type="audio/mpeg">' +
+                '<source src="/music/notify.wav" type="audio/wav">'
+            ).appendTo('body');
 
             $('#dispatch_no').blur(function(){
                 var dispatch_no = $(this).val();
