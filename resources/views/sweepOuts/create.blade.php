@@ -186,7 +186,7 @@
                                     type: 'success',
                                     title: '上传成功,共'+length+'条！'
                                 });
-                                $('#successAudio').play();
+                                $('#successAudio')[0].play();
 
                                 $('#dispatch_table tbody').html('');
                                 $("#dispatch_no").focus();
@@ -252,7 +252,7 @@
                 type: 'success',
                 title: '添加成功！'
             });
-            $('#successAudio').play();
+            $('#successAudio')[0].play();
         }
 
         function deleteCurrentRow(obj) {
@@ -373,7 +373,7 @@
                             },
                             success:function(data){
                                 if(data.length==0){
-                                    $('#notifyAudio').play();
+                                    $('#notifyAudio')[0].play();
                                     //发货单号红框提示,toast提示
                                     $("#dispatch_no").addClass("is-invalid");
                                     Toast.fire({
@@ -410,7 +410,7 @@
                     //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
                     if( $('#dispatch_no').val()==''){
                         $("#dispatch_no").addClass("is-invalid");
-                        $('#notifyAudio').play();
+                        $('#notifyAudio')[0].play();
                         Toast.fire({
                             type: 'error',
                             title: '请先扫发货单号！'
@@ -423,7 +423,7 @@
                     //如果库位为空,直接报错提示
                     if( $('#location_no').val()==''){
                         $("#location_no").addClass("is-invalid");
-                        $('#notifyAudio').play();
+                        $('#notifyAudio')[0].play();
                         Toast.fire({
                             type: 'error',
                             title: '请扫库位号！'
