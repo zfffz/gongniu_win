@@ -43,4 +43,28 @@ class LoginController extends Controller
         return 'name';
     }
 
+    public function attemptLogin(Request $request)
+    {
+        $username = $request->input('name');
+        $password = $request->input('password');
+
+        // 验证用户名登录方式
+        $usernameLogin = $this->guard()->attempt(
+            ['name' => $username, 'password' => $password], $request->has('remember')
+        );
+        if ($usernameLogin) {
+            return true;
+        }
+
+        // 验证手机号登录方式
+        $mobileLogin = $this->guard()->attempt(
+            ['no' => $username, 'password' => $password], $request->has('remember')
+        );
+        if ($mobileLogin) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

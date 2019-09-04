@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('include')
-    <link rel="stylesheet" href="{{asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css')}}">
 @endsection
 @section('title', '打包出库')
 
@@ -103,7 +102,7 @@
 @endsection
 
 @section('script')
-    <script src="/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
+
     <script>
         const Toast = Swal.mixin({
             toast: true,
@@ -326,7 +325,7 @@
             }
 
             $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
-            $('<audio id="notifyAudio"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+            $('<audio id="notifyAudio"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
 
             $('#dispatch_no').blur(function(){
                 var dispatch_no = $(this).val();

@@ -1,5 +1,5 @@
 // Fonts
-//@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700');
 
 // Variables
 @import 'variables';
@@ -11,15 +11,13 @@
 @import "~admin-lte/dist/css/adminlte.min.css";
 @import "~admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css";
 
+@import '~@sweetalert2/theme-bootstrap-4/bootstrap-4';
+
 // Fontawesome
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
-
-//.login-page .login-page{
-//  font-size:18px;
-//}
 
 .nav-link .user-image {
   float: left;

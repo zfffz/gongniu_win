@@ -252,7 +252,7 @@
 
         $(function(){
             $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
-            $('<audio id="notifyAudio"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+            $('<audio id="notifyAudio"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
 
             $('#dispatch_no').keydown(function(event) {
                 if(event.keyCode == 13){
