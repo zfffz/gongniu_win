@@ -7,13 +7,13 @@
 
 @section('header')
     <a href="#" class="navbar-brand">
-        <img src="/AdminLTE/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image"
+        <img src="/image/logo.png" alt="AdminLTE Logo" class="brand-image"
              style="opacity: .8;margin-left:0px;margin-right:0px;">
     </a>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                <img src="{{ Auth::user()->avatar?Auth::user()->avatar:'/AdminLTE/dist/img/user2-160x160.jpg' }}" class="user-image" alt="User Image">
+                <img src="{{ Auth::user()->avatar?Auth::user()->avatar:'/image/user2-160x160.jpg' }}" class="user-image" alt="User Image">
                 {{ Auth::user()->name }} <span class="caret"></span>
             </a>
 

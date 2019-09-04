@@ -6,7 +6,7 @@
 
 @section('header')
     <a href="#" class="navbar-brand">
-        <img src="/AdminLTE/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image"
+        <img src="/image/logo.png" alt="AdminLTE Logo" class="brand-image"
              style="opacity: .8;margin-left:0px;margin-right:0px;">
     </a>
     <ul class="navbar-nav ml-auto">
