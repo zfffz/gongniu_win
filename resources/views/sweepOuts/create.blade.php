@@ -184,7 +184,7 @@
                                     type: 'success',
                                     title: '上传成功,共'+length+'条！'
                                 });
-                                $('#successAudio')[0].play();
+                                $('#audio')[0].play();
 
                                 $('#dispatch_table tbody').html('');
                                 $("#dispatch_no").focus();
@@ -250,7 +250,7 @@
                 type: 'success',
                 title: '添加成功！'
             });
-            $('#successAudio')[0].play();
+            $('#audio')[0].play();
         }
 
         function deleteCurrentRow(obj) {
@@ -324,8 +324,7 @@
                 $('#dispatch_no').focus();
             }
 
-            $('<audio id="successAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-            $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+            $('<audio id="audio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav">').appendTo('body');
 
             $('#dispatch_no').blur(function(){
                 var dispatch_no = $(this).val();
@@ -374,7 +373,7 @@
                             },
                             success:function(data){
                                 if(data.length==0){
-                                    $('#notifyAudio')[0].play();
+                                    $('#audio')[3].play();
                                     //发货单号红框提示,toast提示
                                     $("#dispatch_no").addClass("is-invalid");
                                     Toast.fire({
@@ -411,7 +410,7 @@
                     //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
                     if( $('#dispatch_no').val()==''){
                         $("#dispatch_no").addClass("is-invalid");
-                        $('#notifyAudio')[0].play();
+                        $('#audio')[3].play();
                         Toast.fire({
                             type: 'error',
                             title: '请先扫发货单号！'
@@ -424,7 +423,7 @@
                     //如果库位为空,直接报错提示
                     if( $('#location_no').val()==''){
                         $("#location_no").addClass("is-invalid");
-                        $('#notifyAudio')[0].play();
+                        $('#audio')[3].play();
                         Toast.fire({
                             type: 'error',
                             title: '请扫库位号！'
