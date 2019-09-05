@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SweepCarsController extends Controller
+class SweepCarsController extends CommonsController
 {
     /**
      * Display a listing of the resource.

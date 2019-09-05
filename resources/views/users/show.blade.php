@@ -1,9 +1,8 @@
 @extends('layouts.app')
-@section('title', '首页')
-
-@section('content_header')
+@section('include')
 
 @endsection
+@section('title', '个人信息')
 
 @section('header')
     <a href="#" class="navbar-brand">
@@ -18,7 +17,7 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item"  tabindex="-1" href="{{ route('user.show', Auth::user()->no) }}"><i class="fa fa-user"></i> 个人中心</a>
+                <a class="dropdown-item"  tabindex="-1"  href="{{ route('user.show', Auth::user()->no) }}"><i class="fa fa-user"></i> 个人中心</a>
                 <a class="dropdown-item"  tabindex="-1" href="{{ route('sweepOut.index') }}"><i class="fas fa-bars"></i> 任务列表</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" id="logout" tabindex="-1" href="#">
@@ -34,33 +33,44 @@
 
 @endsection
 
+@section('content_header')
+
+@endsection
+
 @section('content')
     <div class="content">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <!-- Block buttons -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title text-center">工作台</h3>
-                        </div>
+                <div class="col-md-3">
+                    <div class="card ">
+                        <img class="card-img-top" src="https://cdn.learnku.com/uploads/images/201709/20/1/PtDKbASVcz.png?imageView2/1/w/600/h/600" alt="{{ $user->name }}">
                         <div class="card-body">
-                            <a class="btn-block" href="{{route('sweepOut.create')}}">
-                                <button type="button" class="btn btn-primary btn-block btn-flat btn-lg">打包出库</button>
-                            </a>
-                            <a class="btn-block" href="{{route('sweepCar.create')}}">
-                                <button type="button" class="btn btn-danger btn-block btn-flat btn-lg">扫码上车</button>
-                            </a>
+                            <h5><strong>个人简介</strong></h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                            <hr>
+                            <h5><strong>注册于</strong></h5>
+                            <p>January 01 1901</p>
                         </div>
                     </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
 
 @section('footer')
-<div class="text-center">
-    <strong>Copyright &copy; 2019 BULL</strong>
-</div>
+    <div class="float-right d-none d-sm-inline">
+
+    </div>
+    <!-- Default to the left -->
+    <a onclick="javascript:history.back(-1);"><i class="fas fa-arrow-left"></i> </a>
+@endsection
+
+@section('script')
+    <script>
+
+
+    </script>
 @endsection

@@ -17,7 +17,7 @@ class SweepOutsController extends CommonsController
      */
     public function index()
     {
-
+        return view('sweepOuts.index');
     }
 
     /**
