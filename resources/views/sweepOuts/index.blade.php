@@ -14,12 +14,13 @@
     <div class="wrapper">
         <div class="card card-success maximized-card" style="height: 112px; width: 255.75px; transition: all 0.15s ease 0s;">
             <div class="card-header">
-                <h3 class="card-title text-center">任务列表</h3>
-
-                <div class="card-tools">
+                <div class="float-left card-tools">
                     <button type="button" class="btn btn-tool" onclick="javascript:history.back(-1);"><i class="fas fa-reply"></i>
                     </button>
                 </div>
+                <h3 class="card-title text-center">任务列表</h3>
+
+
                 <!-- /.card-tools -->
             </div>
             <!-- /.card-header -->

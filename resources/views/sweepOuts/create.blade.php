@@ -53,6 +53,10 @@
                     <div class="card">
                         <div class="card-header border-transparent">
                             <h3 class="card-title">暂存区</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-0">
