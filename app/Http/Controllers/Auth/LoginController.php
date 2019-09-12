@@ -26,7 +26,12 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+
+    protected function authenticated(Request $request, $user)
+    {
+        // 通过判断设备类型，路由跳转。
+        return \Agent::isDesktop()?redirect('/admin'):redirect('/');
+    }
 
     /**
      * Create a new controller instance.

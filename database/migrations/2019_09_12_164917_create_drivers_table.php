@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStorageLocationsTable extends Migration
+class CreateDriversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateStorageLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('zzz_storage_locations', function (Blueprint $table) {
+        Schema::create('zzz_drivers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('no')->unique();
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('mobile')->nullable();
             $table->string('note')->nullable();
             $table->string('create_id');
             $table->integer('status')->default(1);
@@ -31,6 +31,6 @@ class CreateStorageLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zzz_storage_locations');
+        Schema::dropIfExists('zzz_drivers');
     }
 }

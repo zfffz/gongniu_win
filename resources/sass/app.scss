@@ -13,6 +13,8 @@
 
 @import '~admin-lte/plugins/sweetalert2/sweetalert2.min.css';
 
+@import '~admin-lte/plugins/datatables/dataTables.bootstrap4.css';
+
 // Fontawesome
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/regular';
@@ -27,4 +29,17 @@
   margin-right: .25em;
   margin-top: -2px;
   display: inline-block;
+}
+
+.form-horizontal .control-label {
+  padding-top: 7px;
+  margin-bottom: 0;
+  text-align: right;
+  color: #555;
+}
+
+.label_required:before {
+  content: "*";
+  color: #f56c6c;
+  margin-right: 4px;
 }

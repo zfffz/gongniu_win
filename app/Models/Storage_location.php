@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Storage_location extends Model
 {
+    public $table='zzz_storage_locations';
     protected $fillable = [
-        'customer_no', 'name'
+        'no','name','create_id','note','status'
     ];
 }

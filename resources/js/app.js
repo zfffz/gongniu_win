@@ -7,7 +7,7 @@
 require('./bootstrap');
 require('admin-lte');
 require('sweetalert2');
-const Swal = require('sweetalert2');
+require('datatables.net-bs4');
 
 window.Vue = require('vue');
 
