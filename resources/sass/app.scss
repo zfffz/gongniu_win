@@ -7,13 +7,17 @@
 // Bootstrap
 //@import '~bootstrap/scss/bootstrap';
 
-//admin
+//admin-lte
 @import "~admin-lte/dist/css/adminlte.min.css";
+
+@import '~admin-lte/plugins/select2/css/select2.min.css';
+@import '~admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css';
+
 @import "~admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css";
 
 @import '~admin-lte/plugins/sweetalert2/sweetalert2.min.css';
 
-@import '~admin-lte/plugins/datatables/dataTables.bootstrap4.css';
+@import '~admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css';
 
 // Fontawesome
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
@@ -42,4 +46,8 @@
   content: "*";
   color: #f56c6c;
   margin-right: 4px;
+}
+
+.sweepOut-index-page .card-title {
+  float: none
 }

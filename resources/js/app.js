@@ -8,6 +8,7 @@ require('./bootstrap');
 require('admin-lte');
 require('sweetalert2');
 require('datatables.net-bs4');
+require('select2');
 
 window.Vue = require('vue');
 

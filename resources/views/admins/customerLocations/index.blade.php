@@ -4,19 +4,19 @@
 
 @endsection
 
-@section('title', '库位')
+@section('title', '客户默认库位')
 
 @section('section')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>库位信息</h1>
+                    <h1>客户默认库位</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">基础资料</li>
-                        <li class="breadcrumb-item active">库位管理</li>
+                        <li class="breadcrumb-item active">客户默认库位</li>
                     </ol>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" name="search" id="search" class="form-control" placeholder="仓库编码/名称/创建人" />
+                            <input type="text" name="search" id="search" class="form-control" placeholder="客户编码/库位编码" />
                             <div class="input-group-append">
                                 <button class="btn btn-default" type="button" onclick="table.draw( false );">
                                     <i class="fas fa-search"></i>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <a href="{{route('storageLocation.create')}}" class="btn btn-info btn-flat float-right">
+                        <a href="{{route('customerLocation.create')}}" class="btn btn-info btn-flat float-right">
                             <i class="fa fa-plus"></i> 新增
                         </a>&nbsp;&nbsp;
                     </div>
@@ -48,10 +48,10 @@
                 <table id="companiesLists" class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        <th>客户编码</th>
+                        <th>客户名称</th>
                         <th>仓库编码</th>
                         <th>仓库名称</th>
-                        <th>备注</th>
-                        <th>状态</th>
                         <th>创建人</th>
                         <th>创建时间</th>
                         <th>更新时间</th>
@@ -82,7 +82,7 @@
                 function(n){
                     if(n.value){
                         // 调用删除接口，用 id 来拼接出请求的 url
-                        axios.delete('storageLocation/' + id)
+                        axios.delete('customerLocation/' + id)
                             .then(function () {
                                 // 请求成功之后重新加载页面
                                 location.reload();
@@ -136,7 +136,7 @@
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
                         type: "POST",
-                        url: "storageLocation/getData",
+                        url: "customerLocation/getData",
                         data :{
                             draw : page,
                             start : start,
@@ -153,10 +153,10 @@
                     })
                 },
                 "columns":[
-                    { "data":"no" },
-                    { "data":"name" },
-                    { "data":"note" },
-                    { "data":"status" },
+                    { "data":"customer_no" },
+                    { "data":"customer_name" },
+                    { "data":"location_no" },
+                    { "data":"location_name" },
                     { "data":"create_name" },
                     { "data":"created_at" },
                     { "data":"updated_at" },
@@ -168,8 +168,8 @@
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +
                             '<div class="btn-group btn-group-sm">' +
-                            '<a href="storageLocation/'+data+'" class="btn btn-info"><i class="fas fa-eye"></i></a>' +
-                            '<a href="storageLocation/'+data+'/edit" class="btn btn-primary"><i class="fas fa-edit"></i></a>' +
+                            '<a href="customerLocation/'+data+'" class="btn btn-info"><i class="fas fa-eye"></i></a>' +
+                            '<a href="customerLocation/'+data+'/edit" class="btn btn-primary"><i class="fas fa-edit"></i></a>' +
                             '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger"><i class="fas fa-trash"></i></a>' +
                             '</div>' +
                             '</div>';

@@ -124,8 +124,17 @@ class CarsController extends CommonsController
             "))
             ->leftJoin('users as t2','t1.create_id','t2.id');
 
-        $data=parent::dataPage($request,$builder,'asc');
+        $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
 
         return $data;
+    }
+
+    private function condition($table,$searchKey){
+        if($searchKey!=''){
+            $table->where('t1.no','like','%'.$searchKey.'%');
+            $table->orWhere('t1.model','like','%'.$searchKey.'%');
+            $table->orWhere('t2.name','like','%'.$searchKey.'%');
+        }
+        return $table;
     }
 }

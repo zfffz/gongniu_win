@@ -29,16 +29,21 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::get('/', 'PagesController@root')->name('root');
 
     // 库位
-    Route::get('storageLocation/getData', 'StorageLocationsController@getData')->name('storageLocation.getData');
+    Route::post('storageLocation/getData', 'StorageLocationsController@getData')->name('storageLocation.getData');
     Route::resource('storageLocation', 'StorageLocationsController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
 
     // 车辆
-    Route::get('car/getData', 'CarsController@getData')->name('car.getData');
+    Route::post('car/getData', 'CarsController@getData')->name('car.getData');
     Route::resource('car', 'CarsController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
 
     // 司机
-    Route::get('driver/getData', 'DriversController@getData')->name('driver.getData');
+    Route::post('driver/getData', 'DriversController@getData')->name('driver.getData');
     Route::resource('driver', 'DriversController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
+
+    // 客户默认库位
+    Route::post('customerLocation/getData', 'CustomerLocationsController@getData')->name('customerLocation.getData');
+    Route::get('customerLocation/getCustomerData', 'CustomerLocationsController@getCustomerData')->name('customerLocation.getCustomerData');
+    Route::resource('customerLocation', 'CustomerLocationsController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
 
 
 });

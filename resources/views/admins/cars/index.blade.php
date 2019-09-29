@@ -31,9 +31,9 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="车牌号/型号/创建人" />
+                            <input type="text" name="search" id="search" class="form-control" placeholder="车牌号/型号/创建人" />
                             <div class="input-group-append">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="button" onclick="table.draw( false );">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>
@@ -93,7 +93,7 @@
                 })
         }
 
-        $(function () {
+        var table =
             $('#companiesLists').DataTable({
                 language: {
                     "sProcessing": "处理中...",
@@ -126,9 +126,31 @@
                 "info": true,
                 "autoWidth": false,
                 "serverSide": true,
-                "ajax": {
-                    type: "get",
-                    url: "car/getData"
+                "bProcessing":true,
+                "ajax":function(data,callback,settings){
+                    var length = data.length;
+                    var start = data.start;
+                    var page = (data.start / data.length) + 1;
+                    var searchKey = $('#search').val();
+
+                    $.ajax({
+                        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
+                        type: "POST",
+                        url: "car/getData",
+                        data :{
+                            draw : page,
+                            start : start,
+                            length : length,
+                            searchKey : searchKey
+                        },
+                        success:function(result){
+                            var returnData = {};
+                            returnData.recordsTotal = result.recordsTotal;
+                            returnData.recordsFiltered = result.recordsFiltered;
+                            returnData.data = result.data;
+                            callback(returnData);
+                        }
+                    })
                 },
                 "columns":[
                     { "data":"no" },
@@ -157,7 +179,6 @@
                 }
                 ]
             });
-        })
     </script>
 
 @endsection
