@@ -91,11 +91,16 @@
 @endsection
 
 @section('footer')
-    <div class="float-right d-none d-sm-block">
+    {{--<div class="float-right d-none d-sm-block">--}}
 
+    {{--</div>--}}
+    {{--<!-- Default to the left -->--}}
+    {{--<a onclick="javascript:history.back(-1);"><i class="fas fa-arrow-left"></i> </a>--}}
+    <div class="float-right d-none d-sm-inline">
+        Anything you want
     </div>
     <!-- Default to the left -->
-    <a onclick="javascript:history.back(-1);"><i class="fas fa-arrow-left"></i> </a>
+    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
 @endsection
 
 @section('script')
