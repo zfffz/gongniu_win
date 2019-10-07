@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
+use App\Models\Driver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +26,9 @@ class SweepCarsController extends CommonsController
      */
     public function create()
     {
-        return view('sweepCars.create');
+        $cars = Car::all('id','no');
+        $drivers = Driver::all('id','name');
+        return view('sweepCars.create',compact('cars','drivers'));
     }
 
     /**

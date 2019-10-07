@@ -7,8 +7,10 @@
     <ul class="navbar-nav">
         <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">车牌号</label>
         <select class="form-control select2" name="car_id" id="car_id">
-            <option value="">沪ADH081</option>
-
+            <option value=""></option>
+            @foreach($cars as $car)
+                <option value="{{$car->id}}">{{$car->no}}</option>
+            @endforeach
         </select>
     </ul>
 
@@ -16,7 +18,10 @@
 
         <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">司机</label>
         <select class="form-control select2" name="driver_id" id="driver_id">
-            <option value="">唐立诚</option>
+            <option value=""></option>
+            @foreach($drivers as $driver)
+                <option value="{{$driver->id}}">{{$driver->name}}</option>
+            @endforeach
 
         </select>
     </ul>
@@ -86,7 +91,7 @@
 @endsection
 
 @section('footer')
-    <div class="float-right d-none d-sm-inline">
+    <div class="float-right d-none d-sm-block">
 
     </div>
     <!-- Default to the left -->
