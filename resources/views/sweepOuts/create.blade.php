@@ -6,7 +6,7 @@
 @section('header')
     <a href="#" class="navbar-brand">
         <img src="/image/logo.png" alt="AdminLTE Logo" class="brand-image"
-             style="opacity: .8;margin-left:0px;margin-right:0px;">
+             style="opacity: .8;margin-left:0px;margin-right:0px;min-height: 50px;">
     </a>
     <ul class="navbar-nav ml-auto">
         <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">打包员</label>
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- Block buttons -->
-                    <div class="card" style="margin-top: -15px;">
+                    <div class="card">
                         <div class="card-header">
                             <h3 class="card-title text-center">打包出库</h3>
                         </div>

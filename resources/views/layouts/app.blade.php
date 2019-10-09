@@ -9,7 +9,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @yield('include')
 </head>
-<body class="hold-transition layout-top-nav">
+<body class="hold-transition layout-top-nav layout-navbar-fixed">
 <div id="app" class="{{ route_class() }}-page">
     <div class="wrapper">
         @include('layouts._header')
