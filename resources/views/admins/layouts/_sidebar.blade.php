@@ -66,6 +66,29 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            单据列表
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('sweepOut.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>打包出库</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('sweepCar.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>扫码上车</p>
+                            </a>
+                        </li>
+                    </ul>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

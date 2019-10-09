@@ -251,7 +251,137 @@
                 })
         }
 
+        function batchSave(){
+            $('#dispatch_no').blur();
+            var car_id = $('#car_id').val();
+            var driver_id = $('#driver_id').val();
+
+            // 车牌号提示
+            if(car_id == ''){
+                Toast.fire({
+                    type: 'error',
+                    title: '请选择车牌号！'
+                });
+                $('#car_id').addClass('is-invalid');
+                $('#car_id').focus();
+                return false;
+            }
+            //司机提示
+            if(driver_id == ''){
+                Toast.fire({
+                    type: 'error',
+                    title: '请选择司机！'
+                });
+                $('#driver_id').addClass('is-invalid');
+                $('#driver_id').focus();
+                return false;
+            }
+
+            var trList = $("#table_body").children("tr");
+
+            var length = trList.length;
+
+            if(length == 0){
+                Toast.fire({
+                    type: 'error',
+                    title: '空数据无法提交！'
+                });
+                $('#dispatch_no').focus();
+                return false;
+            }
+
+            var datas={};
+            datas.car_id = car_id;
+            datas.driver_id = driver_id;
+            datas.items = {};
+            for (var i=0;i<length;i++){
+                datas.items[i] = {};
+                var tdArr = trList.eq(i).find("td");
+                datas.items[i].dispatch_no = tdArr.eq(0).html();
+            }
+
+            Swal.fire({
+                title: '确认上传暂存区数据到系统吗?',
+                text:'共'+length+'条',
+                footer: '车牌号：'+$('#car_id option:selected').text()+' 司机：'+$('#driver_id option:selected').text(),
+                type: 'question',
+                focusConfirm: false,
+                allowEnterKey:false,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then(
+                function(n){
+                    if(n.value){
+                        $.ajax({
+                            url:"{{route('sweepCar.store')}}",
+                            data:JSON.stringify(datas),
+                            type:'post',
+                            dataType:'json',
+                            headers:{
+                                Accept:"application/json",
+                                "Content-Type":"application/json",
+                                'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                            },
+                            processData:false,
+                            cache:false,
+                            timeout: 10000,
+                            beforeSend: function() {
+                            },
+                            success:function(t){
+                                //上传成功提示
+                                Toast.fire({
+                                    type: 'success',
+                                    title: '上传成功,共'+length+'条！'
+                                });
+                                $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+                                $('#successAudio')[0].play();
+
+                                $('#dispatch_table tbody').html('');
+                                $("#dispatch_no").focus();
+                            },
+                            error: function() {
+                                alert("error");
+                            }
+                        });
+                    }else{
+                        $("#dispatch_no").focus();
+                        return false;
+                    }
+                })
+        }
+
         $(function(){
+            //车牌号提示
+            Toast.fire({
+                type: 'warning',
+                title: '请先选择车牌号和司机！'
+            });
+            //聚焦打包员
+            $('#car_id').focus();
+
+            // 每次聚焦发货单号检查车牌号和司机：不允许为空
+            $('#dispatch_no').focus(function(){
+                if($('#car_id').val()==''){
+                    Toast.fire({
+                        type: 'warning',
+                        title: '请选择车牌号！'
+                    });
+                    $('#car_id').focus();
+                    return false;
+                }
+                if($('#driver_id').val()==''){
+                    Toast.fire({
+                        type: 'warning',
+                        title: '请选择司机！'
+                    });
+                    $('#driver_id').focus();
+                    return false;
+                }
+            });
+
             $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
             $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
 

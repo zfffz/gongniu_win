@@ -20,7 +20,6 @@
 
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item"  tabindex="-1" href="{{ route('user.show', Auth::user()->no) }}"><i class="fa fa-user"></i> 个人中心</a>
-                <a class="dropdown-item"  tabindex="-1" href="{{ route('sweepOut.index') }}"><i class="fas fa-bars"></i> 任务列表</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" id="logout" tabindex="-1" href="#">
                     <form action="{{ route('logout') }}" method="POST">

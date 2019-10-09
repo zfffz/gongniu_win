@@ -13,9 +13,12 @@ class CreateSweepCarItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sweep_car_items', function (Blueprint $table) {
+        Schema::create('zzz_sweep_car_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->bigInteger('parent_id')->index();
+            $table->integer('entry_id');
+            //发货单号
+            $table->string('dispatch_no')->index();
         });
     }
 
@@ -26,6 +29,6 @@ class CreateSweepCarItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sweep_car_items');
+        Schema::dropIfExists('zzz_sweep_car_items');
     }
 }

@@ -18,7 +18,7 @@ class CreateSweepOutItemsTable extends Migration
             $table->bigInteger('parent_id')->index();
             $table->integer('entry_id');
             //发货单号
-            $table->string('dispatch_no')->index();
+            $table->string('dispatch_no')->index()->unique();
             //库位号
             $table->string('location_no')->index();
 

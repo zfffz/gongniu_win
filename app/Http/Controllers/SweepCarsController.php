@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Driver;
+use App\Models\SweepCar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SweepCarsController extends CommonsController
@@ -39,7 +41,37 @@ class SweepCarsController extends CommonsController
      */
     public function store(Request $request)
     {
-        //
+        $sweep_car=\DB::transaction(function() use ($request){
+            //创建一张新的扫码上车单
+            $sweep_car = new SweepCar([
+                'car_id'=>$request->input('car_id'),
+                'driver_id'=>$request->input('driver_id'),
+                'user_no'=>Auth::id()
+            ]);
+            $sweep_car->save();
+
+            //创建一张新的项目清单
+            $sweep_car_items = $request->input('items');
+            $i=1;
+
+            foreach($sweep_car_items as $data){
+                $sweep_car_item = $sweep_car->sweep_car_items()->make([
+                    'entry_id'=>$i,
+                    'dispatch_no'=> $data['dispatch_no']
+                ]);
+
+                $sweep_car_item->save();
+
+                $i++;
+            }
+
+            // 更新
+            $sweep_car->update(['count' => ($i-1)]);
+
+            return $sweep_car;
+        });
+
+        return $sweep_car;
     }
 
     /**

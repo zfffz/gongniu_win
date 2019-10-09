@@ -41,10 +41,12 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
+                                {{--默认库位编码--}}
                                 <input type="hidden" name="location_no_default" id="location_no_default" value="">
 
                             </div>
                             <div class="form-group">
+                                {{--库位编码--}}
                                 <input type="text" class="form-control form-control-lg" name="location_no" id="location_no" autocomplete="off" value="" placeholder="库位">
                             </div>
                         </div>
@@ -176,6 +178,16 @@
                             beforeSend: function() {
                             },
                             success:function(t){
+                                if(t.status == 0){
+                                    $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                                    $('#notifyAudio')[0].play();
+                                    //上传失败提示
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: t.text
+                                    });
+                                    return false;
+                                }
                                 //上传成功提示
                                 Toast.fire({
                                     type: 'success',
@@ -199,7 +211,7 @@
         }
 
         function checkRow(dispatch_no){
-            //添加之前检查发货单是否重复录入
+            // 添加之前检查当前发货单是否重复录入
             var trList = $("#table_body").children("tr");
 
             var length = trList.length;
@@ -385,7 +397,7 @@
                                     $("#dispatch_no").removeClass("is-invalid");
                                     $("#dispatch_no").addClass("is-valid");
 
-                                    $('#location_no_default').val(data[0].name);
+                                    $('#location_no_default').val(data[0].no);
                                     //焦点跳转到库位
                                     $('#location_no').focus();
                                 }
