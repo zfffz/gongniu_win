@@ -4,11 +4,11 @@
 @section('title', '打包出库')
 
 @section('header')
-    <a href="#" class="navbar-brand">
+    <a class="navbar-brand">
         <img src="/image/logo.png" alt="AdminLTE Logo" class="brand-image"
              style="opacity: .8;margin-left:0px;margin-right:0px;">
     </a>
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" >
         <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">打包员</label>
         <select class="form-control" name="packager" id="packager">
             <option value=""></option>
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- Block buttons -->
-                    <div class="card" style="margin-top: -15px;">
+                    <div class="card" style="margin-top: -19px;">
                         <div class="card-header">
                             <h3 class="card-title text-center">打包出库</h3>
                         </div>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div class="card" style="margin-top: -8px;">
                         <div class="card-header border-transparent">
                             <h3 class="card-title">暂存区</h3>
                             <div class="card-tools">
