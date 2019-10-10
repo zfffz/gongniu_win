@@ -93,7 +93,14 @@ class SweepOutsController extends CommonsController
      */
     public function show($id)
     {
-        //
+        $sweepOut = SweepOut::find($id);
+
+        $packager_name = DB::table('bs_gn_wl')
+            ->select('cpersoncode as no','cpersonname as name')
+            ->where('cpersoncode','=',$sweepOut->packager_no)
+            ->get()[0]->name;
+
+        return view('sweepOuts.show',compact('sweepOut','packager_name'));
     }
 
     /**
@@ -125,9 +132,11 @@ class SweepOutsController extends CommonsController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SweepOut $sweepOut)
     {
-        //
+        $sweepOut->delete();
+        // 把之前的 redirect 改成返回空数组
+        return [];
     }
 
     public function dispatch_data(Request $request){
@@ -141,5 +150,30 @@ class SweepOutsController extends CommonsController
 
         echo json_encode($data);
 
+    }
+
+    public function getData(Request $request)
+    {
+        $builder = \DB::table('zzz_sweep_outs as t1')
+            ->select(
+                \DB::raw("
+            t1.id,
+            t2.cpersonname as packager_name,
+            t1.count,
+            t1.created_at
+            "))
+            ->leftJoin('bs_gn_wl as t2','t1.packager_no','t2.cpersoncode');
+
+        $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
+
+        return $data;
+    }
+
+    private function condition($table,$searchKey){
+        if($searchKey!=''){
+            $table->where('t2.cpersonname','like','%'.$searchKey.'%');
+            $table->orWhere('t1.created_at','like','%'.$searchKey.'%');
+        }
+        return $table;
     }
 }

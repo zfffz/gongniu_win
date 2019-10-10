@@ -15,7 +15,7 @@ class Sweep_car_item extends Model
         'dispatch_no',
     ];
 
-    public function sweep_out()
+    public function sweep_car()
     {
         return $this->belongsTo(SweepCar::class,'id','parent_id');
     }

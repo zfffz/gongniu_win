@@ -4,19 +4,19 @@
 
 @endsection
 
-@section('title', '车辆')
+@section('title', '扫码上车')
 
 @section('section')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>车辆信息</h1>
+                    <h1>扫码上车</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">基础资料</li>
-                        <li class="breadcrumb-item active">车辆管理</li>
+                        <li class="breadcrumb-item">单据列表</li>
+                        <li class="breadcrumb-item active">扫码上车</li>
                     </ol>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" name="search" id="search" class="form-control" placeholder="车牌号/型号/创建人" />
+                            <input type="text" name="search" id="search" class="form-control" placeholder="车辆/司机/创建日期" />
                             <div class="input-group-append">
                                 <button class="btn btn-default" type="button" onclick="table.draw( false );">
                                     <i class="fas fa-search"></i>
@@ -39,22 +39,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <a href="{{route('car.create')}}" class="btn btn-info btn-flat float-right">
-                            <i class="fa fa-plus"></i> 新增
-                        </a>&nbsp;&nbsp;
-                    </div>
                 </div>
                 <table id="companiesLists" class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        <th>单据编号</th>
                         <th>车牌号</th>
-                        <th>型号</th>
-                        <th>备注</th>
-                        <th>状态</th>
-                        <th>创建人</th>
+                        <th>司机</th>
+                        <th>发货单数量</th>
                         <th>创建时间</th>
-                        <th>更新时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -81,7 +74,7 @@
                 function(n){
                     if(n.value){
                         // 调用删除接口，用 id 来拼接出请求的 url
-                        axios.delete('car/' + id)
+                        axios.delete('sweepCar/' + id)
                             .then(function () {
                                 // 请求成功之后重新加载页面
                                 location.reload();
@@ -135,7 +128,7 @@
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
                         type: "POST",
-                        url: "car/getData",
+                        url: "sweepCar/getData",
                         data :{
                             draw : page,
                             start : start,
@@ -152,23 +145,20 @@
                     })
                 },
                 "columns":[
-                    { "data":"no" },
-                    { "data":"model" },
-                    { "data":"note" },
-                    { "data":"status" },
-                    { "data":"create_name" },
+                    { "data":"id" },
+                    { "data":"car_no" },
+                    { "data":"driver_name" },
+                    { "data":"count" },
                     { "data":"created_at" },
-                    { "data":"updated_at" },
                     {"data":"id"}
                 ],
                 columnDefs: [{
-                    targets: 7,//自定义列的序号，从0开始
+                    targets: 5,//自定义列的序号，从0开始
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +
                             '<div class="btn-group btn-group-sm">' +
-                            '<a href="car/'+data+'" class="btn btn-info"><i class="fas fa-eye"></i></a>' +
-                            '<a href="car/'+data+'/edit" class="btn btn-primary"><i class="fas fa-edit"></i></a>' +
+                            '<a href="sweepCar/'+data+'" class="btn btn-info"><i class="fas fa-eye"></i></a>' +
                             '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger"><i class="fas fa-trash"></i></a>' +
                             '</div>' +
                             '</div>';

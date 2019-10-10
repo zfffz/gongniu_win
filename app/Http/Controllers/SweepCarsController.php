@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Driver;
+use App\Models\Sweep_car_item;
 use App\Models\SweepCar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class SweepCarsController extends CommonsController
      */
     public function index()
     {
-        //
+        return view('sweepCars.index');
     }
 
     /**
@@ -82,7 +83,9 @@ class SweepCarsController extends CommonsController
      */
     public function show($id)
     {
-        //
+        $sweepCar = SweepCar::find($id);
+
+        return view('sweepCars.show',compact('sweepCar'));
     }
 
     /**
@@ -114,9 +117,11 @@ class SweepCarsController extends CommonsController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SweepCar $sweepCar)
     {
-        //
+        $sweepCar->delete();
+        // 把之前的 redirect 改成返回空数组
+        return [];
     }
 
     public function dispatch_data(Request $request){
@@ -138,6 +143,34 @@ class SweepCarsController extends CommonsController
             echo json_encode(array('status'=>'error'));
         }
 
+    }
+
+    public function getData(Request $request)
+    {
+        $builder = \DB::table('zzz_sweep_cars as t1')
+            ->select(
+                \DB::raw("
+            t1.id,
+            t2.no as car_no,
+            t3.name as driver_name,
+            t1.count,
+            t1.created_at
+            "))
+            ->leftJoin('zzz_cars as t2','t1.car_id','t2.id')
+            ->leftJoin('zzz_drivers as t3','t1.driver_id','t3.id');
+
+        $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
+
+        return $data;
+    }
+
+    private function condition($table,$searchKey){
+        if($searchKey!=''){
+            $table->where('t2.no','like','%'.$searchKey.'%');
+            $table->where('t3.name','like','%'.$searchKey.'%');
+            $table->orWhere('t1.created_at','like','%'.$searchKey.'%');
+        }
+        return $table;
     }
 
 }

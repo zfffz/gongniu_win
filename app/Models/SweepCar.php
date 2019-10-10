@@ -15,4 +15,14 @@ class SweepCar extends Model
     {
         return $this->hasMany(Sweep_car_item::class,'parent_id','id');
     }
+
+    public function car()
+    {
+        return $this->belongsTo(Car::class,'car_id','id');
+    }
+
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class,'driver_id','id');
+    }
 }

@@ -11,12 +11,14 @@ Route::group(['middleware' => 'auth'], function() {
 
     // 打包出库
     Route::get('sweepOut/dispatch_data', 'SweepOutsController@dispatch_data')->name('sweepOut.dispatch_data');
-    Route::resource('sweepOut', 'SweepOutsController', ['only' => [ 'index', 'create', 'store','index']]);
+    Route::post('sweepOut/getData', 'SweepOutsController@getData')->name('sweepOut.getData');
+    Route::resource('sweepOut', 'SweepOutsController', ['only' => [ 'index', 'create', 'store','index','destroy','show']]);
 
     // 扫码上车
     Route::get('sweepCar/dispatch_data', 'SweepCarsController@dispatch_data')->name('sweepCar.dispatch_data');
     Route::get('sweepCar/checkPass', 'SweepCarsController@checkPass')->name('sweepCar.checkPass');
-    Route::resource('sweepCar', 'SweepCarsController', ['only' => ['create', 'store','index']]);
+    Route::post('sweepCar/getData', 'SweepCarsController@getData')->name('sweepCar.getData');
+    Route::resource('sweepCar', 'SweepCarsController', ['only' => ['create', 'store','index','destroy','show']]);
 
     // 个人中心
     Route::resource('user', 'UsersController', ['only' => ['show']]);

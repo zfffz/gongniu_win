@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-navbar-fixed sidebar-collapse">
 <div id="app" class="{{ route_class() }}-page">
     <div class="wrapper">
         @include('admins.layouts._header')
