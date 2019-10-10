@@ -107,7 +107,7 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 2000
+            timer: 1000
         });
 
         function batchSave(){
@@ -383,7 +383,7 @@
                             },
                             processData:false,
                             cache:false,
-                            timeout: 2000,
+                            timeout: 1000,
                             beforeSend:function(){
 
                             },
