@@ -322,18 +322,25 @@
         }
 
         $(function() {
-            //打包员提示
-            if($('#packager').val()==''){
-                Toast.fire({
-                    type: 'warning',
-                    title: '请选择打包员！'
-                });
-                //聚焦打包员
-                $('#packager').focus();
-            }else{
-                //聚焦发货单号
-                $('#dispatch_no').focus();
-            }
+            //车牌号提示
+            Toast.fire({
+                type: 'warning',
+                title: '请选择打包员！'
+            });
+            //聚焦打包员
+            $('#packager').focus();
+
+            // 每次聚焦发货单号检查打包员：不允许为空
+            $('#dispatch_no').focus(function(){
+                if($('#packager').val()==''){
+                    Toast.fire({
+                        type: 'warning',
+                        title: '请选择打包员！'
+                    });
+                    $('#packager').focus();
+                    return false;
+                }
+            });
 
 //            $('#dispatch_no').blur(function(){
 //                var dispatch_no = $(this).val();
