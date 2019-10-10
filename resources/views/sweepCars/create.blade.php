@@ -104,7 +104,7 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000
+            timer: 2000
         });
 
         function checkRow(dispatch_no){
@@ -416,7 +416,7 @@
                             },
                             processData:false,
                             cache:false,
-                            timeout: 3000,
+                            timeout: 2000,
                             beforeSend:function(){
 
                             },
