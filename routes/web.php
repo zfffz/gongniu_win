@@ -47,5 +47,9 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::get('customerLocation/getCustomerData', 'CustomerLocationsController@getCustomerData')->name('customerLocation.getCustomerData');
     Route::resource('customerLocation', 'CustomerLocationsController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
 
+    // 报表
+    // 1.发货单：发货单 -> 打包出库 -> 扫码上车
+    Route::post('dispatchReport/getData', 'DispatchReportsController@getData')->name('dispatchReport.getData');
+    Route::resource('dispatchReport', 'DispatchReportsController', ['only' => [ 'index']]);
 
 });
