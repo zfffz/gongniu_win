@@ -167,10 +167,10 @@
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +
-                            '<div class="btn-group btn-group-sm">' +
-                            '<a href="customerLocation/'+data+'" class="btn btn-info"><i class="fas fa-eye"></i></a>' +
-                            '<a href="customerLocation/'+data+'/edit" class="btn btn-primary"><i class="fas fa-edit"></i></a>' +
-                            '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger"><i class="fas fa-trash"></i></a>' +
+                            '<div class="btn-group">' +
+                            '<a href="customerLocation/'+data+'" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>' +
+                            '<a href="customerLocation/'+data+'/edit" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i></a>' +
+                            '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>' +
                             '</div>' +
                             '</div>';
 

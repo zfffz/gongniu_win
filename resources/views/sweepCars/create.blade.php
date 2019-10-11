@@ -43,21 +43,14 @@
                         <div class="card-header">
                             <h3 class="card-title text-center">打包出库</h3>
                         </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
-                                    <input type="hidden" name="location_no_default" id="location_no_default" value="">
-                                </div>
+                        <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
+                                <input type="hidden" name="location_no_default" id="location_no_default" value="">
                             </div>
-                    </div>
-
-                    <div class="card">
+                        </div>
                         <div class="card-header border-transparent">
                             <h3 class="card-title">暂存区</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fas fa-minus"></i>
-                                </button>
-                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-0">
@@ -81,6 +74,10 @@
                             <button onclick="batchSave()" class="btn btn-primary float-right">上传</button>
                         </div>
                         <!-- /.card-footer -->
+                    </div>
+
+                    <div class="card">
+
                     </div>
 
                 </div>

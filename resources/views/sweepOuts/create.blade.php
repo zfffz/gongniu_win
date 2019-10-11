@@ -36,9 +36,9 @@
                     <!-- Block buttons -->
                     <div class="card" style="margin-top: -19px;">
                         <div class="card-header">
-                            <h3 class="card-title text-center">打包出库</h3>
+                            <h3 class="card-title text-center">扫码上车</h3>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
                                 {{--默认库位编码--}}
@@ -50,15 +50,8 @@
                                 <input type="text" class="form-control form-control-lg" name="location_no" id="location_no" autocomplete="off" value="" placeholder="库位">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="card" style="margin-top: -8px;">
                         <div class="card-header border-transparent">
                             <h3 class="card-title">暂存区</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fas fa-minus"></i>
-                                </button>
-                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-0">
