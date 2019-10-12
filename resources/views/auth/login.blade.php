@@ -33,8 +33,8 @@
                     </div>
                     @if ($errors->has('name'))
                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
-                                        </span>
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
                     @endif
                 </div>
 
@@ -48,8 +48,8 @@
 
                     @if ($errors->has('password'))
                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
                     @endif
                 </div>
 
@@ -70,6 +70,7 @@
                     <button type="button" class="btn btn-danger btn-block" onclick="delCookies()">清空</button>
                 </div>
                 <div class="text-center">
+                    <h6>v1.0</h6>
                     <p class="text-muted">技术支持：上海业务模块</p>
                 </div>
             </form>
