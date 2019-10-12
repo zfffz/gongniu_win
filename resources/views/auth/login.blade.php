@@ -14,7 +14,7 @@
 <div id="app" class="{{ route_class() }}-page"></div>
 <div class="login-box">
     <div class="login-logo">
-        <img src="/image/logo.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .8;height:35px;">
+        <img src="/image/logo.png" alt="AdminLTE Logo" class="brand-image" style="height:36px;">
     </div>
 
     <!-- /.login-logo -->
