@@ -11,83 +11,70 @@
 </head>
 
 <body class="hold-transition login-page">
-<div id="app" class="{{ route_class() }}-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="#"><b>BULL</b>公牛</a>
-        </div>
+<div id="app" class="{{ route_class() }}-page"></div>
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#"><b>BULL</b>公牛</a>
+    </div>
 
-        <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
-                <p class="login-box-msg">{{ __('Login') }}</p>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">{{ __('Login') }}</p>
 
-                <form method="POST" action="{{ route('login') }}">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('Name') }}" required autofocus>
-                            <div class="input-group-append">
-                                <div class="input-group-text input-lg">
-                                    <span class="fa fa-user"></span>
-                                </div>
-                            </div>
-                            @if ($errors->has('name'))
-                                <span class="invalid-feedback" role="alert">
+            <form method="POST" action="{{ route('login') }}">
+                {{ csrf_field() }}
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" placeholder="{{ __('Name') }}" required autofocus>
+                    <div class="input-group-append">
+                        <div class="input-group-text input-lg">
+                            <span class="fa fa-user"></span>
+                        </div>
+                    </div>
+                    @if ($errors->has('name'))
+                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
-                            @endif
+                    @endif
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder="{{ __('Password') }}" required autofocus>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" id="password" placeholder="{{ __('Password') }}" required autofocus>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-
-                            @if ($errors->has('password'))
-                                <span class="invalid-feedback" role="alert">
+                    @if ($errors->has('password'))
+                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
-                            @endif
-                        </div>
-                    </div>
+                    @endif
+                </div>
 
-                    <div class="form-group">
-                        <div class="input-group mb-3 float-right">
-                            <div class="icheck-primary float-right">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    {{ __('Remember Me') }}
-                                </label>
-                            </div>
-                        </div>
+                <div class="input-group mb-3 float-right">
+                    <div class="icheck-primary float-right">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">
+                            {{ __('Remember Me') }}
+                        </label>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <button id="login" type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
-                        </div>
-                    </div>
+                <div class="input-group mb-3">
+                    <button id="login" type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
+                </div>
 
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <button type="button" class="btn btn-danger btn-block" onclick="delCookies()">清空</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="text-center">
-                            <p class="text-muted">技术支持：上海业务模块</p>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- /.login-card-body -->
+                <div class="input-group mb-3">
+                    <button type="button" class="btn btn-danger btn-block" onclick="delCookies()">清空</button>
+                </div>
+                <div class="text-center">
+                    <p class="text-muted">技术支持：上海业务模块</p>
+                </div>
+            </form>
         </div>
+        <!-- /.login-card-body -->
     </div>
 </div>
 
