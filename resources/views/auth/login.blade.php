@@ -14,14 +14,13 @@
 <div id="app" class="{{ route_class() }}-page"></div>
 
 <div class="login-box">
-    <div class="login-logo">
-        <a href="javascript:void(0);"><strong><img src="/image/logo.png" class="brand-image" style="height:34px;" ></strong></a>
-    </div>
 
     <!-- /.login-logo -->
     <div class="card">
+        <div class="card-header text-center" style="border-bottom: none">
+            <img src="/image/logo.png" class="brand-image" style="height:40px;margin-top:20px;" >
+        </div>
         <div class="card-body login-card-body">
-            <p class="login-box-msg">{{ __('Login') }}</p>
 
             <form method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
