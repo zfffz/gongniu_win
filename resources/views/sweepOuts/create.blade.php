@@ -36,7 +36,7 @@
                     <!-- Block buttons -->
                     <div class="card" style="margin-top: -19px;">
                         <div class="card-header">
-                            <h3 class="card-title text-center">扫码上车</h3>
+                            <h3 class="card-title text-center">打包出库</h3>
                         </div>
                         <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
                             <div class="form-group">
