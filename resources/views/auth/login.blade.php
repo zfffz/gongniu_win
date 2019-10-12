@@ -18,7 +18,7 @@
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-header text-center" style="border-bottom: none">
-            <img src="/image/logo.png" class="brand-image" style="height:40px;margin-top:20px;" >
+            <img src="/image/logo.png" class="brand-image" style="height:40px;margin-top:15px;" >
         </div>
         <div class="card-body login-card-body">
 
