@@ -17,8 +17,8 @@
       <file leaf-file-name="login.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="74" lean-forward="false" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
+            <state relative-caret-position="285">
+              <caret line="16" column="93" lean-forward="false" selection-start-line="16" selection-start-column="93" selection-end-line="16" selection-end-column="93" />
               <folding />
             </state>
           </provider>
@@ -38,8 +38,10 @@
         <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
-              <caret line="8" column="67" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="8" selection-end-column="67" />
-              <folding />
+              <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="65" />
+              <folding>
+                <element signature="e#219#272#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -295,12 +297,12 @@
       <workItem from="1570598344810" duration="14269000" />
       <workItem from="1570677077519" duration="13538000" />
       <workItem from="1570756573844" duration="6550000" />
-      <workItem from="1570842708833" duration="9480000" />
+      <workItem from="1570842708833" duration="10539000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="396937000" />
+    <option name="totallyTimeSpent" value="397996000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="19" width="1382" height="744" extended-state="0" />
@@ -640,7 +642,7 @@
         <state relative-caret-position="423">
           <caret line="303" column="21" lean-forward="true" selection-start-line="303" selection-start-column="21" selection-end-line="303" selection-end-column="21" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -674,8 +676,8 @@
         <state relative-caret-position="190">
           <caret line="63" column="44" lean-forward="true" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
           <folding>
-            <element signature="e#1183#1209#0#HTML" expanded="true" />
-            <element signature="e#1412#1486#0#HTML" expanded="true" />
+            <element signature="e#1183#1209#0#HTML" expanded="false" />
+            <element signature="e#1412#1486#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -688,14 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="67" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="8" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/sass/app.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
@@ -704,10 +698,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/sweepOuts/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="65" />
+          <folding>
+            <element signature="e#219#272#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="74" lean-forward="false" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
+        <state relative-caret-position="285">
+          <caret line="16" column="93" lean-forward="false" selection-start-line="16" selection-start-column="93" selection-end-line="16" selection-end-column="93" />
           <folding />
         </state>
       </provider>
