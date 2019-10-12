@@ -12,9 +12,10 @@
 
 <body class="hold-transition login-page">
 <div id="app" class="{{ route_class() }}-page"></div>
+
 <div class="login-box">
     <div class="login-logo">
-        <img src="/image/logo.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .8;height:34px;">
+        <a href="javascript:void(0);"><strong><img src="/image/logo.png" class="brand-image" style="height:34px;" ></strong></a>
     </div>
 
     <!-- /.login-logo -->
