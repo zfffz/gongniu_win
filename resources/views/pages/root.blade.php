@@ -34,7 +34,7 @@
 @section('content')
     <div class="content">
         <div class="container" style="margin:0px;padding:0px;max-width:2000px">
-            <div class="card">
+            <div class="card" style="box-shadow:none;">
                 <div class="card-header">
                     <h3 class="card-title text-center">工作台</h3>
                 </div>
