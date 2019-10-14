@@ -35,52 +35,42 @@
 
 @section('content')
     <div class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Block buttons -->
-                    <div class="card" style="margin-top: -15px;">
-                        <div class="card-header">
-                            <h3 class="card-title text-center">扫码上车</h3>
-                        </div>
-                        <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
-                                <input type="hidden" name="location_no_default" id="location_no_default" value="">
-                            </div>
-                        </div>
-                        <div class="card-header border-transparent">
-                            <h3 class="card-title">暂存区</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table m-0" id="dispatch_table">
-                                    <thead>
-                                    <tr>
-                                        <th>发货单号</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="table_body">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <button onclick="deleteTable()" class="btn btn-danger float-left">清空</button>
-                            <button onclick="batchSave()" class="btn btn-primary float-right">上传</button>
-                        </div>
-                        <!-- /.card-footer -->
-                    </div>
-
-                    <div class="card">
-
-                    </div>
-
+        <div class="container" style="margin:0px;padding:0px;max-width:2000px">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-center">扫码上车</h3>
                 </div>
+                <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
+                        <input type="hidden" name="location_no_default" id="location_no_default" value="">
+                    </div>
+                </div>
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">暂存区</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table m-0" id="dispatch_table">
+                            <thead>
+                            <tr>
+                                <th>发货单号</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table_body">
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer clearfix">
+                    <button onclick="deleteTable()" class="btn btn-danger float-left">清空</button>
+                    <button onclick="batchSave()" class="btn btn-primary float-right">上传</button>
+                </div>
+                <!-- /.card-footer -->
             </div>
 
         </div>

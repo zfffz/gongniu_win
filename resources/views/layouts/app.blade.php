@@ -15,11 +15,6 @@
         @include('layouts._header')
 
         <div class="content-wrapper">
-            <div class="content-header">
-                <div class="container">
-                    @yield('content_header')
-                </div>
-            </div>
 
             <div>
                 @yield('content')

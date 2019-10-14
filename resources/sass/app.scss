@@ -35,6 +35,16 @@
   display: inline-block;
 }
 
+.nav-link .user-image-sm {
+  float: left;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: .25em;
+  margin-top: -1px;
+  display: inline-block;
+}
+
 .form-horizontal .control-label {
   padding-top: 7px;
   margin-bottom: 0;
