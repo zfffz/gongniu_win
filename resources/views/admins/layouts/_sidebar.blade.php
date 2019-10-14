@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4 text-sm">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
         <img src="/favicon.ico" class="brand-image img-circle elevation-3"
@@ -8,7 +8,7 @@
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar text-sm">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
@@ -24,7 +24,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{route('root')}}" class="nav-link">
-                        <i class="fa fa-home"></i>
+                        <i class="nav-icon fa fa-home"></i>
                         <p>
                             首页
                         </p>
@@ -67,7 +67,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
@@ -91,7 +91,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-line"></i>
                         <p>

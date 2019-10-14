@@ -69,7 +69,7 @@
                 <div class="input-group mb-3">
                     <button type="button" class="btn btn-danger btn-block" onclick="delCookies()">清空</button>
                 </div>
-                <div class="text-center">
+                <div class="text-center" style="margin-top: -10px;">
                     <h6>v1.0</h6>
                     <p class="text-muted">技术支持：上海业务模块</p>
                 </div>
