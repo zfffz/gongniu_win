@@ -14,7 +14,7 @@
     <div class="wrapper">
         @include('layouts._header')
 
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="margin-bottom:0px;">
 
             <div>
                 @yield('content')
