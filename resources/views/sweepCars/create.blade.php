@@ -158,10 +158,9 @@
                 cancelButtonText: '取消',
                 showLoaderOnConfirm:true,
                 preConfirm:function(t){
-                    alert(concat(t));
                     return fetch("checkPass?password=".concat(t)).then(
                         function(t){
-                            if(!t.ok)throw new Error(t.statusText);
+                            //if(!t.ok)throw new Error(t.statusText);
                             return t.json()
                         }).catch(function(t){
                         Swal.showValidationMessage("Request failed: ".concat(t))
