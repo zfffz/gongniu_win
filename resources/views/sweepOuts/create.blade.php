@@ -346,159 +346,159 @@
             $('#dispatch_no').keydown(function(event) {
                 if(event.keyCode == 13){
                     var dispatch_no = $(this).val();
-                    if(dispatch_no.length >= 12){
-                        //判断发货单号是否重复录入
-                        var result = checkRow(dispatch_no);
-                        if(!result){
-                            return false;
-                        }
-
-
-                        //判断发货单号合法性，同时获取该单号的默认库位
-                        $.ajax({
-                            url:'dispatch_data?dispatch_no='+dispatch_no,
-                            type:'get',
-                            dataType:'json',
-                            headers:{
-                                Accept:"application/json",
-                                "Content-Type":"application/json"
-                            },
-                            processData:false,
-                            cache:false,
-                            timeout: 1000,
-                            beforeSend:function(){
-
-                            },
-                            success:function(data){
-                                if(data.length==0){
-                                    $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                                    $('#notifyAudio')[0].play();
-                                    //发货单号红框提示,toast提示
-                                    $("#dispatch_no").addClass("is-invalid");
-                                    Toast.fire({
-                                        type: 'error',
-                                        title: '发货单号非法或不存在！'
-                                    });
-                                    //清空发货单号
-                                    $('#dispatch_no').val('');
-                                }else{
-                                    //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
-                                    $("#dispatch_no").removeClass("is-invalid");
-                                    $("#dispatch_no").addClass("is-valid");
-
-                                    $('#location_no_default').val(data[0].no);
-                                    //焦点跳转到库位
-                                    $('#location_no').focus();
-                                }
-
-                            },
-                            error:function(){
-                                alert("error");
-                            }
-                        });
-                    }else{
-
+                    //判断发货单号是否重复录入
+                    var result = checkRow(dispatch_no);
+                    if(!result){
+                        return false;
                     }
+
+
+                    //判断发货单号合法性，同时获取该单号的默认库位
+                    $.ajax({
+                        url:'dispatch_data?dispatch_no='+dispatch_no,
+                        type:'get',
+                        dataType:'json',
+                        headers:{
+                            Accept:"application/json",
+                            "Content-Type":"application/json"
+                        },
+                        processData:false,
+                        cache:false,
+                        timeout: 1000,
+                        beforeSend:function(){
+
+                        },
+                        success:function(data){
+                            if(data.length==0){
+                                $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                                $('#notifyAudio')[0].play();
+                                //发货单号红框提示,toast提示
+                                $("#dispatch_no").addClass("is-invalid");
+                                Toast.fire({
+                                    type: 'error',
+                                    title: '发货单号非法或不存在！'
+                                });
+                                //清空发货单号
+                                $('#dispatch_no').val('');
+                            }else{
+                                //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+                                $("#dispatch_no").removeClass("is-invalid");
+                                $("#dispatch_no").addClass("is-valid");
+
+                                $('#location_no_default').val(data[0].no);
+                                //焦点跳转到库位
+                                $('#location_no').focus();
+                            }
+
+                        },
+                        error:function(){
+                            alert("error");
+                        }
+                    });
                 }
 
             });
 
             $('#location_no').keydown(function(event) {
-                var location_no = $(this).val();
-                //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
-                if( $('#dispatch_no').val()==''){
-                    $("#dispatch_no").addClass("is-invalid");
-                    $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                    $('#notifyAudio')[0].play();
-                    Toast.fire({
-                        type: 'error',
-                        title: '请先扫发货单号！'
-                    });
-                    $('#location_no').val('');
-                    $('#dispatch_no').focus();
-                    return false;
-                }
-
-                //如果库位为空,直接报错提示
-                if( $('#location_no').val()==''){
-                    $("#location_no").addClass("is-invalid");
-                    $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                    $('#notifyAudio')[0].play();
-                    Toast.fire({
-                        type: 'error',
-                        title: '请扫库位号！'
-                    });
-                    $('#location_no').focus();
-                    return false;
-                }
-
-                // 判断库位是否合法
-                $.ajax({
-                    url:'location_data?location_no='+location_no,
-                    type:'get',
-                    dataType:'json',
-                    headers:{
-                        Accept:"application/json",
-                        "Content-Type":"application/json"
-                    },
-                    processData:false,
-                    cache:false,
-                    timeout: 1000,
-                    beforeSend:function(){
-
-                    },
-                    success:function(data){
-                        if(data.length==0){
-                            $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                            $('#notifyAudio')[0].play();
-                            //发货单号红框提示,toast提示
-                            $("#location_no").addClass("is-invalid");
-                            Toast.fire({
-                                type: 'error',
-                                title: '库位非法或不存在！'
-                            });
-                            //清空发货单号
-                            $('#location_no').val('');
-                            return false;
-                        }else{
-                            //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
-                            $("#location_no").removeClass("is-invalid");
-                            $("#location_no").addClass("is-valid");
-
-                            //判断库位是否等于默认库位
-                            //如果不等于，弹窗提示
-                            if(location_no != $('#location_no_default').val()){
-                                Swal.fire({
-                                    title: '非默认库位，确定添加吗?',
-                                    text: "默认库位"+$('#location_no_default').val(),
-                                    type: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: '确定',
-                                    cancelButtonText: '取消',
-                                    focusConfirm: false,
-                                    allowEnterKey:false
-                                }).then(
-                                    function(n){
-                                        if(n.value){
-                                            addRow('text-danger');
-                                        }else{
-                                            $('#location_no').val('');
-                                        }
-                                    })
-                            }else{
-                                $("#location_no").removeClass("is-invalid");
-                                addRow('text-success');
-                            }
-                        }
-
-                    },
-                    error:function(){
-                        alert("error");
+                if(event.keyCode == 13){
+                    var location_no = $(this).val();
+                    //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
+                    if( $('#dispatch_no').val()==''){
+                        $("#dispatch_no").addClass("is-invalid");
+                        $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                        $('#notifyAudio')[0].play();
+                        Toast.fire({
+                            type: 'error',
+                            title: '请先扫发货单号！'
+                        });
+                        $('#location_no').val('');
+                        $('#dispatch_no').focus();
                         return false;
                     }
-                });
+
+                    //如果库位为空,直接报错提示
+                    if( $('#location_no').val()==''){
+                        $("#location_no").addClass("is-invalid");
+                        $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                        $('#notifyAudio')[0].play();
+                        Toast.fire({
+                            type: 'error',
+                            title: '请扫库位号！'
+                        });
+                        $('#location_no').focus();
+                        return false;
+                    }
+
+                    // 判断库位是否合法
+                    $.ajax({
+                        url:'location_data?location_no='+location_no,
+                        type:'get',
+                        dataType:'json',
+                        headers:{
+                            Accept:"application/json",
+                            "Content-Type":"application/json"
+                        },
+                        processData:false,
+                        cache:false,
+                        timeout: 1000,
+                        beforeSend:function(){
+
+                        },
+                        success:function(data){
+                            if(data.length==0){
+                                $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                                $('#notifyAudio')[0].play();
+                                //发货单号红框提示,toast提示
+                                $("#location_no").addClass("is-invalid");
+                                Toast.fire({
+                                    type: 'error',
+                                    title: '库位非法或不存在！'
+                                });
+                                //清空发货单号
+                                $('#location_no').val('');
+                                return false;
+                            }else{
+                                //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+                                $("#location_no").removeClass("is-invalid");
+                                $("#location_no").addClass("is-valid");
+
+                                //判断库位是否等于默认库位
+                                //如果不等于，弹窗提示
+                                if(location_no != $('#location_no_default').val()){
+                                    Swal.fire({
+                                        title: '非默认库位，确定添加吗?',
+                                        text: "默认库位"+$('#location_no_default').val(),
+                                        type: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: '确定',
+                                        cancelButtonText: '取消',
+                                        focusConfirm: false,
+                                        allowEnterKey:false
+                                    }).then(
+                                        function(n){
+                                            if(n.value){
+                                                addRow('text-danger');
+                                            }else{
+                                                $('#location_no').val('');
+                                            }
+                                        })
+                                }else{
+                                    $("#location_no").removeClass("is-invalid");
+                                    addRow('text-success');
+                                }
+                            }
+
+                        },
+                        error:function(){
+                            alert("error");
+                            return false;
+                        }
+                    });
+
+
+                }
             });
         })
     </script>
