@@ -4,7 +4,6 @@
     <list default="true" id="27539095-6813-4977-a3dc-a7979819041e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/SweepCarsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/SweepCarsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/sweepCars/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/sweepCars/create.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,7 +28,7 @@
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SweepCarsController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="197">
-              <caret line="142" column="40" lean-forward="true" selection-start-line="142" selection-start-column="40" selection-end-line="142" selection-end-column="40" />
+              <caret line="142" column="19" lean-forward="true" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -304,12 +303,12 @@
       <workItem from="1571016915670" duration="3067000" />
       <workItem from="1571032910553" duration="7537000" />
       <workItem from="1571194768156" duration="921000" />
-      <workItem from="1571209957441" duration="9398000" />
+      <workItem from="1571209957441" duration="9803000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="421977000" />
+    <option name="totallyTimeSpent" value="422382000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -693,7 +692,7 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SweepCarsController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
-          <caret line="142" column="40" lean-forward="true" selection-start-line="142" selection-start-column="40" selection-end-line="142" selection-end-column="40" />
+          <caret line="142" column="19" lean-forward="true" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
           <folding />
         </state>
       </provider>

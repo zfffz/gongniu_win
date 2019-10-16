@@ -140,7 +140,7 @@ class SweepCarsController extends CommonsController
         if($password == '123456'){
             echo '[{"status":"success"}]';
         }else{
-            echo '[{"status":"error"}]';
+            echo 1;
         }
 
     }
