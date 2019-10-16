@@ -176,4 +176,15 @@ class SweepOutsController extends CommonsController
         }
         return $table;
     }
+
+    public function location_data(Request $request){
+        // 获取默认库位编码
+        $location_no = $request->location_no;
+        $data = DB:: table('zzz_storage_locations as t1')
+            ->select('t1.no')
+            ->where('t1.no','=',$location_no)->get();
+
+        echo json_encode($data);
+
+    }
 }

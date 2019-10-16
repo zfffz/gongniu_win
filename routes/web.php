@@ -11,6 +11,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     // 打包出库
     Route::get('sweepOut/dispatch_data', 'SweepOutsController@dispatch_data')->name('sweepOut.dispatch_data');
+    Route::get('sweepOut/location_data', 'SweepOutsController@location_data')->name('sweepOut.location_data');
     Route::post('sweepOut/getData', 'SweepOutsController@getData')->name('sweepOut.getData');
     Route::resource('sweepOut', 'SweepOutsController', ['only' => [ 'index', 'create', 'store','index','destroy','show']]);
 
