@@ -149,7 +149,7 @@
                 inputAttributes:{
                     autocapitalize:"off"
                 },
-                showCancelButton: true,
+                showCancelButton:!0,
                 focusConfirm: false,
                 allowEnterKey:false,
                 confirmButtonColor: '#3085d6',
@@ -163,7 +163,7 @@
                             if(!t.ok)throw new Error(t.statusText);
                             return t.json()
                         }).catch(function(t){
-                        Swal.showValidationMessage("Request failed1: ".concat(t))
+                        Swal.showValidationMessage("Request failed: ".concat(t))
                     })
                 },
                 allowOutsideClick:function(){
