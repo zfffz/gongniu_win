@@ -163,7 +163,7 @@
                             if(!t.ok)throw new Error(t.statusText);
                             return t.json()
                         }).catch(function(t){
-                        Swal.showValidationMessage("Request failed: ".concat(t))
+                        Swal.showValidationMessage("Request failed1: ".concat(t))
                     })
                 },
                 allowOutsideClick:function(){
