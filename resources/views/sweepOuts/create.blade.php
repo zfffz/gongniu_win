@@ -460,7 +460,6 @@
                             }else{
                                 //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
                                 $("#location_no").removeClass("is-invalid");
-                                $("#location_no").addClass("is-valid");
 
                                 //判断库位是否等于默认库位
                                 //如果不等于，弹窗提示
