@@ -160,7 +160,7 @@
                 preConfirm:function(t){
                     return fetch("checkPass?password=".concat(t)).then(
                         function(t){
-                            //if(!t.ok)throw new Error(t.statusText);
+                            if(!t.ok)throw new Error(t.statusText);
                             return t.json()
                         }).catch(function(t){
                         Swal.showValidationMessage("Request failed: ".concat(t))
