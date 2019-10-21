@@ -158,6 +158,7 @@
                 cancelButtonText: '取消',
                 showLoaderOnConfirm:true,
                 preConfirm:function(t){
+                    alert(1);
                     return fetch("checkPass?password=".concat(t)).then(
                         (
                             function(t){
