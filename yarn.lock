@@ -869,10 +869,10 @@ adjust-sourcemap-loader@^1.1.0:
     object-path "^0.9.2"
     regex-parser "^2.2.9"
 
-admin-lte@3.0.0-rc.4:
-  version "3.0.0-rc.4"
-  resolved "https://registry.npm.taobao.org/admin-lte/download/admin-lte-3.0.0-rc.4.tgz#9bd3fc8bfebca17f6143d8bba94d06908ec31e6b"
-  integrity sha1-m9P8i/68oX9hQ9i7qU0GkI7DHms=
+admin-lte@3.0.0-rc.5:
+  version "3.0.0-rc.5"
+  resolved "https://registry.npm.taobao.org/admin-lte/download/admin-lte-3.0.0-rc.5.tgz#c846c2c049d709815b16a4205c4f3115a3fd69fb"
+  integrity sha1-yEbCwEnXCYFbFqQgXE8xFaP9afs=
   dependencies:
     "@fortawesome/fontawesome-free" "^5.11.1"
     "@fullcalendar/bootstrap" "^4.3.0"
@@ -917,6 +917,7 @@ admin-lte@3.0.0-rc.4:
     jquery-mapael "^2.2.0"
     jquery-mousewheel "^3.1.13"
     jquery-ui-dist "^1.12.1"
+    jquery-validation "^1.19.1"
     jqvmap-novulnerability "^1.5.1"
     jsgrid "^1.5.3"
     jszip "^3.2.2"
@@ -4011,6 +4012,11 @@ jquery-ui-dist@^1.12.1:
   version "1.12.1"
   resolved "https://registry.npm.taobao.org/jquery-ui-dist/download/jquery-ui-dist-1.12.1.tgz#5c0815d3cc6f90ff5faaf5b268a6e23b4ca904fa"
   integrity sha1-XAgV08xvkP9fqvWyaKbiO0ypBPo=
+
+jquery-validation@^1.19.1:
+  version "1.19.1"
+  resolved "https://registry.npm.taobao.org/jquery-validation/download/jquery-validation-1.19.1.tgz#a85043467dc2b70d9fff05778646d150e747742f"
+  integrity sha1-qFBDRn3Ctw2f/wV3hkbRUOdHdC8=
 
 jquery@>=1.10, jquery@>=1.12.0, jquery@>=1.7, jquery@>=1.8, jquery@>=2.1.0, jquery@^3.0, "jquery@^3.0 || ^2.0 || ^1.0", jquery@^3.2, jquery@^3.4.0, jquery@^3.4.1:
   version "3.4.1"
