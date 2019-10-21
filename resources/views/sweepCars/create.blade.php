@@ -161,6 +161,7 @@
                     return fetch("checkPass?password=".concat(t)).then(
                         (
                             function(t){
+                                alert(t.ok);
                                 if(!t.ok)throw new Error(t.statusText);
                                 return t.json()
                             }
