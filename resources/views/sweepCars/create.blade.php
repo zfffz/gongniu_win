@@ -180,7 +180,7 @@
                 (
                     function(n){
                         console.log(n);
-                        if(n.value.status == 'success'){
+                        if(n.value.type == 'success'){
                             var tr=obj.parentNode.parentNode;
 
                             var tbody=tr.parentNode;
