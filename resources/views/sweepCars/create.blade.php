@@ -159,44 +159,33 @@
                 showLoaderOnConfirm:true,
                 preConfirm:function(t){
                     return fetch("checkPass?password=".concat(t)).then(
-                        (
-                            function(t){
-                                if(!t.ok)throw new Error(t.statusText);
-                                return t.json();
-                            }
-                        )
-                    ).catch(
-                        (
-                            function(t){
-                                Swal.showValidationMessage("Request failed: ".concat(t))
-                            }
-                        )
-                    )
+                        function(t){
+                            if(!t.ok)throw new Error(t.statusText);
+                            return t.json()
+                        }).catch(function(t){
+                        Swal.showValidationMessage("Request failed: ".concat(t))
+                    })
                 },
                 allowOutsideClick:function(){
                     return!Swal.isLoading()
                 }
             }).then(
-                (
-                    function(n){
-                        console.log(n);
-                        if(n.value.type == 'success'){
-                            var tr=obj.parentNode.parentNode;
+                function(n){
+                    if(n.value.status == 'success'){
+                        var tr=obj.parentNode.parentNode;
 
-                            var tbody=tr.parentNode;
-                            tbody.removeChild(tr);
-                            $("#dispatch_no").focus();
-                        }else{
-                            $('#notifyAudio')[0].play();
-                            Toast.fire({
-                                type: 'error',
-                                title: '口令错误！'
-                            });
-                            $("#dispatch_no").focus();
-                        }
+                        var tbody=tr.parentNode;
+                        tbody.removeChild(tr);
+                        $("#dispatch_no").focus();
+                    }else{
+                        $('#notifyAudio')[0].play();
+                        Toast.fire({
+                            type: 'error',
+                            title: '口令错误！'
+                        });
+                        $("#dispatch_no").focus();
                     }
-                )
-            )
+                })
         }
 
         function deleteTable() {

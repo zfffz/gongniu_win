@@ -138,9 +138,9 @@ class SweepCarsController extends CommonsController
     public function checkPass(Request $request){
         $password = $request->password;
         if($password == '123456'){
-            echo json_encode(array('type'=>'success'));
+            echo '{"status":"success"}';
         }else{
-            echo json_encode(array('type'=>'error'));
+            echo json_encode(array('status'=>'error'));
         }
 
     }
