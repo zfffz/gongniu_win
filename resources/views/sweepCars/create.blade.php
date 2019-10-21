@@ -164,7 +164,7 @@
                             function(t){
                                 alert(t.ok);
                                 if(!t.ok)throw new Error(t.statusText);
-                                return t.json()
+                                return t
                             }
                         )
                     ).catch(
