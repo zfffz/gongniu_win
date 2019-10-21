@@ -158,13 +158,11 @@
                 cancelButtonText: '取消',
                 showLoaderOnConfirm:true,
                 preConfirm:function(t){
-                    alert(1);
                     return fetch("checkPass?password=".concat(t)).then(
                         (
                             function(t){
-                                alert(t.ok);
                                 if(!t.ok)throw new Error(t.statusText);
-                                return t
+                                return t.json();
                             }
                         )
                     ).catch(
@@ -181,6 +179,7 @@
             }).then(
                 (
                     function(n){
+                        console.log(n);
                         if(n.value.status == 'success'){
                             var tr=obj.parentNode.parentNode;
 
