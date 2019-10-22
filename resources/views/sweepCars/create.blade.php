@@ -145,7 +145,7 @@
             $('#dispatch_no').blur();
             Swal.fire({
                 title:"请输入口令",
-                input:"text",
+                input:"password",
                 inputAttributes:{
                     autocapitalize:"off"
                 },
@@ -204,16 +204,14 @@
         function deleteTable() {
             $('#dispatch_no').blur();
             var trList = $("#table_body").children("tr");
-
             var length = trList.length;
-
             if(length == 0){
                 return false;
             }
 
             Swal.fire({
                 title:"请输入口令",
-                input:"text",
+                input:"password",
                 inputAttributes:{
                     autocapitalize:"off"
                 },
@@ -225,31 +223,41 @@
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 showLoaderOnConfirm:true,
-                preConfirm:function(t){
-                    return fetch("checkPass?password=".concat(t)).then(
-                        function(t){
-                            if(!t.ok)throw new Error(t.statusText);
-                            return t.json()
-                        }).catch(function(t){
-                        Swal.showValidationMessage("Request failed: ".concat(t))
-                    })
-                },
                 allowOutsideClick:function(){
                     return!Swal.isLoading()
                 }
             }).then(
                 function(n){
-                    if(n.value.status == 'success'){
-                        $('#dispatch_table tbody').html('');
-                        $("#dispatch_no").focus();
-                    }else{
-                        $('#notifyAudio')[0].play();
-                        Toast.fire({
-                            type: 'error',
-                            title: '口令错误！'
-                        });
-                        $("#dispatch_no").focus();
-                    }
+                    $.ajax({
+                        url:"checkPass?password="+n.value,
+                        type:'get',
+                        dataType:'json',
+                        headers:{
+                            Accept:"application/json",
+                            "Content-Type":"application/json"
+                        },
+                        processData:false,
+                        cache:false,
+                        timeout: 1000,
+                        beforeSend: function() {
+                        },
+                        success:function(t){
+                            if(t.status == 'success'){
+                                $('#dispatch_table tbody').html('');
+                                $("#dispatch_no").focus();
+                            }else{
+                                $('#notifyAudio')[0].play();
+                                Toast.fire({
+                                    type: 'error',
+                                    title: '口令错误！'
+                                });
+                                $("#dispatch_no").focus();
+                            }
+                        },
+                        error: function() {
+                            Swal.showValidationMessage("Request failed: ".concat(t))
+                        }
+                    });
                 })
         }
 
