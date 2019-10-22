@@ -369,14 +369,14 @@
 
                         },
                         success:function(data){
-                            if(data.length==0){
+                            if(data.status==0){
                                 $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
                                 $('#notifyAudio')[0].play();
                                 //发货单号红框提示,toast提示
                                 $("#dispatch_no").addClass("is-invalid");
                                 Toast.fire({
                                     type: 'error',
-                                    title: '发货单号非法或不存在！'
+                                    title: data.text
                                 });
                                 //清空发货单号
                                 $('#dispatch_no').val('');
@@ -385,7 +385,7 @@
                                 $("#dispatch_no").removeClass("is-invalid");
                                 $("#dispatch_no").addClass("is-valid");
 
-                                $('#location_no_default').val(data[0].no);
+                                $('#location_no_default').val(data.no);
                                 //焦点跳转到库位
                                 $('#location_no').focus();
                             }

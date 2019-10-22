@@ -140,15 +140,38 @@ class SweepOutsController extends CommonsController
     }
 
     public function dispatch_data(Request $request){
-        // 获取默认库位编码
         $dispatch_no = $request->dispatch_no;
+        // 1.判断发货单号是否合法
+        $data = DB:: table('dispatchlist as t1')
+            ->select('t1.cDLCode')
+            ->where('t1.cDLCode','=',$dispatch_no)->get();
+
+        if(count($data) == 0){
+            echo json_encode(array("status"=>"0","text"=>"发货单号系统不存在！"));
+            exit();
+        }else{
+            // 判断发货单号是否已经打包，避免重复打包
+            $jg = Sweep_out_item::where('dispatch_no','=',$dispatch_no)->get();
+
+            if(count($jg)>0){
+                echo json_encode(array('status'=>0,'text'=>'发货单号'.$jg[0]->dispatch_no.'，已经打包，不允许重复录入！'));
+                exit();
+            }
+        }
+
+        // 获取默认库位编码
         $data = DB:: table('dispatchlist as t1')
             ->select('t1.cDLCode','t1.cCusCode','t3.no')
             ->leftJoin('zzz_customer_locations as t2','t1.cCusCode','=','t2.customer_no')
             ->leftJoin('zzz_storage_locations as t3','t2.location_id','=','t3.id')
             ->where('t1.cDLCode','=',$dispatch_no)->get();
 
-        echo json_encode($data);
+       if($data[0]->no ==''){
+           echo json_encode(array('status'=>0,'text'=>'默认库位未维护，请联系管理员！'));
+           exit();
+       }else{
+           echo json_encode(array('status'=>1,'no'=>$data[0]->no));
+       }
 
     }
 
