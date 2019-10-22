@@ -158,34 +158,24 @@
                 cancelButtonText: '取消',
                 showLoaderOnConfirm:true,
                 preConfirm:function(t){
-                    return fetch("checkPass?password=".concat(t)).then(
-                        function(t){
-                            if(!t.ok)throw new Error(t.statusText);
-                            return t.json()
-                        }).catch(function(t){
-                        Swal.showValidationMessage("Request failed: ".concat(t))
-                    })
-                },
+                    return fetch("//api.github.com/users/".concat(t)).then(
+                        (function(t){
+                                if(!t.ok)throw new Error(t.statusText);
+                                return t.json()}
+                        )
+                    ).catch(
+                        (function(t){
+                            Swal.showValidationMessage("Request failed: ".concat(t))
+                        })
+                    )},
                 allowOutsideClick:function(){
                     return!Swal.isLoading()
                 }
             }).then(
-                function(n){
-                    if(n.value.status == 'success'){
-                        var tr=obj.parentNode.parentNode;
-
-                        var tbody=tr.parentNode;
-                        tbody.removeChild(tr);
-                        $("#dispatch_no").focus();
-                    }else{
-                        $('#notifyAudio')[0].play();
-                        Toast.fire({
-                            type: 'error',
-                            title: '口令错误！'
-                        });
-                        $("#dispatch_no").focus();
-                    }
+                (function(t){
+                    t.value&&Swal.fire({title:"".concat(t.value.login,"'s avatar"),imageUrl:t.value.avatar_url})
                 })
+            )
         }
 
         function deleteTable() {

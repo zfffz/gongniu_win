@@ -25,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SweepCarsController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SweepCarsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SweepCarsController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
-              <caret line="140" column="84" lean-forward="true" selection-start-line="140" selection-start-column="84" selection-end-line="140" selection-end-column="84" />
+              <caret line="140" column="55" lean-forward="false" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -55,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/sweepCars/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3268">
-              <caret line="172" column="28" lean-forward="false" selection-start-line="172" selection-start-column="28" selection-end-line="172" selection-end-column="28" />
+            <state relative-caret-position="285">
+              <caret line="177" column="13" lean-forward="false" selection-start-line="177" selection-start-column="13" selection-end-line="177" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -68,8 +68,8 @@
       <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Desktop/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="11" column="59" lean-forward="true" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
+            <state relative-caret-position="437">
+              <caret line="26" column="5" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="26" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -169,8 +169,8 @@
         <option value="$PROJECT_DIR$/resources/sass/app.scss" />
         <option value="$PROJECT_DIR$/resources/js/app.js" />
         <option value="$USER_HOME$/Desktop/test.js" />
-        <option value="$PROJECT_DIR$/resources/views/sweepCars/create.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/SweepCarsController.php" />
+        <option value="$PROJECT_DIR$/resources/views/sweepCars/create.blade.php" />
       </list>
     </option>
   </component>
@@ -321,12 +321,12 @@
       <workItem from="1571224692131" duration="2277000" />
       <workItem from="1571274413712" duration="5426000" />
       <workItem from="1571623733981" duration="12285000" />
-      <workItem from="1571723454254" duration="762000" />
+      <workItem from="1571723454254" duration="1382000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="444826000" />
+    <option name="totallyTimeSpent" value="445446000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -615,6 +615,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
           <caret line="477" column="44" lean-forward="true" selection-start-line="477" selection-start-column="44" selection-end-line="477" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -698,26 +699,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/sweepCars/create.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SweepCarsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3268">
-          <caret line="172" column="28" lean-forward="false" selection-start-line="172" selection-start-column="28" selection-end-line="172" selection-end-column="28" />
+        <state relative-caret-position="216">
+          <caret line="140" column="55" lean-forward="false" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Desktop/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="11" column="59" lean-forward="true" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
+        <state relative-caret-position="437">
+          <caret line="26" column="5" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="26" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SweepCarsController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/sweepCars/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="140" column="84" lean-forward="true" selection-start-line="140" selection-start-column="84" selection-end-line="140" selection-end-column="84" />
+        <state relative-caret-position="285">
+          <caret line="177" column="13" lean-forward="false" selection-start-line="177" selection-start-column="13" selection-end-line="177" selection-end-column="13" />
           <folding />
         </state>
       </provider>
