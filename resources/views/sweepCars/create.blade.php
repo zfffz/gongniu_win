@@ -158,31 +158,6 @@
                 cancelButtonText: '取消',
                 showLoaderOnConfirm:true,
                 preConfirm:function(t){
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: 'You will not be able to recover this imaginary file!',
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: 'No, keep it'
-                    }).then((result) => {
-                        if (result.value) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your imaginary file has been deleted.',
-                            'success'
-                        )
-                        // For more information about handling dismissals please visit
-                        // https://sweetalert2.github.io/#handling-dismissals
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.fire(
-                            'Cancelled',
-                            'Your imaginary file is safe :)',
-                            'error'
-                        )
-                    }
-                });
-                    return false;
                     return fetch("checkPass?password=".concat(t)).then(
                         function(t){
                             if(!t.ok)throw new Error(t.statusText);
