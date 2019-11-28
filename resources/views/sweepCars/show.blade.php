@@ -44,7 +44,7 @@
                     <div class="col-sm-3 invoice-col">
                         单据编号
                         <address>
-                            <strong>{{$sweepCar->id}}</strong><br>
+                            <strong>{{$sweepCar->no}}</strong><br>
                         </address>
                     </div>
                     <!-- /.col -->

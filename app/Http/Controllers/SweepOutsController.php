@@ -134,6 +134,16 @@ class SweepOutsController extends CommonsController
      */
     public function destroy(SweepOut $sweepOut)
     {
+        // 删除前先判断一下有没有生成发货装车单
+        if($sweepOut->status ==1){
+            echo json_encode(array('status'=>0,'text'=>'已经部分发货装车，不允许删除！'));
+            exit();
+        }
+        if($sweepOut->status ==2){
+            echo json_encode(array('status'=>0,'text'=>'已经全部发货装车，不允许删除！'));
+            exit();
+        }
+
         $sweepOut->delete();
         // 把之前的 redirect 改成返回空数组
         return [];
@@ -181,6 +191,7 @@ class SweepOutsController extends CommonsController
             ->select(
                 \DB::raw("
             t1.id,
+            t1.no,
             t2.cpersonname as packager_name,
             t1.count,
             t1.created_at

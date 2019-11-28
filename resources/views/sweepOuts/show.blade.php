@@ -44,7 +44,7 @@
                     <div class="col-sm-4 invoice-col">
                         单据编号
                         <address>
-                            <strong>{{$sweepOut->id}}</strong><br>
+                            <strong>{{$sweepOut->no}}</strong><br>
                         </address>
                     </div>
                     <!-- /.col -->
@@ -74,6 +74,7 @@
                                 <th>序号</th>
                                 <th>发货单号</th>
                                 <th>库位</th>
+                                <th>状态</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -82,6 +83,7 @@
                                     <td>{{$sweepOut_item->entry_id}}</td>
                                     <td>{{$sweepOut_item->dispatch_no}}</td>
                                     <td>{{$sweepOut_item->location_no}}</td>
+                                    <td>{{$sweepOut_item->status}}</td>
                                 </tr>
                             @endforeach
 

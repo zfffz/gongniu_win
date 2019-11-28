@@ -25,6 +25,6 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.10.1",
-        "admin-lte": "3.0.0-rc.5"
+        "admin-lte": "3.0.1"
     }
 }

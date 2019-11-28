@@ -586,7 +586,7 @@
   version "5.10.1"
   resolved "https://registry.npm.taobao.org/@fortawesome/fontawesome-free/download/@fortawesome/fontawesome-free-5.10.1.tgz#dec28ee02c3fc51da46d53ce4da9d5787312fbd7"
 
-"@fortawesome/fontawesome-free@^5.11.1":
+"@fortawesome/fontawesome-free@^5.11.2":
   version "5.11.2"
   resolved "https://registry.npm.taobao.org/@fortawesome/fontawesome-free/download/@fortawesome/fontawesome-free-5.11.2.tgz#8644bc25b19475779a7b7c1fc104bc0a794f4465"
   integrity sha1-hkS8JbGUdXeae3wfwQS8CnlPRGU=
@@ -634,15 +634,15 @@
   version "1.1.3"
   resolved "https://registry.npm.taobao.org/@nodelib/fs.stat/download/@nodelib/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
-"@sweetalert2/theme-bootstrap-4@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.npm.taobao.org/@sweetalert2/theme-bootstrap-4/download/@sweetalert2/theme-bootstrap-4-2.1.0.tgz#e409b0d043bc1ed1bd47925c7571949b0cdaa3d0"
-  integrity sha1-5Amw0EO8HtG9R5JcdXGUmwzao9A=
+"@sweetalert2/theme-bootstrap-4@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npm.taobao.org/@sweetalert2/theme-bootstrap-4/download/@sweetalert2/theme-bootstrap-4-2.2.1.tgz#a0e3496f2d5aa2993f8fe1c59dcec0673941cddb"
+  integrity sha1-oONJby1aopk/j+HFnc7AZzlBzds=
 
-"@ttskch/select2-bootstrap4-theme@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.npm.taobao.org/@ttskch/select2-bootstrap4-theme/download/@ttskch/select2-bootstrap4-theme-1.2.3.tgz#499d5362a4432dc2ff574adef4c4e387c0879c25"
-  integrity sha1-SZ1TYqRDLcL/V0re9MTjh8CHnCU=
+"@ttskch/select2-bootstrap4-theme@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.npm.taobao.org/@ttskch/select2-bootstrap4-theme/download/@ttskch/select2-bootstrap4-theme-1.3.2.tgz#c9e17e34fb2cfd9f41b8efe3584165ccbdd96969"
+  integrity sha1-yeF+NPss/Z9BuO/jWEFlzL3ZaWk=
 
 "@types/events@*":
   version "3.0.0"
@@ -869,48 +869,49 @@ adjust-sourcemap-loader@^1.1.0:
     object-path "^0.9.2"
     regex-parser "^2.2.9"
 
-admin-lte@3.0.0-rc.5:
-  version "3.0.0-rc.5"
-  resolved "https://registry.npm.taobao.org/admin-lte/download/admin-lte-3.0.0-rc.5.tgz#c846c2c049d709815b16a4205c4f3115a3fd69fb"
-  integrity sha1-yEbCwEnXCYFbFqQgXE8xFaP9afs=
+admin-lte@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/admin-lte/download/admin-lte-3.0.1.tgz#5d6768330868bdc8f424960f7eabc3f38af7a0f4"
+  integrity sha1-XWdoMwhovcj0JJYPfqvD84r3oPQ=
   dependencies:
-    "@fortawesome/fontawesome-free" "^5.11.1"
+    "@fortawesome/fontawesome-free" "^5.11.2"
     "@fullcalendar/bootstrap" "^4.3.0"
     "@fullcalendar/core" "^4.3.1"
     "@fullcalendar/daygrid" "^4.3.0"
     "@fullcalendar/interaction" "^4.3.0"
     "@fullcalendar/timegrid" "^4.3.0"
     "@lgaitan/pace-progress" "^1.0.7"
-    "@sweetalert2/theme-bootstrap-4" "^2.1.0"
-    "@ttskch/select2-bootstrap4-theme" "^1.2.3"
+    "@sweetalert2/theme-bootstrap-4" "^2.2.1"
+    "@ttskch/select2-bootstrap4-theme" "^1.3.2"
     bootstrap "^4.3.1"
     bootstrap-colorpicker "^3.1.2"
     bootstrap-slider "^10.6.2"
     bootstrap-switch "^3.4.0"
     bootstrap4-duallistbox "^4.0.1"
-    chart.js "^2.8.0"
-    datatables.net "^1.10.19"
-    datatables.net-autofill-bs4 "^2.3.3"
-    datatables.net-bs4 "^1.10.19"
-    datatables.net-buttons-bs4 "^1.5.6"
-    datatables.net-colreorder-bs4 "^1.5.1"
-    datatables.net-fixedcolumns-bs4 "^3.2.6"
-    datatables.net-fixedheader-bs4 "^3.1.5"
-    datatables.net-keytable-bs4 "^2.5.0"
+    bs-custom-file-input "^1.3.2"
+    chart.js "^2.9.2"
+    datatables.net "^1.10.20"
+    datatables.net-autofill-bs4 "^2.3.4"
+    datatables.net-bs4 "^1.10.20"
+    datatables.net-buttons-bs4 "^1.6.1"
+    datatables.net-colreorder-bs4 "^1.5.2"
+    datatables.net-fixedcolumns-bs4 "^3.3.0"
+    datatables.net-fixedheader-bs4 "^3.1.6"
+    datatables.net-keytable-bs4 "^2.5.1"
     datatables.net-responsive-bs4 "^2.2.3"
-    datatables.net-rowgroup-bs4 "^1.1.0"
-    datatables.net-rowreorder-bs4 "^1.2.5"
-    datatables.net-scroller-bs4 "^2.0.0"
-    datatables.net-select-bs4 "^1.3.0"
+    datatables.net-rowgroup-bs4 "^1.1.1"
+    datatables.net-rowreorder-bs4 "^1.2.6"
+    datatables.net-scroller-bs4 "^2.0.1"
+    datatables.net-select-bs4 "^1.3.1"
     daterangepicker "^3.0.5"
     ekko-lightbox "^5.3.0"
     fastclick "^1.0.6"
     filterizr "^2.2.3"
-    flag-icon-css "^3.4.0"
-    flot "^3.2.9"
-    fs-extra "^5.0.0"
+    flag-icon-css "^3.4.5"
+    flot "^3.2.13"
+    fs-extra "^8.1.0"
     icheck-bootstrap "^3.0.1"
-    inputmask "^4.0.8"
+    inputmask "^4.0.9"
     ion-rangeslider "^2.3.0"
     jquery "^3.4.1"
     jquery-knob-chif "^1.2.13"
@@ -922,14 +923,14 @@ admin-lte@3.0.0-rc.5:
     jsgrid "^1.5.3"
     jszip "^3.2.2"
     moment "^2.24.0"
-    overlayscrollbars "^1.9.1"
-    pdfmake "^0.1.59"
-    popper.js "^1.15.0"
+    overlayscrollbars "^1.10.0"
+    pdfmake "^0.1.62"
+    popper.js "^1.16.0"
     raphael "^2.3.0"
-    select2 "^4.0.10"
+    select2 "^4.0.11"
     sparklines "^1.2.0"
     summernote "^0.8.12"
-    sweetalert2 "^8.17.6"
+    sweetalert2 "^8.19.0"
     tempusdominus-bootstrap-4 "^5.1.2"
     toastr "^2.1.4"
 
@@ -1423,6 +1424,11 @@ browserslist@^4.0.0, browserslist@^4.6.0, browserslist@^4.6.3, browserslist@^4.6
     electron-to-chromium "^1.3.191"
     node-releases "^1.1.25"
 
+bs-custom-file-input@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.npm.taobao.org/bs-custom-file-input/download/bs-custom-file-input-1.3.2.tgz#c141c94071cc5e9ac4ea98479a1c204dd18e3b9a"
+  integrity sha1-wUHJQHHMXprE6phHmhwgTdGOO5o=
+
 buffer-equal@0.0.1:
   version "0.0.1"
   resolved "https://registry.npm.taobao.org/buffer-equal/download/buffer-equal-0.0.1.tgz#91bc74b11ea405bc916bc6aa908faafa5b4aac4b"
@@ -1568,10 +1574,10 @@ charenc@~0.0.1:
   version "0.0.2"
   resolved "https://registry.npm.taobao.org/charenc/download/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
 
-chart.js@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.npm.taobao.org/chart.js/download/chart.js-2.8.0.tgz#b703b10d0f4ec5079eaefdcd6ca32dc8f826e0e9"
-  integrity sha1-twOxDQ9OxQeerv3NbKMtyPgm4Ok=
+chart.js@^2.9.2:
+  version "2.9.3"
+  resolved "https://registry.npm.taobao.org/chart.js/download/chart.js-2.9.3.tgz#ae3884114dafd381bc600f5b35a189138aac1ef7"
+  integrity sha1-rjiEEU2v04G8YA9bNaGJE4qsHvc=
   dependencies:
     chartjs-color "^2.1.0"
     moment "^2.10.2"
@@ -2124,24 +2130,24 @@ d@1, d@^1.0.1:
     es5-ext "^0.10.50"
     type "^1.0.1"
 
-datatables.net-autofill-bs4@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.npm.taobao.org/datatables.net-autofill-bs4/download/datatables.net-autofill-bs4-2.3.3.tgz#6e5506472b7ec0d3d52fc4fe78996521c45f5d1c"
-  integrity sha1-blUGRyt+wNPVL8T+eJllIcRfXRw=
+datatables.net-autofill-bs4@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.npm.taobao.org/datatables.net-autofill-bs4/download/datatables.net-autofill-bs4-2.3.4.tgz#761fe2873f5350d1388a8edc6cf660e8047b186f"
+  integrity sha1-dh/ihz9TUNE4io7cbPZg6AR7GG8=
   dependencies:
-    datatables.net-autofill "2.3.3"
+    datatables.net-autofill "2.3.4"
     datatables.net-bs4 "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-autofill@2.3.3:
-  version "2.3.3"
-  resolved "https://registry.npm.taobao.org/datatables.net-autofill/download/datatables.net-autofill-2.3.3.tgz#14629d1a18786cab36f1a7cff1002bdfd268a189"
-  integrity sha1-FGKdGhh4bKs28afP8QAr39JooYk=
+datatables.net-autofill@2.3.4:
+  version "2.3.4"
+  resolved "https://registry.npm.taobao.org/datatables.net-autofill/download/datatables.net-autofill-2.3.4.tgz#f509249fa58ebaf1be8ac3b470016037698a979c"
+  integrity sha1-9Qkkn6WOuvG+isO0cAFgN2mKl5w=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-bs4@^1.10.15, datatables.net-bs4@^1.10.19:
+datatables.net-bs4@^1.10.15:
   version "1.10.19"
   resolved "https://registry.npm.taobao.org/datatables.net-bs4/download/datatables.net-bs4-1.10.19.tgz#0608dff22008cf3c7b8a68b1bc702ed255b404fb"
   integrity sha1-Bgjf8iAIzzx7imixvHAu0lW0BPs=
@@ -2149,87 +2155,95 @@ datatables.net-bs4@^1.10.15, datatables.net-bs4@^1.10.19:
     datatables.net "1.10.19"
     jquery ">=1.7"
 
-datatables.net-buttons-bs4@^1.5.6:
-  version "1.5.6"
-  resolved "https://registry.npm.taobao.org/datatables.net-buttons-bs4/download/datatables.net-buttons-bs4-1.5.6.tgz#fb16e2d0eeb4169b38f3e237ba78d45f2ec9e503"
-  integrity sha1-+xbi0O60Fps48+I3unjUXy7J5QM=
+datatables.net-bs4@^1.10.20:
+  version "1.10.20"
+  resolved "https://registry.npm.taobao.org/datatables.net-bs4/download/datatables.net-bs4-1.10.20.tgz#beff1c8d3510826c0678eaa055270607c0e53882"
+  integrity sha1-vv8cjTUQgmwGeOqgVScGB8DlOII=
   dependencies:
-    datatables.net-bs4 "^1.10.15"
-    datatables.net-buttons "1.5.6"
+    datatables.net "1.10.20"
     jquery ">=1.7"
 
-datatables.net-buttons@1.5.6:
-  version "1.5.6"
-  resolved "https://registry.npm.taobao.org/datatables.net-buttons/download/datatables.net-buttons-1.5.6.tgz#30305a2ebc6c5e2ce5d32a8ef3649e0d5943d73a"
-  integrity sha1-MDBaLrxsXizl0yqO82SeDVlD1zo=
+datatables.net-buttons-bs4@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-buttons-bs4/download/datatables.net-buttons-bs4-1.6.1.tgz#4abd9c83fbd753ffa4913adca1fae094df64b3ba"
+  integrity sha1-Sr2cg/vXU/+kkTrcofrglN9ks7o=
+  dependencies:
+    datatables.net-bs4 "^1.10.15"
+    datatables.net-buttons "1.6.1"
+    jquery ">=1.7"
+
+datatables.net-buttons@1.6.1:
+  version "1.6.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-buttons/download/datatables.net-buttons-1.6.1.tgz#f62847e7c6f905fcf7339e7541a40741bbb3b8fb"
+  integrity sha1-9ihH58b5Bfz3M551QaQHQbuzuPs=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-colreorder-bs4@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.npm.taobao.org/datatables.net-colreorder-bs4/download/datatables.net-colreorder-bs4-1.5.1.tgz#7ded353a68296b85f0dbfb234b8cb5d8fc2bee3c"
-  integrity sha1-fe01Omgpa4Xw2/sjS4y12Pwr7jw=
+datatables.net-colreorder-bs4@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.npm.taobao.org/datatables.net-colreorder-bs4/download/datatables.net-colreorder-bs4-1.5.2.tgz#4fe1a9ffe679e7e84f3ccb58c9c4d31ac0d49a1b"
+  integrity sha1-T+Gp/+Z55+hPPMtYycTTGsDUmhs=
   dependencies:
     datatables.net-bs4 "^1.10.15"
-    datatables.net-colreorder "1.5.1"
+    datatables.net-colreorder "1.5.2"
     jquery ">=1.7"
 
-datatables.net-colreorder@1.5.1:
-  version "1.5.1"
-  resolved "https://registry.npm.taobao.org/datatables.net-colreorder/download/datatables.net-colreorder-1.5.1.tgz#ee5eacd7178b5fd9396aab44d4907aae35086f8c"
-  integrity sha1-7l6s1xeLX9k5aqtE1JB6rjUIb4w=
+datatables.net-colreorder@1.5.2:
+  version "1.5.2"
+  resolved "https://registry.npm.taobao.org/datatables.net-colreorder/download/datatables.net-colreorder-1.5.2.tgz#c425cee1f88b3246be0363c67a152be743ca6bce"
+  integrity sha1-xCXO4fiLMka+A2PGehUr50PKa84=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-fixedcolumns-bs4@^3.2.6:
-  version "3.2.6"
-  resolved "https://registry.npm.taobao.org/datatables.net-fixedcolumns-bs4/download/datatables.net-fixedcolumns-bs4-3.2.6.tgz#866aa30cedc21fdd53c95f43a35b083af6f1e432"
-  integrity sha1-hmqjDO3CH91TyV9Do1sIOvbx5DI=
+datatables.net-fixedcolumns-bs4@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.npm.taobao.org/datatables.net-fixedcolumns-bs4/download/datatables.net-fixedcolumns-bs4-3.3.0.tgz#15fc5e6cc7ccf5c60bbebe47185476b699a43e40"
+  integrity sha1-FfxebMfM9cYLvr5HGFR2tpmkPkA=
   dependencies:
     datatables.net-bs4 "^1.10.15"
-    datatables.net-fixedcolumns "3.2.6"
+    datatables.net-fixedcolumns "3.3.0"
     jquery ">=1.7"
 
-datatables.net-fixedcolumns@3.2.6:
-  version "3.2.6"
-  resolved "https://registry.npm.taobao.org/datatables.net-fixedcolumns/download/datatables.net-fixedcolumns-3.2.6.tgz#7b9b2f40cfe689568fac9835db89385b482872cb"
-  integrity sha1-e5svQM/miVaPrJg124k4W0gocss=
+datatables.net-fixedcolumns@3.3.0:
+  version "3.3.0"
+  resolved "https://registry.npm.taobao.org/datatables.net-fixedcolumns/download/datatables.net-fixedcolumns-3.3.0.tgz#885b35b7f155ff5e08e1532e23363f14050bb1af"
+  integrity sha1-iFs1t/FV/14I4VMuIzY/FAULsa8=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-fixedheader-bs4@^3.1.5:
-  version "3.1.5"
-  resolved "https://registry.npm.taobao.org/datatables.net-fixedheader-bs4/download/datatables.net-fixedheader-bs4-3.1.5.tgz#60e060b721f46690a85e1acde634e75cc14e3cba"
-  integrity sha1-YOBgtyH0ZpCoXhrN5jTnXMFOPLo=
+datatables.net-fixedheader-bs4@^3.1.6:
+  version "3.1.6"
+  resolved "https://registry.npm.taobao.org/datatables.net-fixedheader-bs4/download/datatables.net-fixedheader-bs4-3.1.6.tgz#d1b12981bf127cfef658a0a742719aaeac6894eb"
+  integrity sha1-0bEpgb8SfP72WKCnQnGarqxolOs=
   dependencies:
     datatables.net-bs4 "^1.10.15"
-    datatables.net-fixedheader "3.1.5"
+    datatables.net-fixedheader "3.1.6"
     jquery ">=1.7"
 
-datatables.net-fixedheader@3.1.5:
-  version "3.1.5"
-  resolved "https://registry.npm.taobao.org/datatables.net-fixedheader/download/datatables.net-fixedheader-3.1.5.tgz#4b6051a877e2c625604f0847b4b7227faddcccea"
-  integrity sha1-S2BRqHfixiVgTwhHtLcif63czOo=
+datatables.net-fixedheader@3.1.6:
+  version "3.1.6"
+  resolved "https://registry.npm.taobao.org/datatables.net-fixedheader/download/datatables.net-fixedheader-3.1.6.tgz#b139b88a213460dbeca5080c6251e81575697188"
+  integrity sha1-sTm4iiE0YNvspQgMYlHoFXVpcYg=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-keytable-bs4@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.npm.taobao.org/datatables.net-keytable-bs4/download/datatables.net-keytable-bs4-2.5.0.tgz#9e653093122b05b84e1352ecfbc95480b550d654"
-  integrity sha1-nmUwkxIrBbhOE1Ls+8lUgLVQ1lQ=
+datatables.net-keytable-bs4@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-keytable-bs4/download/datatables.net-keytable-bs4-2.5.1.tgz#011b1950322d9038b1a1958d0a3e58679d902cb2"
+  integrity sha1-ARsZUDItkDixoZWNCj5YZ52QLLI=
   dependencies:
     datatables.net-bs4 "^1.10.15"
-    datatables.net-keytable "2.5.0"
+    datatables.net-keytable "2.5.1"
     jquery ">=1.7"
 
-datatables.net-keytable@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.npm.taobao.org/datatables.net-keytable/download/datatables.net-keytable-2.5.0.tgz#09603384da804931aa89689b91ed79dd823f53ab"
-  integrity sha1-CWAzhNqASTGqiWibke153YI/U6s=
+datatables.net-keytable@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-keytable/download/datatables.net-keytable-2.5.1.tgz#7a6ba0b8085eaacc2cdc20f6348e8abd77b899c6"
+  integrity sha1-emuguAheqsws3CD2NI6KvXe4mcY=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
@@ -2251,78 +2265,85 @@ datatables.net-responsive@2.2.3:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-rowgroup-bs4@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/datatables.net-rowgroup-bs4/download/datatables.net-rowgroup-bs4-1.1.0.tgz#bcaa9842bc9cf70eeba19e8af6edad190c7b896e"
-  integrity sha1-vKqYQryc9w7roZ6K9u2tGQx7iW4=
+datatables.net-rowgroup-bs4@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-rowgroup-bs4/download/datatables.net-rowgroup-bs4-1.1.1.tgz#57c17e611f8f8ec0aa456fd325bbf466545c230d"
+  integrity sha1-V8F+YR+PjsCqRW/TJbv0ZlRcIw0=
   dependencies:
     datatables.net-bs4 "^1.10.15"
-    datatables.net-rowgroup "1.1.0"
+    datatables.net-rowgroup "1.1.1"
     jquery ">=1.7"
 
-datatables.net-rowgroup@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/datatables.net-rowgroup/download/datatables.net-rowgroup-1.1.0.tgz#638efb37a1a15f5b3402b7dbce89b3bcdc286f1a"
-  integrity sha1-Y477N6GhX1s0ArfbzomzvNwobxo=
+datatables.net-rowgroup@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-rowgroup/download/datatables.net-rowgroup-1.1.1.tgz#616531e5fb3c8642f6a51fb14801f8aff50cf90e"
+  integrity sha1-YWUx5fs8hkL2pR+xSAH4r/UM+Q4=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-rowreorder-bs4@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.npm.taobao.org/datatables.net-rowreorder-bs4/download/datatables.net-rowreorder-bs4-1.2.5.tgz#bacbdb96bfb122bd5d5bf1beaca3a30f6eb57f20"
-  integrity sha1-usvblr+xIr1dW/G+rKOjD261fyA=
+datatables.net-rowreorder-bs4@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.npm.taobao.org/datatables.net-rowreorder-bs4/download/datatables.net-rowreorder-bs4-1.2.6.tgz#b3333ede3d84d6b5cce346d1aece1fb0d2a937ac"
+  integrity sha1-szM+3j2E1rXM40bRrs4fsNKpN6w=
   dependencies:
     datatables.net-bs4 "^1.10.15"
-    datatables.net-rowreorder "1.2.5"
+    datatables.net-rowreorder "1.2.6"
     jquery ">=1.7"
 
-datatables.net-rowreorder@1.2.5:
-  version "1.2.5"
-  resolved "https://registry.npm.taobao.org/datatables.net-rowreorder/download/datatables.net-rowreorder-1.2.5.tgz#2582f02fb08b9e11744d6a9dc9cdda9953f6f611"
-  integrity sha1-JYLwL7CLnhF0TWqdyc3amVP29hE=
+datatables.net-rowreorder@1.2.6:
+  version "1.2.6"
+  resolved "https://registry.npm.taobao.org/datatables.net-rowreorder/download/datatables.net-rowreorder-1.2.6.tgz#e1788c4dea84b12223bc5dde3e4a70c316a12ae6"
+  integrity sha1-4XiMTeqEsSIjvF3ePkpwwxahKuY=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-scroller-bs4@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/datatables.net-scroller-bs4/download/datatables.net-scroller-bs4-2.0.0.tgz#f3abdf546988ec8a20b0bd1e05c380db78b84eb4"
-  integrity sha1-86vfVGmI7IogsL0eBcOA23i4TrQ=
+datatables.net-scroller-bs4@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-scroller-bs4/download/datatables.net-scroller-bs4-2.0.1.tgz#aa7d33eee1cd26e03c6e5598116292d91874acae"
+  integrity sha1-qn0z7uHNJuA8blWYEWKS2Rh0rK4=
   dependencies:
     datatables.net-bs4 "^1.10.15"
-    datatables.net-scroller "2.0.0"
+    datatables.net-scroller "2.0.1"
     jquery ">=1.7"
 
-datatables.net-scroller@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/datatables.net-scroller/download/datatables.net-scroller-2.0.0.tgz#46284861952bde50bc7138a99e47419f300379d2"
-  integrity sha1-RihIYZUr3lC8cTipnkdBnzADedI=
+datatables.net-scroller@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-scroller/download/datatables.net-scroller-2.0.1.tgz#17040d3f1da9b4e174729b6b7f0e36b6bf818adc"
+  integrity sha1-FwQNPx2ptOF0cptrfw42tr+Bitw=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-select-bs4@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.npm.taobao.org/datatables.net-select-bs4/download/datatables.net-select-bs4-1.3.0.tgz#f2a977fb5631cdeaa322f10c2968796cbabdeeb2"
-  integrity sha1-8ql3+1YxzeqjIvEMKWh5bLq97rI=
+datatables.net-select-bs4@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-select-bs4/download/datatables.net-select-bs4-1.3.1.tgz#1c39c7fd5bfb66b5c8402611c2c64fc47e3cfca4"
+  integrity sha1-HDnH/Vv7ZrXIQCYRwsZPxH48/KQ=
   dependencies:
     datatables.net-bs4 "^1.10.15"
-    datatables.net-select "1.3.0"
+    datatables.net-select "1.3.1"
     jquery ">=1.7"
 
-datatables.net-select@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.npm.taobao.org/datatables.net-select/download/datatables.net-select-1.3.0.tgz#0815efa54f09eed744af80fe6a19e236070e8cda"
-  integrity sha1-CBXvpU8J7tdEr4D+ahniNgcOjNo=
+datatables.net-select@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.npm.taobao.org/datatables.net-select/download/datatables.net-select-1.3.1.tgz#ec2c3ad7df2bc9c13c09587d0bfd0ceba52a8bff"
+  integrity sha1-7Cw6198rycE8CVh9C/0M66Uqi/8=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net@1.10.19, datatables.net@^1.10.15, datatables.net@^1.10.19:
+datatables.net@1.10.19, datatables.net@^1.10.15:
   version "1.10.19"
   resolved "https://registry.npm.taobao.org/datatables.net/download/datatables.net-1.10.19.tgz#97a1ed41c85e62d61040603481b59790a172dd1f"
   integrity sha1-l6HtQcheYtYQQGA0gbWXkKFy3R8=
+  dependencies:
+    jquery ">=1.7"
+
+datatables.net@1.10.20, datatables.net@^1.10.20:
+  version "1.10.20"
+  resolved "https://registry.npm.taobao.org/datatables.net/download/datatables.net-1.10.20.tgz#9d65ecc3c83cbe7baa4fa5a053405c8fe42c1350"
+  integrity sha1-nWXsw8g8vnuqT6WgU0Bcj+QsE1A=
   dependencies:
     jquery ">=1.7"
 
@@ -3097,17 +3118,17 @@ findup-sync@3.0.0:
     micromatch "^3.0.4"
     resolve-dir "^1.0.1"
 
-flag-icon-css@^3.4.0:
-  version "3.4.2"
-  resolved "https://registry.npm.taobao.org/flag-icon-css/download/flag-icon-css-3.4.2.tgz#9d76e2ce96bee87bd65ef241c238fff5ab7dac93"
-  integrity sha1-nXbizpa+6HvWXvJBwjj/9at9rJM=
+flag-icon-css@^3.4.5:
+  version "3.4.5"
+  resolved "https://registry.npm.taobao.org/flag-icon-css/download/flag-icon-css-3.4.5.tgz#584d618563034e69cb9a5b7a7c8477ec8c029a49"
+  integrity sha1-WE1hhWMDTmnLmlt6fIR37IwCmkk=
   dependencies:
     opencollective-postinstall "2.0.2"
 
-flot@^3.2.9:
-  version "3.2.10"
-  resolved "https://registry.npm.taobao.org/flot/download/flot-3.2.10.tgz#e6ba4289f595de1ed9f8831edc5e0b1bf8d6f492"
-  integrity sha1-5rpCifWV3h7Z+IMe3F4LG/jW9JI=
+flot@^3.2.13:
+  version "3.2.13"
+  resolved "https://registry.npm.taobao.org/flot/download/flot-3.2.13.tgz#f4457fd6042fe4ac4e4e124e7a7c7256e69f5362"
+  integrity sha1-9EV/1gQv5KxOThJOenxyVuafU2I=
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
@@ -3183,20 +3204,20 @@ from2@^2.1.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
 
-fs-extra@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npm.taobao.org/fs-extra/download/fs-extra-5.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffs-extra%2Fdownload%2Ffs-extra-5.0.0.tgz#414d0110cdd06705734d055652c5411260c31abd"
-  integrity sha1-QU0BEM3QZwVzTQVWUsVBEmDDGr0=
-  dependencies:
-    graceful-fs "^4.1.2"
-    jsonfile "^4.0.0"
-    universalify "^0.1.0"
-
 fs-extra@^7.0.1:
   version "7.0.1"
   resolved "https://registry.npm.taobao.org/fs-extra/download/fs-extra-7.0.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffs-extra%2Fdownload%2Ffs-extra-7.0.1.tgz#4f189c44aa123b895f722804f55ea23eadc348e9"
   dependencies:
     graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
+fs-extra@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.npm.taobao.org/fs-extra/download/fs-extra-8.1.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffs-extra%2Fdownload%2Ffs-extra-8.1.0.tgz#49d43c45a88cd9677668cb7be1b46efdb8d2e1c0"
+  integrity sha1-SdQ8RaiM2Wd2aMt74bRu/bjS4cA=
+  dependencies:
+    graceful-fs "^4.2.0"
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
@@ -3365,6 +3386,11 @@ globs@^0.1.2:
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.2.2"
   resolved "https://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.2.2.tgz#6f0952605d0140c1cfdb138ed005775b92d67b02"
+
+graceful-fs@^4.2.0:
+  version "4.2.3"
+  resolved "https://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.2.3.tgz#4a12ff1b60376ef09862c2093edd908328be8423"
+  integrity sha1-ShL/G2A3bvCYYsIJPt2Qgyi+hCM=
 
 growly@^1.3.0:
   version "1.3.0"
@@ -3706,10 +3732,10 @@ ini@^1.3.4, ini@^1.3.5, ini@~1.3.0:
   version "1.3.5"
   resolved "https://registry.npm.taobao.org/ini/download/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
 
-inputmask@^4.0.8:
-  version "4.0.8"
-  resolved "https://registry.npm.taobao.org/inputmask/download/inputmask-4.0.8.tgz#876d3209782df079ab69d4c7379767a45ef5762a"
-  integrity sha1-h20yCXgt8HmradTHN5dnpF71dio=
+inputmask@^4.0.9:
+  version "4.0.9"
+  resolved "https://registry.npm.taobao.org/inputmask/download/inputmask-4.0.9.tgz#a60fc46cee52a35a0ba5f50b5cca3a6733ece18c"
+  integrity sha1-pg/EbO5So1oLpfULXMo6ZzPs4Yw=
 
 internal-ip@^4.3.0:
   version "4.3.0"
@@ -4946,10 +4972,10 @@ osenv@^0.1.4:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
-overlayscrollbars@^1.9.1:
-  version "1.9.1"
-  resolved "https://registry.npm.taobao.org/overlayscrollbars/download/overlayscrollbars-1.9.1.tgz#46f5f275e3966b11dbf147f6c441e777c313af76"
-  integrity sha1-RvXydeOWaxHb8Uf2xEHnd8MTr3Y=
+overlayscrollbars@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.npm.taobao.org/overlayscrollbars/download/overlayscrollbars-1.10.0.tgz#f63c6c76f25416c821e0347797b573b351ce87ea"
+  integrity sha1-9jxsdvJUFsgh4DR3l7Vzs1HOh+o=
 
 p-defer@^1.0.0:
   version "1.0.0"
@@ -5105,10 +5131,10 @@ pdfkit@>=0.8.1, pdfkit@^0.10.0:
     linebreak "^0.3.0"
     png-js ">=0.1.0"
 
-pdfmake@^0.1.59:
-  version "0.1.60"
-  resolved "https://registry.npm.taobao.org/pdfmake/download/pdfmake-0.1.60.tgz#d6067e30651a70c9095c37c504eae2137a675d28"
-  integrity sha1-1gZ+MGUacMkJXDfFBOriE3pnXSg=
+pdfmake@^0.1.62:
+  version "0.1.62"
+  resolved "https://registry.npm.taobao.org/pdfmake/download/pdfmake-0.1.62.tgz#62f2400eba066cc271736b95c7d0cdf9c8e06983"
+  integrity sha1-YvJADroGbMJxc2uVx9DN+cjgaYM=
   dependencies:
     iconv-lite "^0.5.0"
     linebreak "^1.0.2"
@@ -5152,9 +5178,14 @@ png-js@>=0.1.0:
   resolved "https://registry.npm.taobao.org/png-js/download/png-js-0.1.1.tgz#1cc7c212303acabe74263ec3ac78009580242d93"
   integrity sha1-HMfCEjA6yr50Jj7DrHgAlYAkLZM=
 
-popper.js@^1.12, popper.js@^1.14.3, popper.js@^1.15.0:
+popper.js@^1.12, popper.js@^1.14.3:
   version "1.15.0"
   resolved "https://registry.npm.taobao.org/popper.js/download/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
+
+popper.js@^1.16.0:
+  version "1.16.0"
+  resolved "https://registry.npm.taobao.org/popper.js/download/popper.js-1.16.0.tgz#2e1816bcbbaa518ea6c2e15a466f4cb9c6e2fbb3"
+  integrity sha1-LhgWvLuqUY6mwuFaRm9Mucbi+7M=
 
 portfinder@^1.0.21:
   version "1.0.21"
@@ -5962,10 +5993,10 @@ select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/select-hose/download/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
 
-select2@^4.0.10:
-  version "4.0.10"
-  resolved "https://registry.npm.taobao.org/select2/download/select2-4.0.10.tgz#c8d4e3e2504f49956b3dfd9018ab1d7bc601a41b"
-  integrity sha1-yNTj4lBPSZVrPf2QGKsde8YBpBs=
+select2@^4.0.11:
+  version "4.0.12"
+  resolved "https://registry.npm.taobao.org/select2/download/select2-4.0.12.tgz#9c0492d4d06948f2bd079f6e14718a41c7eaa60e"
+  integrity sha1-nASS1NBpSPK9B59uFHGKQcfqpg4=
 
 selfsigned@^1.10.4:
   version "1.10.4"
@@ -6443,10 +6474,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-sweetalert2@^8.17.6:
-  version "8.18.0"
-  resolved "https://registry.npm.taobao.org/sweetalert2/download/sweetalert2-8.18.0.tgz#e8536aa0b1a1474ef36e5350ff4ae0cf473478b3"
-  integrity sha1-6FNqoLGhR07zblNQ/0rgz0c0eLM=
+sweetalert2@^8.19.0:
+  version "8.19.0"
+  resolved "https://registry.npm.taobao.org/sweetalert2/download/sweetalert2-8.19.0.tgz#692269bc8ddc5760e2b5070da2cf5e9e278bac0b"
+  integrity sha1-aSJpvI3cV2DitQcNos9enieLrAs=
 
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"

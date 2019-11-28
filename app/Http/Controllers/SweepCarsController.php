@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use App\Models\Driver;
 use App\Models\Sweep_car_item;
+use App\Models\Sweep_out_item;
 use App\Models\SweepCar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Jobs\updateSweepOut;
 
 class SweepCarsController extends CommonsController
 {
@@ -56,12 +58,18 @@ class SweepCarsController extends CommonsController
             $i=1;
 
             foreach($sweep_car_items as $data){
+                // 生成装车明细
                 $sweep_car_item = $sweep_car->sweep_car_items()->make([
                     'entry_id'=>$i,
                     'dispatch_no'=> $data['dispatch_no']
                 ]);
-
                 $sweep_car_item->save();
+
+                // 更新发货单状态（是否装车）
+                Sweep_out_item::where('dispatch_no','=',$data['dispatch_no'])->update(['status' => 1]);
+
+                // 更新发货单装车次数
+                Sweep_out_item::where('dispatch_no','=',$data['dispatch_no'])->increment('car_count');
 
                 $i++;
             }
@@ -71,6 +79,8 @@ class SweepCarsController extends CommonsController
 
             return $sweep_car;
         });
+
+        $this->dispatch(new updateSweepOut($sweep_car->id, config('app.sweepOut_ttl')));
 
         return $sweep_car;
     }
@@ -119,7 +129,29 @@ class SweepCarsController extends CommonsController
      */
     public function destroy(SweepCar $sweepCar)
     {
-        $sweepCar->delete();
+        $sweep_out_items=\DB::transaction(function() use ($sweepCar){
+            // 更新打包发货单装车次数
+            DB::table('zzz_sweep_out_items as t1')
+                ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+                ->where('t2.parent_id','=',$sweepCar->id)
+                ->decrement('t1.car_count');
+            // 更新打包发货单状态
+            DB::table('zzz_sweep_out_items as t1')
+                ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+                ->where('t2.parent_id','=',$sweepCar->id)
+                ->where('t1.car_count','=',0)
+                ->update(['t1.status'=>0]);
+
+            // 关联的打包发货单明细更新状态为0
+            if(env('APP_ENV') == 'local'){
+                DB::select("call zzz_proc_sweepOut_update($sweepCar->id)");
+            }else{
+                DB::select("exec zzz_proc_sweepOut_update($sweepCar->id)");
+            }
+
+            $sweepCar->delete();
+        });
+
         // 把之前的 redirect 改成返回空数组
         return [];
     }
@@ -151,6 +183,7 @@ class SweepCarsController extends CommonsController
             ->select(
                 \DB::raw("
             t1.id,
+            t1.no,
             t2.no as car_no,
             t3.name as driver_name,
             t1.count,

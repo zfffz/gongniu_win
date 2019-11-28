@@ -145,7 +145,7 @@
                     })
                 },
                 "columns":[
-                    { "data":"id" },
+                    { "data":"no" },
                     { "data":"car_no" },
                     { "data":"driver_name" },
                     { "data":"count" },

@@ -74,9 +74,17 @@
                     if(n.value){
                         // 调用删除接口，用 id 来拼接出请求的 url
                         axios.delete('sweepOut/' + id)
-                            .then(function () {
-                                // 请求成功之后重新加载页面
-                                location.reload();
+                            .then(function (t) {
+                                if(t.data.status ==0){
+                                    Swal.fire(
+                                        '提示',
+                                        t.data.text,
+                                        'error'
+                                    )
+                                }else{
+                                    // 请求成功之后重新加载页面
+                                    location.reload();
+                                }
                             })
                     }else{
                         return false;
@@ -144,7 +152,7 @@
                     })
                 },
                 "columns":[
-                    { "data":"id" },
+                    { "data":"no" },
                     { "data":"packager_name" },
                     { "data":"count" },
                     { "data":"created_at" },
