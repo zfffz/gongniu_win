@@ -62,3 +62,5 @@ insert into dispatchlist(cDLCode,cCusCode) values
 ('XSFH00000010','20046'),
 ('XSFH00000011','30222'),
 ('XSFH00000012','30032');
+
+--开发环境无法连接sqlserver，故自己添加测试数据
