@@ -15,7 +15,6 @@ class AlterCustomerLocationsTable extends Migration
     {
         Schema::table('zzz_customer_locations', function (Blueprint $table) {
             $table->string('edit_id')->nullable();
-            $table->dropUnique('zzz_customer_locations_customer_no_unique');
             $table->string('customer_no',10)->change();
             $table->unique('customer_no');
         });

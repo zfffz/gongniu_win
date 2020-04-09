@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27539095-6813-4977-a3dc-a7979819041e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_09_135406_alter_customer_locations_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_09_135406_alter_customer_locations_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +232,7 @@
       <workItem from="1586345550280" duration="626000" />
       <workItem from="1586348756621" duration="1269000" />
       <workItem from="1586395263353" duration="41000" />
-      <workItem from="1586402486616" duration="10575000" />
+      <workItem from="1586402486616" duration="11497000" />
     </task>
     <servers />
   </component>
