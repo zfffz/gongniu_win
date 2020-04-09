@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27539095-6813-4977-a3dc-a7979819041e" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_04_09_135406_alter_customer_locations_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gongniu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gongniu.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CustomerLocationsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CustomerLocationsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StorageLocationsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StorageLocationsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/CustomerLocation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CustomerLocation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admins/customerLocations/create_and_edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admins/customerLocations/create_and_edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admins/customerLocations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admins/customerLocations/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admins/storageLocations/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admins/storageLocations/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_09_135406_alter_customer_locations_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_09_135406_alter_customer_locations_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +233,7 @@
       <workItem from="1586345550280" duration="626000" />
       <workItem from="1586348756621" duration="1269000" />
       <workItem from="1586395263353" duration="41000" />
-      <workItem from="1586402486616" duration="9154000" />
+      <workItem from="1586402486616" duration="10277000" />
     </task>
     <servers />
   </component>
