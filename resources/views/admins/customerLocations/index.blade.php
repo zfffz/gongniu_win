@@ -54,7 +54,8 @@
                         <th>仓库名称</th>
                         <th>创建人</th>
                         <th>创建时间</th>
-                        <th>更新时间</th>
+                        <th>修改人</th>
+                        <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -159,11 +160,12 @@
                     { "data":"location_name" },
                     { "data":"create_name" },
                     { "data":"created_at" },
+                    { "data":"edit_name" },
                     { "data":"updated_at" },
                     {"data":"id"}
                 ],
                 columnDefs: [{
-                    targets: 7,//自定义列的序号，从0开始
+                    targets: 8,//自定义列的序号，从0开始
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +

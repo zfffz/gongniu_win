@@ -29,6 +29,7 @@
             @if($customer_location->id)
                 <form class="form-horizontal" role="form" action="{{ route('customerLocation.update', ['customerLocation' => $customer_location->id]) }}" method="post">
                 {{ method_field('PUT') }}
+                  <input name="edit_id" id="edit_id" type="hidden" value="1">
             @else
                 <form class="form-horizontal" role="form" action="{{ route('customerLocation.store') }}" method="post">
                 @endif
@@ -39,7 +40,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 control-label label_required">客户</label>
                             <div class="col-sm-8">
-                                <select class="form-control" required name="customer_no" id="customer_no" style="width: 100%;">
+                                <select class="form-control" {{ $customer_location->id ? 'disabled': '' }}  required name="customer_no" id="customer_no" style="width: 100%;">
                                     @if($customer_location->customer_no)
                                         <option value="{{$customer_location->customer_no}}" selected>{{$customer_name}}</option>
                                     @endif

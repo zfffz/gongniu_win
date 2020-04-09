@@ -101,10 +101,10 @@ class CustomerLocationsController extends CommonsController
     public function update(CustomerLocationRequest $request,CustomerLocation $customerLocation)
     {
         $customerLocation->update([
-            "customer_no"=>$request->customer_no,
             "location_id"=>$request->location_id,
             "note"=>$request->note,
-            "updated_at"=>date("Y-m-d H:i:s")
+            "updated_at"=>date("Y-m-d H:i:s"),
+            "edit_id"=>Auth::user()->no
         ]);
 
         return redirect()->route('customerLocation.index')->with('success', '客户默认库位更新成功！');
@@ -136,11 +136,13 @@ class CustomerLocationsController extends CommonsController
             case when t1.status = 1 then '正常' else '作废' end as status,
             t1.created_at,
             t1.updated_at,
-            t2.name as create_name
+            t2.name as create_name,
+            t5.name as edit_name
             "))
             ->leftJoin('users as t2','t1.create_id','t2.id')
             ->leftJoin('customer as t3','t1.customer_no','t3.cCusCode')
-            ->leftJoin('zzz_storage_locations as t4','t1.location_id','t4.id');
+            ->leftJoin('zzz_storage_locations as t4','t1.location_id','t4.id')
+            ->leftJoin('users as t5','t1.edit_id','t5.id');
 
         $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
 

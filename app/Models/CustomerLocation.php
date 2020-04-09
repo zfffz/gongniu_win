@@ -8,7 +8,7 @@ class CustomerLocation extends Model
 {
     public $table='zzz_customer_locations';
     protected $fillable = [
-        'customer_no','location_id','create_id','note','status'
+        'customer_no','location_id','create_id','note','status','edit_id'
     ];
 
 
