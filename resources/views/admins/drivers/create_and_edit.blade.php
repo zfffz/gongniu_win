@@ -39,7 +39,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 control-label label_required">姓名</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="name" autocomplete="off" value="{{ old('name', $driver->name) }}" required>
+                                <input type="text" {{ $driver->id ? 'disabled': '' }} class="form-control" name="name" autocomplete="off" value="{{ old('name', $driver->name) }}" required>
                             </div>
                         </div>
                         <div class="form-group row">

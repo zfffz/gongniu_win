@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27539095-6813-4977-a3dc-a7979819041e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_11_162141_add_edit_id_to_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_11_164636_add_edit_id_to_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_11_170109_add_edit_id_to_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admins/drivers/create_and_edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admins/drivers/create_and_edit.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +234,7 @@
       <workItem from="1586348756621" duration="1269000" />
       <workItem from="1586395263353" duration="41000" />
       <workItem from="1586402486616" duration="12443000" />
-      <workItem from="1586592961951" duration="5772000" />
+      <workItem from="1586592961951" duration="6028000" />
     </task>
     <servers />
   </component>
