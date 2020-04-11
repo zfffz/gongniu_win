@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEditIdToTable extends Migration
+class AddEditIdZzzStorageLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddEditIdToTable extends Migration
      */
     public function up()
     {
-        Schema::table('zzz_drivers', function (Blueprint $table) {
+        Schema::table('zzz_storage_locations', function (Blueprint $table) {
             $table->string('edit_id')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddEditIdToTable extends Migration
      */
     public function down()
     {
-        Schema::table('zzz_drivers', function (Blueprint $table) {
+        Schema::table('zzz_storage_locations', function (Blueprint $table) {
             $table->dropColumn('edit_id');
         });
     }
