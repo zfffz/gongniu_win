@@ -153,6 +153,8 @@ class CustomerLocationsController extends CommonsController
         if($searchKey!=''){
             $table->where('t1.customer_no','like','%'.$searchKey.'%');
             $table->orWhere('t4.no','like','%'.$searchKey.'%');
+            $table->orWhere('t2.name','like','%'.$searchKey.'%');
+            $table->orWhere('t5.name','like','%'.$searchKey.'%');
         }
         return $table;
     }

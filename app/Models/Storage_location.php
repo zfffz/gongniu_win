@@ -8,6 +8,6 @@ class Storage_location extends Model
 {
     public $table='zzz_storage_locations';
     protected $fillable = [
-        'no','name','create_id','note','status'
+        'no','name','create_id','note','status','edit_id'
     ];
 }

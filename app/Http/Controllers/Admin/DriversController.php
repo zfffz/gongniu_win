@@ -85,13 +85,13 @@ class DriversController extends CommonsController
     public function update(DriverRequest $request, Driver $driver)
     {
         $driver->update([
-            "name"=>$request->name,
             "mobile"=>$request->mobile,
             "note"=>$request->note,
-            "updated_at"=>date("Y-m-d H:i:s")
+            "updated_at"=>date("Y-m-d H:i:s"),
+            "edit_id"=>Auth::user()->no
         ]);
 
-        return redirect()->route('driver.index')->with('success', '车辆更新成功！');
+        return redirect()->route('driver.index')->with('success', '司机更新成功！');
 
     }
 
@@ -120,9 +120,11 @@ class DriversController extends CommonsController
             case when t1.status = 1 then '正常' else '作废' end as status,
             t1.created_at,
             t1.updated_at,
-            t2.name as create_name
+            t2.name as create_name,
+            t3.name as edit_name
             "))
-            ->leftJoin('users as t2','t1.create_id','t2.id');
+            ->leftJoin('users as t2','t1.create_id','t2.id')
+            ->leftJoin('users as t3','t1.edit_id','t3.id');
 
         $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
 
@@ -134,6 +136,7 @@ class DriversController extends CommonsController
             $table->where('t1.name','like','%'.$searchKey.'%');
             $table->orWhere('t1.mobile','like','%'.$searchKey.'%');
             $table->orWhere('t2.name','like','%'.$searchKey.'%');
+            $table->orWhere('t3.name','like','%'.$searchKey.'%');
         }
         return $table;
     }

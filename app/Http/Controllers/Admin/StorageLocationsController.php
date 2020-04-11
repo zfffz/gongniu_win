@@ -85,10 +85,10 @@ class StorageLocationsController extends CommonsController
     public function update(StorageLocationRequest $request, Storage_location $storageLocation)
     {
         $storageLocation->update([
-            "no"=>$request->no,
             "name"=>$request->name,
             "note"=>$request->note,
-            "updated_at"=>date("Y-m-d H:i:s")
+            "updated_at"=>date("Y-m-d H:i:s"),
+            "edit_id"=>Auth::user()->no
         ]);
 
         return redirect()->route('storageLocation.index')->with('success', '库位更新成功！');
@@ -120,9 +120,11 @@ class StorageLocationsController extends CommonsController
             case when t1.status = 1 then '正常' else '作废' end as status,
             t1.created_at,
             t1.updated_at,
-            t2.name as create_name
+            t2.name as create_name,
+            t3.name as edit_name
             "))
-            ->leftJoin('users as t2','t1.create_id','t2.id');
+            ->leftJoin('users as t2','t1.create_id','t2.id')
+            ->leftJoin('users as t3','t1.edit_id','t3.id');
 
         $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
 
@@ -134,6 +136,7 @@ class StorageLocationsController extends CommonsController
             $table->where('t1.no','like','%'.$searchKey.'%');
             $table->orWhere('t1.name','like','%'.$searchKey.'%');
             $table->orWhere('t2.name','like','%'.$searchKey.'%');
+            $table->orWhere('t3.name','like','%'.$searchKey.'%');
         }
         return $table;
     }

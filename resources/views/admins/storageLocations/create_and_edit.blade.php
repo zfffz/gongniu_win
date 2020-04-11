@@ -39,7 +39,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 control-label label_required">库位编码</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="no" autocomplete="off" value="{{ old('no', $storage_location->no) }}" required>
+                                <input type="text" {{ $storage_location->id ? 'disabled': '' }} class="form-control" name="no" autocomplete="off" value="{{ old('no', $storage_location->no) }}" required>
                             </div>
                         </div>
                         <div class="form-group row">

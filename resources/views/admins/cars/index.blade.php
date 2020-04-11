@@ -31,7 +31,7 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" name="search" id="search" class="form-control" placeholder="车牌号/型号/创建人" />
+                            <input type="text" name="search" id="search" class="form-control" placeholder="车牌号/型号/创建人/修改人" />
                             <div class="input-group-append">
                                 <button class="btn btn-default" type="button" onclick="table.draw( false );">
                                     <i class="fas fa-search"></i>
@@ -54,7 +54,8 @@
                         <th>状态</th>
                         <th>创建人</th>
                         <th>创建时间</th>
-                        <th>更新时间</th>
+                        <th>修改人</th>
+                        <th>修改时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -158,11 +159,12 @@
                     { "data":"status" },
                     { "data":"create_name" },
                     { "data":"created_at" },
+                    { "data":"edit_name" },
                     { "data":"updated_at" },
                     {"data":"id"}
                 ],
                 columnDefs: [{
-                    targets: 7,//自定义列的序号，从0开始
+                    targets: 8,//自定义列的序号，从0开始
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +

@@ -31,7 +31,7 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" name="search" id="search" class="form-control" placeholder="客户编码/库位编码" />
+                            <input type="text" name="search" id="search" class="form-control" placeholder="客户编码/库位编码/创建人/修改人" />
                             <div class="input-group-append">
                                 <button class="btn btn-default" type="button" onclick="table.draw( false );">
                                     <i class="fas fa-search"></i>

@@ -8,6 +8,6 @@ class Car extends Model
 {
     public $table='zzz_cars';
     protected $fillable = [
-        'no','model','create_id','note','status'
+        'no','model','create_id','note','status','edit_id'
     ];
 }
