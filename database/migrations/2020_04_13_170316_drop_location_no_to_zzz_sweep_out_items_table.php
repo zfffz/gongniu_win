@@ -14,7 +14,7 @@ class DropLocationNoToZzzSweepOutItemsTable extends Migration
     public function up()
     {
         Schema::table('zzz_sweep_out_items', function (Blueprint $table) {
-            $table->dropColumn('location_no');
+            $table->dropColumn('location_no')->index();
             $table->string('default_location_no')->index();
         });
     }
