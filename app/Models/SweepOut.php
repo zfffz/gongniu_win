@@ -12,7 +12,7 @@ class SweepOut extends Model
 
     public $table='zzz_sweep_outs';
     protected $fillable = [
-        'no','packager_no','user_no','count','status'
+        'no','packager_no','user_no','count','status','location_no',
     ];
 
     public static $shipStatusMap = [

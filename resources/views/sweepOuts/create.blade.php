@@ -4,24 +4,22 @@
 @section('title', '打包出库')
 
 @section('header')
-    <a class="navbar-brand">
-        <img src="/image/logo.png" alt="AdminLTE Logo" class="brand-image"
-             style="opacity: .8;margin-left:0px;margin-right:0px;">
-    </a>
+  <ul class="navbar-nav">
+    <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">打包员</label>
+    <select class="form-control" name="packager" id="packager">
+      <option value=""></option>
+      @foreach ($packagers as $packager)
+        <option value="{{ $packager->no }}">
+          {{ $packager->name }}
+        </option>
+      @endforeach
+
+    </select>
+  </ul>
     <ul class="navbar-nav ml-auto" >
-        <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">打包员</label>
-        <select class="form-control" name="packager" id="packager">
-            <option value=""></option>
-            @foreach ($packagers as $packager)
-                <option value="{{ $packager->no }}">
-                    {{ $packager->name }}
-                </option>
-            @endforeach
-
-        </select>
+      <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">库位</label>
+      <input type="text" class="form-control" name="location_no" id="location_no" autocomplete="off" value="" style="max-width: 80px">
     </ul>
-
-
 @endsection
 
 @section('content')
@@ -34,13 +32,6 @@
                 <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
-                        {{--默认库位编码--}}
-                        <input type="hidden" name="location_no_default" id="location_no_default" value="">
-
-                    </div>
-                    <div class="form-group">
-                        {{--库位编码--}}
-                        <input type="text" class="form-control form-control-lg" name="location_no" id="location_no" autocomplete="off" value="" placeholder="库位">
                     </div>
                 </div>
                 <div class="card-header border-transparent">
@@ -53,7 +44,7 @@
                             <thead>
                             <tr>
                                 <th>发货单号</th>
-                                <th>库位</th>
+                                <th>默认库位</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -95,6 +86,7 @@
         function batchSave(){
             $('#dispatch_no').blur();
             var packager = $('#packager').val();
+            var location_no = $('#location_no').val();
 
             //打包员提示
             if(packager == ''){
@@ -106,6 +98,18 @@
                 $('#packager').focus();
                 return false;
             }
+
+          //实际库位提示
+          if(location_no == ''){
+            Toast.fire({
+              type: 'error',
+              title: '请扫描库位！'
+            });
+            $('#location_no').addClass('is-invalid');
+            $('#location_no').focus();
+            return false;
+          }
+
             var trList = $("#table_body").children("tr");
 
             var length = trList.length;
@@ -121,18 +125,19 @@
 
             var datas={};
             datas.packager = packager;
+            datas.location_no = location_no;
             datas.items = {};
             for (var i=0;i<length;i++){
                 datas.items[i] = {};
                 var tdArr = trList.eq(i).find("td");
                 datas.items[i].dispatch_no = tdArr.eq(0).html();
-                datas.items[i].location_no = tdArr.eq(1).html();
+                datas.items[i].default_location_no = tdArr.eq(1).html();
             }
 
             Swal.fire({
                 title: '确认上传暂存区数据到系统吗?',
                 text:'共'+length+'条',
-                footer: '打包员'+$('#packager option:selected').text(),
+                footer: '打包员'+$('#packager option:selected').text()+'  库位'+$('#location_no').val(),
                 type: 'question',
                 focusConfirm: false,
                 allowEnterKey:false,
@@ -206,7 +211,6 @@
                         title: '发货单号'+dispatch_no+'已存在，不允许重复录入！'
                     });
                     $("#dispatch_no").val("");
-                    $("#location_no").val("");
                     $("#dispatch_no").focus();
                     return false;
                 }
@@ -217,23 +221,19 @@
 
 
 
-        function addRow(type){
+        function addRow(type,default_location_no){
             var dispatch_no = $('#dispatch_no').val();
-            var location_no = $('#location_no').val();
 
             //直接添加入列表
             var trcomp="<tr>" +
                 '<td>'+dispatch_no+'</td>'+
-                '<td class="'+type+'">'+location_no+'</td>'+
+                '<td class="'+type+'">'+default_location_no+'</td>'+
                 '<td class="text-right py-0 align-middle"><a href="javascript:void(0)" class="btn btn-danger btn-sm" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="fas fa-trash" ></i></a></td>'
             "</tr>";
             $("#dispatch_table").append(trcomp);
             //清空发货单号、库位
             $("#dispatch_no").removeClass("is-valid");
-            $("#location_no").removeClass("is-invalid");
             $("#dispatch_no").val("");
-
-            $("#location_no").val("");
 
             $("#dispatch_no").focus();
 
@@ -304,44 +304,106 @@
         }
 
         $(function() {
-            //车牌号提示
+            //打包员提示
             Toast.fire({
                 type: 'warning',
                 title: '请选择打包员！'
             });
-            //聚焦打包员
+            //页面初始化，聚焦打包员
             $('#packager').focus();
 
-            // 每次聚焦发货单号检查打包员：不允许为空
-            $('#dispatch_no').focus(function(){
-                if($('#packager').val()==''){
-                    Toast.fire({
-                        type: 'warning',
-                        title: '请选择打包员！'
-                    });
-                    $('#packager').focus();
-                    return false;
-                }
-            });
+          // 每次聚焦库位：打包员不允许为空
+          $('#location_no').focus(function(){
+            if($('#packager').val()==''){
+              Toast.fire({
+                type: 'warning',
+                title: '请选择打包员！'
+              });
+              $('#packager').focus();
+              return false;
+            }
+          });
 
-//            $('#dispatch_no').blur(function(){
-//                var dispatch_no = $(this).val();
-//                if(dispatch_no.length < 12){
-//                    $('#dispatch_no').focus();
-//                }
-//
-//            });
+          // 每次聚焦发货单号检查打包员：不允许为空，库位不允许为空
+          $('#dispatch_no').focus(function(){
+            if($('#packager').val()==''){
+              Toast.fire({
+                type: 'warning',
+                title: '请选择打包员！'
+              });
+              $('#packager').focus();
+              return false;
+            }
+            //实际库位提示
+            if($('#location_no').val()==''){
+              Toast.fire({
+                type: 'warning',
+                title: '请扫描库位！'
+              });
+              $('#location_no').focus();
+              return false;
+            }
+          });
 
-            $('#location_no').focus(function(){
-                if($('#dispatch_no').val()==''){
-                    $('#dispatch_no').focus();
-                }
-            });
-
+            // 打包员重新选择
             $('#packager').change(function(){
                 $('#packager').removeClass('is-invalid');
-                $('#dispatch_no').focus();
+                $('#location_no').val('');
+                $('#location_no').focus();
             });
+
+          $('#location_no').keydown(function(event) {
+            if(event.keyCode == 13){
+              var location_no = $(this).val();
+
+              //如果库位为空,不得离开当前焦点
+              if( $('#location_no').val()==''){
+                $('#location_no').focus();
+                return false;
+              }
+
+              // 判断库位是否合法
+              $.ajax({
+                url:'location_data?location_no='+location_no,
+                type:'get',
+                dataType:'json',
+                headers:{
+                  Accept:"application/json",
+                  "Content-Type":"application/json"
+                },
+                processData:false,
+                cache:false,
+                timeout: 1000,
+                beforeSend:function(){
+
+                },
+                success:function(data){
+                  if(data.length==0){
+                    $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                    $('#notifyAudio')[0].play();
+                    //发货单号红框提示,toast提示
+                    $("#location_no").addClass("is-invalid");
+                    Toast.fire({
+                      type: 'error',
+                      title: '库位非法或不存在！'
+                    });
+                    //清空发货单号
+                    $('#location_no').val('');
+                    return false;
+                  }else{
+                    //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+                    $("#location_no").removeClass("is-invalid");
+                    $("#dispatch_no").focus();
+                  }
+                },
+                error:function(){
+                  alert("error");
+                  return false;
+                }
+              });
+            }
+          });
+
 
             $('#dispatch_no').keydown(function(event) {
                 if(event.keyCode == 13){
@@ -381,15 +443,34 @@
                                 //清空发货单号
                                 $('#dispatch_no').val('');
                             }else{
-                                //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+
+                              //判断库位是否等于默认库位
+                              //如果不等于，弹窗提示
+                              if(data.no != $('#location_no').val()){
+                                Swal.fire({
+                                  title: '非默认库位，确定添加吗?',
+                                  text: "默认库位"+data.no,
+                                  type: 'warning',
+                                  showCancelButton: true,
+                                  confirmButtonColor: '#3085d6',
+                                  cancelButtonColor: '#d33',
+                                  confirmButtonText: '确定',
+                                  cancelButtonText: '取消',
+                                  focusConfirm: false,
+                                  allowEnterKey:false
+                                }).then(
+                                  function(n){
+                                    if(n.value){
+                                      addRow('text-danger',data.no);
+                                    }else{
+                                      $('#dispatch_no').val('');
+                                    }
+                                  })
+                              }else{
                                 $("#dispatch_no").removeClass("is-invalid");
-                                $("#dispatch_no").addClass("is-valid");
-
-                                $('#location_no_default').val(data.no);
-                                //焦点跳转到库位
-                                $('#location_no').focus();
+                                addRow('text-success',data.no);
+                              }
                             }
-
                         },
                         error:function(){
                             alert("error");
@@ -397,107 +478,6 @@
                     });
                 }
 
-            });
-
-            $('#location_no').keydown(function(event) {
-                if(event.keyCode == 13){
-                    var location_no = $(this).val();
-                    //发货单号不能为空，如果为空，直接清空库位，跳转到发货单号框
-                    if( $('#dispatch_no').val()==''){
-                        $("#dispatch_no").addClass("is-invalid");
-                        $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                        $('#notifyAudio')[0].play();
-                        Toast.fire({
-                            type: 'error',
-                            title: '请先扫发货单号！'
-                        });
-                        $('#location_no').val('');
-                        $('#dispatch_no').focus();
-                        return false;
-                    }
-
-                    //如果库位为空,直接报错提示
-                    if( $('#location_no').val()==''){
-                        $("#location_no").addClass("is-invalid");
-                        $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                        $('#notifyAudio')[0].play();
-                        Toast.fire({
-                            type: 'error',
-                            title: '请扫库位号！'
-                        });
-                        $('#location_no').focus();
-                        return false;
-                    }
-
-                    // 判断库位是否合法
-                    $.ajax({
-                        url:'location_data?location_no='+location_no,
-                        type:'get',
-                        dataType:'json',
-                        headers:{
-                            Accept:"application/json",
-                            "Content-Type":"application/json"
-                        },
-                        processData:false,
-                        cache:false,
-                        timeout: 1000,
-                        beforeSend:function(){
-
-                        },
-                        success:function(data){
-                            if(data.length==0){
-                                $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                                $('#notifyAudio')[0].play();
-                                //发货单号红框提示,toast提示
-                                $("#location_no").addClass("is-invalid");
-                                Toast.fire({
-                                    type: 'error',
-                                    title: '库位非法或不存在！'
-                                });
-                                //清空发货单号
-                                $('#location_no').val('');
-                                return false;
-                            }else{
-                                //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
-                                $("#location_no").removeClass("is-invalid");
-
-                                //判断库位是否等于默认库位
-                                //如果不等于，弹窗提示
-                                if(location_no != $('#location_no_default').val()){
-                                    Swal.fire({
-                                        title: '非默认库位，确定添加吗?',
-                                        text: "默认库位"+$('#location_no_default').val(),
-                                        type: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#3085d6',
-                                        cancelButtonColor: '#d33',
-                                        confirmButtonText: '确定',
-                                        cancelButtonText: '取消',
-                                        focusConfirm: false,
-                                        allowEnterKey:false
-                                    }).then(
-                                        function(n){
-                                            if(n.value){
-                                                addRow('text-danger');
-                                            }else{
-                                                $('#location_no').val('');
-                                            }
-                                        })
-                                }else{
-                                    $("#location_no").removeClass("is-invalid");
-                                    addRow('text-success');
-                                }
-                            }
-
-                        },
-                        error:function(){
-                            alert("error");
-                            return false;
-                        }
-                    });
-
-
-                }
             });
         })
     </script>

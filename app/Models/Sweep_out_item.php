@@ -13,7 +13,7 @@ class Sweep_out_item extends Model
         'parent_id',
         'entry_id',
         'dispatch_no',
-        'location_no',
+        'default_location_no',
     ];
 
     public function sweep_out()

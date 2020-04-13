@@ -73,7 +73,7 @@
                             <tr>
                                 <th>序号</th>
                                 <th>发货单号</th>
-                                <th>库位</th>
+                                <th>默认库位</th>
                                 <th>状态</th>
                             </tr>
                             </thead>
@@ -82,8 +82,8 @@
                                 <tr>
                                     <td>{{$sweepOut_item->entry_id}}</td>
                                     <td>{{$sweepOut_item->dispatch_no}}</td>
-                                    <td>{{$sweepOut_item->location_no}}</td>
-                                    <td>{{$sweepOut_item->status}}</td>
+                                    <td>{{$sweepOut_item->default_location_no}}</td>
+                                    <td>{{$sweepOut_item->status == 0 ? '未装车':'已装车'}}</td>
                                 </tr>
                             @endforeach
 

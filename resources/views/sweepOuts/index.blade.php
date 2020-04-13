@@ -45,6 +45,8 @@
                     <tr>
                         <th>单据编号</th>
                         <th>打包员</th>
+                        <th>库位编码</th>
+                        <th>库位名称</th>
                         <th>发货单数量</th>
                         <th>创建时间</th>
                         <th>操作</th>
@@ -154,12 +156,14 @@
                 "columns":[
                     { "data":"no" },
                     { "data":"packager_name" },
+                    { "data":"location_no" },
+                    { "data":"location_name" },
                     { "data":"count" },
                     { "data":"created_at" },
                     {"data":"id"}
                 ],
                 columnDefs: [{
-                    targets: 4,//自定义列的序号，从0开始
+                    targets: 6,//自定义列的序号，从0开始
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +

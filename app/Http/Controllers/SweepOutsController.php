@@ -48,6 +48,7 @@ class SweepOutsController extends CommonsController
             //创建一张新的打包出库单
             $sweep_out = new SweepOut([
                 'packager_no'=>$request->input('packager'),
+                'location_no'=>$request->input('location_no'),
                 'user_no'=>Auth::id()
             ]);
             $sweep_out->save();
@@ -68,7 +69,7 @@ class SweepOutsController extends CommonsController
                 $sweep_out_item = $sweep_out->sweep_out_items()->make([
                     'entry_id'=>$i,
                     'dispatch_no'=> $data['dispatch_no'],
-                    'location_no'=> $data['location_no']
+                    'default_location_no'=> $data['default_location_no']
                 ]);
 
                 $sweep_out_item->save();
@@ -192,11 +193,14 @@ class SweepOutsController extends CommonsController
                 \DB::raw("
             t1.id,
             t1.no,
+            t1.location_no,
+            t3.name as location_name,
             t2.cpersonname as packager_name,
             t1.count,
             t1.created_at
             "))
-            ->leftJoin('bs_gn_wl as t2','t1.packager_no','t2.cpersoncode');
+            ->leftJoin('bs_gn_wl as t2','t1.packager_no','t2.cpersoncode')
+            ->leftJoin('zzz_storage_locations as t3','t1.location_no','t3.no');
 
         $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
 
