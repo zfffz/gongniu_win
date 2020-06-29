@@ -1,0 +1,17 @@
+td.details-control {
+    background: url('/image/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('/image/details_close.png') no-repeat center center;
+}
+
+
+
+td.rows-select {
+    background: url('/image/chkboxup.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.down td.rows-select {
+    background: url('/image/chkboxdown.png') no-repeat center center;
+}

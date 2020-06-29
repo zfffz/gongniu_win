@@ -74,6 +74,33 @@ class SweepOutsController extends CommonsController
 
                 $sweep_out_item->save();
 
+
+
+
+
+
+
+                 
+        // 1.验证是否已经审核
+        // $data = DB:: table('DispatchList as t1')
+        // ->select('t1.cvereifier')
+        // ->where('t1.dispatch_no','=',$dispatch_no)->get();
+
+        // if(count($data) > 0){
+        //     echo json_encode(array("status"=>"1","text"=>"发货单'$dispatch_no'已对货，不允许再次扫描！"));
+        //     exit();
+        // }
+        // else{
+        //  echo json_encode(array("status"=>"0"));
+        //     }
+
+                //更新发货单审核信息
+                $cVerifier= Auth::user()->name;
+                $date= date("Y-m-d H:i:s");
+                DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
+                //生成销售出库单和更改库存
+                DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
+        //
                 $i++;
             }
 
@@ -124,8 +151,79 @@ class SweepOutsController extends CommonsController
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        // var tb = document.getElementById("dispatch_table");
+        // $dispatch_no  = $request->document.getElementById("dispatch_table").rows[1].cells[0].innerHTML;
+        // $dispatch_no = $request->input('items');
+        // $dispatch_no = $request->dispatch_no;
+        // $cVerifier= Auth::user()->name;
+        // $data=DB::update("update dispatchlist set cVerifier= ?,cChanger='null',dverifydate='2020-04-13' where cDLCode in (?)",[$cVerifier,$dispatch_no]);
+        // $sweep_out_items = $request->input('items');
+        //     // $i=1;
+
+        //     foreach($sweep_out_items as $data){
+        //         // 先检查发货单号是否重复
+        //         $jg = Sweep_out_item::where('dispatch_no','=',$data['dispatch_no'])->get();
+
+        // var_dump($data,$data['dispatch_no'],$cVerifier);
+      }  
+
+// public function update_cverifier(Request $request)
+//     {
+//         dd($request->input);
+//         $sweep_out=\DB::transaction(function() use ($request){
+//         // var tb = document.getElementById("dispatch_table");
+//         // $dispatch_no  = $request->document.getElementById("dispatch_table").rows[1].cells[0].innerHTML;
+// //         $dispatch_no = $request->input('items');
+// //         // $dispatch_no = $request->dispatch_no;
+//         $cVerifier= Auth::user()->name;
+// //         $data=DB::update("update dispatchlist set cVerifier= '张峰',cChanger='null',dverifydate='2020-04-13' where cDLCode ='XSFH00318238
+// // '");
+        
+//           $dispatchlist = $request->input('item');
+//             $i=1;
+
+         
+//                 // 先检查发货单号是否重复
+//                 $data=DB::update("update dispatchlist set cVerifier= '张峰',cChanger='null',dverifydate='2020-04-13' where cDLCode =?",[$dispatchlist['dispatch_no']]);
+//                 // $jg = dispatchlist::where('cDLCode','=',$data['dispatch_no'])->get();
+//             // $data->update([
+//             // "cVerifier"=>'张峰',
+//             // "cChanger"=>null
+//             // // "dverifydate"=>date("Y-m-d H:i:s"),
+//             // // "dverifysystime"=>Auth::user()->name
+//             //  ]);
+//         //var_dump($data,$dispatchlist['dispatch_no'],$cVerifier);
+      
+
+//       });  
+// }
+// $driver->update([
+//             "cVerifier"=>'张峰',
+//             "cChanger"=>null,
+//             "dverifydate"=>date("Y-m-d H:i:s"),
+//             "dverifysystime"=>Auth::user()->name
+//         ]);
+
+//         return redirect()->route('driver.index')->with('success', '司机更新成功！');
+        // $driver->update([
+        //     "cVerifier"=>'张峰',
+        //     "cChanger"=>null,
+        //     "dverifydate"=>date("Y-m-d H:i:s"),
+        //     "dverifysystime"=>Auth::user()->name
+        // ]);
+
+        // return redirect()->route('driver.index')->with('success', '司机更新成功！');
+
+
+
+        // $dispatch_no = $request->dispatch_no;
+        // DB::table('DispatchList as t1')
+        //         // ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+        //         ->where('t1.cDLCode','=',$dispatch_no)
+        //         ->update(['t1.cVerifier'=>'张峰'],['t1.cChanger'=>null],['dverifydate'=>'2020-06-08'],['t1.dverifysystime'=>getdate()]);
+
+                 // Update DispatchList SET  cVerifier=N'张峰',cChanger=null,dverifydate=case when ddate>'2020-04-13' then ddate else '2020-04-13' end,dverifysystime=getdate()  WHERE DispatchList.DLID=1000363092
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -133,6 +231,17 @@ class SweepOutsController extends CommonsController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+//      public function update_cverifier(Request $request,dispatchlist $dispatchlist){
+
+
+// //         DB::table('DispatchList as t1')
+// //                 // ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+// //                 ->where('t1.cDLCode','=',$dispatch_no)
+// //                 ->update(['t1.cVerifier'=>'张峰'],['t1.cChanger'=>null],['dverifydate'=>'2020-06-08'],['t1.dverifysystime'=>getdate()]);
+// // echo json_encode(array("status"=>"3"));
+
+//         }
     public function destroy(SweepOut $sweepOut)
     {
         // 删除前先判断一下有没有生成发货装车单

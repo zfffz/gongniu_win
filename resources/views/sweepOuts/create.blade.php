@@ -17,7 +17,7 @@
     </select>
   </ul>
     <ul class="navbar-nav ml-auto" >
-      <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">库位</label>
+      <label style="margin-top: 2px;margin-right: 4px;white-space:nowrap">库位</label>
       <input type="text" class="form-control" name="location_no" id="location_no" autocomplete="off" value="" style="max-width: 80px">
     </ul>
 @endsection
@@ -57,7 +57,7 @@
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
                     <button onclick="deleteTable()" class="btn btn-danger float-left">清空</button>
-                    <button onclick="batchSave()" class="btn btn-primary float-right">上传</button>
+                    <button onclick="batchSave()"  class="btn btn-primary float-right"> 上传</button> 
                 </div>
                 <!-- /.card-footer -->
             </div>
@@ -190,12 +190,67 @@
                                 alert("error");
                             }
                         });
+
+        // var datas={};
+        //     datas.packager = packager;
+        //     datas.location_no = location_no;
+        //     datas.items = {};
+        //     for (var i=0;i<length;i++){
+        //         datas.items[i] = {};
+        //         var tdArr = trList.eq(i).find("td");
+        //         datas.items[i].dispatch_no = tdArr.eq(0).html();
+        //         datas.items[i].default_location_no = tdArr.eq(1).html();
+        //     }
+                   
+// var formData={};
+// // var formData={};
+//  formData.item = {};
+//             for (var i=0;i<length;i++){
+//                 formData.item[i] = {};
+//                 var tdArr = trList.eq(i).find("td");
+//                 formData.item[i].dispatch_no = tdArr.eq(0).html();
+//                 // formData.item[i].default_location_no = tdArr.eq(1).html();
+//             }
+// var form = document.getElementById("myForm");
+// var formData = new FormData(form);
+// var dispatch_no = formData.get("dispatch_no");
+    //     formData.append('_method','PUT');
+    //     // formData.get("dispatch_no") 
+    //     $.ajax({
+    //     url: "{{route('sweepOut.update_cverifier')}}",
+    //     type:'post',
+    //     dataType:'json',
+    //     headers:{
+    //         Accept:"application/json",
+    //         "Content-Type":"application/json",
+    //         'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+    //     },
+    //     processData:false,
+    //     cache:false,
+    //     timeout: 10000,
+    //     success: function(e){
+    //         alert("成功")
+    //     }
+    // });
+//                 
+
+
+// })
+
+
+
+
+
+
+
                     }else{
                         $("#dispatch_no").focus();
                         return false;
                     }
                 })
         }
+
+
 
         function checkRow(dispatch_no){
             // 添加之前检查当前发货单是否重复录入

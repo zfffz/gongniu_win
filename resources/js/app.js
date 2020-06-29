@@ -9,6 +9,9 @@ require('admin-lte');
 require('sweetalert2');
 require('datatables.net-bs4');
 require('select2');
+require('moment');
+require('inputmask');
+require('daterangepicker');
 
 window.Vue = require('vue');
 

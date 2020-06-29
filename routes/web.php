@@ -13,13 +13,23 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('sweepOut/dispatch_data', 'SweepOutsController@dispatch_data')->name('sweepOut.dispatch_data');
     Route::get('sweepOut/location_data', 'SweepOutsController@location_data')->name('sweepOut.location_data');
     Route::post('sweepOut/getData', 'SweepOutsController@getData')->name('sweepOut.getData');
-    Route::resource('sweepOut', 'SweepOutsController', ['only' => [ 'index', 'create', 'store','index','destroy','show']]);
+    Route::post('sweepOut/update_cverifier', 'SweepOutsController@update_cverifier')->name('sweepOut.update_cverifier');
+    Route::resource('sweepOut', 'SweepOutsController', ['only' => [ 'index', 'create', 'store','index','destroy','show','update']]);
 
     // 扫码上车
     Route::get('sweepCar/dispatch_data', 'SweepCarsController@dispatch_data')->name('sweepCar.dispatch_data');
     Route::get('sweepCar/checkPass', 'SweepCarsController@checkPass')->name('sweepCar.checkPass');
     Route::post('sweepCar/getData', 'SweepCarsController@getData')->name('sweepCar.getData');
     Route::resource('sweepCar', 'SweepCarsController', ['only' => ['create', 'store','index','destroy','show']]);
+
+    //扫码对货
+    Route::get('sweepCheck/dispatch_data', 'SweepChecksController@dispatch_data')->name('sweepCheck.dispatch_data');
+    Route::get('sweepCheck/result_data', 'SweepChecksController@result_data')->name('sweepCheck.result_data');
+    Route::post('sweepCheck/dispatchs_data', 'SweepChecksController@dispatchs_data')->name('sweepCheck.dispatchs_data');
+    Route::get('sweepCheck/dispatchss_data', 'SweepChecksController@dispatchss_data')->name('sweepCheck.dispatchss_data');
+    Route::post('sweepCheck/getData', 'SweepChecksController@getData')->name('sweepCheck.getData');
+    Route::post('sweepCheck/getDatas', 'SweepChecksController@getDatas')->name('sweepCheck.getDatas');
+    Route::resource('sweepCheck', 'SweepChecksController', ['only' => ['create', 'store','index','destroy','show']]);
 
     // 个人中心
     Route::resource('user', 'UsersController', ['only' => ['show']]);
@@ -48,9 +58,18 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::get('customerLocation/getCustomerData', 'CustomerLocationsController@getCustomerData')->name('customerLocation.getCustomerData');
     Route::resource('customerLocation', 'CustomerLocationsController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
 
+    Route::post('wayBill/getData', 'WayBillsController@getData')->name('wayBill.getData');
+    Route::post('wayBill/getDispatchData', 'WayBillsController@getDispatchData')->name('wayBill/getDispatchData');
+    Route::resource('wayBill', 'WayBillsController', ['only' => [ 'index','store']]);
+
     // 报表
     // 1.发货单：发货单 -> 打包出库 -> 扫码上车
     Route::post('dispatchReport/getData', 'DispatchReportsController@getData')->name('dispatchReport.getData');
     Route::resource('dispatchReport', 'DispatchReportsController', ['only' => [ 'index']]);
+
+
+     Route::get('/wayPrint/{id}/getPrint', 'WayPrintController@getPrint')->name('wayPrint.getPrint');
+    Route::post('wayPrint/getData', 'WayPrintController@getData')->name('wayPrint.getData');
+    Route::resource('wayPrint', 'WayPrintController', ['only' => [ 'index']]);
 
 });

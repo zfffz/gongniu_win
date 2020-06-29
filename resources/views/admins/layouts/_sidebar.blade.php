@@ -28,6 +28,13 @@
                             首页
                         </p>
                     </a>
+                    <!-- <ul class="nav nav-treeview"> -->
+                        <li class="nav-item">
+                            <a href="{{route('sweepCheck.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>扫码对货</p>
+                            </a>
+                        </li>
                 </li>
 
                 <li class="nav-item has-treeview menu-open">
@@ -76,6 +83,12 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="{{route('sweepCheck.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>扫码对货</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('sweepOut.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>打包出库</p>
@@ -85,6 +98,18 @@
                             <a href="{{route('sweepCar.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>扫码上车</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('wayBill.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>生成发运单</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('wayPrint.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>打印发运单</p>
                             </a>
                         </li>
                     </ul>
