@@ -28,50 +28,50 @@
         <style>table,th{border:none;height:18px} td{border: 1px solid #000;height:18px}</style>    
             <div class="card-body">
                             <div class="row">
-                                <span class="col-md-12 text-center"><h3>发货运输清单</h3></span>
+                                <span class="col-md-12 text-center"><h3 style="font-family:黑体; font-size:25px">发货运输清单</h3></span>
                             </div> 
                             <div class="row">
-                                <h5 class="col-md-3">运输单号:{{ $data[0]->ccode }}</h5>
-                                <h5 class="col-md-3">制单日期:{{ $data[0]->billdate }}</h5>
-                                <h5 class="col-md-3">司机:{{ $data[0]->cdriver }}</h5> 
-                                <h5 class="col-md-3">发运方式:{{ $data[0]->cSCName }}</h5>
+                                <h5 class="col-md-3" style="font-family:黑体; font-size:20px">运输单号:{{ $data[0]->ccode }}</h5>
+                                <h5 class="col-md-3" style="font-family:黑体; font-size:20px">制单日期:{{ $data[0]->billdate }}</h5>
+                                <h5 class="col-md-3" style="font-family:黑体; font-size:20px">司机:{{ $data[0]->cdriver }}</h5>
+                                <h5 class="col-md-3" style="font-family:黑体; font-size:20px">发运方式:{{ $data[0]->cSCName }}</h5>
                             </div>
                  <table class="table table-hover table-bordered" style="width: 100%;border: 1px solid black">
                         <tbody> 
                             <tr>
-                                <th>序号</th>
-                                <th>来源单号</th>
-                                <th>发货日期</th>
-                                <th>订单号</th>
-                                <th>客户编码</th>
-                                <th>客户简称</th>
-                                <th>结算方式</th>
-                                <th>金额</th>
-                                <th>表体备注</th>
+                                <th style="font-family:黑体; font-size:20px">序号</th>
+                                <th style="font-family:黑体; font-size:20px">来源单号</th>
+                                <th style="font-family:黑体; font-size:20px">发货日期</th>
+                                <th style="font-family:黑体; font-size:20px">订单号</th>
+                                <th style="font-family:黑体; font-size:20px">客户编码</th>
+                                <th style="font-family:黑体; font-size:20px">客户简称</th>
+                                <th style="font-family:黑体; font-size:20px">结算方式</th>
+                                <th style="font-family:黑体; font-size:20px">金额</th>
+                                <th style="font-family:黑体; font-size:20px">表体备注</th>
                             </tr>
                             @foreach ($data[1] as $dats)
                                 <tr>
-                                    <td>{{ $dats->ROWNU }}</td>
-                                    <td>{{ $dats->csocode }}</td>
-                                    <td>{{ $dats->ddate }}</td>
-                                    <td>{{ $dats->csdcode }}</td>
-                                    <td>{{ $dats->ccuscode }}</td>
-                                    <td>{{ $dats->ccusabbname }}</td>
-                                    <td>{{ $dats->cSSName }}</td>
-                                    <td>{{ $dats->amount*1 }}</td>
-                                    <td>{{ $dats->bz }}</td>                                    
+                                    <td width="5%" style="font-family:黑体; font-size:20px">{{ $dats->ROWNU }}</td>
+                                    <td width="10%" style="font-family:黑体; font-size:20px">{{ $dats->csocode }}</td>
+                                    <td width="10%" style="font-family:黑体; font-size:20px">{{ $dats->ddate }}</td>
+                                    <td width="10%" style="font-family:黑体; font-size:20px">{{ $dats->csdcode }}</td>
+                                    <td width="8%" style="font-family:黑体; font-size:20px">{{ $dats->ccuscode }}</td>
+                                    <td width="30%" style="font-family:黑体; font-size:20px">{{ $dats->ccusabbname }}</td>
+                                    <td width="8%" style="font-family:黑体; font-size:20px">{{ $dats->cSSName }}</td>
+                                    <td width="8%" style="font-family:黑体; font-size:20px">{{ $dats->amount*1 }}</td>
+                                    <td width="11%" style="font-family:黑体; font-size:20px">{{ $dats->bz }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                 </table>
                 <tfoot>
                     <div class="row">
-                        <h5 class="col-md-4">司机：</h5>
-                        <h5 class="col-md-4">送货日期：</h5>
-                        <h5 class="col-md-4">签回人：</h5> 
+                        <h5 class="col-md-4" style="font-family:黑体; font-size:20px">司机：</h5>
+                        <h5 class="col-md-4" style="font-family:黑体; font-size:20px">送货日期：</h5>
+                        <h5 class="col-md-4" style="font-family:黑体; font-size:20px">签回人：</h5>
                     </div>
                     <div class="row">
-                        <h5 class="col-md-4">当前是第<font tdata="PageNO" format="Num" color="blue">##</font>页</span>/共<font tdata="PageCount" format="Num" color="blue">##</font></span>页</h5>
+                        <h5 class="col-md-4" style="font-family:黑体; font-size:18px">当前是第<font tdata="PageNO" format="Num" color="blue">##</font>页</span>/共<font tdata="PageCount" format="Num" color="blue">##</font></span>页</h5>
                     </div>
                 </tfoot> 
                 </div>         

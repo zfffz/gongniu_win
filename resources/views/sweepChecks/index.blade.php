@@ -52,6 +52,7 @@
                         <!-- <th>单位</th> -->
                         <th>发货数量</th>
                         <th>验货数量</th>
+                        <th>组别</th>
                         <th>创建时间</th>
                        <!--  <th>操作</th> -->
                     </tr>
@@ -167,7 +168,8 @@
                     // { "data":"cInvStd" },
                     // { "data":"cComUnitName" },
                     { "data":"iQuantity" },
-                    {"data":"yQuantity"},
+                    { "data":"yQuantity"},
+                    { "data":"zb" },
                     { "data":"created_at" },
                     // {"data":"id"}
                    

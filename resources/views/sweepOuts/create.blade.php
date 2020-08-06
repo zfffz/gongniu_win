@@ -57,7 +57,7 @@
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
                     <button onclick="deleteTable()" class="btn btn-danger float-left">清空</button>
-                    <button onclick="batchSave()"  class="btn btn-primary float-right"> 上传</button> 
+                    <button onclick="batchSave()"  class="btn btn-primary float-right"> 上传并审核</button> 
                 </div>
                 <!-- /.card-footer -->
             </div>
@@ -135,7 +135,7 @@
             }
 
             Swal.fire({
-                title: '确认上传暂存区数据到系统吗?',
+                title: '确认上传暂存区数据到系统并审核发货单吗?',
                 text:'共'+length+'条',
                 footer: '打包员'+$('#packager option:selected').text()+'  库位'+$('#location_no').val(),
                 type: 'question',
@@ -175,21 +175,51 @@
                                     });
                                     return false;
                                 }
+                                   // alert(data.ccode);
                                 //上传成功提示
-                                Toast.fire({
-                                    type: 'success',
-                                    title: '上传成功,共'+length+'条！'
-                                });
+                                // Toast.fire({
+                                //     type: 'success',
+                                //     // title: '上传审核成功,共'+length+'条,生成销售出库单号为！'
+                                //     title: t.title1,
+                                // // title: "上传审核成功,共'+length+'条,生成销售出库单号为"+data.ccode,
+                                // });
+                                 if(t.status == 2){
+                               Toast.fire({
+                                        type: 'error',
+                                        title: t.text2
+
+                                    });
+
                                 $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
                                 $('#successAudio')[0].play();
 
                                 $('#dispatch_table tbody').html('');
                                 $("#dispatch_no").focus();
+                                return false;
+                                }
+
+
+                                if(t.status == 1){
+                                Swal.fire({
+                            type: 'success',
+                             title: '上传成功,共'+length+'条！',
+                            text: "出库单号为"+t.text1
+                        });
+
+                                $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+                                $('#successAudio')[0].play();
+
+                                $('#dispatch_table tbody').html('');
+                                $("#dispatch_no").focus();
+                                }
                             },
                             error: function() {
                                 alert("error");
                             }
                         });
+
+
+
 
         // var datas={};
         //     datas.packager = packager;
@@ -468,6 +498,40 @@
                     if(!result){
                         return false;
                     }
+                      // //提示单据已经审核
+                      // $.ajax({
+                      //   url:"{{route('sweepOut.dispatchs_data')}}",
+                      //   type:'get',
+                      //   dataType:'json',
+                      //   headers:{
+                      //       Accept:"application/json",
+                      //       "Content-Type":"application/json"
+                      //   },
+                      //   processData:false,
+                      //   cache:false,
+                      //   timeout: 1000,
+                      //   beforeSend:function(){
+
+                      //   },
+                      //   success:function(data){
+                      //       if(data.status1==0){
+                      //           $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                      //           $('#notifyAudio')[0].play();
+                      //           //发货单号红框提示,toast提示
+                      //           $("#dispatch_no").addClass("is-invalid");
+                      //           Toast.fire({
+                      //               type: 'error',
+                      //               title: data.text1
+                      //           });
+                      //           //清空发货单号
+                      //           $('#dispatch_no').val('');
+
+                      //               }
+
+                      //                 }
+                      //                  });
+
+
 
 
                     //判断发货单号合法性，同时获取该单号的默认库位
@@ -498,7 +562,7 @@
                                 //清空发货单号
                                 $('#dispatch_no').val('');
                             }else{
-
+                                
                               //判断库位是否等于默认库位
                               //如果不等于，弹窗提示
                               if(data.no != $('#location_no').val()){
@@ -521,11 +585,20 @@
                                       $('#dispatch_no').val('');
                                     }
                                   })
-                              }else{
+                              }
+                              else{
                                 $("#dispatch_no").removeClass("is-invalid");
                                 addRow('text-success',data.no);
                               }
-                            }
+
+
+
+
+                              }
+
+
+
+                            
                         },
                         error:function(){
                             alert("error");

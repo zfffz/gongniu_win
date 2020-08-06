@@ -80,7 +80,7 @@ class SweepCarsController extends CommonsController
             return $sweep_car;
         });
 
-        $this->dispatch(new updateSweepOut($sweep_car->id, config('app.sweepOut_ttl')));
+        // $this->dispatch(new updateSweepOut($sweep_car->id, config('app.sweepOut_ttl')));
 
         return $sweep_car;
     }
@@ -143,11 +143,11 @@ class SweepCarsController extends CommonsController
                 ->update(['t1.status'=>0]);
 
             // 关联的打包发货单明细更新状态为0
-            if(env('APP_ENV') == 'local'){
-                DB::select("call zzz_proc_sweepOut_update($sweepCar->id)");
-            }else{
-                DB::select("exec zzz_proc_sweepOut_update($sweepCar->id)");
-            }
+            // if(env('APP_ENV') == 'local'){
+            //     DB::select("call zzz_proc_sweepOut_update($sweepCar->id)");
+            // }else{
+            //     DB::select("exec zzz_proc_sweepOut_update($sweepCar->id)");
+            // }
 
             $sweepCar->delete();
         });
@@ -176,6 +176,23 @@ class SweepCarsController extends CommonsController
         }
 
     }
+
+
+
+    //判断发货单是否已经生成过装车单,不允许重复生单
+    public function checkCdlcode(Request $request){
+        $cdlcode = $request->dispatch_no;
+        $query = DB:: table('zzz_sweep_car_items as t1')
+            ->where('t1.dispatch_no','=',$cdlcode)
+            ->count();
+        if($query !== 0 ){
+            //这张发货单已经生成过装车单
+            echo json_encode(array('status'=>0,'text'=>'已经生成装车单了，不允许重复生单！'));
+        }else{
+            echo json_encode(array('status'=>1,'text'=>'success！'));
+        }
+    }
+
 
     public function getData(Request $request)
     {

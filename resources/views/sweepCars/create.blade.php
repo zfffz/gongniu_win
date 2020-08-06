@@ -116,7 +116,54 @@
                 }
 
             }
-            return true;
+
+            //检查发货单是否已经生成过装车单,不允许重复生单
+            $.ajax({
+                url:'checkCdlcode?dispatch_no='+dispatch_no,
+                type:'get',
+                dataType:'json',
+                async: false,
+                headers:{
+                    Accept:"application/json",
+                    "Content-Type":"application/json"
+                },
+                processData:false,
+                cache:false,
+                timeout: 1000,
+                beforeSend:function(){
+                },
+                success:function(t){
+                    if(t.status==0){
+                        //发货单号红框提示,toast提示
+                        $('#notifyAudio')[0].play();
+                        $("#dispatch_no").addClass("is-invalid");
+                        Toast.fire({
+                            type: 'error',
+                            title: '此发货单已经生成装车单了，不允许重复生单！'
+                        });
+                        //清空发货单号
+                        $('#dispatch_no').val('');
+                        $("#dispatch_no").focus();
+                        result = false;
+                    }else{
+                        //如果合法
+                        $("#dispatch_no").removeClass("is-invalid");
+                        result = true;
+                    }
+
+                },
+                error:function(){
+                    alert("error");
+                    result = false;
+                }
+
+            });
+
+            if(result){
+                return true;
+            }else{
+                return false;
+            }
         }
 
         function addRow(type){

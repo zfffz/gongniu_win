@@ -44,6 +44,7 @@ class SweepOutsController extends CommonsController
      */
     public function store(Request $request)
     {
+        
         $sweep_out=\DB::transaction(function() use ($request){
             //创建一张新的打包出库单
             $sweep_out = new SweepOut([
@@ -52,6 +53,7 @@ class SweepOutsController extends CommonsController
                 'user_no'=>Auth::id()
             ]);
             $sweep_out->save();
+            // $revalue =[];
 
             //创建一张新的项目清单
             $sweep_out_items = $request->input('items');
@@ -73,14 +75,7 @@ class SweepOutsController extends CommonsController
                 ]);
 
                 $sweep_out_item->save();
-
-
-
-
-
-
-
-                 
+              
         // 1.验证是否已经审核
         // $data = DB:: table('DispatchList as t1')
         // ->select('t1.cvereifier')
@@ -93,24 +88,69 @@ class SweepOutsController extends CommonsController
         // else{
         //  echo json_encode(array("status"=>"0"));
         //     }
-
-                //更新发货单审核信息
+                //取打包单号
+         $results = DB::select('select no from zzz_sweep_outs P left join zzz_sweep_out_items Z on P.id=z.parent_id  where z.dispatch_no = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+                //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
                 $cVerifier= Auth::user()->name;
                 $date= date("Y-m-d H:i:s");
                 DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
                 //生成销售出库单和更改库存
                 DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
+                //回传打包单号
+         DB::update("update dispatchlist set cdefine2= ? where cDLCode =?",[$results[0]->no,$data['dispatch_no']]);
+  
+        //1.提示销售出库单号
+        $data1 = DB:: table('rdrecord32 as t1')
+        ->select('t1.ccode')
+        ->where('t1.cbuscode','=',$data['dispatch_no'])->get();
+        
+ //        if(count($data1) != 0)
+ //        {
+           
+ //    $revalue = json_encode(array('status'=>1,'text1'=>$data1[0]->ccode));
+
+ // // return $revalue ;
+
+ //        }
+
+ //        else{
+ //    $revalue = json_encode(array('status'=>2,'text2'=>'未生成销售出库单，请联系管理员！'));
+    
+ // // return $revalue ;
+ //     }
+
+
+
         //
                 $i++;
             }
+             if(count($data1) != 0)
+        {
+           
+    $revalue = json_encode(array('status'=>1,'text1'=>$data1[0]->ccode));
 
+ // return $revalue ;
+
+        }
+
+        else{
+    $revalue = json_encode(array('status'=>2,'text2'=>'未生成销售出库单，请联系管理员！'));
+    
+ // return $revalue ;
+     }
+
+             return $revalue ;
             // 更新
             $sweep_out->update(['count' => ($i-1)]);
 
             return $sweep_out;
+            
+             
         });
 
         return $sweep_out;
+       
+
     }
 
     /**
@@ -259,17 +299,48 @@ class SweepOutsController extends CommonsController
         return [];
     }
 
+//     public function dispatchs_data(Request $request){
+//         $dispatch_no = $request->dispatch_no;
+// $data = DB::SELECT("select cVerifier from dispatchlist where CDLCODE= ? AND cVerifier is NULL ",[$dispatch_no]);
+//         if(count($data) == 0){
+//             echo json_encode(array('status1'=>0,'text1'=>"发货单号'$dispatch_no'已经审核！"));
+//             exit();
+//         }else{
+//             echo json_encode(array('status1'=>1));
+//                 exit();
+//             }
+
+// }
+
+
+
     public function dispatch_data(Request $request){
         $dispatch_no = $request->dispatch_no;
         // 1.判断发货单号是否合法
-        $data = DB:: table('dispatchlist as t1')
-            ->select('t1.cDLCode')
-            ->where('t1.cDLCode','=',$dispatch_no)->get();
+        // $data = DB:: table('dispatchlist as t1')
+        //     ->select('t1.cDLCode','t1.cVerifier')
+        //     ->where('t1.cDLCode','=',$dispatch_no)->get();
+
+            $data = DB::SELECT("select cVerifier from dispatchlist where CDLCODE= ? AND cVerifier is  NULL ",[$dispatch_no]);
 
         if(count($data) == 0){
-            echo json_encode(array("status"=>"0","text"=>"发货单号系统不存在！"));
+            echo json_encode(array("status"=>"0","text"=>"发货单号系统不存在或发货单已审核！"));
             exit();
-        }else{
+        }
+        else{
+            // echo json_encode(array("status1"=>"1",'cVerifier'=>$data[0]->cVerifier));
+            // if(cVerifier == NULL)
+            // { echo json_encode(array('status1'=>0,'text1'=>"发货单号'$dispatch_no'已经审核！"));
+            // exit();
+            // }
+        // else{
+        //     echo json_encode(array('status1'=>1));
+        //         exit();
+        //     }
+            // }
+            // else
+            // {
+
             // 判断发货单号是否已经打包，避免重复打包
             $jg = Sweep_out_item::where('dispatch_no','=',$dispatch_no)->get();
 
@@ -278,6 +349,13 @@ class SweepOutsController extends CommonsController
                 exit();
             }
         }
+
+
+// DB::SELECT("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
+
+
+
+
 
         // 获取默认库位编码
         $data = DB:: table('dispatchlist as t1')
@@ -292,6 +370,10 @@ class SweepOutsController extends CommonsController
        }else{
            echo json_encode(array('status'=>1,'no'=>$data[0]->no));
        }
+
+
+
+       
 
     }
 

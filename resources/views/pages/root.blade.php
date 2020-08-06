@@ -39,7 +39,7 @@
                     <h3 class="card-title text-center">工作台</h3>
                 </div>
                 <div class="card-body">
-                    <a class="btn-block" href="{{route('sweepCheck.create')}}">
+                    <a class="btn-block" href="{{route('sweepCheckapp.create')}}">
                         <button type="button" class="btn btn-warning btn-block btn-flat btn-lg">扫码对货</button>
                     </a>
                     <a class="btn-block" href="{{route('sweepOut.create')}}">

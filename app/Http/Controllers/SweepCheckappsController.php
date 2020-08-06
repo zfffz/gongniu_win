@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
-class SweepChecksController extends CommonsController
+class SweepCheckappsController extends CommonsController
 {
    
    public function destroy(SweepCheck $sweepCheck,Sweep_check_item $Sweep_check_item)
@@ -56,8 +56,8 @@ class SweepChecksController extends CommonsController
         //     ->select('ccusname as name')
         //     ->where('dispatchlist','=',$dispatch_no)
         //     ->get();
-      // return view('sweepChecks.app',compact('checkers'));
-        return view('sweepChecks.create',compact('checkers'));
+      return view('sweepChecks.app',compact('checkers'));
+        // return view('sweepChecks.create',compact('checkers'));
         return view('sweepChecks.index',compact('checkers'));
         // return view('sweepChecks.show',compact('checkers'));
     }
@@ -134,7 +134,6 @@ class SweepChecksController extends CommonsController
                 
                 Convert(decimal(30,0),t1.iQuantity) as iQuantity,
                 Convert(decimal(30,0),t1.yQuantity) as yQuantity,
-                t1.zb,
                 CONVERT(varchar(100), t2.created_at, 20) as created_at
                 "))
         ->leftJoin('zzz_sweep_checks as t2','t1.parent_id','=','t2.id');
@@ -156,7 +155,7 @@ class SweepChecksController extends CommonsController
 
 
 
-     public function getData(Request $request)
+    public function getData(Request $request)
     {
         $searchKey = $request->input('searchKey');
           //$searchKey = $request->searchKey;
@@ -170,10 +169,9 @@ class SweepChecksController extends CommonsController
                 "))
         ->leftJoin('zzz_customer_locations as t2','t1.cCusCode','=','t2.customer_no')
         ->leftJoin('zzz_storage_locations as t3','t2.location_id','=','t3.id')
-        // ->where('t1.cDLCode','=',$searchKey)->get();
-        ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
+        ->where('t1.cDLCode','=',$searchKey)->get();
 
-        echo json_encode(array('status'=>1,'cDLCode'=>$data[0]->cDLCode,'cCusName'=>$data[0]->cCusName,'dDate'=>$data[0]->dDate,'no'=>$data[0]->no));
+        echo json_encode(array('status'=>1,'cCusName'=>$data[0]->cCusName,'dDate'=>$data[0]->dDate,'no'=>$data[0]->no));
         // echo json_encode(array('status'=>1,'ddate'=>$data[0]->ddate));
       // echo json_encode(array('status'=>1,'position'=>$data[0]->position));
     }
@@ -193,8 +191,7 @@ class SweepChecksController extends CommonsController
                 t4.cInvStd,
                 t5.cComUnitName,
                 Convert(decimal(30,0),t4.cinvDefine13) as cinvDefine13,
-                 (CASE WHEN t4.cinvDefine13 != 0 THEN (CONVERT(decimal(30, 2), t1.iQuantity / t4.cinvDefine13)) ELSE 1 END) as iNum,
-                '' as kz,
+                Convert(decimal(30,2),t1.iQuantity/t4.cinvDefine13) as iNum,
                 Convert(decimal(30,0),t1.iQuantity) as iQuantity
                 "))
         ->leftJoin('DispatchList as t2','t1.DLID','=','t2.DLID')
@@ -209,67 +206,27 @@ class SweepChecksController extends CommonsController
         return $data;
     }
 
-
-    public function dispatchscf_data(Request $request)
-    {
-
-             $searchKey = $request->input('searchKey');
-        $builder = \DB::table('V_zzz_cf as t1')
-        ->select(
-            \DB::raw("
-                t1.AutoID,
-                t1.cDLCode,
-                t1.cWhName,
-                t1.cInvCode,
-                t1.cInvName,
-                t1.cInvStd,
-                t1.cComUnitName,
-                t1.cinvDefine13,
-                t1.iNum,
-                '' as kz,
-                t1.iQuantity
-                "))
-                   ;
-
-          // dd($builder) ; 
-
-        $data=parent::dataPage5($request,$this->condition($builder,$request->searchKey),'asc');
-
-        return $data;
-    }
-
-
-
-
     private function condition($table,$searchKey){
         if($searchKey!=''){
-            // $table->where('cDLCode','=',$searchKey);
-$table->where('cDLCode','like','%'.$searchKey.'%');
+            $table->where('t2.cDLCode','=',$searchKey);
+
         }
         return $table;
     }
 
     public function dispatch_data(Request $request){
-      $searchKey = $request->input('searchKey');
-        // $dispatch_no = $request->dispatch_no;
+        $dispatch_no = $request->dispatch_no;
         // 1.判断发货单号是否合法
         $data = DB:: table('dispatchlist as t1')
         ->select('t1.cDLCode')
-        // ->where('t1.cDLCode','=',$dispatch_no)->get();
-        // ->where('t1.cDLCode','like','%'.$dispatch_no.'%')->get();
-        ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
-
-// $results = DB::select('select no from zzz_sweep_outs P left join zzz_sweep_out_items Z on P.id=z.parent_id  where z.dispatch_no = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
-// Model::where('field_name','like','%'.$keywords.'%')->get()
-// $data = DB::select('select cDLCode from dispatchlist where cdlcode like ?', ['%'$dispatch_no'%']);
-
+        ->where('t1.cDLCode','=',$dispatch_no)->get();
 
          $data1 = DB:: table('zzz_sweep_checks as t2')
         ->select('t2.dispatch_no')
-        ->where('t2.dispatch_no','like','%'.$searchKey.'%')->get();
+        ->where('t2.dispatch_no','=',$dispatch_no)->get();
 
         if(count($data) == 0){
-            echo json_encode(array("status"=>"0","text"=>"发货单号'$searchKey'不存在！"));
+            echo json_encode(array("status"=>"0","text"=>"发货单号'$dispatch_no'不存在！"));
             exit();
         }
         else{
@@ -283,7 +240,7 @@ $table->where('cDLCode','like','%'.$searchKey.'%');
         // 1.验证是否重复扫描
         $data = DB:: table('zzz_sweep_checks as t1')
         ->select('t1.dispatch_no')
-        ->where('t1.dispatch_no','like','%'.$dispatch_no.'%')->get();
+        ->where('t1.dispatch_no','=',$dispatch_no)->get();
 
         if(count($data) > 0){
             echo json_encode(array("status"=>"1","text"=>"发货单'$dispatch_no'已对货，请勿再次扫描！"));
@@ -297,25 +254,19 @@ $table->where('cDLCode','like','%'.$searchKey.'%');
       //
     $result = $request->result;
     $dispatch_no = $request->dispatch_no;
-    // $searchKey = $request->input('searchKey');
         // array('t1.cinvcode' => $result, 't1.cdlcode'=>$dispatch_no); 
-   //  $data = DB:: table('dispatchlists as t1')
-   //  ->select('t1.cInvCode', 't2.cDLCode','t3.cinvdefine5')
-   //  ->leftJoin('DispatchList as t2','t1.DLID','=','t2.DLID')
-   //  ->leftJoin('inventory as t3','t3.cInvCode','=','t1.cInvCode')
-   //  ->where(array('t1.cInvCode' => $result, 't2.cDLCode'=>$dispatch_no)) 
-   //  ->orwhere('t3.cinvdefine5','=',$result) 
-   //  ->get();
-   // $data= DB::select('select no from zzz_sweep_outs P left join zzz_sweep_out_items Z on P.id=z.parent_id  where z.dispatch_no = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
-
-         $data= DB::select('select t1.cInvCode,t2.cDLCode,t3.cinvdefine5 from dispatchlists as t1 left Join DispatchList as t2 on t1.DLID=t2.DLID left Join inventory as t3 on t3.cInvCode=t1.cInvCode where  t2.cDLCode=? and (t1.cInvCode =? or t3.cinvdefine5= ?)', [$dispatch_no,$result,$result]);
+    $data = DB:: table('dispatchlists as t1')
+    ->select('t1.cInvCode', 't2.cDLCode')
+    ->leftJoin('DispatchList as t2','t1.DLID','=','t2.DLID')
+    ->where(array('t1.cInvCode' => $result, 't2.cDLCode'=>$dispatch_no)) 
+    ->get();
 
     if(count($data) == 0){
         echo json_encode(array("status"=>"0"));
         exit();
     }
     else{
-     echo json_encode(array("status"=>"1",'cInvCode'=>$data[0]->cInvCode));
+     echo json_encode(array("status"=>"1"));
  }
 
 }
@@ -372,8 +323,7 @@ public function store(Request $request)
             'cinvDefine13'=> $data['cinvDefine13'],
             'iNum'=> $data['iNum'],
             'iQuantity'=> $data['iQuantity'],
-            'yQuantity'=> $data['yQuantity'],
-            'zb'=> $data['zb']
+            'yQuantity'=> $data['yQuantity']
         ]);
 
         $sweep_check_item->save();

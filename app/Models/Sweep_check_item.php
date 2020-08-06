@@ -21,6 +21,7 @@ class Sweep_check_item extends Model
     'iNum',
     'iQuantity',
     'yQuantity',
+    'zb',
 
 ];
 
