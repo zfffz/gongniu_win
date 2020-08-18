@@ -182,13 +182,13 @@ class WayBillsController extends CommonsController
             t1.id,
             t1.no,
             t3.no as car_name,
-            t4.name as drive_name,
+            t4.cpersonname as drive_name,
             CONVERT(VARCHAR(10),t1.created_at,120) as c_date, 
             CONVERT(VARCHAR(10),t1.created_at,108) as c_time,
             case t1.status when 0 then '未生成' when 1 then '已生成' end as status 
             "))
             ->leftJoin('zzz_cars as t3','t1.car_id','t3.id')
-            ->leftJoin('zzz_drivers as t4','t1.driver_id','t4.id');
+            ->leftJoin('bs_gn_wl as t4','t1.driver_id','t4.cpersoncode');
 
         $data=parent::dataPage($request,$this->condition($builder,$request),'asc');
 

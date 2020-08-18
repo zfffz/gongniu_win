@@ -18,6 +18,7 @@ class Sweep_check_item extends Model
     'cInvStd',
     'cComUnitName',
     'cinvDefine13',
+    'iinvweight',
     'iNum',
     'iQuantity',
     'yQuantity',

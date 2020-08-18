@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('sweepOut/location_data', 'SweepOutsController@location_data')->name('sweepOut.location_data');
     Route::post('sweepOut/getData', 'SweepOutsController@getData')->name('sweepOut.getData');
     Route::post('sweepOut/update_cverifier', 'SweepOutsController@update_cverifier')->name('sweepOut.update_cverifier');
+    Route::get('sweepOut/checkIfdh', 'SweepOutsController@checkIfdh')->name('sweepOut.checkIfdh');
     Route::resource('sweepOut', 'SweepOutsController', ['only' => [ 'index', 'create', 'store','index','destroy','show','update']]);
 
     // 扫码上车
@@ -82,6 +83,7 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::get('dispatchPrint/getPrint', 'DispatchPrintController@getPrint')->name('dispatchPrint.getPrint');
      Route::post('dispatchPrint/lgetData', 'DispatchPrintController@lgetData')->name('dispatchPrint.lgetData');
     Route::get('dispatchPrint/lgetPrint', 'DispatchPrintController@lgetPrint')->name('dispatchPrint.lgetPrint');
+    Route::post('dispatchPrint/lgetPrint', 'DispatchPrintController@lgetPrint')->name('dispatchPrint.lgetPrint');
     Route::get('dispatchPrint/outboxPrint', 'DispatchPrintController@outboxPrint')->name('dispatchPrint.outboxPrint');
     Route::post('dispatchPrint/updPrintstatus', 'DispatchPrintController@updPrintstatus')->name('dispatchPrint.updPrintstatus');
     //  Route::post('dispatchPrint/printpage', 'DispatchPrintController@printpage')->name('dispatchPrint.printpage');

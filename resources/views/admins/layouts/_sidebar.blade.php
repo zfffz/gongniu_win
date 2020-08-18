@@ -58,12 +58,12 @@
                                 <p>车辆</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="{{route('driver.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>司机</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="{{route('customerLocation.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

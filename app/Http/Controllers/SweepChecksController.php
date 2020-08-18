@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Input;
 class SweepChecksController extends CommonsController
 {
    
-   public function destroy(SweepCheck $sweepCheck,Sweep_check_item $Sweep_check_item)
+   public function destroy($id)
     {
+        // $checker=Auth::id();
+         // $id = $request->id;
+         // dd($id);
         // 删除前先判断一下有没有生成发货装车单
         // if($sweepOut->status ==1){
         //     echo json_encode(array('status'=>0,'text'=>'已经部分发货装车，不允许删除！'));
@@ -23,11 +26,39 @@ class SweepChecksController extends CommonsController
         //     echo json_encode(array('status'=>0,'text'=>'已经全部发货装车，不允许删除！'));
         //     exit();
         // }
+        $data= DB::select("select flag,dispatch_no from zzz_sweep_checks where id=?",[$id]);
+        // dd($data);
+         if($data[0]->flag==1){
+            echo json_encode(array('status'=>0,'text'=>'已经打包，请先删除打包单据！'));
+            exit();
+        }
 
-        $sweepCheck->delete();
-        $Sweep_check_item->delete();
+
+$deleteds = DB::delete("delete from zzz_sweep_check_items where parent_id =?",[$id]);
+$deleted = DB::delete("delete from zzz_sweep_checks where id=?",[$id]);
+
+
+//删除BS_GN_wlstate上的对货记录
+$deleteds1 = DB::delete("delete from BS_GN_wlstate where cdlcode=? and hd='对货'",[$data[0]->dispatch_no]);
+//更新发货单上对货记录(对货人)
+DB::update("update DispatchList set cDefine11='' where cdlcode=?",[$data[0]->dispatch_no]);
+
+$data1= DB::select("select DLID from dispatchlist where cDLCode=?",[$data[0]->dispatch_no]);
+//更新发货单上对货记录(对货时间)
+DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$data1[0]->DLID]);
+
+// update DispatchList set cDefine11=@cname where cdlcode=@cdlcode
+//     update dispatchlist_extradefine set chdefine4=convert(varchar(100),@ddate,120) where DLID=@dlid
+
+
+  
+
+// $data= DB::delete
+
+        // $sweepCheck->delete();
+        // $Sweep_check_item->delete();
         // 把之前的 redirect 改成返回空数组
-        return [];
+        // return [];
     }
      /**
      * Display a listing of the resource.
@@ -57,6 +88,10 @@ class SweepChecksController extends CommonsController
         //     ->where('dispatchlist','=',$dispatch_no)
         //     ->get();
       // return view('sweepChecks.app',compact('checkers'));
+        $checkers = DB::table('bs_gn_wl')
+            ->select('cpersoncode as no','cpersonname as name')
+            ->where('wlcode','=','02')
+            ->get();
         return view('sweepChecks.create',compact('checkers'));
         return view('sweepChecks.index',compact('checkers'));
         // return view('sweepChecks.show',compact('checkers'));
@@ -128,9 +163,13 @@ class SweepChecksController extends CommonsController
                 t2.dispatch_no,
                 t2.ccusname,
                 t2.checker,
+                t2.lszz,
+                Convert(decimal(30,3),t2.cz) as cz,
+
                 t1.cInvCode,
                 t1.cInvName,
-                
+                (ISNULL(Convert(decimal(30,3),t1.iinvweight),0))
+                 as iinvweight,
                 
                 Convert(decimal(30,0),t1.iQuantity) as iQuantity,
                 Convert(decimal(30,0),t1.yQuantity) as yQuantity,
@@ -192,6 +231,9 @@ class SweepChecksController extends CommonsController
                 t4.cInvName,
                 t4.cInvStd,
                 t5.cComUnitName,
+
+                (ISNULL(Convert(decimal(30,3),t4.iinvweight),0))
+                 as iinvweight,
                 Convert(decimal(30,0),t4.cinvDefine13) as cinvDefine13,
                  (CASE WHEN t4.cinvDefine13 != 0 THEN (CONVERT(decimal(30, 2), t1.iQuantity / t4.cinvDefine13)) ELSE 1 END) as iNum,
                 '' as kz,
@@ -225,6 +267,8 @@ class SweepChecksController extends CommonsController
                 t1.cInvStd,
                 t1.cComUnitName,
                 t1.cinvDefine13,
+               (ISNULL(Convert(decimal(30,3),t1.iinvweight),0))
+                 as iinvweight,
                 t1.iNum,
                 '' as kz,
                 t1.iQuantity
@@ -326,6 +370,10 @@ public function store(Request $request)
     $sweep_check=\DB::transaction(function() use ($request){
             //创建一张新的扫码对货单
      $dispatch_no = $request->dispatch_no;
+     $checker=$request->checker;
+     $ddate=date('Y-m-d H:i:s',time());
+
+     // dd($checker);
         // 1.判断发货单号是否合法
      $pd = DB:: table('zzz_sweep_checks as t1')
      ->select('t1.dispatch_no')
@@ -335,6 +383,9 @@ public function store(Request $request)
         echo json_encode(array("status"=>"0","text"=>"发货单'$dispatch_no'已对货，不允许重复保存！"));
         exit();
     }
+    // insert into  BS_GN_wlstate (cpersoncode,cdlcode,jh,hd,db,ck,zc,snno,wlno,ddate) values (@cpersoncode,@cdlcode,NULL,'对货',NULL,NULL,NULL,'',NULL,@ddate)
+
+   DB::insert('insert into  BS_GN_wlstate (cpersoncode,cdlcode,hd,ddate) values (?,?,?,?)', [$checker,$dispatch_no,'对货',$ddate]);
 
             // $jg = SweepCheck::where('dispatch_no','=',$datas['dispatch_no'])->get();
 
@@ -347,6 +398,11 @@ public function store(Request $request)
         'ccusname'=>$request->input('ccusname'),
         'ddate'=>$request->input('ddate'),
         'position'=>$request->input('position'),
+        'zdzz'=>$request->input('zdzz'),
+        'lszz'=>$request->input('lszz'),
+        'cz'=>$request->input('cz'),
+        'cy'=>$request->input('cy'),
+        'CTNS'=>$request->input('CTNS'),
         'checker'=>$request->input('checker'),
         'user_no'=>Auth::id(),
                 // 'entry_id'=>'1'
@@ -370,6 +426,8 @@ public function store(Request $request)
             'cInvStd'=> $data['cInvStd'],
             'cComUnitName'=> $data['cComUnitName'],
             'cinvDefine13'=> $data['cinvDefine13'],
+            'iinvweight'=> $data['iinvweight'],
+            
             'iNum'=> $data['iNum'],
             'iQuantity'=> $data['iQuantity'],
             'yQuantity'=> $data['yQuantity'],

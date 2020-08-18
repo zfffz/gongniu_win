@@ -90,15 +90,21 @@ class SweepOutsController extends CommonsController
         //     }
                 //取打包单号
          $results = DB::select('select no from zzz_sweep_outs P left join zzz_sweep_out_items Z on P.id=z.parent_id  where z.dispatch_no = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
-                //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
-                $cVerifier= Auth::user()->name;
+               
+         //记录打包员和打包时间
+                $ddate = date("Y-m-d H:i:s");
+                DB::INSERT('insert into BS_GN_WLstate(cpersoncode,cdlcode,db,ddate)VALUES(?,?,?,?)',[$request->input('packager'),$data['dispatch_no'],'打包',$ddate]);
+
+                // $cVerifier= Auth::user()->name;
+         $cVerifier= 'auser';
+ //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
                 $date= date("Y-m-d H:i:s");
                 DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
                 //生成销售出库单和更改库存
                 DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
                 //回传打包单号
          DB::update("update dispatchlist set cdefine2= ? where cDLCode =?",[$results[0]->no,$data['dispatch_no']]);
-  
+         DB::update("update zzz_sweep_checks  set flag=1 where dispatch_no =?",[$data['dispatch_no']]);
         //1.提示销售出库单号
         $data1 = DB:: table('rdrecord32 as t1')
         ->select('t1.ccode')
@@ -124,6 +130,8 @@ class SweepOutsController extends CommonsController
         //
                 $i++;
             }
+            // 更新
+            $sweep_out->update(['count' => ($i-1)]);
              if(count($data1) != 0)
         {
            
@@ -285,6 +293,7 @@ class SweepOutsController extends CommonsController
     public function destroy(SweepOut $sweepOut)
     {
         // 删除前先判断一下有没有生成发货装车单
+        // dd($sweepOut->id);
         if($sweepOut->status ==1){
             echo json_encode(array('status'=>0,'text'=>'已经部分发货装车，不允许删除！'));
             exit();
@@ -293,7 +302,30 @@ class SweepOutsController extends CommonsController
             echo json_encode(array('status'=>0,'text'=>'已经全部发货装车，不允许删除！'));
             exit();
         }
+        //标记刷回0，对货就可以删除了
+    DB::update("update A SET A.flag=0 FROM zzz_sweep_checks A left join zzz_sweep_out_items B ON A.dispatch_no=B.dispatch_no where B.parent_id =?",[$sweepOut->id]);
 
+     //清空U8发货单里记录的打包单号
+        DB::table('dispatchlist as t1')
+            ->join('zzz_sweep_out_items as t2','t1.cDLCode','=','t2.dispatch_no')
+            ->where('t2.parent_id','=',$sweepOut->id)
+            ->update(['t1.cDefine2'=>'']);
+
+            //删除BS_GN_wlstate上的打包记录
+$deleteds1 = DB::delete("delete from BS_GN_wlstate where cdlcode=(select dispatch_no from zzz_sweep_out_items where parent_id=?) and db='打包'",[$sweepOut->id]);
+
+        //清空U8发货单记录的打包人和打包时间
+        DB::table('dispatchlist as t1')
+            ->join('zzz_sweep_out_items as t2','t1.cDLCode','=','t2.dispatch_no')
+            ->where('t2.parent_id','=',$sweepOut->id)
+            ->update(['t1.cDefine13'=>'']);
+
+        DB::table('dispatchlist_extradefine as t1')
+            ->join('dispatchlist as t2','t1.DLID','=','t2.DLID')
+            ->join('zzz_sweep_out_items as t3','t2.cDLCode','=','t3.dispatch_no')
+            ->where('t3.parent_id','=',$sweepOut->id)
+            ->update(['t1.chdefine5'=>'']);
+        
         $sweepOut->delete();
         // 把之前的 redirect 改成返回空数组
         return [];
@@ -377,6 +409,20 @@ class SweepOutsController extends CommonsController
 
     }
 
+
+  //判断发货单是否已经对货，未对货则要求先对货，再打包
+    public function checkIfdh(Request $request){
+        $cdlcode = $request->dispatch_no;
+        $query = DB:: table('zzz_sweep_checks as t1')
+            ->where('t1.dispatch_no','=',$cdlcode)
+            ->count();
+        if($query == 0 ){
+            //这张发货单未进行对货
+            echo json_encode(array('status'=>0,'text'=>'未对货，不允许打包出库！'));
+        }else{
+            echo json_encode(array('status'=>1,'text'=>'success！'));
+        }
+    }
     public function getData(Request $request)
     {
         $builder = \DB::table('zzz_sweep_outs as t1')

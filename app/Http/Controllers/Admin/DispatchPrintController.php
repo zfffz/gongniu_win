@@ -19,28 +19,26 @@ class DispatchPrintController extends CommonsController
 
     public function getData(Request $request)
     {
-
-        $builder = \DB::table('dispatchlist as t1')
+ $builder = \DB::table('dispatchlist as t1')
             ->select(
                 \DB::raw("
-			t1.cDLCode, 
-			convert(char(10),t1.dDate,120) as dDate,
-			t2.cSTName,
-			t1.cDepCode,
-			t1.cCusName,
-			t3.cCusAbbName,
-			t4.cPsn_Name,
-			t1.cMemo,
-			t1.cMaker,
-			t5.cSCName,
-			case t6.isprint when 1 then '是' else '否' end as status,
-			isnull(t6.iprintCount,0) as iprintCount
+            t1.cDLCode, 
+            convert(char(10),t1.dDate,120) as dDate,
+            t2.cSTName,
+            t1.cDepCode,
+            t1.cCusName,
+            t3.cCusAbbName,
+            t4.cPsn_Name,
+            t1.cMemo,
+            t1.cMaker,
+            t5.cSCName,
+            case isnull(t1.iPrintCount,0) when 0 then '否' else '是' end as status,
+            isnull(t1.iPrintCount,0) as iprintCount
             "))
         ->leftJoin('SaleType as t2','t1.cSTCode','t2.cSTCode')
         ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
         ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')
-        ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode')
-        ->leftjoin('zzz_dispatchlist_printstatus as t6','t1.cDLCode','t6.cDLCode');
+        ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode');
 
         $data=parent::dataPage3($request,$this->condition($builder,$request),'asc');
 
@@ -262,8 +260,19 @@ class DispatchPrintController extends CommonsController
                 ->groupby('t1.dispatch_no')
                 ->groupby('t2.zb')
                 ->get();
+ if(count($head) == 0){
+    // dd('发货单无组别，无法打印');
+            echo json_encode(array("status"=>"0","text"=>"发货单无组别，无法打印！"));
+            exit();
+        }
+        // if($head[0]->zb=''){
+        //      exit();
+        //     dd('发货单无组别，无法打印');
+        //      echo json_encode(array('status'=>0,'text'=>'发货单无组别，无法打印！'));
+        //         exit();
 
-                
+        // }
+                // dd($cdlcode);
 
  foreach ($head as $zb){
          
@@ -298,12 +307,13 @@ class DispatchPrintController extends CommonsController
            $data2[$m][1]=$data1[$t]; 
            $t=$t+1;
            $m=$m+1;
+            
         }
            $n=$n+1;
         }
         //echo json_encode(array('status'=>0,'returndata'=>$data2));
+       
         // dd($data2);
-        // dd(t);
          // dd($s);
        
         return view('admins.dispatchPrint.lable',compact('data2','m'));
@@ -415,7 +425,7 @@ class DispatchPrintController extends CommonsController
 
     private function condition($table,$searchKey){
 
-        $bedate = explode(" - ",$searchKey->dateKey);
+       $bedate = explode(" - ",$searchKey->dateKey);
         $bgdate = $bedate[0];
         $eddate = date("Y-m-d",strtotime("+1day",strtotime($bedate[1])));
         //dd($searchKey);
@@ -437,7 +447,7 @@ class DispatchPrintController extends CommonsController
             }
 
             if($searchKey->status =='1' ){
-                $table->where('t6.isprint ','=','1');
+                $table->where('t1.iPrintCount ','>=','1');
             }
 
             if($searchKey->status =='0' ){
@@ -453,3 +463,4 @@ class DispatchPrintController extends CommonsController
         return $table;
     }
 }
+

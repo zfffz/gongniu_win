@@ -108,7 +108,7 @@
                     <div class="col-sm-2">    
                         <div class="input-group">
                             <td>
-                                <button type="button" id="btn-print" class="btn btn-block btn-secondary">箱标打印</button>
+                                <button type="button" id="btn-print" class="btn btn-block btn-success">拼箱箱标打印</button>
                             </td>
                         </div>
                     </div>
@@ -210,23 +210,119 @@ $('#btn-submit').on('click', function(){
 
 $('#btn-print').on('click', function(){
     var inputs = $("#dispatchlist input[name='ckb-jobid']:checked ").prev();
+
     inputs=inputs.prevObject;
 
     var len = inputs.length;
+    // alert(len);
     if(len == 0){
         Toast.fire({
             type: 'error',
             title: '请选择要打印的单据！'
         });
         return false;
-    }else{
+    }else
+  
+
+{
+     // $.ajax({
+     //                url:"{{route('dispatchPrint.lgetPrint')}}",
+     //                data:JSON.stringify(datas),
+     //                type:'post',
+     //                dataType:'json',
+     //                headers:{
+     //                    Accept:"application/json",
+     //                    "Content-Type":"application/json",
+     //                    'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+     //                },
+     //                processData:false,
+     //                cache:false,
+     //                timeout: 1000,
+     //                success:function(t){
+     //                    //插入成功
+     //                    if (t.status ==0 ){//这里的FTranType对应后台数组的FTranType，判断要用“==”
+     //                        alert(t.Text);   //t.FTranType ==0 插入失败，可能是发货单号不存在等原因
+     //                        //插入失败，则添加插入失败的提示音（判断t.FText)
+     //                    }
+     //                },
+     //                error:function(){
+     //                    //系统错误，有可能是后台php语法错误，sql语句运行错误等
+     //                    alert("error");
+     //                    //disLoad();
+     //                }
+     //            });
+
+ //检查是否有组别 
+       var datas='';
+        inputs.each(function () {
+            datas = datas + $(this).val()+'|';
+        });
+        // window.location.href = "dispatchPrint/lgetPrint?datas="+datas;
+                $.ajax({
+                                  url:'dispatchPrint/lgetPrint?datas='+datas,
+                                  type:'post',
+                                  // async:false,
+                                  dataType:'json',
+                                  headers:{
+                        Accept:"application/json",
+                        "Content-Type":"application/json",
+                        'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                    },
+                                  processData:false,
+                                  cache:false,
+                                  timeout: 1000,
+                                  beforeSend:function(){
+
+                                  },
+                               success:function(data){
+                                    if(data.status==0){
+                                      // $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                                      // $('#notifyAudio')[0].play();
+                                //发货单号红框提示,toast提示
+                                // $("#dispatch_no").addClass("is-invalid");
+                                Toast.fire({
+                                  type: 'error',
+                                  title: data.text
+                                });
+
+               
+              
+                 }
+                 else{
+
+
+
+    {
         var datas='';
         inputs.each(function () {
             datas = datas + $(this).val()+'|';
         });
         window.location.href = "dispatchPrint/lgetPrint?datas="+datas;
+        // alert(datas.status);
+//         if(status==0){
 
+//             alert('1');
+// }
     };
+
+                    
+                 }
+
+             }
+             });
+
+
+
+
+
+
+}
+
+
+
+
+
+
 
 });
 

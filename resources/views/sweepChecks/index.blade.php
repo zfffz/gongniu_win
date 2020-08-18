@@ -46,14 +46,18 @@
                         <th>发货单号</th>
                         <th>客户名称</th>
                         <th>对货员</th>
+                        <th>零散总重</th>
+                        <th>称重</th>
+                        <!-- <th>对货员</th> -->
                         <th>存货编码</th>
                         <th>存货名称</th>
                        <!--  <th>规格型号</th> -->
-                        <!-- <th>单位</th> -->
+                        <th>净重</th>
                         <th>发货数量</th>
                         <th>验货数量</th>
                         <th>组别</th>
                         <th>创建时间</th>
+                        <th>操作</th>
                        <!--  <th>操作</th> -->
                     </tr>
                     </thead>
@@ -98,6 +102,7 @@
                     }
                 })
         }
+
 
         var table =
             $('#companiesLists').DataTable({
@@ -163,8 +168,11 @@
                     { "data":"dispatch_no" },
                     { "data":"ccusname" },
                     { "data":"checker" },
+                    { "data":"lszz" },
+                    { "data":"cz" },
                     { "data":"cInvCode" },
                     { "data":"cInvName" },
+                     { "data":"iinvweight" },
                     // { "data":"cInvStd" },
                     // { "data":"cComUnitName" },
                     { "data":"iQuantity" },
@@ -174,21 +182,21 @@
                     // {"data":"id"}
                    
                 ],
-                //  columnDefs: [{
-                //     targets: 8,//自定义列的序号，从0开始
-                //     data: "id", //需要引用的数据列，一般是主键         
-                //     render: function(data, type, full){
-                //         return '<div class="text-center py-0 align-middle">' +
-                //             '<div class="btn-group">' +
-                //             //'<a href="sweepOut/'+data+'" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>' +
-                //             '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>' +
-                //             '</div>' +
-                //             '</div>';
+                 columnDefs: [{
+                    targets: 12,//自定义列的序号，从0开始
+                    data: "id", //需要引用的数据列，一般是主键         
+                    render: function(data, type, full){
+                        return '<div class="text-center py-0 align-middle">' +
+                            '<div class="btn-group">' +
+                            //'<a href="sweepOut/'+data+'" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>' +
+                            '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>' +
+                            '</div>' +
+                            '</div>';
 
 
-                //     }
-                // }
-                // ]
+                    }
+                }
+                ]
             });
     </script>
 

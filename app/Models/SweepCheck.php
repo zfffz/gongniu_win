@@ -9,7 +9,7 @@ class SweepCheck extends Model
   
     public $table='zzz_sweep_checks';
     protected $fillable = [
-        'dispatch_no','ccusname','ddate','position','checker','user_no',
+        'dispatch_no','ccusname','ddate','position','zdzz','lszz','cz','cy','checker','user_no','CTNS',
         // 'entry_id','cWhName','cInvCode','cInvName','cInvStd','cComUnitName','cinvDefine13','iNum','iQuantity',
     ];
 

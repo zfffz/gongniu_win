@@ -301,9 +301,55 @@
                 }
 
             }
-            return true;
-        }
+            //判断发货单是否已经对货，未对货则要求先对货,再打包
+                $.ajax({
+                    url:'checkIfdh?dispatch_no='+dispatch_no,
+                    type:'get',
+                    dataType:'json',
+                    async: false,
+                    headers:{
+                        Accept:"application/json",
+                        "Content-Type":"application/json"
+                    },
+                    processData:false,
+                    cache:false,
+                    timeout: 1000,
+                    beforeSend:function(){
+                    },
+                    success:function(t){
+                        if(t.status==0){
+                            //发货单号红框提示,toast提示
+                             $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                             $('#notifyAudio')[0].play();
+                             $("#dispatch_no").addClass("is-invalid");
+                            Toast.fire({
+                                type: 'error',
+                                title: '此发货单未进行对货，不允许打包出库！'
+                            });
+                            //清空发货单号
+                            $('#dispatch_no').val('');
+                            $("#dispatch_no").focus();
+                            result = false;
+                        }else{
+                            //如果合法
+                            $("#dispatch_no").removeClass("is-invalid");
+                            result = true;
+                        }
 
+                    },
+                    error:function(){
+                        alert("error");
+                        result = false;
+                    }
+
+                });
+
+                if(result){
+                    return true;
+                }else{
+                    return false;
+                }
+        }
 
 
         function addRow(type,default_location_no){
