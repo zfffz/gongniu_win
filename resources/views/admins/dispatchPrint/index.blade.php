@@ -32,7 +32,7 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>销售类型</label>
-                                <select class="form-control" required name="cSTName" id="cSTName" style="width: 100%;">
+                                <select class="form-control" required name="cSTName" id="cSTName" style="width: 80%;">
                                     <option value="" >请选择</option>
                                     <?php
                                     $jg=\Illuminate\Support\Facades\DB::table('SaleType')
@@ -82,7 +82,26 @@
                           <!-- /.input group -->
                         </div>
                     </div>
-                    <div class="col-sm-2">
+
+<div class="col-sm-2">
+    <div class="form-group">
+        <label>仓库</label>
+        <select class="form-control" required name="cWhCode" id="cWhCode" style="width: 60%;">
+            <option value="" >请选择</option>
+            <?php
+            $jg=\Illuminate\Support\Facades\DB::table('Warehouse')
+                ->select('cWhCode as FInterID','cWhName as FName')
+                ->get();
+            foreach($jg as $k=>$v){
+                echo ("<option value='$v->FInterID'>".$v->FName."</option>");
+            }
+            ?>
+        </select>
+    </div>
+</div>
+
+
+                    <div class="col-sm-1">
                         <div class="form-group">
                             <label>是否打印</label>
                             <select class="form-control" required name="status" id="status" style="width: 100%;">
@@ -108,14 +127,14 @@
                     <div class="col-sm-2">    
                         <div class="input-group">
                             <td>
-                                <button type="button" id="btn-print" class="btn btn-block btn-success">拼箱箱标打印</button>
+                                <button type="button" id="btn-print" class="btn btn-block btn-info">拼箱箱标打印</button>
                             </td>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="input-group">
                             <td>
-                                <button type="button" id="btn-submit1" class="btn btn-block btn-success">外箱标打印</button>
+                                <button type="button" id="btn-submit1" class="btn btn-block btn-warning">外箱标打印</button>
                             </td>
                         </div>
                     </div>
@@ -214,6 +233,7 @@ $('#btn-print').on('click', function(){
     inputs=inputs.prevObject;
 
     var len = inputs.length;
+    result = true;
     // alert(len);
     if(len == 0){
         Toast.fire({
@@ -261,7 +281,7 @@ $('#btn-print').on('click', function(){
                 $.ajax({
                                   url:'dispatchPrint/lgetPrint?datas='+datas,
                                   type:'post',
-                                  // async:false,
+                                  async:false,
                                   dataType:'json',
                                   headers:{
                         Accept:"application/json",
@@ -275,51 +295,65 @@ $('#btn-print').on('click', function(){
 
                                   },
                                success:function(data){
+
                                     if(data.status==0){
-                                      // $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                                      // $('#notifyAudio')[0].play();
+                                      $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                                      $('#notifyAudio')[0].play();
                                 //发货单号红框提示,toast提示
                                 // $("#dispatch_no").addClass("is-invalid");
-                                Toast.fire({
+                                 Toast.fire({
                                   type: 'error',
-                                  title: data.text
+                                  title: "发货单无组别，无法打印！"
                                 });
+                      result = false;
+               // return false;
+                                  }
+                 // location.reload();
+            
+//                  else if {
+//                     // Toast.fire({
+//                     //               type: 'error',
+//                     //               title: "发货单无组别，无法打印,请返回！"
+//                     //             });
 
-               
-              
-                 }
-                 else{
+//                     result = true;
 
 
-
-    {
-        var datas='';
-        inputs.each(function () {
-            datas = datas + $(this).val()+'|';
-        });
-        window.location.href = "dispatchPrint/lgetPrint?datas="+datas;
-        // alert(datas.status);
-//         if(status==0){
-
-//             alert('1');
-// }
-    };
+// alert(1);
 
                     
-                 }
+//                  }
 
              }
              });
-
-
-
+// alert(1);
+             
+   // var datas='';
+   //      inputs.each(function () {
+   //          datas = datas + $(this).val()+'|';
+   //      });
+     
+   //      window.location.href = "dispatchPrint/lgetPrint?datas="+datas;
 
 
 
 }
 
 
+ if(result){
+                // return true;
 
+         var datas='';
+        inputs.each(function () {
+            datas = datas + $(this).val()+'|';
+        });
+     
+        window.location.href = "dispatchPrint/lgetPrint?datas="+datas;
+                    
+                }
+                else{
+                    return false;
+                }
 
 
 
@@ -329,7 +363,11 @@ $('#btn-print').on('click', function(){
 $('#btn-submit1').on('click', function(){
     var inputs = $("#dispatchlist input[name='ckb-jobid']:checked ").prev();
     inputs=inputs.prevObject;
-
+        result = true;
+        var datas='';
+        inputs.each(function () {
+            datas = datas + $(this).val()+'|';
+        });
     var len = inputs.length;
     if(len == 0){
         Toast.fire({
@@ -338,13 +376,61 @@ $('#btn-submit1').on('click', function(){
         });
         return false;
     }else{
+
+
+
+
+
+
+                              $.ajax({
+                                  url:'dispatchPrint/outboxPrint?datas='+datas,
+                                  type:'post',
+                                  async:false,
+                                  dataType:'json',
+                                  headers:{
+                        Accept:"application/json",
+                        "Content-Type":"application/json",
+                        'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                    },
+                                  processData:false,
+                                  cache:false,
+                                  timeout: 1000,
+                                  beforeSend:function(){
+
+                                  },
+                               success:function(data){
+// alert(data.status);
+                                    if(data.status==0){
+                                      $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                                      $('#notifyAudio')[0].play();
+                                //发货单号红框提示,toast提示
+                                // $("#dispatch_no").addClass("is-invalid");
+                                 Toast.fire({
+                                  type: 'error',
+                                  title: "未对货,箱数为空,请先对货！"
+                                });
+                      result = false;
+
+                                  }
+
+             }
+             });
+
+    };
+    // alert(result);
+     if(result){
+                // return true;
+
         var datas='';
         inputs.each(function () {
             datas = datas + $(this).val()+'|';
         });
         window.location.href = "dispatchPrint/outboxPrint?datas="+datas;
-
-    };
+                    
+                }
+                else{
+                    return false;
+                }
 
 });
 
@@ -434,6 +520,7 @@ var table =
                     var cDLCodeKey = $('#cDLCode').val();
                     var dateKey = $('#reservation').val();
                     var cDepartmentKey = $('#cDepartment').val();
+                    var cWhCodeKey = $('#cWhCode').val();
                     var status =$('#status').val();
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
@@ -447,6 +534,7 @@ var table =
                             cDLCodeKey : cDLCodeKey,
                             dateKey : dateKey,
                             cDepartmentKey : cDepartmentKey,
+                            cWhCodeKey : cWhCodeKey,
                             status : status
                         },                       
                         success:function(result){

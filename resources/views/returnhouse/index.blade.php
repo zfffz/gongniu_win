@@ -4,19 +4,19 @@
 
 @endsection
 
-@section('title', '扫码对货')
+@section('title', '退回入库')
 
 @section('section')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>扫码对货</h1>
+                    <h1>退回入库</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">单据列表</li>
-                        <li class="breadcrumb-item active">扫码对货</li>
+                        <li class="breadcrumb-item active">退回入库</li>
                     </ol>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" name="search" id="search" class="form-control" placeholder="发货单号/对货员" />
+                            <input type="text" name="search" id="search" class="form-control" placeholder="打包员/创建日期" />
                             <div class="input-group-append">
                                 <button class="btn btn-default" type="button" onclick="table.draw( false );">
                                     <i class="fas fa-search"></i>
@@ -43,22 +43,13 @@
                 <table id="companiesLists" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>发货单号</th>
-                        <th>客户名称</th>
-                        <th>对货员</th>
-                      <!--   <th>零散总重</th>
-                        <th>称重</th> -->
-                        <!-- <th>对货员</th> -->
-                        <th>存货编码</th>
-                        <th>存货名称</th>
-                       <!--  <th>规格型号</th> -->
-                 <!--        <th>净重</th> -->
-                        <th>发货数量</th>
-                        <th>验货数量</th>
-                        <th>组别</th>
+                        <th>单据编号</th>
+                        <th>打包员</th>
+                        <th>库位编码</th>
+                        <th>库位名称</th>
+                        <th>发货单数量</th>
                         <th>创建时间</th>
                         <th>操作</th>
-                       <!--  <th>操作</th> -->
                     </tr>
                     </thead>
                 </table>
@@ -84,7 +75,7 @@
                 function(n){
                     if(n.value){
                         // 调用删除接口，用 id 来拼接出请求的 url
-                        axios.delete('sweepCheck/' + id)
+                        axios.delete('returnhouse/' + id)
                             .then(function (t) {
                                 if(t.data.status ==0){
                                     Swal.fire(
@@ -102,7 +93,6 @@
                     }
                 })
         }
-
 
         var table =
             $('#companiesLists').DataTable({
@@ -133,12 +123,11 @@
                 'paging'      : true,
                 "lengthChange": false,
                 "searching": false,
-                "ordering": false,
+                "ordering": true,
                 "info": true,
                 "autoWidth": false,
                 "serverSide": true,
                 "bProcessing":true,
-                "iDisplayLength":10,
                 "ajax":function(data,callback,settings){
                     var length = data.length;
                     var start = data.start;
@@ -148,7 +137,7 @@
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
                         type: "POST",
-                        url: "sweepCheck/getDatas",
+                        url: "returnhouse/getData",
                         data :{
                             draw : page,
                             start : start,
@@ -165,30 +154,21 @@
                     })
                 },
                 "columns":[
-                    { "data":"dispatch_no" },
-                    { "data":"ccusname" },
-                    { "data":"checker" },
-                    // { "data":"lszz" },
-                    // { "data":"cz" },
-                    { "data":"cInvCode" },
-                    { "data":"cInvName" },
-                     // { "data":"iinvweight" },
-                    // { "data":"cInvStd" },
-                    // { "data":"cComUnitName" },
-                    { "data":"iQuantity" },
-                    { "data":"yQuantity"},
-                    { "data":"zb" },
+                    { "data":"no" },
+                    { "data":"packager_name" },
+                    { "data":"location_no" },
+                    { "data":"location_name" },
+                    { "data":"count" },
                     { "data":"created_at" },
-                    // {"data":"id"}
-                   
+                    {"data":"id"}
                 ],
-                 columnDefs: [{
-                    targets: 9,//自定义列的序号，从0开始
+                columnDefs: [{
+                    targets: 6,//自定义列的序号，从0开始
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +
                             '<div class="btn-group">' +
-                            //'<a href="sweepOut/'+data+'" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>' +
+                            '<a href="returnhouse/'+data+'" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>' +
                             '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>' +
                             '</div>' +
                             '</div>';

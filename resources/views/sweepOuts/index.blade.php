@@ -4,19 +4,19 @@
 
 @endsection
 
-@section('title', '打包出库')
+@section('title', '打包入库')
 
 @section('section')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>打包出库</h1>
+                    <h1>打包入库</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">单据列表</li>
-                        <li class="breadcrumb-item active">打包出库</li>
+                        <li class="breadcrumb-item active">打包入库</li>
                     </ol>
                 </div>
             </div>

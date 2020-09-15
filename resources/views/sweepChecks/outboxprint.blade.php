@@ -27,11 +27,13 @@
     <div class="col-md-12">
         <div class="card" id="card">
             <style>table,th{border:none;height:18px} td{border: 1px solid #000;height:18px}</style>
-            <input class="col-md-1" type="hidden" id="count" name="count" value={{$n}} />
-            @foreach($data1 as $datas )
+            <input class="col-md-1" type="hidden" id="count" name="count" value=1} />
+             @foreach($head as $datas )
                 <div class="card-body" >
-                    <div id={{$datas->divid}} >
+                    <div id=1>
                         <div class="row">
+                            
+                       
                             <input class="col-md-2" type="hidden" id="ctns" value = {{ $datas->CTNS}} />
                         </div>
                         <div class="row"  >
@@ -42,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+    @endforeach
         </div>
     </div>
     </div>
@@ -62,14 +64,16 @@
             //LODOP.SET_PRINT_STYLEA(0,"Top2Offset",-40); //这句可让次页起点向上移
             //  LODOP.ADD_PRINT_BARCODE(Top,Left,Width,Height,QRCode,'$datas[0]->cDLCode');
             var m= $('#count').val();
-            for(var j=1;j<=m;j++){
-                var divid = 'div'+j;
-                var printnum = $("#"+divid+ " input[id='ctns']").val();
+            // for(var j=1;j<=m;j++){
+            //     var divid = 'div'+j;
+            var printnum = $('#ctns').val();
+
+                // var printnum = $("#"1 " input[id='ctns']").val();
                 for(var i=1;i<=printnum;i++){
                     LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById("1").innerHTML+"</body>");
                     LODOP.NewPageA();  //自动分页
                 }
-            }
+            // }
             LODOP.PRINT();
 
         });

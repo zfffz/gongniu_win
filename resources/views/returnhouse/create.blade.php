@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('include')
 @endsection
-@section('title', '打包入库')
+@section('title', '退回单')
 
 @section('header')
   <ul class="navbar-nav">
-    <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">打包员</label>
+    <label style="margin-top: 8px;margin-right: 10px;white-space:nowrap">入库人</label>
     <select class="form-control" name="packager" id="packager">
       <option value=""></option>
       @foreach ($packagers as $packager)
@@ -27,7 +27,7 @@
         <div class="container" style="margin:0px;padding:0px;max-width:2000px">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title text-center">打包入库</h3>
+                    <h3 class="card-title text-center">退货入库</h3>
                 </div>
                 <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
                     <div class="form-group">
@@ -45,7 +45,6 @@
                             <tr>
                                 <th>发货单号</th>
                                 <th>默认库位</th>
-                               
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -58,7 +57,7 @@
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
                     <button onclick="deleteTable()" class="btn btn-danger float-left">清空</button>
-                    <button onclick="batchSave()"  class="btn btn-primary float-right"> 上传并审核</button> 
+                    <button onclick="batchSave()"  class="btn btn-primary float-right"> 上传</button> 
                 </div>
                 <!-- /.card-footer -->
             </div>
@@ -89,11 +88,11 @@
             var packager = $('#packager').val();
             var location_no = $('#location_no').val();
 
-            //打包员提示
+            // 入库人提示
             if(packager == ''){
                 Toast.fire({
                     type: 'error',
-                    title: '请选择打包员！'
+                    title: '请选择入库人！'
                 });
                 $('#packager').addClass('is-invalid');
                 $('#packager').focus();
@@ -123,7 +122,7 @@
                 $('#dispatch_no').focus();
                 return false;
             }
-             var location_no = $('#location_no').val();
+
             var datas={};
             datas.packager = packager;
             datas.location_no = location_no;
@@ -133,13 +132,12 @@
                 var tdArr = trList.eq(i).find("td");
                 datas.items[i].dispatch_no = tdArr.eq(0).html();
                 datas.items[i].default_location_no = tdArr.eq(1).html();
-                // datas.items[i].location_no = location_no;
             }
 
             Swal.fire({
                 title: '确认上传暂存区数据到系统并审核发货单吗?',
                 text:'共'+length+'条',
-                footer: '打包员'+$('#packager option:selected').text()+'  库位'+$('#location_no').val(),
+                footer: '入库人'+$('#packager option:selected').text()+'  库位'+$('#location_no').val(),
                 type: 'question',
                 focusConfirm: false,
                 allowEnterKey:false,
@@ -152,7 +150,7 @@
                 function(n){
                     if(n.value){
                         $.ajax({
-                            url:"{{route('sweepOut.store')}}",
+                            url:"{{route('returnhouse.store')}}",
                             data:JSON.stringify(datas),
                             type:'post',
                             dataType:'json',
@@ -185,27 +183,27 @@
                                 //     title: t.title1,
                                 // // title: "上传审核成功,共'+length+'条,生成销售出库单号为"+data.ccode,
                                 // });
-                                 if(t.status == 2){
-                               Toast.fire({
-                                        type: 'error',
-                                        title: t.text2
+                               //   if(t.status == 2){
+                               // Toast.fire({
+                               //          type: 'error',
+                               //          title: t.text2
 
-                                    });
+                               //      });
 
-                                $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
-                                $('#successAudio')[0].play();
+                               //  $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+                               //  $('#successAudio')[0].play();
 
-                                $('#dispatch_table tbody').html('');
-                                $("#dispatch_no").focus();
-                                return false;
-                                }
+                               //  $('#dispatch_table tbody').html('');
+                               //  $("#dispatch_no").focus();
+                               //  return false;
+                               //  }
 
 
                                 if(t.status == 1){
                                 Swal.fire({
                             type: 'success',
-                             title: '上传成功,共'+length+'条！',
-                            text: "出库单号为"+t.text1
+                             title: '上传成功,共'+length+'条！'
+                            // text: "出库单号为"+t.text1
                         });
 
                                 $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
@@ -326,7 +324,7 @@
                              $("#dispatch_no").addClass("is-invalid");
                             Toast.fire({
                                 type: 'error',
-                                title: '此发货单未进行对货，不允许打包入库！'
+                                title: '此发货单未进行对货，不允许退货入库！'
                             });
                             //清空发货单号
                             $('#dispatch_no').val('');
@@ -440,7 +438,7 @@
             //打包员提示
             Toast.fire({
                 type: 'warning',
-                title: '请选择打包员！'
+                title: '请选择入库人！'
             });
             //页面初始化，聚焦打包员
             $('#packager').focus();
@@ -450,7 +448,7 @@
             if($('#packager').val()==''){
               Toast.fire({
                 type: 'warning',
-                title: '请选择打包员！'
+                title: '请选择入库人！'
               });
               $('#packager').focus();
               return false;
@@ -462,7 +460,7 @@
             if($('#packager').val()==''){
               Toast.fire({
                 type: 'warning',
-                title: '请选择打包员！'
+                title: '请选择入库人！'
               });
               $('#packager').focus();
               return false;

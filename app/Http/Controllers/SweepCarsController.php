@@ -76,11 +76,20 @@ class SweepCarsController extends CommonsController
                 // 更新发货单装车次数
                 Sweep_out_item::where('dispatch_no','=',$data['dispatch_no'])->increment('car_count');
 
+               //插库存记录
+                 // $res1 = DB::select('select location_no from [dbo].[zzz_sweep_car_items] a left join  [zzz_sweep_out_items] b  on a.dispatch_no=b.dispatch_no  LEFT JOIN [zzz_sweep_outs] C ON B.parent_id=C.id WHERE   a.dispatch_no= :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+ $ddate = date("Y-m-d H:i:s");
+                
+                $res = DB::select('select cinvcode,cinvname,iquantity,s.location_no from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID left join  zzz_sweep_out_items t on t.dispatch_no=z.cdlcode left join zzz_sweep_outs s on t.parent_id=s.id where Z.cDLCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+            foreach ($res as $ress) {
+         DB::INSERT('insert into zzz_kwkc( source,cdlcode,location_no,cinvcode,cinvname,iquantity,time)VALUES(?,?,?,?,?,?,?)',["扫码上车", $data['dispatch_no'],$ress->location_no,$ress->cinvcode,$ress->cinvname,$ress->iquantity, $ddate]);
+        }
+
                 //记录装车人和装车时间
                 $result1 = DB::select('select cpersonname as name from BS_GN_WL  where cpersoncode = ?', [$request->input('driver_id')]);  //抓取司机名字
                 DB::update('update DispatchList set cDefine14=? where cdlcode=?', [$result1[0]->name, $data['dispatch_no']]);
 
-                $ddate = date("Y-m-d H:i:s");
+               
                 $result2 = DB::select('select DLID from Dispatchlist  where cdlcode = ?', [$data['dispatch_no']]);  //获取发货单对应的DLID
                 DB::update('update dispatchlist_extradefine set chdefine6=convert(varchar(100),?,120) where DLID=?', [$ddate, $result2[0]->DLID]);
 
@@ -151,7 +160,7 @@ class SweepCarsController extends CommonsController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SweepCar $sweepCar)
+    public function destroy(SweepCar $sweepCar,Sweep_car_item $Sweep_car_item)
     {
         $sweep_out_items=\DB::transaction(function() use ($sweepCar){
 
@@ -195,7 +204,13 @@ class SweepCarsController extends CommonsController
                 ->where('t3.parent_id','=',$sweepCar->id)
                 ->update(['t1.chdefine6'=>'']);
                 //删除记录
-                $deleteds1 = DB::delete("delete from BS_GN_wlstate where cdlcode=(select dispatch_no from zzz_sweep_car_items where parent_id=?) and zc='装车'",[$sweepCar->id]);
+      $jg2 =  DB::SELECT("select dispatch_no from zzz_sweep_car_items where parent_id=?",[$sweepCar->id]);
+                foreach ( $jg2 as $Sweep_car_items) {
+
+
+                    $deleteds1 = DB::delete("delete from BS_GN_wlstate where zc='装车'  and cdlcode=?",[$Sweep_car_items->dispatch_no]);
+};
+                // $deleteds1 = DB::delete("delete from BS_GN_wlstate where cdlcode=(select dispatch_no from zzz_sweep_car_items where  zc='装车' and parent_id=?)",[$sweepCar->id]);
 
                 // $deleteds1 = DB::delete("delete from BS_GN_wlstate where cdlcode=? and zc='装车'",[$data[0]->dispatch_no]);
 
@@ -259,12 +274,18 @@ class SweepCarsController extends CommonsController
             t1.id,
             t1.no,
             t2.no as car_no,
-            t3.name as driver_name,
+            t3.cpersonname as driver_name,
             t1.count,
             t1.created_at
             "))
             ->leftJoin('zzz_cars as t2','t1.car_id','t2.id')
-            ->leftJoin('zzz_drivers as t3','t1.driver_id','t3.id');
+            ->leftJoin('bs_gn_wl as t3','t1.driver_id','t3.cpersoncode');
+
+
+            // $drivers = DB::table('bs_gn_wl')
+            // ->select('cpersoncode as id','cpersonname as name')
+            // ->where('wlcode','=','04')
+            // ->get();
 
         $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
 

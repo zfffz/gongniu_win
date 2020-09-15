@@ -4,19 +4,19 @@
 
 @endsection
 
-@section('title', '扫码对货')
+@section('title', '箱规')
 
 @section('section')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>扫码对货</h1>
+                    <h1>箱规信息</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">单据列表</li>
-                        <li class="breadcrumb-item active">扫码对货</li>
+                        <li class="breadcrumb-item">基础资料</li>
+                        <li class="breadcrumb-item active">箱规管理</li>
                     </ol>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" name="search" id="search" class="form-control" placeholder="发货单号/对货员" />
+                            <input type="text" name="search" id="search" class="form-control" placeholder="存货编码/名称/创建人/修改人" />
                             <div class="input-group-append">
                                 <button class="btn btn-default" type="button" onclick="table.draw( false );">
                                     <i class="fas fa-search"></i>
@@ -39,26 +39,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-8">
+                        <a href="{{route('carton.create')}}" class="btn btn-info btn-flat float-right">
+                            <i class="fa fa-plus"></i> 新增
+                        </a>&nbsp;&nbsp;
+                    </div>
                 </div>
                 <table id="companiesLists" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>发货单号</th>
-                        <th>客户名称</th>
-                        <th>对货员</th>
-                      <!--   <th>零散总重</th>
-                        <th>称重</th> -->
-                        <!-- <th>对货员</th> -->
-                        <th>存货编码</th>
-                        <th>存货名称</th>
-                       <!--  <th>规格型号</th> -->
-                 <!--        <th>净重</th> -->
-                        <th>发货数量</th>
-                        <th>验货数量</th>
-                        <th>组别</th>
+                        <th>仓库编码</th>
+                        <th>仓库名称</th>
+                        <th>备注</th>
+                        <th>状态</th>
+                        <th>创建人</th>
                         <th>创建时间</th>
+                        <th>修改人</th>
+                        <th>修改时间</th>
                         <th>操作</th>
-                       <!--  <th>操作</th> -->
                     </tr>
                     </thead>
                 </table>
@@ -70,6 +68,7 @@
 @section('script')
     <script>
         function deleteCurrentRow(id) {
+            $('#dispatch_no').blur();
             Swal.fire({
                 title: '确认删除吗?',
                 type: 'warning',
@@ -84,25 +83,16 @@
                 function(n){
                     if(n.value){
                         // 调用删除接口，用 id 来拼接出请求的 url
-                        axios.delete('sweepCheck/' + id)
-                            .then(function (t) {
-                                if(t.data.status ==0){
-                                    Swal.fire(
-                                        '提示',
-                                        t.data.text,
-                                        'error'
-                                    )
-                                }else{
-                                    // 请求成功之后重新加载页面
-                                    location.reload();
-                                }
+                        axios.delete('carton/' + id)
+                            .then(function () {
+                                // 请求成功之后重新加载页面
+                                location.reload();
                             })
                     }else{
                         return false;
                     }
                 })
         }
-
 
         var table =
             $('#companiesLists').DataTable({
@@ -138,7 +128,6 @@
                 "autoWidth": false,
                 "serverSide": true,
                 "bProcessing":true,
-                "iDisplayLength":10,
                 "ajax":function(data,callback,settings){
                     var length = data.length;
                     var start = data.start;
@@ -148,7 +137,7 @@
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
                         type: "POST",
-                        url: "sweepCheck/getDatas",
+                        url: "carton/getData",
                         data :{
                             draw : page,
                             start : start,
@@ -165,30 +154,24 @@
                     })
                 },
                 "columns":[
-                    { "data":"dispatch_no" },
-                    { "data":"ccusname" },
-                    { "data":"checker" },
-                    // { "data":"lszz" },
-                    // { "data":"cz" },
-                    { "data":"cInvCode" },
-                    { "data":"cInvName" },
-                     // { "data":"iinvweight" },
-                    // { "data":"cInvStd" },
-                    // { "data":"cComUnitName" },
-                    { "data":"iQuantity" },
-                    { "data":"yQuantity"},
-                    { "data":"zb" },
+                    { "data":"no" },
+                    { "data":"name" },
+                    { "data":"note" },
+                    { "data":"status" },
+                    { "data":"create_name" },
                     { "data":"created_at" },
-                    // {"data":"id"}
-                   
+                    { "data":"edit_name" },
+                    { "data":"updated_at" },
+                    {"data":"id"}
                 ],
-                 columnDefs: [{
-                    targets: 9,//自定义列的序号，从0开始
+                columnDefs: [{
+                    targets: 8,//自定义列的序号，从0开始
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +
                             '<div class="btn-group">' +
-                            //'<a href="sweepOut/'+data+'" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>' +
+                            '<a href="storageLocation/'+data+'" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>' +
+                            '<a href="storageLocation/'+data+'/edit" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i></a>' +
                             '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>' +
                             '</div>' +
                             '</div>';

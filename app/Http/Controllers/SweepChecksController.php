@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Sweep_check_item;
 use App\Models\SweepCheck;
+use App\Models\Sweep_check_item1;
+use App\Models\SweepCheck1;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+
+// use Illuminate\Support\Facades\Input;
+// use App\Http\Controllers\CommonsController;
+// use Illuminate\Session\Middleware\StartSession;
+// use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class SweepChecksController extends CommonsController
 {
@@ -33,9 +39,30 @@ class SweepChecksController extends CommonsController
             exit();
         }
 
+$dispatch_no= DB::select("select dispatch_no from zzz_sweep_checks where id=?",[$id]);
+
+
+
+
+
+
+
+$xid=DB::select("select id from zzz_sweep_checks1 where dispatch_no=?",[$dispatch_no[0]->dispatch_no]);
 
 $deleteds = DB::delete("delete from zzz_sweep_check_items where parent_id =?",[$id]);
 $deleted = DB::delete("delete from zzz_sweep_checks where id=?",[$id]);
+$deleted1 = DB::delete("delete from zzz_sweep_checks1 where dispatch_no=?",[$dispatch_no[0]->dispatch_no]);
+
+
+
+    foreach($xid as $xids){
+
+
+$deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[$xids->id]);
+
+
+     
+    }
 
 
 //删除BS_GN_wlstate上的对货记录
@@ -168,8 +195,7 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
 
                 t1.cInvCode,
                 t1.cInvName,
-                (ISNULL(Convert(decimal(30,3),t1.iinvweight),0))
-                 as iinvweight,
+                isnull(cast(CAST(iinvweight AS DECIMAL(18,3))AS NVARCHAR(20)),0) as iinvweight,
                 
                 Convert(decimal(30,0),t1.iQuantity) as iQuantity,
                 Convert(decimal(30,0),t1.yQuantity) as yQuantity,
@@ -199,6 +225,7 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
     {
         $searchKey = $request->input('searchKey');
           //$searchKey = $request->searchKey;
+
         $data = \DB:: table('DispatchList as t1')
         ->select(
             \DB::raw("
@@ -211,6 +238,19 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
         ->leftJoin('zzz_storage_locations as t3','t2.location_id','=','t3.id')
         // ->where('t1.cDLCode','=',$searchKey)->get();
         ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
+
+//删除对货记录（拼箱）
+
+// $dispatch_no= DB::select("select dispatch_no from zzz_sweep_checks where id=?",[$id]);
+$xid=DB::select("select id from zzz_sweep_checks1 where dispatch_no=?",[$data[0]->cDLCode]);
+
+$deleted1 = DB::delete("delete from zzz_sweep_checks1 where dispatch_no=?",[$data[0]->cDLCode]);
+
+    foreach($xid as $xids){
+
+$deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[$xids->id]);
+   
+    }
 
         echo json_encode(array('status'=>1,'cDLCode'=>$data[0]->cDLCode,'cCusName'=>$data[0]->cCusName,'dDate'=>$data[0]->dDate,'no'=>$data[0]->no));
         // echo json_encode(array('status'=>1,'ddate'=>$data[0]->ddate));
@@ -231,11 +271,16 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
                 t4.cInvName,
                 t4.cInvStd,
                 t5.cComUnitName,
+                isnull(cast(CAST(iinvweight AS DECIMAL(18,3))AS NVARCHAR(20)),0) as iinvweight,
 
-                (ISNULL(Convert(decimal(30,3),t4.iinvweight),0))
-                 as iinvweight,
+         
+             
+
                 Convert(decimal(30,0),t4.cinvDefine13) as cinvDefine13,
-                 (CASE WHEN t4.cinvDefine13 != 0 THEN (CONVERT(decimal(30, 2), t1.iQuantity / t4.cinvDefine13)) ELSE 1 END) as iNum,
+
+                 (CASE WHEN t4.cinvDefine13 != 0 THEN 
+                 (CONVERT(decimal(30, 2), t1.iQuantity / t4.cinvDefine13)) ELSE 1 END) as iNum,
+
                 '' as kz,
                 Convert(decimal(30,0),t1.iQuantity) as iQuantity
                 "))
@@ -267,19 +312,23 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
                 t1.cInvStd,
                 t1.cComUnitName,
                 t1.cinvDefine13,
-               (ISNULL(Convert(decimal(30,3),t1.iinvweight),0))
-                 as iinvweight,
+               isnull(cast(CAST(iinvweight AS DECIMAL(18,3))AS NVARCHAR(20)),0) as iinvweight,
                 t1.iNum,
                 '' as kz,
                 t1.iQuantity
                 "))
                    ;
 
+
+       // $int= DB::select("select cInvCode from V_zzz_cf where round(iNum,0)=iNum  and cDLCode like '%?%'",[$searchKey]);
+       
+// $int=select value from 表名 where round(value,0)=value
           // dd($builder) ; 
 
         $data=parent::dataPage5($request,$this->condition($builder,$request->searchKey),'asc');
-
+// dd($int);
         return $data;
+
     }
 
 
@@ -328,7 +377,7 @@ $table->where('cDLCode','like','%'.$searchKey.'%');
         $data = DB:: table('zzz_sweep_checks as t1')
         ->select('t1.dispatch_no')
         ->where('t1.dispatch_no','like','%'.$dispatch_no.'%')->get();
-
+// dd($data);
         if(count($data) > 0){
             echo json_encode(array("status"=>"1","text"=>"发货单'$dispatch_no'已对货，请勿再次扫描！"));
             exit();
@@ -365,12 +414,203 @@ $table->where('cDLCode','like','%'.$searchKey.'%');
 }
 
 
+
+
+public function print(Request $request)
+{
+    $sweep_check1=\DB::transaction(function() use ($request){
+            //创建一张新的扫码对货单
+     $dispatch_no = $request->dispatch_no;
+     $checker=$request->checker;
+     $ddate=date('Y-m-d H:i:s',time());
+
+ 
+
+           
+    $sweep_check1 = new SweepCheck1([
+        'dispatch_no'=>$request->input('dispatch_no'),
+       
+                // 'entry_id'=>'1'
+    ]);
+   $sweep_check1->save();
+            //创建一张新的项目清单
+    $sweep_check_items1 = $request->input('items');
+    $i=1;
+
+    foreach($sweep_check_items1 as $data){
+                //先检查发货单号是否重复
+
+
+        $sweep_check_item1 = $sweep_check1->sweep_check_items1()->make([
+            'entry_id'=>$i,
+         
+            'cInvName'=> $data['cInvName'],
+            
+            'iQuantity'=> $data['iQuantity'],
+           
+            'zb'=> $data['zb']
+        ]);
+
+        $sweep_check_item1->save();
+
+        $i++;
+    }
+           // 更新
+            // $sweep_check->update(['count' => ($i-1)]);
+    return $sweep_check1;
+});
+
+    return $sweep_check1;
+}
+
+
+  //打印外箱箱标
+    public function outboxPrint(Request $request)
+    {
+         $dispatch_no = $request->datas;  
+         // dd($request);
+        // $data = explode('|',substr($request['datas'],0,-1));
+        // $n=0;
+        // $m=1;
+        // $result = 0;
+// dd($data );
+// foreach ($dispatch_no as $cdlcode){
+// echo json_encode(array('status'=>0));
+            $head1 = \DB::table('zzz_sweep_checks as b')
+                ->select(
+                    \DB::raw("
+            b.dispatch_no,
+            b.CTNS
+            "))
+                
+                ->where('b.dispatch_no','=',$dispatch_no)->get();
+            ;
+            
+
+            $head = \DB::table('Sales_FHD_H as a')
+                ->select(
+                    \DB::raw("
+            a.cDLCode,a.ccusabbname,a.cshipaddress,
+            b.CTNS,'' as divid
+            "))
+                ->Join('zzz_sweep_checks as b','a.cDLCode','b.dispatch_no')
+                ->where('a.cDLCode','=',$dispatch_no)->get();
+            ;
+ 
+
+
+// print_r(count($head1));
+ //        if(count($head1) == 0)
+ //       {
+
+ //        // echo json_encode(array('status'=>0));
+ //        echo json_encode(array('status'=>0));
+ //        // return;
+ //      exit();
+ //       //    // return view('admins.dispatchPrint.index');
+ // $result = 0;
+
+ //       }
+       // else
+       // {
+
+       //     // $head[0]->divid = 'div'.$m;
+
+       //     //  $data1[$n] = $head[0];
+       //     //  $n=$n+1;
+       //      // $m=$m+1;
+       //       $result1 = 1;
+       //      }
+        // }
+          // dd($result);
+    
+        //    if ($result = 0) {
+        //     echo json_encode(array('status'=>0));
+        // exit();
+        // }
+        // if ($result1 = 1) {
+            return view('sweepChecks.outboxprint',compact('head'));
+        // }
+          
+    }
+//打印拼箱箱标
+        public function lgetPrint(Request $request)
+    {
+       $dispatch_no = $request->datas;
+
+       $fz = $request->zb;
+
+        // dd($fz);
+        //         $body1 = \DB::table('zzz_sweep_check_items1 as t1')
+        //         ->select(
+        //             \DB::raw("
+        //     ROW_NUMBER() OVER(ORDER BY entry_id desc) ROWNU,t1.cinvname as cInvName,t1.iquantity as iQuantity,t1.zb
+        //     "))
+        //         ->leftJoin('zzz_sweep_checks1 as t2', 't1.parent_id','t2.id')
+        //         // ->where('t1.zb','=',$zb->zb)
+        //         ->where('t2.dispatch_no','=',$dispatch_no)
+        //         ->whereNOTNULL('t1.zb')
+        //         ->get();     
+
+                   $body1= DB::select('select ROW_NUMBER() OVER(ORDER BY entry_id desc) ROWNU,t1.cinvname as cInvName,t1.iquantity as iQuantity,t1.zb from zzz_sweep_check_items1 as t1 left Join zzz_sweep_checks1 as t2 on t1.parent_id=t2.id  where  t2.dispatch_no=? and t1.zb =? ', [$dispatch_no,$fz]);
+             
+
+        // dd($body1);
+            $m=count($body1);
+       //      if ($count>0) {
+       //          for($i=0;$i<$count;$i++){
+       //              $data1[$t][$i] = $body1[$i];    //$data1[1] 子表
+       //          }
+
+       //      }
+
+       //      $zb->divid='div'.$t;
+
+       //     $data2[$m][0]=$zb;
+
+       //     $data2[$m][1]=$data1[$t]; 
+       //     $t=$t+1;
+       //     $m=$m+1;
+            
+       //  }
+       //     $n=$n+1;
+       //  }
+       //  //echo json_encode(array('status'=>0,'returndata'=>$data2));
+       
+       // if(count($head) == 0)
+       // {
+       //  echo json_encode(array('status'=>0));
+       //  exit();
+       //    // return view('admins.dispatchPrint.index');
+
+       // }
+       // else
+       // {
+// echo json_encode(array('status'=>1));
+        return view('sweepChecks.lable',compact('body1','m'));
+        }
+
+
+  
+
+
+
+
+
 public function store(Request $request)
 {
     $sweep_check=\DB::transaction(function() use ($request){
             //创建一张新的扫码对货单
      $dispatch_no = $request->dispatch_no;
      $checker=$request->checker;
+
+ $checkers = DB::table('bs_gn_wl')
+            ->select('cpersoncode as no','cpersonname as name')
+            ->where('cpersonname','=',$checker)
+            ->get();
+
+
+
      $ddate=date('Y-m-d H:i:s',time());
 
      // dd($checker);
@@ -385,7 +625,7 @@ public function store(Request $request)
     }
     // insert into  BS_GN_wlstate (cpersoncode,cdlcode,jh,hd,db,ck,zc,snno,wlno,ddate) values (@cpersoncode,@cdlcode,NULL,'对货',NULL,NULL,NULL,'',NULL,@ddate)
 
-   DB::insert('insert into  BS_GN_wlstate (cpersoncode,cdlcode,hd,ddate) values (?,?,?,?)', [$checker,$dispatch_no,'对货',$ddate]);
+   DB::insert('insert into  BS_GN_wlstate (cpersoncode,cdlcode,hd,ddate) values (?,?,?,?)', [$checkers[0]->no,$dispatch_no,'对货',$ddate]);
 
             // $jg = SweepCheck::where('dispatch_no','=',$datas['dispatch_no'])->get();
 
@@ -398,10 +638,10 @@ public function store(Request $request)
         'ccusname'=>$request->input('ccusname'),
         'ddate'=>$request->input('ddate'),
         'position'=>$request->input('position'),
-        'zdzz'=>$request->input('zdzz'),
-        'lszz'=>$request->input('lszz'),
-        'cz'=>$request->input('cz'),
-        'cy'=>$request->input('cy'),
+        // 'zdzz'=>$request->input('zdzz'),
+        // 'lszz'=>$request->input('lszz'),
+        // 'cz'=>$request->input('cz'),
+        // 'cy'=>$request->input('cy'),
         'CTNS'=>$request->input('CTNS'),
         'checker'=>$request->input('checker'),
         'user_no'=>Auth::id(),
@@ -426,7 +666,7 @@ public function store(Request $request)
             'cInvStd'=> $data['cInvStd'],
             'cComUnitName'=> $data['cComUnitName'],
             'cinvDefine13'=> $data['cinvDefine13'],
-            'iinvweight'=> $data['iinvweight'],
+            // 'iinvweight'=> $data['iinvweight'],
             
             'iNum'=> $data['iNum'],
             'iQuantity'=> $data['iQuantity'],

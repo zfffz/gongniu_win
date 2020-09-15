@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sweep_out_item extends Model
+class Return_house_item extends Model
 {
-    public $table='zzz_sweep_out_items';
+    public $table='zzz_return_house_items';
     public $timestamps = false;
 
     protected $fillable = [
@@ -17,8 +17,8 @@ class Sweep_out_item extends Model
         'location_no',
     ];
 
-    public function sweep_out()
+    public function return_house()
     {
-        return $this->belongsTo(SweepOut::class,'id','parent_id');
+        return $this->belongsTo(ReturnHouse::class,'id','parent_id');
     }
 }

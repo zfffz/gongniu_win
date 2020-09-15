@@ -55,12 +55,7 @@
                         </address>
                     </div>
                     <!-- /.col -->
-                    <div class="col-sm-3 invoice-col">
-                        司机
-                        <address>
-                            <strong>{{$sweepCar->driver->name}}</strong><br>
-                        </address>
-                    </div>
+                   
                     <!-- /.col -->
                     <!-- /.col -->
                     <div class="col-sm-3 invoice-col">

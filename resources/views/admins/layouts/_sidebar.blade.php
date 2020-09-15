@@ -28,13 +28,58 @@
                             首页
                         </p>
                     </a>
-                    <!-- <ul class="nav nav-treeview"> -->
+                    <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa fa-edit"></i>
+                        <p>
+                            业务工作
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                       <a href="{{route('dispatchPrint.index')}}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                            <p>发货单打印</p >
+                             </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{route('sweepCheck.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>扫码对货</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('sweepOut.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>打包入库</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('sweepCar.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>扫码上车</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('wayBill.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>生成发运单</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('wayPrint.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>打印发运单</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('returnhouse.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>退回单</p>
+                            </a>
+                        </li>
+                        </ul>
                 </li>
 
                 <li class="nav-item has-treeview menu-open">
@@ -58,6 +103,7 @@
                                 <p>车辆</p>
                             </a>
                         </li>
+                      
                         <!-- <li class="nav-item">
                             <a href="{{route('driver.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -82,12 +128,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                       <a href="{{route('dispatchPrint.index')}}" class="nav-link">
-                          <i class="far fa-circle nav-icon"></i>
-                            <p>发货单打印</p >
-                             </a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a href="{{route('sweepCheck.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -97,7 +138,7 @@
                         <li class="nav-item">
                             <a href="{{route('sweepOut.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>打包出库</p>
+                                <p>打包入库</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -106,18 +147,13 @@
                                 <p>扫码上车</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{route('wayBill.index')}}" class="nav-link">
+                         <li class="nav-item">
+                            <a href="{{route('returnhouse.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>生成发运单</p>
+                                <p>退回入库</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{route('wayPrint.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>打印发运单</p>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </li>
 
@@ -134,6 +170,14 @@
                             <a href="{{route('dispatchReport.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>发货单出库上车记录</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('stockReport.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>出入库记录</p>
                             </a>
                         </li>
                     </ul>

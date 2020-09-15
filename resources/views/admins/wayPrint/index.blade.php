@@ -69,14 +69,14 @@
                             </td>
                         </div>
                     </div>
-                    <div class="col-sm-2">    
+                  <!--   <div class="col-sm-2">    
                         <div class="input-group">
                             <label>Date range:</label>
                             <td>
                                 <button type="button" id="btn-submit" class="btn btn-block btn-success">生成发运单</button>
                             </td>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
                 <table id="companiesLists" class="table table-bordered table-striped">

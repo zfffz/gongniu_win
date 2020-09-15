@@ -40,7 +40,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><strong>客户名称</strong></span>
               </div>
-              <input type="text"name="ccusname" id="ccusname" class="form control" readonly/>
+              <input type="text"name="ccusname" id="ccusname" class="form control" disabled="disabled" />
             </div>
           </div>
 
@@ -49,7 +49,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><strong>单据日期</strong></span>
               </div>
-              <input type="text"name="ddate" id="ddate" class="form control" readonly/>
+              <input type="text"name="ddate" id="ddate" class="form control" disabled="disabled" />
             </div>
           </div>
 
@@ -59,7 +59,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><strong>默认库位</strong></span>
               </div>
-              <input type="text"name="position" id="position" class="form control" readonly/>
+              <input type="text"name="position" id="position" class="form control" disabled="disabled" />
             </div>
           </div>
 
@@ -81,20 +81,30 @@
 
     </select>
             </div>
-          </div>    
+          </div>  
+    <!--  <ul class="navbar-nav">
+    <label style="margin-top: 2px;margin-right: 1px;white-space:nowrap;display:inline-block;">对货员</label>
+    <select class="form-control" name="checker" id="checker" margin-right="10px" display="inline-block" >
 
-           <div class="col-sm-2">    
-                        <div class="input-group">
-                            <td>
-                                <button type="button" id="addRow" class="btn btn-block btn-primary" style="max-width: 150px">分组</button>
-                            </td>
-                        </div>
-                    </div>      
-<!--  <button type="button" id="addRow"  class="btn btn-block btn-primary"  style="width: 155px;">分组</button>
-                   </label> -->
+      <option value=""></option>
+      @foreach ($checkers as $checker)
+        <option value="{{ $checker->no }}">
+          {{ $checker->name }}
+        </option>
+      @endforeach
+
+    </select>
+  </ul>  -->
+ 
+　　     <button type="button" id="addRow"  class="btn btn-block btn-primary"  style="width: 80px;">分组</button>
+                   </label>
+                    
+
         </div>
 
+
       </form> 
+
         <!-- </div>
         < --><!-- div class="card-header border-transparent">
             <div class="input-group">
@@ -108,18 +118,18 @@
 
           <div class="card-header border-transparent">
             <div class="input-group">
-              <div class="input-group-prepend">
+             <!--  <div class="input-group-prepend">
                <div class="navbar-nav ml-auto" >
-                <span class="input-group-text" style="margin-left: 8px"> 扫描结果:</span>
+                <span class="input-group-text"  style="margin-left: 8px "> 扫描结果:</span>
               </div>
-              <input type="text" class="form-control" name="result" id="result" autocomplete="off" value=""  style="max-width: 180px" onkeypress = "if (event.keyCode = 13)  {getresultinfo()};" />
+              <input type="text" class="form-control"  name="result" id="result" autocomplete="off" value=""  style="max-width: 180px" onkeypress = "if (event.keyCode = 13)  {getresultinfo()};" />
 
 
 
-<!-- <table id="example" class="display" cellspacing="0" width="100%"> -->
+<table id="example" class="display" cellspacing="0" width="100%">
 
 
-              <span class="input-group-text" style="margin-left: 105px"> 扫描规格:</span>
+              <span class="input-group-text" style="margin-left: 135px"> 扫描规格:</span>
 
               <select class="form-control" required name="standards" id="standards" style="width: 100%;">
                 <option value="0" >按支扫描</option>
@@ -127,26 +137,7 @@
 
               </select>
 <label style="padding-right:138px;">
- </div>
- <div class="col-sm-2">    
-                        <div class="input-group">
-                            <td>
-                                <button type="button" id="btn-print" class="btn btn-block btn-info" style="margin-left: 23px">拼箱箱标打印</button>
-                            </td>
-                        </div>
-                    </div>
-
-                    <select class="form-control" required name="fz" id="fz" style="max-width: 50px" disabled="disabled" >
-                <option value="1" >A</option>
-                <option value="2" >B</option>
-                <option value="3" >C</option>
-                <option value="4" >D</option>
-                <option value="5" >E</option>
-                <option value="6" >F</option>
-                <option value="7" >G</option>
-                <option value="8" >H</option>
-
-              </select>
+            </div> -->
             <!-- 
                 <button type="button" id="addRow"  class="btn btn-block btn-primary"  style="width: 80px;">分组</button>
                    </label> -->
@@ -158,18 +149,63 @@
                         </div>
                     </div> 
                   -->
-                </div>
+
 
 
 
               </div>
+</div>
 
  <form class="form-inline" role="form">
-           
-            <div class="col-sm-4 mb-3">
+                
+                   <div class="col-sm-4 mb-3">
             <div class="input-group">
               <div class="input-group-prepend">
-                <span class="input-group-text"  style="margin-left: 18px">总箱数</span>
+                <span class="input-group-text" style="margin-left: 19px">整单总重</span>
+              </div>
+              <input type="text" name="zdzz" id="zdzz" class="form control"  disabled="disabled" />
+            </div>
+          </div>
+          
+           <div class="col-sm-4 mb-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="margin-left: 6px">零散总重</span>
+              </div>
+              <input type="text"name="lszz" id="lszz" class="form control" disabled="disabled" />
+            </div>
+          </div>
+<!-- 
+  <div class="col-sm-4 mb-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="margin-left: 6px">计数</span>
+              </div>
+              <input type="text"name="yz" id="yz" class="form control" value=0 disabled="disabled" />
+            </div>
+          </div> -->
+
+           <div class="col-sm-4 mb-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="margin-left: -8px">称重</span>
+              </div>
+              <input type="text"name="cz" id="cz" class="form control" onkeypress = "if (event.keyCode = 13)  {getcyinfo()};" />
+            </div>
+          </div>
+
+          <div class="col-sm-4 mb-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text " style="margin-left: 19px" >差异重量</span>
+              </div>
+              <input type="text"name="cy" id="cy" class="form control" disabled="disabled" />
+            </div>
+          </div>
+          <div class="col-sm-4 mb-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"  style="margin-left: 6px">箱数</span>
               </div>
               <input type="text"name="CTNS" id="CTNS" class="form control" />
             </div>
@@ -177,15 +213,12 @@
            <div class="col-sm-4 mb-3">
             <div class="input-group">
               <div class="input-group-prepend">
-                <span class="input-group-text"  style="margin-left: 8px">整箱数量</span>
+                <span class="input-group-text"  style="margin-left: -8px">整箱数量</span>
               </div>
               <input type="text"name="ZXSL" id="ZXSL" class="form control" disabled="disabled" />
             </div>
           </div>
-
-        
-           </form>
-
+           </form> 
               <div class="card-body p-0">
                 <div class="table-responsive">
                   <table class="table table-bordered" id="dispatch_table" style="white-space:nowrap ; overflow:hidden ;">
@@ -197,6 +230,7 @@
                         <th>规格型号</th>
                         <th>单位</th>
                         <th>装箱规格</th>
+                        <th>单位净重(kg)</th>
                         <th>发货件数</th>
                         <th>发货数量</th>
                         <th id="yQuantity">验货数量</th>
@@ -212,7 +246,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <button onclick="deleteTable()" class="btn btn-danger float-left">清空</button>
-                <button onclick="batchSave()" class="btn btn-primary float-right">保存并打印</button>
+                <button onclick="batchSave()" class="btn btn-primary float-right">保存</button>
               </div>
               <!-- /.card-footer -->
             </div>
@@ -260,11 +294,6 @@ $('#standards').removeClass('is-invalid');
         $('#dispatch_no').focus();
       
               });
-
-    // var num = 1;//全局变量,分组A\B\C\D
-    // $('#btn-print').on('click', function(){
-    //   num=num+1;
-    // })
 //发货单号回车事件
 
 function getdispatchlistinfo(){
@@ -272,10 +301,9 @@ function getdispatchlistinfo(){
     $('#ddate').val('');
     $('#ccusname').val('');
     $('#position').val('');
-    $('#ZXSL').val('0');
-    $('#CTNS').val('0');
     $('#result').val('');
     $("#result").removeClass("is-invalid");
+    $("#cz").removeClass("is-invalid");
     var dispatch_no = $('#dispatch_no').val();
     if(dispatch_no == ''){
       Toast.fire({
@@ -405,32 +433,18 @@ $.ajax({
                               }
                               else
                               {
-
-
-
-
-
-
-
-
-
-                                // $('#result').focus();
+                              // $('#result').focus();
                                 // $('#dispatch_no').focus();
                                 $("#dispatch_no").removeClass("is-invalid");
                                 //取发货单表头信息
                                 $('#result').focus();
                                 $("#dispatch_no").removeClass("is-invalid");
-                                //ALERT("CEUI")
-                                
+                                //ALERT("CEUI")                               
                               }
 
                             }
 
                           })
-
-
-
-
 
                              }
                            }
@@ -530,6 +544,8 @@ $.ajax({
                         { "data":"cInvStd" },
                         { "data":"cComUnitName" },
                         { "data":"cinvDefine13" },
+                        { "data":"iinvweight"}, 
+                        
                         { "data":"iNum"}, 
                         // { "data":"kz"},     
                         {"data":"iQuantity"}
@@ -539,7 +555,7 @@ $.ajax({
 
                         ],
                         columnDefs: [{
-                    targets: 8,//自定义列的序号，从0开始
+                    targets: 9,//自定义列的序号，从0开始
 
                     data: "cinvcode", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
@@ -557,11 +573,11 @@ $.ajax({
                      },
 
                        {
-                         targets: 9, //将第3列隐藏，从0开始计数
+                         targets: 10, //将第3列隐藏，从0开始计数
                        data: "cinvcode", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                       var searchKey = $('#dispatch_no').val();
-                      return '<select id="yw"  name="zb" id="zb"  disabled="disabled" style="width: 38px;" ><option value=" "> </option></select>';
+                      return '<select id="yw"  name="zb" id="zb"    disabled="disabled" style="width: 38px;" ><option value=" "> </option></select>';
 
                       // '<select id="yw"><option value=""></option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>'
 
@@ -584,20 +600,62 @@ $.ajax({
 
         }
       }
+      function getcyinfo(){
+     if(event.keyCode == 13){
+      var lszz = $('#lszz').val();
+     var cz = $('#cz').val();
+      var cy = Number(cz)-Number(lszz);
+      cy = cy.toFixed(3);
+     $('#cy').val(cy);
+      
+
+                  
+    
+     // if( $('#dispatch_no').val()=='')
+// alert(lszz);
+var tb = document.getElementById("dispatch_table");
+  
+     
+ if(Number(lszz) >Number(cz)*1.02)
+ {
+  $("#cz").addClass("is-invalid");
+  $('#cz').focus();
+
+  
+Toast.fire({
+                type: 'error',
+                title: '称重与零散总重差异过大！'
+              });
 
 
-//组别下拉菜单选择事件
-      function selectOnchang(obj){ 
+}
+else
+{
+  for (i = 1 ; i < tb.rows.length ; i++)
+  {
+   var iQuantity = tb.rows[i].cells[8].innerHTML;
+  tb.rows[i].style.backgroundColor='#90EE90'; 
+  tb.tBodies[0].rows[i-1].cells[9].firstChild.value=iQuantity;
+  }
+}
+}
+}
+
+
+
+
+
+function selectOnchang(obj){ 
 var arr = []; //新增数组
  var zxs = $('#ZXSL').val();
 var tb = document.getElementById("dispatch_table");
   for (i = 1 ; i < tb.rows.length ; i++)
     {
       
-       var iNum = tb.rows[i].cells[6].innerHTML;   
+       var iNum = tb.rows[i].cells[7].innerHTML;   
        if  (parseFloat(iNum)<1)
        {
-        var data = tb.rows[i].cells[9].firstChild.selectedIndex; //那个单元格的自己换
+        var data = tb.rows[i].cells[10].firstChild.selectedIndex; //那个单元格的自己换
         if (data!=0) {
           if (arr.indexOf(data)<0) {
               arr.push(data);
@@ -612,516 +670,308 @@ var tb = document.getElementById("dispatch_table");
 }
 
 
-//扫描结果回车事件
-function getresultinfo(){
-  if(event.keyCode == 13){
-    // var result  = $(this).val();
-    var result = $('#result').val();
-    var dispatch_no = $('#dispatch_no').val();
-    var url = "result_data?dispatch_no="+dispatch_no+"&result="+result;
-              //如果发货单号为空,不得离开当前焦点
-              if( $('#dispatch_no').val()==''){
-               Toast.fire({
-                type: 'error',
-                title: '发货单号为空，请先扫描发货单！'
-              });
-
-               $('#dispatch_no').focus();
-
-             }
-             //如果扫描结果为空,不得离开当前焦点
-              if( $('#result').val()==''){
-                //发货单号红框提示,toast提示
-                    $("#result").addClass("is-invalid");
-               Toast.fire({
-                type: 'error',
-                title: '扫描结果为空，请先扫描二维码！'
-              });
-
-               $('#result').focus();
-
-             }
-             else
-             {
-
-// 判断扫描结果是否合法
-$.ajax({
-                // var url = "result_data?dispatch_no="+dispatch_no+"&result="+result;
-                url:''+url,               
-                type:'post',
-                dataType:'json',
-                headers:{
-                  Accept:"application/json",
-                  "Content-Type":"application/json",
-                  'X-CSRF-TOKEN' : '{{ csrf_token() }}'
-                },
-                processData:false,
-                cache:false,
-                timeout: 1000,
-                beforeSend:function(){
-
-                },
-// var searchKey = $('#dispatch_no').val();
-// $.ajax({
-//   // data:{searchKey:searchKey},
-//  headers:{
-//                   Accept:"application/json",
-//                   "Content-Type":"application/json"
-//                 },
-//   type: "post",
-//   dataType: "json",
-//   // url:"result_data",
-//   url:''+url, 
-                success:function(data){
-
-                  if(data.status==0){
-                    $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                    $('#notifyAudio')[0].play();
-                    //发货单号红框提示,toast提示
-                    $("#result").addClass("is-invalid");
-                    Toast.fire({
-                      type: 'error',
-                      title:  '发货单号：'+$('#dispatch_no').val()+'  不存在存货编码'+$('#result').val(),
-                    });
-                    //清空扫描结果
-                    $('#result').val('');
-                    return false;
-                  }else{
-                     $('#result').val(data.cInvCode);
-
-                    //如果合法，焦点回到对应明细行验货数量上
-
-                    $("#result").removeClass("is-invalid");
-
-                    var tb = document.getElementById("dispatch_table");
-
-            // alert("表格总行数="+tb.rows.length);
-            for (i = 0 ; i < tb.rows.length ; i++)
-            {
-              var cinvcode = tb.rows[i].cells[1].innerHTML;
-              var iNum = tb.rows[i].cells[6].innerHTML;
-              var result = $('#result').val();
-                    if (result==cinvcode&&parseFloat(iNum)<1)  //扫描结果等于明细存货编码且件数小于1
-
-                    {
-
-                 // 光标显示到对应行上的验货数量文本框内
-                 tb.rows[i].style.backgroundColor='#FFFF00'; //淡黄色
-                 tb.rows[i].cells[8].getElementsByTagName("input")[0].readOnly = false;
-
-                 for (t = 1  ; t < tb.rows.length ; t++)//扫描新的结果原行的样式改变
-                 {
-                  if (t != i) 
-                  {
-                            // alert("123")
-                            tb.rows[t].cells[8].getElementsByTagName("input")[0].readOnly = true;
-                    // alert(tb.rows[t].style.backgroundColor)
-                     if (tb.rows[t].style.backgroundColor=="rgb(255, 255, 0)") //淡黄色
-                     {
-
-                      tb.rows[t].style.backgroundColor=''
-                    }
-
-                    else
-                    {
-                    }
-                  }     
-                }
-                var yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild;
-                 var iQuantity = tb.rows[i].cells[7].innerHTML;
-                 var iNum = tb.rows[i].cells[6].innerHTML;
-                var cinvDefine13 = tb.rows[i].cells[5].innerHTML; 
-                var standards = $('#standards').val();
-                if(standards ==1)
-                 {
-                  yQuantity.value = parseInt(yQuantity.value) + (1*parseInt(cinvDefine13));
-                 }
-                 else if (standards ==0) {
-                  yQuantity.value = parseInt(yQuantity.value) + 1;
-                }
-                if(Number(yQuantity.value) >Number(iQuantity))
-                {             
-                  Toast.fire({
-                    type: 'error',
-                    title:'验货数量:'+Number(yQuantity.value)+'不能大于发货数量:'+Number(iQuantity), 
-
-                  });
-                  if(standards ==1)
-                   {yQuantity.value = parseInt(yQuantity.value) - (1*parseInt(cinvDefine13));
-                   }
-                   else if (standards ==0) {
-                    yQuantity.value = parseInt(yQuantity.value) - 1;
-                  }
-                  
-                }
-                else
-                {}
-// alert(iQuantity);
-
-            if(parseInt(yQuantity.value)==parseInt(iQuantity)&&parseFloat(iNum)<1) //验货数量等于数量且件数小于1
-            {
-              tb.rows[i].style.backgroundColor='#FFA500'; //桔黄色
-              tb.rows[i].cells[8].getElementsByTagName("input")[0].readOnly = true;
-
-   
-
-       tb.rows[i].cells[9].firstChild.selectedIndex=num; 
 
 
 
- {     var arr = []; //新增数组
- var zxs = $('#ZXSL').val();
+
+
+
+// var arr = []; //新增数组
+// function selectOnchang(obj){ 
+//   var t=0;
+// var zxs = $('#CTNS').val();
 // var tb = document.getElementById("dispatch_table");
-  // for (i = 1 ; i < tb.rows.length ; i++)
-  //   {
-      
+
+//  for (i = 1 ; i < tb.rows.length ; i++)
+//     {
+//        var iNum = tb.rows[i].cells[7].innerHTML;    
+//        var hs = obj.parentNode.parentNode.rowIndex;     
+//   // if ((parseFloat(iNum)<1) and (i!=parseFloat(hs)))
+//    if  ((parseFloat(iNum)<1) &&  i!=parseFloat(hs))
+// {
+//      var data = obj.selectedIndex;  //当前行的索引值                      1   
+//    // var tr_id=obj.parents("tr").eq(0).attr("id");
+//  // var zb = tb.tBodies[0].rows[i-1].cells[10].firstChild.selectedIndex; //[1,2,0,0]
+//  var u=arr.indexOf(data);//在数组中查找是否有当前行的索引值 -1
+
+//  // alert(u);
+//  if (parseFloat(u) ==-1 && parseFloat(data)!=0)  //未查找到返回-1
+// {
+//   arr.push(data);
+// $('#CTNS').val((parseFloat(zxs)+1));
+
+//   }
+
+
+//  }
+//   //   if(t<1)
+// // {
+// //    // s=;
+// //    $('#ZXSL').val((parseFloat(zxs)+1));
+// // }
+
+
+ 
+// // break;
+
+// }
+
+// }
+
+
+
+
+
+
+
+
+
+
+// i=i+1;
+// }
+//        var weight = tb.rows[i].cells[6].innerHTML;
+//        var iquantity = tb.rows[i].cells[8].innerHTML;
        
-       if  (parseFloat(iNum)<1)
-       {
-        var data = tb.rows[i].cells[9].firstChild.selectedIndex; //那个单元格的自己换
-        if (data!=0) {
-          if (arr.indexOf(data)<0) {
-              arr.push(data);
-          }
-      }
-    }
+       
+       
+//        allweight +=(parseFloat(weight)*parseFloat(iquantity));
 
-    // }
-}
-    $('#CTNS').val(parseFloat(zxs)+parseFloat(arr.length));
+//        if (parseFloat(iNum)<1) 
+
+// {
+//   lsallweight +=(parseFloat(weight)*parseFloat(iquantity));
+//   tb.tBodies[0].rows[i-1].cells[9].firstChild.value="0";
+
+// var pxs=tb.tBodies[0].rows[i-1].cells[10].firstChild.value
 
 
 
-              $('#result').val('');
-            }
-            //清空扫描结果
-            $('#result').val('');
+// }
+//获取被选中的option标签选项 
 
-            return; 
 
-          }
-          else
-          {}
 
-      }      
+// function checkSelect(){
+//           //获取select选中的text。
+//           alert('成功');
+//           // var val=$(".dropList .selectType option:selected").text();
+// }
+// //                Toast.fire({
+//                 type: 'error',
+//                 title: '发货单号为空，请先扫描发货单！'
+//               });
 
-    }
+//                $('#dispatch_no').focus();
+
+//              }
+//扫描结果回车事件
+// function getresultinfo(){
+//   if(event.keyCode == 13){
+//     // var result  = $(this).val();
+//     var result = $('#result').val();
+//     var dispatch_no = $('#dispatch_no').val();
+//     var url = "result_data?dispatch_no="+dispatch_no+"&result="+result;
+//               //如果发货单号为空,不得离开当前焦点
+//               if( $('#dispatch_no').val()==''){
+//                Toast.fire({
+//                 type: 'error',
+//                 title: '发货单号为空，请先扫描发货单！'
+//               });
+
+//                $('#dispatch_no').focus();
+
+//              }
+//              //如果扫描结果为空,不得离开当前焦点
+//               if( $('#result').val()==''){
+//                 //发货单号红框提示,toast提示
+//                     $("#result").addClass("is-invalid");
+//                Toast.fire({
+//                 type: 'error',
+//                 title: '扫描结果为空，请先扫描二维码！'
+//               });
+
+//                $('#result').focus();
+
+//              }
+//              else
+//              {
+
+// // 判断扫描结果是否合法
+// $.ajax({
+//                 // var url = "result_data?dispatch_no="+dispatch_no+"&result="+result;
+//                 url:''+url,               
+//                 type:'post',
+//                 dataType:'json',
+//                 headers:{
+//                   Accept:"application/json",
+//                   "Content-Type":"application/json",
+//                   'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+//                 },
+//                 processData:false,
+//                 cache:false,
+//                 timeout: 1000,
+//                 beforeSend:function(){
+
+//                 },
+// // var searchKey = $('#dispatch_no').val();
+// // $.ajax({
+// //   // data:{searchKey:searchKey},
+// //  headers:{
+// //                   Accept:"application/json",
+// //                   "Content-Type":"application/json"
+// //                 },
+// //   type: "post",
+// //   dataType: "json",
+// //   // url:"result_data",
+// //   url:''+url, 
+//                 success:function(data){
+
+//                   if(data.status==0){
+//                     $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+//                     $('#notifyAudio')[0].play();
+//                     //发货单号红框提示,toast提示
+//                     $("#result").addClass("is-invalid");
+//                     Toast.fire({
+//                       type: 'error',
+//                       title:  '发货单号：'+$('#dispatch_no').val()+'  不存在存货编码'+$('#result').val(),
+//                     });
+//                     //清空扫描结果
+//                     $('#result').val('');
+//                     return false;
+//                   }else{
+//                      $('#result').val(data.cInvCode);
+
+//                     //如果合法，焦点回到对应明细行验货数量上
+
+//                     $("#result").removeClass("is-invalid");
+
+//                     var tb = document.getElementById("dispatch_table");
+
+//             // alert("表格总行数="+tb.rows.length);
+//             for (i = 0 ; i < tb.rows.length ; i++)
+//             {
+//               var cinvcode = tb.rows[i].cells[1].innerHTML;
+
+//               var result = $('#result').val();
+//                     if (result==cinvcode)  //扫描结果等于明细存货编码
+
+//                     {
+
+//                  // 光标显示到对应行上的验货数量文本框内
+//                  tb.rows[i].style.backgroundColor='#FFFF00'; //淡黄色
+//                  tb.rows[i].cells[9].getElementsByTagName("input")[0].readOnly = false;
+
+//                  for (t = 1  ; t < tb.rows.length ; t++)//扫描新的结果原行的样式改变
+//                  {
+//                   if (t != i) 
+//                   {
+//                             // alert("123")
+//                             tb.rows[t].cells[9].getElementsByTagName("input")[0].readOnly = true;
+//                     // alert(tb.rows[t].style.backgroundColor)
+//                      if (tb.rows[t].style.backgroundColor=="rgb(255, 255, 0)") //淡黄色
+//                      {
+
+//                       tb.rows[t].style.backgroundColor=''
+//                     }
+
+//                     else
+//                     {
+//                     }
+//                   }     
+//                 }
+//                 var yQuantity = tb.tBodies[0].rows[i-1].cells[9].firstChild;
+//                 var iQuantity = tb.rows[i].cells[8].innerHTML; 
+//                 var cinvDefine13 = tb.rows[i].cells[5].innerHTML; 
+//                 var standards = $('#standards').val();
+//                 if(standards ==1)
+//                  {yQuantity.value = parseInt(yQuantity.value) + (1*parseInt(cinvDefine13));
+//                  }
+//                  else if (standards ==0) {
+//                   yQuantity.value = parseInt(yQuantity.value) + 1;
+//                 }
+//                 if(Number(yQuantity.value) >Number(iQuantity))
+//                 {             
+//                   Toast.fire({
+//                     type: 'error',
+//                     title:'验货数量:'+Number(yQuantity.value)+'不能大于发货数量:'+Number(iQuantity), 
+
+//                   });
+//                   if(standards ==1)
+//                    {yQuantity.value = parseInt(yQuantity.value) - (1*parseInt(cinvDefine13));
+//                    }
+//                    else if (standards ==0) {
+//                     yQuantity.value = parseInt(yQuantity.value) - 1;
+//                   }
+                  
+//                 }
+//                 else
+//                 {}
+
+//             if(yQuantity.value==iQuantity) //验货数量等于数量
+//             {
+//               tb.rows[i].style.backgroundColor='#90EE90'; 
+//               tb.rows[i].cells[9].getElementsByTagName("input")[0].readOnly = true;
+//               $('#result').val('');
+//             }
+//             //清空扫描结果
+//             $('#result').val('');
+
+//             return; 
+
+//           }
+//           else
+//           {}
+
+//       }      
+
+//     }
     
-  },
-  error:function(){
-    alert("登录超时");
-    return false;
-  }
-});
-}
-}
-}
+//   },
+//   error:function(){
+//     alert("登录超时");
+//     return false;
+//   }
+// });
+// }
+// }
+// }
+
+
+
+
+
 // function getyQuantityinfo(){
 // var u = document.getElementById("dispatch_table");
 // if (u.Value == null) {
 //       var y = document.getElementById("yhm");
 //       y.innerHTML = "用户名为空";
 //     }
-var num = 1;//全局变量,分组A\B\C\D
-//拼箱打印事件
-$('#btn-print').on('click', function(){
-var tb = document.getElementById("dispatch_table");
- var sum=0;
- result = true;
-     
 
-    // var zb = $('#fz').text() ;
-
-    // var myselect=document.getElementById("fz");
-    //  var zb =myselect.options[index].text;
-
-  //    var elem = document.getElementById("fz");
-  //    var index=elem.selectedIndex;         
-  //      alert(elem.options[index].value);
-  //       alert(elem.options[index].id);
-  // var zb =obj.options[obj.selectedIndex];
-  // alert(obj);
-  //点击判断每行分组是否有值，有值就加1
-    for (i = 1 ; i < tb.rows.length ; i++)
-    {
-      var zb = tb.rows[i].cells[9].firstChild.selectedIndex;
-       sum= sum + zb;
-     }
-      if(sum>0)
-      {
-         // num=num+1;
-
-
-
-
-
-
-  $('#dispatch_no').blur();
-  var ccusname = $('#ccusname').val();
-  var dispatch_no = $('#dispatch_no').val();
-  var ddate = $('#ddate').val();
-  var position = $('#position').val();
-  var checker = $('#checker').val();
-
-
-  var tb = document.getElementById("dispatch_table");
-  for (i = 1 ; i < tb.rows.length ; i++)
-  {
-    var cinvcode = tb.rows[i].cells[1].innerHTML;
-    var yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild.value;
-    var iQuantity = tb.rows[i].cells[7].innerHTML;
-    var iNum = tb.rows[i].cells[6].innerHTML;
-             }
-
-            //发货单号提示
-            if(dispatch_no == ''){
-              Toast.fire({
-                type: 'error',
-                title: '请扫描发货单号！'
-              });
-              $('#dispatch_no').focus();
-              return false;
-            }
-
-
-            if(ccusname == ''){
-              Toast.fire({
-                type: 'error',
-                title: '客户名称不能为空！'
-              });
-              $('#dispatch_no').focus();
-              return false;
-            }
-
-            var trList = $("#table_body").children("tr");
-
-            var length = trList.length;
-
-            if(length == 0){
-              Toast.fire({
-                type: 'error',
-                title: '明细为空！'
-              });
-              $('#dispatch_no').focus();
-              return false;
-            }
-
-            var datas={};
-            datas.dispatch_no = dispatch_no;
-            datas.items = {};
-            var t=0;
-            var tb = document.getElementById("dispatch_table");
-            for ( i=1;i<=length;i++){
-              var yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild.value;
-    var iQuantity = tb.rows[i].cells[7].innerHTML;
-    var iNum = tb.rows[i].cells[6].innerHTML;
-
-    var fz =  tb.rows[i].cells[9].firstChild.selectedIndex
-    // alert(parseInt(iQuantity));
-    //   alert(parseInt(yQuantity));
-    //   alert(parseFloat(iNum));
-    // alert(parseInt(fz));
-              if(parseInt(yQuantity)==parseInt(iQuantity)&&parseFloat(iNum)<1&&parseInt(fz)==(num))
-              {
-                datas.items[i] = {};
-                
-                datas.items[i].cInvName = tb.rows[i].cells[2].innerHTML;
-               
-                datas.items[i].iQuantity = tb.rows[i].cells[7].innerHTML;
-                datas.items[i].zb = tb.tBodies[0].rows[i-1].cells[9].firstChild.value
-                t=t+1;
-               }
-              }
-              Swal.fire({
-                title: '确认打印拼箱箱标吗?',
-                text:'共'+t+'行明细',
-                footer: '发货单号：'+$('#dispatch_no').val(),
-                type: 'question',
-                focusConfirm: false,
-                allowEnterKey:false,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '确定',
-                cancelButtonText: '取消'
-              }).then(
-              function(n){
-                if(n.value){
-                  $.ajax({
-                    url:"{{route('sweepCheck.print')}}",
-                    data:JSON.stringify(datas),
-                    type:'post',
-                    dataType:'json',
-                    headers:{
-                      Accept:"application/json",
-                      "Content-Type":"application/json",
-                      'X-CSRF-TOKEN' : '{{ csrf_token() }}'
-                    },
-                    processData:false,
-                    cache:false,
-                    timeout: 10000,
-                    beforeSend: function() {
-                    },
-                    success:function(t){
-                      if(t.status == 0){
-                        $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                        $('#notifyAudio')[0].play();
-                                    //上传失败提示
-
-                                    Toast.fire({
-                                      type: 'error',
-                                      title: t.text
-                                    });
-                                    return false;
-                                     result = false;
-                                  }
-                                //上传成功提示
-                                // Swal.fire({
-                                //   toast: true,
-                                //   position: 'top-end',
-                                //   showConfirmButton: false,
-                                //   timer: 2200,
-                                //   type: 'success',
-                                //   title: '保存成功'
-                                // })
-                                // $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
-                                // $('#successAudio')[0].play();
-
-    // window.location.href = "lgetPrint?datas="+datas;
-
-    // var zb = $('#fz').name();
-    // var myselect=document.getElementById("fz");
-    //  var zb =myselect.options[index].text;
-
-     // var obj = document.getElementById("fz");
-//分组信息
-num=num+1;
-  var zb = $("#fz option:checked").text();  
-$('#fz').val(num);
-    // alert(zb);
-                      window.open("lgetPrint?datas="+dispatch_no+"&zb="+zb);
-     // window.open("lgetPrint?datas="+dispatch_no);
-                               result = true;
-                              },
-                              error: function() {
-                                alert("error");
-                              }
-                            });
-                }
-                else
-                {
-                  $("#dispatch_no").focus();
-                  return false;
-                }
-              })
-              // alert(result);
-            if(result){
-                // return true;
- // window.open("lgetPrint?datas="+dispatch_no);
-        //  var datas='';
-        // inputs.each(function () {
-        //     datas = datas + $(this).val()+'|';
-        // });
-      
-     // window.open("http://www.baidu.com");
-        // window.open = "dispatchPrint/lgetPrint?datas="+dispatch_no;
-                    
-                }
-                else{
-                    return false;
-                }
-
-
-
-
-
-
-
-
-
-
-
-      }
-      else
-      {
-            Toast.fire({
-            type: 'error',
-            title: '未选择组别,请先选择组别！'
-        });
-        return false;
-      }
-
-
-
-
-
-
-
-    // var inputs = $("#dispatchlist input[name='ckb-jobid']:checked ").prev();
-    // inputs=inputs.prevObject;
-
-    // var len = inputs.length;
-    // if(len == 0){
-    //     Toast.fire({
-    //         type: 'error',
-    //         title: '请选择要打印的单据！'
-    //     });
-    //     return false;
-    // }else{
-    //     var datas='';
-    //     inputs.each(function () {
-    //         datas = datas + $(this).val()+'|';
-    //     });
-    //     window.location.href = "dispatchPrint/getPrint?datas="+datas;
-
-    // };
-
-});
-//单元格回车事件（回车）
+//单元格回车事件（回）
 function getyQuantityinfo(){
 
   if(event.keyCode == 13){
-    var i = event.srcElement.parentElement.parentElement.rowIndex; // 通过event.srcelement 获取激活事bai件du的对象 td
- var tb = document.getElementById("dispatch_table");
- var iNum = tb.rows[i].cells[6].innerHTML;
- var yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild;
-var iQuantity = tb.rows[i].cells[7].innerHTML;
+    var tb = document.getElementById("dispatch_table");
+    for (i = 1 ; i < tb.rows.length ; i++)
+    {
+      var cinvcode = tb.rows[i].cells[1].innerHTML;
+      var result = $('#result').val();
+                    // if (result==cinvcode)   //扫描结果等于存货编码
+                    //  {
+                      var yQuantity = tb.tBodies[0].rows[i-1].cells[9].firstChild;
+                      var iQuantity = tb.rows[i].cells[8].innerHTML;
+                      // alert(yQuantity.value);
+                      // alert(iQuantity);
                       if(parseInt(yQuantity.value)==parseInt(iQuantity))
                       {
-                        tb.rows[i].cells[8].getElementsByTagName("input")[0].readOnly = true;
-                        tb.rows[i].style.backgroundColor='#FFA500'; //桔黄色
-                        tb.rows[i].cells[9].firstChild.selectedIndex=num; 
-
-
-{ 
-//总箱数联动
-var arr = []; //新增数组
- var zxs = $('#ZXSL').val();
-// var tb = document.getElementById("dispatch_table");
-  for (i = 1 ; i < tb.rows.length ; i++)
-    {
-      
-//        var iNum = tb.rows[i].cells[6].innerHTML;   
-       if  (parseFloat(iNum)<1)
-       {
-        var data = tb.rows[i].cells[9].firstChild.selectedIndex; //那个单元格的自己换
-        if (data!=0) {
-          if (arr.indexOf(data)<0) {
-              arr.push(data);
-          }
-      }
-    }
-
-     }
-
-    $('#CTNS').val(parseFloat(zxs)+parseFloat(arr.length));
-  }
-
-
-                        // tb.fireEvent("onchange");
+                        tb.rows[i].cells[9].getElementsByTagName("input")[0].readOnly = true;
+                        tb.rows[i].style.backgroundColor='#90EE90';
                         $('#result').focus();
                         $('#result').val('');
                       }
+                      // alert(yQuantity.value);
+                      // alert(iQuantity);
+
                       else if(parseInt(yQuantity.value) >parseInt(iQuantity))
                       { 
 
@@ -1134,114 +984,29 @@ var arr = []; //新增数组
 
 
                   }
- $('#result').focus();
+
 
                 // }
               }
 
             }
-          
-
-
-
-
-
-
-
-    // 
-// alert(td);
-// alert("行号：" + (td.parentElement.rowIndex + 1) + "，内容：zhi" + td.innertext);
-    // alert(1);
-
-
-
-
-
-
-
-
-//     var tb = document.getElementById("dispatch_table");
-//     for (i = 1 ; i < tb.rows.length ; i++)
-//     {
-//       var cinvcode = tb.rows[i].cells[1].innerHTML;
-//       var result = $('#result').val();
-//                     // if (result==cinvcode)   //扫描结果等于存货编码
-//                     //  {
-//                       var yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild;
-//                       var iQuantity = tb.rows[i].cells[7].innerHTML;
-//                       var iNum = tb.rows[i].cells[6].innerHTML;
-//                       // alert(parseInt(yQuantity.value));
-//                       // alert(parseInt(iQuantity));
-//                       // alert(parseFloat(iNum));
-//                       if(parseInt(yQuantity.value)==parseInt(iQuantity)&&parseFloat(iNum)<1)
-//                       {
-//                         tb.rows[i].cells[8].getElementsByTagName("input")[0].readOnly = true;
-//                         tb.rows[i].style.backgroundColor='#FFA500'; //桔黄色
-//                         tb.rows[i].cells[9].firstChild.selectedIndex=num; 
-
-
-// { 
-// //总箱数联动
-// var arr = []; //新增数组
-//  var zxs = $('#ZXSL').val();
-// // var tb = document.getElementById("dispatch_table");
-// //   // for (i = 1 ; i < tb.rows.length ; i++)
-// //   //   {
-      
-// //        var iNum = tb.rows[i].cells[6].innerHTML;   
-//        if  (parseFloat(iNum)<1)
-//        {
-//         var data = tb.rows[i].cells[9].firstChild.selectedIndex; //那个单元格的自己换
-//         if (data!=0) {
-//           if (arr.indexOf(data)<0) {
-//               arr.push(data);
-//           }
-//       }
-//     }
-
-//     // }
-
-//     $('#CTNS').val(parseFloat(zxs)+parseFloat(arr.length));
-//   }
-
-
-//                         // tb.fireEvent("onchange");
-//                         $('#result').focus();
-//                         $('#result').val('');
-//                       }
-//                       // alert(yQuantity.value);
-//                       // alert(iQuantity);
-
-//                       else if(parseInt(yQuantity.value) >parseInt(iQuantity))
-//                       { 
-
-//                         Toast.fire({
-//                           type: 'error',
-//                           title:'验货数量:'+Number(yQuantity.value)+'不能大于发货数量:'+Number(iQuantity), 
-//                         });
-//                     // alert(yQuantity.value)
-//                     yQuantity.value=("0")
-
-
-//                   }
-
-
-//                 // }
-//               }
-
-//             }
-//           }
+          }
 //保存按钮事件
 function batchSave(){
   $('#dispatch_no').blur();
   var ccusname = $('#ccusname').val();
   var dispatch_no = $('#dispatch_no').val();
   var ddate = $('#ddate').val();
+
   var position = $('#position').val();
+
   var checker = $('#checker').val();
-   var CTNS = $('#CTNS').val();
-
-
+    // alert(checker);
+  var zdzz = $('#zdzz').val();
+  var lszz = $('#lszz').val();
+  var cz = $('#cz').val();
+  var cy = $('#cy').val();
+  var CTNS = $('#CTNS').val();
   var tb = document.getElementById("dispatch_table");
   for (i = 1 ; i < tb.rows.length ; i++)
   {
@@ -1249,8 +1014,8 @@ function batchSave(){
       //var result = $('#result').val();
                    // if (result==cinvcode)   //扫描结果等于存货编码
                    // {
-                    var yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild.value;
-                    var iQuantity = tb.rows[i].cells[7].innerHTML;
+                    var yQuantity = tb.tBodies[0].rows[i-1].cells[9].firstChild.value;
+                    var iQuantity = tb.rows[i].cells[8].innerHTML;
                       // alert(yQuantity)
                       // alert(iQuantity)
                       if(parseInt(yQuantity) < parseInt(iQuantity))
@@ -1277,25 +1042,30 @@ function batchSave(){
               $('#result').focus();
               return false;
             }
-
             if(checker == ''){
               Toast.fire({
                 type: 'error',
-                title: '对货员不能为空，请选择！'
+                title: '对货人不能为空，请选择！'
               });
               $('#checker').focus();
               return false;
             }
-
-            if(CTNS == ''){
+            // if(CTNS == ''){
+            //   Toast.fire({
+            //     type: 'error',
+            //     title: '箱数未输入，请输入后保存！'
+            //   });
+            //   $('#CTNS').focus();
+            //   return false;
+            // }
+            if(cz == ''){
               Toast.fire({
                 type: 'error',
-                title: '箱数不能为空！'
+                title: '未称重，请称重后保存！'
               });
-              $('#CTNS').focus();
+              $('#cz').focus();
               return false;
             }
-
             //发货单号提示
             if(dispatch_no == ''){
               Toast.fire({
@@ -1316,10 +1086,18 @@ function batchSave(){
               return false;
             }
 
+            if(CTNS == ''){
+              Toast.fire({
+                type: 'error',
+                title: '箱数不能为空！'
+              });
+              $('#CTNS').focus();
+              return false;
+            }
+
             var trList = $("#table_body").children("tr");
 
             var length = trList.length;
-var ctns = $('#CTNS').val();
 
             if(length == 0){
               Toast.fire({
@@ -1336,6 +1114,10 @@ var ctns = $('#CTNS').val();
             datas.ddate = ddate;
             datas.position = position;
             datas.checker = checker;
+            datas.zdzz = zdzz;
+            datas.lszz = lszz;
+            datas.cz = cz;
+            datas.cy = cy;
             datas.CTNS = CTNS;
             datas.items = {};
             var tb = document.getElementById("dispatch_table");
@@ -1350,15 +1132,18 @@ var ctns = $('#CTNS').val();
                 datas.items[i].cInvStd = tb.rows[i].cells[3].innerHTML;
                 datas.items[i].cComUnitName = tb.rows[i].cells[4].innerHTML;
                 datas.items[i].cinvDefine13 = tb.rows[i].cells[5].innerHTML;
-                datas.items[i].iNum = tb.rows[i].cells[6].innerHTML;
-                datas.items[i].iQuantity = tb.rows[i].cells[7].innerHTML;
-                datas.items[i].yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild.value;
+                 datas.items[i].iinvweight = tb.rows[i].cells[6].innerHTML;
+                datas.items[i].iNum = tb.rows[i].cells[7].innerHTML;
+               
+      
+                datas.items[i].iQuantity = tb.rows[i].cells[8].innerHTML;
+                datas.items[i].yQuantity = tb.tBodies[0].rows[i-1].cells[9].firstChild.value;
                 // datas.items[i].zb = tb.rows[i].cells[8].innerHTML;
-                datas.items[i].zb = tb.tBodies[0].rows[i-1].cells[9].firstChild.value;
+                datas.items[i].zb = tb.tBodies[0].rows[i-1].cells[10].firstChild.value;
               }
               Swal.fire({
-                title: '确认保存数据并打印吗?',
-                text:'共'+length+'条'+','+'共'+ctns+'箱',
+                title: '确认保存数据到系统吗?',
+                text:'共'+length+'条',
                 footer: '发货单号：'+$('#dispatch_no').val(),
                 type: 'question',
                 focusConfirm: false,
@@ -1416,73 +1201,17 @@ var ctns = $('#CTNS').val();
                                 $('#ccusname').val('');
                                 $('#position').val('');
                                 $('#result').val('');
-                                 $('#CTNS').val('');
-                                  $('#ZXSL').val('');
-                                  $('#fz').val('1');
+                                $('#zdzz').val('');
+                                $('#lszz').val('');
+                                $('#cz').val('');
+                                $('#cy').val('');
+                                $('#CTNS').val('');
                                 $('#dispatch_no').focus();
                               },
                               error: function() {
                                 alert("error");
                               }
                             });
-
-
-
-var dispatch_no = $('#dispatch_no').val();
-
-
-                              $.ajax({
-                                  url:'outboxPrint?datas='+dispatch_no,
-                                  type:'post',
-                                  async:false,
-                                  dataType:'json',
-                                  headers:{
-                        Accept:"application/json",
-                        "Content-Type":"application/json",
-                        'X-CSRF-TOKEN' : '{{ csrf_token() }}'
-                    },
-                                  processData:false,
-                                  cache:false,
-                                  timeout: 1000,
-                                  beforeSend:function(){
-
-                                  },
-                               success:function(data){
-// alert(data.status);
-                                    if(data.status==0){
-                                      $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                                      $('#notifyAudio')[0].play();
-                                //发货单号红框提示,toast提示
-                                // $("#dispatch_no").addClass("is-invalid");
-                                 Toast.fire({
-                                  type: 'error',
-                                  title: "未对货,箱数为空,请先对货！"
-                                });
-                      result = false;
-
-                                  }
-
-             }
-             });
-
-  
-    // alert(result);
-     if(result){
-                // return true;
-
-        // var datas='';
-        // inputs.each(function () {
-        //     datas = datas + $(this).val()+'|';
-        // });
-        // window.open = "outboxPrint?datas="+datas;
-        window.open("outboxPrint?datas="+dispatch_no);
-                    
-                }
-                else{
-                    return false;
-                }
-
-
                 }else{
                   $("#dispatch_no").focus();
                   return false;
@@ -1522,7 +1251,11 @@ var dispatch_no = $('#dispatch_no').val();
               $('#ccusname').val('');
               $('#position').val('');
               $('#result').val('');
-              $('#dispatch_no').focus();
+              $('#lszz').val('');
+              $('#zdzz').val('');
+              $('#cz').val('');
+              $('#CTNS').val('');
+              $('#cy').focus();
 
             }else{
               $("#result").focus();
@@ -1535,6 +1268,14 @@ var dispatch_no = $('#dispatch_no').val();
         }
 
 
+
+
+
+
+
+// $(document).ready(function() {
+//     var t = $('#dispatch_table').DataTable();
+//     var giCount = 2;
 //拼箱
 $('#addRow').on( 'click', function (){
 
@@ -1546,38 +1287,33 @@ $('#addRow').on( 'click', function (){
   var position = $('#position').val();
   var checker = $('#checker').val();
 
-
 var tb = document.getElementById("dispatch_table");
-  for (i = 1 ; i < tb.rows.length ; i++)
-  {
-    var cinvcode = tb.rows[i].cells[1].innerHTML;
-      //var result = $('#result').val();
-                   // if (result==cinvcode)   //扫描结果等于存货编码
-                   // {
-
-
-
-
-                    // 为了测试方便临时关闭
-                    var yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild.value;
-                    var iQuantity = tb.rows[i].cells[7].innerHTML;
-                      // alert(yQuantity)
-                      // alert(iQuantity)
-                      // if(parseInt(yQuantity) < parseInt(iQuantity))
-                      // {
-                      //   Toast.fire({
-                      //     type: 'error',
-                      //     title: '第'+i+'行存货编码:'+cinvcode+'未完全对货，请继续对货！'
-                      //   });
-                      //   $('#result').focus();
+////分组前验证是否完全对货
+  // for (i = 1 ; i < tb.rows.length ; i++)
+  // {
+  //   var cinvcode = tb.rows[i].cells[1].innerHTML;
+  //     //var result = $('#result').val();
+  //                  // if (result==cinvcode)   //扫描结果等于存货编码
+  //                  // {
+  //                   var yQuantity = tb.tBodies[0].rows[i-1].cells[9].firstChild.value;
+  //                   var iQuantity = tb.rows[i].cells[8].innerHTML;
+  //                     // alert(yQuantity)
+  //                     // alert(iQuantity)
+  //                     if(parseInt(yQuantity) < parseInt(iQuantity))
+  //                     {
+  //                       Toast.fire({
+  //                         type: 'error',
+  //                         title: '第'+i+'行存货编码:'+cinvcode+'未完全对货，请继续对货！'
+  //                       });
+  //                       $('#result').focus();
                         
-                      //   return false;
-                      // }
+  //                       return false;
+  //                     }
 
 
 
-               // }
-             }
+  //              // }
+  //            }
 
 
              if(dispatch_no == ''){
@@ -1685,45 +1421,61 @@ var tb = document.getElementById("dispatch_table");
                               returnData.data = result.data;
                               callback(returnData);
 // var yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild;
+   var allweight=0;
+   var lsallweight=0;
    var zxs=0;
+   var pxs='';
  for (i = 1 ; i < tb.rows.length ; i++)
     {
-       var iNum = tb.rows[i].cells[6].innerHTML;
-// tb.rows[i].style.backgroundColor='#90EE90'; 
-// alert(iNum);
- if (parseFloat(iNum)<1) 
+       var iNum = tb.rows[i].cells[7].innerHTML;
+       var weight = tb.rows[i].cells[6].innerHTML;
+       var iquantity = tb.rows[i].cells[8].innerHTML;
+       
+       
+       
+       allweight +=(parseFloat(weight)*parseFloat(iquantity));
+
+       if (parseFloat(iNum)<1) 
 
 {
- 
-  tb.tBodies[0].rows[i-1].cells[8].firstChild.value="0";
+  lsallweight +=(parseFloat(weight)*parseFloat(iquantity));
+  tb.tBodies[0].rows[i-1].cells[9].firstChild.value="0";
 
-
+var pxs=tb.tBodies[0].rows[i-1].cells[10].firstChild.value
 
 
 
 }
+       
+
+
+// alert(iNum);
       if ( parseFloat(iNum)>=1) //扫描结果等于明细存货编码
 
-                    {      
-                    
-                   tb.tBodies[0].rows[i-1].cells[9].firstChild.disabled="disabled";   tb.rows[i].style.backgroundColor='#90EE90'; 
+                    {
+                      tb.rows[i].style.backgroundColor='#90EE90'; 
+                     
+                   tb.tBodies[0].rows[i-1].cells[10].firstChild.disabled="disabled";   
 
-tb.tBodies[0].rows[i-1].cells[9].firstChild.style="background-color: LightGrey";
+tb.tBodies[0].rows[i-1].cells[10].firstChild.style="background-color: LightGrey";
 
 zxs =  zxs +parseFloat(iNum);
 
                  }
 
-
-
-                // }
+             
               }
 
 
+// var sum=Convert(decimal(30,3),allweight);
+allweight = allweight.toFixed(3);
+lsallweight = lsallweight.toFixed(3);
+// alert(lsallweight);
+$('#zdzz').val(allweight);
+$('#lszz').val(lsallweight);
 $('#ZXSL').val(zxs);
 $('#CTNS').val(zxs);
-
-
+// $('#position').val(); 
                             }
                           })
                         },
@@ -1734,6 +1486,7 @@ $('#CTNS').val(zxs);
                         { "data":"cInvStd" },
                         { "data":"cComUnitName" },
                         { "data":"cinvDefine13" },
+                        { "data":"iinvweight"}, 
                         { "data":"iNum"}, 
                         // { "data":"kz"},  
                         {"data":"iQuantity"}, 
@@ -1744,34 +1497,42 @@ $('#CTNS').val(zxs);
 
                         ],
                         columnDefs: [{
-                    targets: 9,//自定义列的序号，从0开始
+                    targets: 10,//自定义列的序号，从0开始
 
                     data: "cinvcode", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                       var searchKey = $('#dispatch_no').val();
                       // return '<input type="checkbox" value="A" name="zb"id="zb"  >';
                       // return '<select><option value="已完成">已完成</option><option value="未完成">未完成</option></select>'''
-                       return '<select id="yw" onchange="selectOnchang(this)"  style="width: 38px;"><option value=""></option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>'
+                       return '<select id="yw" onchange="selectOnchang(this)" style="width: 38px;"><option value=""></option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>'
 
+
+// class="form-control" required name="standards" id="standards" style="width: 100%;">
+//                 <option value="0" >按支扫描</option>
+//                 <option value="1" >按箱扫描</option>
+
+                         // 
+
+// onblur="getyQuantityinfo()";">';
+// onkeypress = "if (event.keyCode = 13)  {getyQuantityinfo()};">';
                        }
                      },
 
 {
- targets: 8,//自定义列的序号，从0开始
+ targets: 9,//自定义列的序号，从0开始
 
                     data: "cinvcode", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                       var searchKey = $('#dispatch_no').val();
                       // return '<input type="checkbox" value="A" name="zb"id="zb"  >';
                       // return '<select><option value="已完成">已完成</option><option value="未完成">未完成</option></select>'''
-          return '<input type="text" name="yQuantity"id="yQuantity" value="' + data.iQuantity + '"  readonly style="width: 70px;" onkeypress = "if (event.keyCode = 13)  {getyQuantityinfo(this)};">';
+          return '<input type="text" name="yQuantity"id="yQuantity" value="' + data.iQuantity + '"  readonly style="width: 70px;">';
+
 
 
 }}
 
                      ]
-          
-
 
 
                    });
@@ -1780,7 +1541,6 @@ $('#CTNS').val(zxs);
     
     } );
  
-
 
 
         //页面初始化，聚焦发货单号

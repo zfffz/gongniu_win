@@ -17,6 +17,7 @@
                 <div class="col-sm-3">
                     <h4>打印</h4>
                     <button type="button" id="btn-submit" class="btn btn-info btn-xs"><i class="fa fa-trash-o fa-print"></i>打印</button>
+                    <input id="print" type="hidden" />
                 </div>
             </div>
         </div>
@@ -29,10 +30,10 @@
 <div class="col-md-12">
         <div class="card" id="card">
             <style>table,th{border:none;height:13px} td{border: 1px solid #000;height:13px}</style>
-            <input class="col-md-1" type="hidden" id="count" name="count" value={{$m}} />
-            
-            @foreach($data2 as $datas )       
-               <div  id={{$datas[0]->divid}}>
+    
+ <input class="col-md-1" type="hidden" id="count" name="count" value={{$m}} />
+    
+         <div  id="1">
                 <table class="table table-hover table-bordered" style="width: 100%;border: 1px solid black">
                     <tbody>
                     <tr>
@@ -45,27 +46,24 @@
                     </tr>
              
 
-                       @foreach($datas[1] as $dats)
-           
+                     @foreach($body1 as $datas ) 
 
                         <tr>
-                            <td width=10%  style="font-family:黑体; font-size:11pt;line-height:15px">{{ $dats->ROWNU }}</td>
+                            <td width=10%  style="font-family:黑体; font-size:11pt;line-height:15px">{{ $datas->ROWNU }}</td>
                           
-                            <td width=50%  style="font-family:黑体; font-size:11pt;line-height:15px">{{ $dats->cInvName }}</td>
+                            <td width=50%  style="font-family:黑体; font-size:11pt;line-height:15px">{{ $datas->cInvName }}</td>
                            
-                            <td width=15%  style="font-family:黑体; font-size:11pt;line-height:15px">{{ ($dats->iQuantity)*1 }}</td>
+                            <td width=15%  style="font-family:黑体; font-size:11pt;line-height:15px">{{ ($datas->iQuantity)*1 }}</td>
                           
                         </tr>
-                      
-                         @endforeach
+                       @endforeach
                     </tbody>
                 </table>
             </div>
-            @endforeach
+     
         </div>
     </div>
-<!--     </div> -->
-    <!-- /.col -->
+
 
    
 @endsection
@@ -87,9 +85,9 @@
 // alert(m);
             // AddTitle();
         // var iCurLine=12;//标题行之后的数据从位置80px开始打印
-            for(var j=1;j<=m;j++){
-                var divid='div'+j;
-                LODOP.ADD_PRINT_TABLE(5, 5, "RightMargin:0.4cm","BottomMargin:0.1cm",strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
+            // for(var j=1;j<=m;j++){
+                // var divid=j;
+                LODOP.ADD_PRINT_TABLE(5, 5, "RightMargin:0.4cm","BottomMargin:0.1cm",strBodyStyle+"<body>"+document.getElementById("1").innerHTML+"</body>");
                 
                // LODOP.ADD_PRINT_BARCODE(5,900,160, 80, 'Code93', cdlcode);
                 // LODOP.ADD_PRINT_BARCODE(5,650,80, 80, 'QRCode', cdlcode);
@@ -97,7 +95,8 @@
                 LODOP.NewPageA();  //自动分页
                // LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById("div1").innerHTML+"</body>");
                // iCurLine=iCurLine+85;//每行占25px
-            }
+            // }
+
             LODOP.PRINT();
            // LODOP.PRINT_DESIGN();
         });

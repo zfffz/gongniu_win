@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sweep_out_item;
-use App\Models\SweepOut;
+use App\Models\Return_house_item;
+use App\Models\ReturnHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
-class SweepOutsController extends CommonsController
+class returnhousesController extends CommonsController
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class SweepOutsController extends CommonsController
      */
     public function index()
     {
-        return view('sweepOuts.index');
+        return view('returnhouse.index');
     }
 
     /**
@@ -31,9 +31,9 @@ class SweepOutsController extends CommonsController
         //打包员
         $packagers = DB::table('bs_gn_wl')
             ->select('cpersoncode as no','cpersonname as name')
-            ->where('wlcode','=','03')
+            ->where('wlcode','=','04')
             ->get();
-        return view('sweepOuts.create',compact('packagers'));
+        return view('returnhouse.create',compact('packagers'));
     }
 
     /**
@@ -45,37 +45,36 @@ class SweepOutsController extends CommonsController
     public function store(Request $request)
     {
         
-        $sweep_out=\DB::transaction(function() use ($request){
+        $return_house=\DB::transaction(function() use ($request){
             //创建一张新的打包出库单
-            $sweep_out = new SweepOut([
+            $return_house = new ReturnHouse([
                 'packager_no'=>$request->input('packager'),
                 'location_no'=>$request->input('location_no'),
                 'user_no'=>Auth::id()
             ]);
-            $sweep_out->save();
+            $return_house->save();
             // $revalue =[];
 
             //创建一张新的项目清单
-            $sweep_out_items = $request->input('items');
+            $return_house_items = $request->input('items');
             $i=1;
 
-            foreach($sweep_out_items as $data){
+            foreach($return_house_items as $data){
                 // 先检查发货单号是否重复
-                $jg = Sweep_out_item::where('dispatch_no','=',$data['dispatch_no'])->get();
+                // $jg = Sweep_out_item::where('dispatch_no','=',$data['dispatch_no'])->get();
 
-                if(count($jg)>0){
-                    echo json_encode(array('status'=>0,'text'=>'发货单号'.$jg[0]->dispatch_no.'，系统已经存在，不允许重复创建！'));
-                    exit();
-                }
+                // if(count($jg)>0){
+                //     echo json_encode(array('status'=>0,'text'=>'发货单号'.$jg[0]->dispatch_no.'，系统已经存在，不允许重复创建！'));
+                //     exit();
+                // }
 
-                $sweep_out_item = $sweep_out->sweep_out_items()->make([
+                $return_house_item = $return_house->return_house_items()->make([
                     'entry_id'=>$i,
                     'dispatch_no'=> $data['dispatch_no'],
-                    'default_location_no'=> $data['default_location_no'],
-                    // 'location_no'=> $data['location_no']
+                    'default_location_no'=> $data['default_location_no']
                 ]);
 
-                $sweep_out_item->save();
+                $return_house_item->save();
               
         // 1.验证是否已经审核
         // $data = DB:: table('DispatchList as t1')
@@ -93,33 +92,31 @@ class SweepOutsController extends CommonsController
          $results = DB::select('select no from zzz_sweep_outs P left join zzz_sweep_out_items Z on P.id=z.parent_id  where z.dispatch_no = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
                
          //记录打包员和打包时间
-                $ddate = date("Y-m-d H:i:s");
-                DB::INSERT('insert into BS_GN_WLstate(cpersoncode,cdlcode,db,ddate)VALUES(?,?,?,?)',[$request->input('packager'),$data['dispatch_no'],'打包',$ddate]);
+                // $ddate = date("Y-m-d H:i:s");
+                // DB::INSERT('insert into BS_GN_WLstate(cpersoncode,cdlcode,db,ddate)VALUES(?,?,?,?)',[$request->input('packager'),$data['dispatch_no'],'打包',$ddate]);
 
                 // $cVerifier= Auth::user()->name;
          $cVerifier= 'auser';
- //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
-                $date= date("Y-m-d H:i:s");
-                DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
-                //生成销售出库单和更改库存
-                DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
-                //回传打包单号
-         DB::update("update dispatchlist set cdefine2= ? where cDLCode =?",[$results[0]->no,$data['dispatch_no']]);
-         DB::update("update zzz_sweep_checks  set flag=1 where dispatch_no =?",[$data['dispatch_no']]);
-        //1.提示销售出库单号
-        $data1 = DB:: table('rdrecord32 as t1')
-        ->select('t1.ccode')
-        ->where('t1.cbuscode','=',$data['dispatch_no'])->get();
-        //插入库位库存记录表zzz_kwkc
-
-
-
-           $res = DB::select('select cinvcode,cinvname,iquantity from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID  where Z.cDLCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+        $ddate= date("Y-m-d H:i:s");
+          $res = DB::select('select cinvcode,cinvname,iquantity from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID  where Z.cDLCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
 foreach ($res as $ress) {
 
 
-         DB::INSERT('insert into zzz_kwkc(source,cdlcode,location_no,cinvcode,cinvname,iquantity,time)VALUES(?,?,?,?,?,?,?)',['打包入库',$data['dispatch_no'],$request->input('location_no'),$ress->cinvcode,$ress->cinvname,$ress->iquantity,$ddate]);
+         DB::INSERT('insert into zzz_kwkc(source,cdlcode,location_no,cinvcode,cinvname,iquantity,time)VALUES(?,?,?,?,?,?,?)',['退回入库',$data['dispatch_no'],$request->input('location_no'),$ress->cinvcode,$ress->cinvname,$ress->iquantity,$ddate]);
         }
+ //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
+                // $date= date("Y-m-d H:i:s");
+                // DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
+                //生成销售出库单和更改库存
+                // DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
+                //回传打包单号
+         // DB::update("update dispatchlist set cdefine2= ? where cDLCode =?",[$results[0]->no,$data['dispatch_no']]);
+         // DB::update("update zzz_sweep_checks  set flag=1 where dispatch_no =?",[$data['dispatch_no']]);
+        //1.提示销售出库单号
+        // $data1 = DB:: table('rdrecord32 as t1')
+        // ->select('t1.ccode')
+        // ->where('t1.cbuscode','=',$data['dispatch_no'])->get();
+        
  //        if(count($data1) != 0)
  //        {
            
@@ -141,32 +138,32 @@ foreach ($res as $ress) {
                 $i++;
             }
             // 更新
-            $sweep_out->update(['count' => ($i-1)]);
-             if(count($data1) != 0)
-        {
+ //            $sweep_out->update(['count' => ($i-1)]);
+ //             if(count($data1) != 0)
+ //        {
            
-    $revalue = json_encode(array('status'=>1,'text1'=>$data1[0]->ccode));
+    $revalue = json_encode(array('status'=>1));
 
- // return $revalue ;
+ return $revalue ;
 
-        }
+ //        }
 
-        else{
-    $revalue = json_encode(array('status'=>2,'text2'=>'未生成销售出库单，请联系管理员！'));
+ //        else{
+ //    $revalue = json_encode(array('status'=>2,'text2'=>'未生成销售出库单，请联系管理员！'));
     
- // return $revalue ;
-     }
+ // // return $revalue ;
+ //     }
 
-             return $revalue ;
+             // return $revalue ;
             // 更新
-            $sweep_out->update(['count' => ($i-1)]);
+            $return_house->update(['count' => ($i-1)]);
 
-            return $sweep_out;
+            return $return_house;
             
              
         });
 
-        return $sweep_out;
+        return $return_house;
        
 
     }
@@ -179,14 +176,14 @@ foreach ($res as $ress) {
      */
     public function show($id)
     {
-        $sweepOut = SweepOut::find($id);
+        $returnHouse = ReturnHouse::find($id);
 
         $packager_name = DB::table('bs_gn_wl')
             ->select('cpersoncode as no','cpersonname as name')
-            ->where('cpersoncode','=',$sweepOut->packager_no)
+            ->where('cpersoncode','=',$returnHouse->packager_no)
             ->get()[0]->name;
 
-        return view('sweepOuts.show',compact('sweepOut','packager_name'));
+        return view('returnHouse.show',compact('returnHouse','packager_name'));
     }
 
     /**
@@ -300,69 +297,43 @@ foreach ($res as $ress) {
 // // echo json_encode(array("status"=>"3"));
 
 //         }
-    public function destroy(SweepOut $sweepOut,Sweep_out_item $Sweep_out_item)
+    public function destroy(ReturnHouse $returnhouse)
     {
         // 删除前先判断一下有没有生成发货装车单
-        // dd($sweepOut->id);
-        if($sweepOut->status ==1){
+        // dd($returnHouse->user_no);
+        if($returnhouse->status ==1){
             echo json_encode(array('status'=>0,'text'=>'已经部分发货装车，不允许删除！'));
             exit();
         }
-        if($sweepOut->status ==2){
+        if($returnhouse->status ==2){
             echo json_encode(array('status'=>0,'text'=>'已经全部发货装车，不允许删除！'));
             exit();
         }
         //标记刷回0，对货就可以删除了
-    DB::update("update A SET A.flag=0 FROM zzz_sweep_checks A left join zzz_sweep_out_items B ON A.dispatch_no=B.dispatch_no where B.parent_id =?",[$sweepOut->id]);
+    // DB::update("update A SET A.flag=0 FROM zzz_sweep_checks A left join zzz_sweep_out_items B ON A.dispatch_no=B.dispatch_no where B.parent_id =?",[$sweepOut->id]);
 
      //清空U8发货单里记录的打包单号
-        DB::table('dispatchlist as t1')
-            ->join('zzz_sweep_out_items as t2','t1.cDLCode','=','t2.dispatch_no')
-            ->where('t2.parent_id','=',$sweepOut->id)
-            ->update(['t1.cDefine2'=>'']);
+        // DB::table('dispatchlist as t1')
+        //     ->join('zzz_sweep_out_items as t2','t1.cDLCode','=','t2.dispatch_no')
+        //     ->where('t2.parent_id','=',$sweepOut->id)
+        //     ->update(['t1.cDefine2'=>'']);
 
             //删除BS_GN_wlstate上的打包记录
- //            dd($Sweep_out_item);
+// $deleteds1 = DB::delete("delete from BS_GN_wlstate where cdlcode=(select dispatch_no from zzz_sweep_out_items where parent_id=?) and db='打包'",[$sweepOut->id]);
 
-
- // $sweep_out_items = $request->input('items');
- //            $i=1;
-
- //            foreach($sweep_out_items as $data){
- //                // 先检查发货单号是否重复
- //                $jg = Sweep_out_item::where('dispatch_no','=',$data['dispatch_no'])->get();
-
-
-
- //            }
-
-
-$jg2 =  DB::SELECT("select dispatch_no from zzz_sweep_out_items where parent_id=?",[$sweepOut->id]);
-
-
-            foreach ( $jg2 as $Sweep_out_items) {
-         
-            
-$deleteds1 = DB::delete("delete from BS_GN_wlstate where db='打包'  and cdlcode=?",[$Sweep_out_items->dispatch_no]);
-};
         //清空U8发货单记录的打包人和打包时间
-        DB::table('dispatchlist as t1')
-            ->join('zzz_sweep_out_items as t2','t1.cDLCode','=','t2.dispatch_no')
-            ->where('t2.parent_id','=',$sweepOut->id)
-            ->update(['t1.cDefine13'=>'']);
+        // DB::table('dispatchlist as t1')
+        //     ->join('zzz_sweep_out_items as t2','t1.cDLCode','=','t2.dispatch_no')
+        //     ->where('t2.parent_id','=',$sweepOut->id)
+        //     ->update(['t1.cDefine13'=>'']);
 
-        DB::table('dispatchlist_extradefine as t1')
-            ->join('dispatchlist as t2','t1.DLID','=','t2.DLID')
-            ->join('zzz_sweep_out_items as t3','t2.cDLCode','=','t3.dispatch_no')
-            ->where('t3.parent_id','=',$sweepOut->id)
-            ->update(['t1.chdefine5'=>'']);
-
-        // DB::INSERT('insert into zzz_kwkc(source,cdlcode,location_no,cinvcode,cinvname,iquantity,time)VALUES(?,?,?,?,?,?)',['打包入库',$data['dispatch_no'],$request->input('location_no'),$ress->cinvcode,$ress->cinvname,$ress->iquantity,$ddate]);
-
-$deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items->dispatch_no]);
-
-
-        $sweepOut->delete();
+        // DB::table('dispatchlist_extradefine as t1')
+        //     ->join('dispatchlist as t2','t1.DLID','=','t2.DLID')
+        //     ->join('zzz_sweep_out_items as t3','t2.cDLCode','=','t3.dispatch_no')
+        //     ->where('t3.parent_id','=',$sweepOut->id)
+        //     ->update(['t1.chdefine5'=>'']);
+        
+        $returnhouse->delete();
         // 把之前的 redirect 改成返回空数组
         return [];
     }
@@ -389,10 +360,10 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
         //     ->select('t1.cDLCode','t1.cVerifier')
         //     ->where('t1.cDLCode','=',$dispatch_no)->get();
 
-            $data = DB::SELECT("select cVerifier from dispatchlist where CDLCODE= ? AND cVerifier is  NULL ",[$dispatch_no]);
+            $data = DB::SELECT("select id from zzz_sweep_car_items where dispatch_no= ?",[$dispatch_no]);
 
         if(count($data) == 0){
-            echo json_encode(array("status"=>"0","text"=>"发货单号系统不存在或发货单已审核！"));
+            echo json_encode(array("status"=>"0","text"=>"未作扫码上车，无需退库！"));
             exit();
         }
         else{
@@ -410,12 +381,12 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
             // {
 
             // 判断发货单号是否已经打包，避免重复打包
-            $jg = Sweep_out_item::where('dispatch_no','=',$dispatch_no)->get();
+            // $jg = Sweep_out_item::where('dispatch_no','=',$dispatch_no)->get();
 
-            if(count($jg)>0){
-                echo json_encode(array('status'=>0,'text'=>'发货单号'.$jg[0]->dispatch_no.'，已经打包，不允许重复录入！'));
-                exit();
-            }
+            // if(count($jg)>0){
+            //     echo json_encode(array('status'=>0,'text'=>'发货单号'.$jg[0]->dispatch_no.'，已经打包，不允许重复录入！'));
+            //     exit();
+            // }
         }
 
 
@@ -454,14 +425,14 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
             ->count();
         if($query == 0 ){
             //这张发货单未进行对货
-            echo json_encode(array('status'=>0,'text'=>'未对货，不允许打包入库！'));
+            echo json_encode(array('status'=>0,'text'=>'未对货，不允许退货入库！'));
         }else{
             echo json_encode(array('status'=>1,'text'=>'success！'));
         }
     }
     public function getData(Request $request)
     {
-        $builder = \DB::table('zzz_sweep_outs as t1')
+        $builder = \DB::table('zzz_return_houses as t1')
             ->select(
                 \DB::raw("
             t1.id,
@@ -475,7 +446,7 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
             ->leftJoin('bs_gn_wl as t2','t1.packager_no','t2.cpersoncode')
             ->leftJoin('zzz_storage_locations as t3','t1.location_no','t3.no');
 
-        $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
+        $data=parent::dataPage7($request,$this->condition($builder,$request->searchKey),'asc');
 
         return $data;
     }

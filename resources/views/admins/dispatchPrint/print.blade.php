@@ -61,22 +61,26 @@
                         <th style="font-family:黑体; font-size:11pt">行</th>
                         {{--<th style="font-family:黑体; font-size:11pt">仓库</th>--}}
                         {{--<th style="font-family:黑体; font-size:11pt">存货编码</th>--}}
-                        <th style="font-family:黑体; font-size:11pt">存货名称</th>
                         <th style="font-family:黑体; font-size:11pt">规格</th>
-                        <th style="font-family:黑体; font-size:11pt">单位</th>
+                        <th style="font-family:黑体; font-size:11pt">存货编码</th>
+                        <th style="font-family:黑体; font-size:11pt">存货名称</th>
                         <th style="font-family:黑体; font-size:11pt">数量</th>
+                        <th style="font-family:黑体; font-size:11pt">单位</th>
+                        <th style="font-family:黑体; font-size:11pt">单价</th>
                         <th style="font-family:黑体; font-size:11pt">金额</th>
                         <th style="font-family:黑体; font-size:11pt">条码</th>
                     </tr>
                     @foreach ($datas[1] as $dats)
                         <tr>
                             <td width="7%" style="font-family:黑体; font-size:11pt">{{ $dats->ROWNU }}</td>
-                            <td width="30%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvName }}</td>
-                            <td width="10%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvStd }}</td>
+                            <td width="8%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvStd }}</td>
+                            <td width="10%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvcode }}</td>
+                            <td width="21%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvName }}</td>
+                            <td width="7%" style="font-family:黑体; font-size:11pt">{{ ($dats->iQuantity*1) }}</td>
                             <td width="7%" style="font-family:黑体; font-size:11pt">{{ $dats->cComUnitName }}</td>
-                            <td width="10%" style="font-family:黑体; font-size:11pt">{{ ($dats->iQuantity*1) }}</td>
+                            <td width="10%" style="font-family:黑体; font-size:11pt">{{ $dats->iTaxUnitPrice }}</td>
                             <td width="10%" style="font-family:黑体; font-size:11pt">{{ ($dats->isum) }}</td>
-                            <td width="26%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvDefine5 }}</td>
+                            <td width="20%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvDefine5 }}</td>
                         </tr>
                     @endforeach
                     <tr>
@@ -157,7 +161,7 @@
                     $('#printstatus').change();
                 }
             };
-            LODOP.PREVIEW();
+            LODOP.PRINT();
 
         });
 

@@ -29,38 +29,40 @@
         <div class="row">
             <div class="col-lg-3 col-4">
                 <div class="small-box bg-info">
-                    <div class="overlay dark">
+                <!--     <div class="overlay dark">
                         {{--<i class="fas fa-3x fa-sync-alt"></i>--}}
-                    </div>
+                    </div> -->
                     <!-- end loading -->
                     <div class="inner">
-                        <h3>50</h3>
+                        <h3>{{ $CHECK[0]->count }}</h3>
 
-                        <p>月未出库</p>
+                        <p>日已对货</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fa fa-balance-scale"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{route('sweepCheck.index')}}" class="small-box-footer">
                         明细 <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
             </div>
             <div class="col-lg-3 col-4">
-                <div class="small-box bg-info">
-                    <div class="overlay dark">
+                <div class="small-box bg-primary">
+                  <!--   <div class="overlay dark">
                         {{--<i class="fas fa-3x fa-sync-alt"></i>--}}
-                    </div>
+                    </div> -->
                     <!-- end loading -->
+                  
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>{{ $OUT[0]->count }}</h3>
 
-                        <p>月已出库</p>
+                        <p>日已打包</p>
                     </div>
+              
                     <div class="icon">
-                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fas fa-shopping-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{route('sweepOut.index')}}" class="small-box-footer">
                         明细 <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -68,17 +70,17 @@
             <div class="col-lg-3 col-4">
                 <!-- small card -->
                 <div class="small-box bg-success">
-                    <div class="overlay dark">
+                   <!--  <div class="overlay dark">
                         {{--<i class="fas fa-3x fa-sync-alt"></i>--}}
-                    </div>
+                    </div> -->
                     <div class="inner">
-                        <h3>150</h3>
-                        <p>月装车</p>
+                        <h3>{{ $CAR[0]->count }}</h3>
+                        <p>日已装车</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                        <i class="fas fa-truck"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{route('sweepCar.index')}}" class="small-box-footer">
                         明细 <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -86,18 +88,18 @@
             <div class="col-lg-3 col-4">
                 <!-- small card -->
                 <div class="small-box bg-danger">
-                    <div class="overlay dark">
+                  <!--   <div class="overlay dark">
                         {{--<i class="fas fa-3x fa-sync-alt"></i>--}}
-                    </div>
+                    </div> -->
                     <div class="inner">
-                        <h3>0</h3>
+                        <h3>{{ $transport[0]->count }}</h3>
 
-                        <p>月未装车</p>
+                        <p>日已发运</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-chart-pie"></i>
+                        <i class="fas fa-road"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{route('wayPrint.index')}}" class="small-box-footer">
                         明细 <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -107,27 +109,27 @@
             <div class="col-lg-3 col-4">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
-                        <p>日待出库</p>
+                        <h3>{{ $CHECKM[0]->count }}</h3>
+                        <p>月已对货</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fa fa-balance-scale"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{route('sweepCheck.index')}}" class="small-box-footer">
                         明细 <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
             </div>
             <div class="col-lg-3 col-4">
-                <div class="small-box bg-info">
+                <div class="small-box bg-primary">
                     <div class="inner">
-                        <h3>150</h3>
-                        <p>日已出库</p>
+                        <h3>{{ $OUTM[0]->count }}</h3>
+                        <p>月已打包</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fas fa-shopping-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{route('sweepOut.index')}}" class="small-box-footer">
                         明细 <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -136,13 +138,13 @@
                 <!-- small card -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>150</h3>
-                        <p>日已装车</p>
+                        <h3>{{ $CARM[0]->count }}</h3>
+                        <p>月已装车</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                         <i class="fas fa-truck"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{route('sweepCar.index')}}" class="small-box-footer">
                         明细 <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -151,14 +153,14 @@
                 <!-- small card -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>0</h3>
+                        <h3>{{ $transportM[0]->count }}</h3>
 
-                        <p>日未装车</p>
+                        <p>月已发运</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-chart-pie"></i>
+                        <i class="fas fa-road"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                     <a href="{{route('wayPrint.index')}}" class="small-box-footer">
                         明细 <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>

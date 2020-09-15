@@ -19,7 +19,7 @@ class DispatchPrintController extends CommonsController
 
     public function getData(Request $request)
     {
- $builder = \DB::table('dispatchlist as t1')
+ $builder = \DB::table('dispatchlist1 as t1')
             ->select(
                 \DB::raw("
             t1.cDLCode, 
@@ -39,6 +39,7 @@ class DispatchPrintController extends CommonsController
         ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
         ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')
         ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode');
+        // ->leftjoin('dispatchlists as t6','t1.DLID','t6.DLID');
 
         $data=parent::dataPage3($request,$this->condition($builder,$request),'asc');
 
@@ -70,7 +71,7 @@ class DispatchPrintController extends CommonsController
             $body = \DB::table('Sales_FHD_H as t1')
                 ->select(
                     \DB::raw("
-            ROW_NUMBER() OVER(ORDER BY t2.cInvCode) ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity,t2.isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5
+            ROW_NUMBER() OVER(ORDER BY t2.cInvCode) ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity,t2.iTaxUnitPrice,t2.isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5
             "))
                 ->Join('dispatchlists as t2', 't1.dlid','t2.dlid')
                 ->Join('inventory as t3' ,'t3.cInvCode' , 't2.cInvCode')
@@ -236,10 +237,7 @@ class DispatchPrintController extends CommonsController
  //        //return redirect()->route('dispatchPrint.printpage');
 
  //    }
-
-
-//测试
-        public function lgetPrint(Request $request)
+ public function lgetPrint1(Request $request)
     {
         $data = explode('|',substr($request['datas'],0,-1));
         $n=1;
@@ -262,9 +260,41 @@ class DispatchPrintController extends CommonsController
                 ->get();
  if(count($head) == 0){
     // dd('发货单无组别，无法打印');
-            echo json_encode(array("status"=>"0","text"=>"发货单无组别，无法打印！"));
+            echo json_encode(array("status"=>"0"));
+             // return view('admins.dispatchPrint.index');
             exit();
         }
+    }
+}
+
+//正式
+        public function lgetPrint(Request $request)
+    {
+        $data = explode('|',substr($request['datas'],0,-1));
+        $n=1;
+        $s=0;
+        $t=1;
+        $m=0;
+        // dd($data);
+        foreach ($data as $cdlcode){
+
+                $head = \DB::table('zzz_sweep_checks as t1')
+                ->select(
+                    \DB::raw("
+            t1.dispatch_no ,t2.zb,'' as divid
+            "))
+                ->leftJoin('zzz_sweep_check_items as t2', 't2.parent_id','t1.id')
+                ->where('t1.dispatch_no','=',$cdlcode)
+                ->whereNOTNULL('t2.zb')
+                ->groupby('t1.dispatch_no')
+                ->groupby('t2.zb')
+                ->get();
+ // if(count($head) == 0){
+ //    // dd('发货单无组别，无法打印');
+ //            // echo json_encode(array("status"=>"0"));
+ //             // return view('admins.dispatchPrint.index');
+ //            exit();
+ //        }
         // if($head[0]->zb=''){
         //      exit();
         //     dd('发货单无组别，无法打印');
@@ -312,11 +342,24 @@ class DispatchPrintController extends CommonsController
            $n=$n+1;
         }
         //echo json_encode(array('status'=>0,'returndata'=>$data2));
-       
-        // dd($data2);
-         // dd($s);
-       
+       // dd($data2);
+       if(count($head) == 0)
+       {
+        echo json_encode(array('status'=>0));
+        exit();
+          // return view('admins.dispatchPrint.index');
+
+       }
+       else
+       {
+        // dd(data2);
+// echo json_encode(array('status'=>1));
         return view('admins.dispatchPrint.lable',compact('data2','m'));
+
+        }
+       
+       
+        // return view('admins.dispatchPrint.lable',compact('data2','m'));
         //return redirect()->route('dispatchPrint.printpage');
 
     }
@@ -334,7 +377,28 @@ class DispatchPrintController extends CommonsController
         $data = explode('|',substr($request['datas'],0,-1));
         $n=0;
         $m=1;
-        foreach ($data as $cdlcode){
+        $result = 0;
+// dd($data );
+foreach ($data as $cdlcode){
+// echo json_encode(array('status'=>0));
+            $head1 = \DB::table('zzz_sweep_checks as b')
+                ->select(
+                    \DB::raw("
+            b.dispatch_no,
+            b.CTNS
+            "))
+                
+                ->where('b.dispatch_no','=',$cdlcode)->get();
+            ;
+            
+        
+       //  }
+       // else
+       //  { echo json_encode(array('status'=>1));}
+  
+       // {
+
+       //  foreach ($data as $cdlcode){
 
             $head = \DB::table('Sales_FHD_H as a')
                 ->select(
@@ -345,16 +409,60 @@ class DispatchPrintController extends CommonsController
                 ->Join('zzz_sweep_checks as b','a.cDLCode','b.dispatch_no')
                 ->where('a.cDLCode','=',$cdlcode)->get();
             ;
+ 
 
-            $head[0]->divid = 'div'.$m;
+
+// print_r(count($head1));
+        if(count($head1) == 0)
+       {
+
+        // echo json_encode(array('status'=>0));
+        echo json_encode(array('status'=>0));
+        // return;
+      exit();
+       //    // return view('admins.dispatchPrint.index');
+ $result = 0;
+ // exit();
+ // echo json_encode(array('status'=>0));
+       }
+       else
+       {
+
+           //  $zb->divid='div'.$t;
+           // $data2[$m][0]=$zb;
+
+           $head[0]->divid = 'div'.$m;
 
             $data1[$n] = $head[0];
             $n=$n+1;
             $m=$m+1;
+             $result1 = 1;
+            }
         }
-        //dd($data1);
-        //echo json_encode(array('status'=>0,'returndata'=>$data2));
-        return view('admins.dispatchPrint.outboxprint',compact('data1','n'));
+          // dd($result);
+       //     if(count($head1) == 0)
+       // {
+
+       //  echo json_encode(array('status'=>0));
+       //  exit();
+       //    // return view('admins.dispatchPrint.index');
+
+       // }
+       // else
+       // {
+      // print_r(count($head1));
+           if ($result = 0) {
+            echo json_encode(array('status'=>0));
+        exit();
+        }
+        if ($result1 = 1) {
+            return view('admins.dispatchPrint.outboxprint',compact('data1','n'));
+        }
+      
+        
+        // }
+
+        
 
     }
 
@@ -444,6 +552,10 @@ class DispatchPrintController extends CommonsController
 
             if($searchKey->cDepartmentKey!='' || $searchKey->cDepartmentKey!=null ){
                 $table->where('t1.cDepCode','=',$searchKey->cDepartmentKey);
+            }
+
+            if($searchKey->cWhCodeKey!='' || $searchKey->cWhCodeKey!=null ){
+                $table->where('t1.cWhCode','=',$searchKey->cWhCodeKey);
             }
 
             if($searchKey->status =='1' ){

@@ -12,6 +12,7 @@ class DispatchReportsController extends CommonsController
     {
         return view('admins.dispatchReports.index');
     }
+   
 
     public function getData(Request $request)
     {
@@ -20,7 +21,7 @@ class DispatchReportsController extends CommonsController
                 \DB::raw("
             t1.id,
             t2.dispatch_no,
-            t2.location_no,
+            t2.default_location_no as location_no,
             t5.cpersonname as packager_name,
             t6.no as car_no,
             t7.name as driver_name,
@@ -43,6 +44,14 @@ class DispatchReportsController extends CommonsController
         if($searchKey!=''){
             $table->where('t2.cpersonname','like','%'.$searchKey.'%');
             $table->orWhere('t1.created_at','like','%'.$searchKey.'%');
+        }
+        return $table;
+    }
+
+     private function condition1($table,$searchKey){
+        if($searchKey!=''){
+            $table->where('t1.cdlcode','like','%'.$searchKey.'%');
+            $table->orWhere('t1.location_no','like','%'.$searchKey.'%');
         }
         return $table;
     }

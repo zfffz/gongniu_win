@@ -18,6 +18,16 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('sweepOut/checkIfdh', 'SweepOutsController@checkIfdh')->name('sweepOut.checkIfdh');
     Route::resource('sweepOut', 'SweepOutsController', ['only' => [ 'index', 'create', 'store','index','destroy','show','update']]);
 
+     // 退回单
+    Route::get('returnhouse/dispatch_data', 'returnhousesController@dispatch_data')->name('returnhouse.dispatch_data');
+    Route::get('returnhouse/dispatchs_data', 'returnhousesController@dispatchs_data')->name('returnhouse.dispatchs_data');
+    Route::get('returnhouse/location_data', 'returnhousesController@location_data')->name('returnhouse.location_data');
+    Route::post('returnhouse/getData', 'returnhousesController@getData')->name('returnhouse.getData');
+    Route::post('returnhouse/update_cverifier', 'returnhousesController@update_cverifier')->name('returnhouse.update_cverifier');
+    Route::get('returnhouse/checkIfdh', 'returnhousesController@checkIfdh')->name('returnhouse.checkIfdh');
+    Route::resource('returnhouse', 'returnhousesController', ['only' => [ 'index', 'create', 'store','index','destroy','show','update']]);
+
+
     // 扫码上车
     Route::get('sweepCar/dispatch_data', 'SweepCarsController@dispatch_data')->name('sweepCar.dispatch_data');
     Route::get('sweepCar/checkPass', 'SweepCarsController@checkPass')->name('sweepCar.checkPass');
@@ -34,6 +44,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('sweepCheck/dispatchss_data', 'SweepChecksController@dispatchss_data')->name('sweepCheck.dispatchss_data');
     Route::post('sweepCheck/getData', 'SweepChecksController@getData')->name('sweepCheck.getData');
     Route::post('sweepCheck/getDatas', 'SweepChecksController@getDatas')->name('sweepCheck.getDatas');
+    Route::post('sweepCheck/print', 'SweepChecksController@print')->name('sweepCheck.print');
+    Route::get('sweepCheck/lgetPrint', 'SweepChecksController@lgetPrint')->name('sweepCheck.lgetPrint');
+     Route::get('sweepCheck/outboxPrint', 'SweepChecksController@outboxPrint')->name('sweepCheck.outboxPrint');
+    Route::post('sweepCheck/outboxPrint', 'SweepChecksController@outboxPrint')->name('sweepCheck.outboxPrint');
     Route::resource('sweepCheck', 'SweepChecksController', ['only' => ['create', 'store','index','destroy','show']]);
 
     //扫码对货app
@@ -84,7 +98,9 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
      Route::post('dispatchPrint/lgetData', 'DispatchPrintController@lgetData')->name('dispatchPrint.lgetData');
     Route::get('dispatchPrint/lgetPrint', 'DispatchPrintController@lgetPrint')->name('dispatchPrint.lgetPrint');
     Route::post('dispatchPrint/lgetPrint', 'DispatchPrintController@lgetPrint')->name('dispatchPrint.lgetPrint');
+    Route::post('dispatchPrint/lgetPrint1', 'DispatchPrintController@lgetPrint1')->name('dispatchPrint.lgetPrint1');
     Route::get('dispatchPrint/outboxPrint', 'DispatchPrintController@outboxPrint')->name('dispatchPrint.outboxPrint');
+    Route::post('dispatchPrint/outboxPrint', 'DispatchPrintController@outboxPrint')->name('dispatchPrint.outboxPrint');
     Route::post('dispatchPrint/updPrintstatus', 'DispatchPrintController@updPrintstatus')->name('dispatchPrint.updPrintstatus');
     //  Route::post('dispatchPrint/printpage', 'DispatchPrintController@printpage')->name('dispatchPrint.printpage');
     Route::resource('dispatchPrint', 'DispatchPrintController', ['only' => [ 'index']]);
@@ -94,7 +110,14 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     // 报表
     // 1.发货单：发货单 -> 打包出库 -> 扫码上车
     Route::post('dispatchReport/getData', 'DispatchReportsController@getData')->name('dispatchReport.getData');
+    // Route::post('dispatchReport/getData1', 'DispatchReportsController@getData1')->name('dispatchReport.getData1');
+    //  Route::post('dispatchReport/stock', 'DispatchReportsController@stock')->name('dispatchReport.getData1');
+
     Route::resource('dispatchReport', 'DispatchReportsController', ['only' => [ 'index']]);
+
+    //出入库报表
+      Route::post('stockReport/getData', 'StockReportsController@getData')->name('stockReport/getData');
+     Route::resource('stockReport', 'StockReportsController', ['only' => [ 'index']]);
 
 
      Route::get('/wayPrint/{id}/getPrint', 'WayPrintController@getPrint')->name('wayPrint.getPrint');

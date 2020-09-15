@@ -43,7 +43,7 @@
                         <button type="button" class="btn btn-warning btn-block btn-flat btn-lg">扫码对货</button>
                     </a> -->
                     <a class="btn-block" href="{{route('sweepOut.create')}}">
-                        <button type="button" class="btn btn-primary btn-block btn-flat btn-lg">打包出库</button>
+                        <button type="button" class="btn btn-primary btn-block btn-flat btn-lg">打包入库</button>
                     </a>
                     <a class="btn-block" href="{{route('sweepCar.create')}}">
                         <button type="button" class="btn btn-danger btn-block btn-flat btn-lg">扫码上车</button>
@@ -57,6 +57,6 @@
 
 @section('footer')
 <div class="text-center">
-    <strong>Copyright &copy; 2019 BULL</strong>
+    <strong>Copyright &copy; 2020 BULL</strong>
 </div>
 @endsection
