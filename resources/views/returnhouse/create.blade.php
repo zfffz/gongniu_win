@@ -607,7 +607,20 @@
                                 });
                                 //清空发货单号
                                 $('#dispatch_no').val('');
-                            }else{
+                            }
+                          else  if(data.status==1){
+                                 $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                                $('#notifyAudio')[0].play();
+                                //发货单号红框提示,toast提示
+                                $("#dispatch_no").addClass("is-invalid");
+                                Toast.fire({
+                                    type: 'error',
+                                    title: data.text1
+                                });
+                                //清空发货单号
+                                $('#dispatch_no').val('');
+                            }
+                                else {
                                 
                               //判断库位是否等于默认库位
                               //如果不等于，弹窗提示

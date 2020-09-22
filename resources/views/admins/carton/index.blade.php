@@ -31,7 +31,7 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" name="search" id="search" class="form-control" placeholder="存货编码/名称/创建人/修改人" />
+                            <input type="text" name="search" id="search" class="form-control" placeholder="存货编码/名称/装箱规格" />
                             <div class="input-group-append">
                                 <button class="btn btn-default" type="button" onclick="table.draw( false );">
                                     <i class="fas fa-search"></i>
@@ -39,23 +39,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
+                  <!--   <div class="col-md-8">
                         <a href="{{route('carton.create')}}" class="btn btn-info btn-flat float-right">
                             <i class="fa fa-plus"></i> 新增
                         </a>&nbsp;&nbsp;
-                    </div>
+                    </div> -->
                 </div>
                 <table id="companiesLists" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>仓库编码</th>
-                        <th>仓库名称</th>
-                        <th>备注</th>
-                        <th>状态</th>
-                        <th>创建人</th>
+                        <th>存货编码</th>
+                        <th>存货名称</th>
+                        <th>装箱规格</th>
+                     <!--    <th>备注</th>
+                        <th>状态</th> -->
+                       <!--  <th>创建人</th>
                         <th>创建时间</th>
                         <th>修改人</th>
-                        <th>修改时间</th>
+                        <th>修改时间</th> -->
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -143,7 +144,7 @@
                             start : start,
                             length : length,
                             searchKey : searchKey
-                        },
+                        ,},
                         success:function(result){
                             var returnData = {};
                             returnData.recordsTotal = result.recordsTotal;
@@ -154,25 +155,25 @@
                     })
                 },
                 "columns":[
-                    { "data":"no" },
-                    { "data":"name" },
-                    { "data":"note" },
-                    { "data":"status" },
-                    { "data":"create_name" },
-                    { "data":"created_at" },
-                    { "data":"edit_name" },
-                    { "data":"updated_at" },
+                    { "data":"cinvcode" },
+                    { "data":"cinvname" },
+                    { "data":"cInvDefine13" },
+                    // { "data":"status" },
+                    // { "data":"create_name" },
+                    // { "data":"created_at" },
+                    // { "data":"edit_name" },
+                    // { "data":"updated_at" },
                     {"data":"id"}
                 ],
                 columnDefs: [{
-                    targets: 8,//自定义列的序号，从0开始
+                    targets: 3,//自定义列的序号，从0开始
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +
                             '<div class="btn-group">' +
-                            '<a href="storageLocation/'+data+'" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>' +
-                            '<a href="storageLocation/'+data+'/edit" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i></a>' +
-                            '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>' +
+                            '<a href="carton/'+data+'" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>' +
+                            '<a href="carton/'+data+'/edit" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i></a>' +
+                            // '<a href="javascript:void(0);" onclick="deleteCurrentRow('+data+')" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>' +
                             '</div>' +
                             '</div>';
 

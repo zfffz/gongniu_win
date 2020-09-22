@@ -359,14 +359,23 @@ foreach ($res as $ress) {
         // $data = DB:: table('dispatchlist as t1')
         //     ->select('t1.cDLCode','t1.cVerifier')
         //     ->where('t1.cDLCode','=',$dispatch_no)->get();
+ $data = DB::SELECT("
+select id from  zzz_kwkc where source='扫码上车' and  cdlcode= ?",[$dispatch_no]);
 
-            $data = DB::SELECT("select id from zzz_sweep_car_items where dispatch_no= ?",[$dispatch_no]);
+            $data1 = DB::SELECT("select id from hy_eo_transports
+ where csocode= ?",[$dispatch_no]);
 
         if(count($data) == 0){
             echo json_encode(array("status"=>"0","text"=>"未作扫码上车，无需退库！"));
             exit();
         }
-        else{
+        else if (count($data1) > 0) {
+
+ echo json_encode(array("status"=>"1","text1"=>"请在发运单中删除对应发货单，再做退库！"));
+           // DD(1);
+ exit();
+        
+        }
             // echo json_encode(array("status1"=>"1",'cVerifier'=>$data[0]->cVerifier));
             // if(cVerifier == NULL)
             // { echo json_encode(array('status1'=>0,'text1'=>"发货单号'$dispatch_no'已经审核！"));
@@ -387,7 +396,7 @@ foreach ($res as $ress) {
             //     echo json_encode(array('status'=>0,'text'=>'发货单号'.$jg[0]->dispatch_no.'，已经打包，不允许重复录入！'));
             //     exit();
             // }
-        }
+        
 
 
 // DB::SELECT("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
@@ -404,10 +413,10 @@ foreach ($res as $ress) {
             ->where('t1.cDLCode','=',$dispatch_no)->get();
 
        if($data[0]->no ==''){
-           echo json_encode(array('status'=>0,'text'=>'默认库位未维护，请联系管理员！'));
+           echo json_encode(array('status'=>2,'text'=>'默认库位未维护，请联系管理员！'));
            exit();
        }else{
-           echo json_encode(array('status'=>1,'no'=>$data[0]->no));
+           echo json_encode(array('status'=>3,'no'=>$data[0]->no));
        }
 
 

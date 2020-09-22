@@ -103,6 +103,7 @@
                                 <p>车辆</p>
                             </a>
                         </li>
+                     
                       
                         <!-- <li class="nav-item">
                             <a href="{{route('driver.index')}}" class="nav-link">
@@ -110,6 +111,12 @@
                                 <p>司机</p>
                             </a>
                         </li> -->
+                           <li class="nav-item">
+                            <a href="{{route('carton.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>箱规</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{route('customerLocation.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

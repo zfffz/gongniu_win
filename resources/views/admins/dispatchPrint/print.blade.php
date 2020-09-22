@@ -161,8 +161,7 @@
                     $('#printstatus').change();
                 }
             };
-            LODOP.PRINT();
-
+           LODOP.PRINT();
         });
 
         $('#printstatus').change(function(){

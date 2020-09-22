@@ -48,7 +48,9 @@
                     <a class="btn-block" href="{{route('sweepCar.create')}}">
                         <button type="button" class="btn btn-danger btn-block btn-flat btn-lg">扫码上车</button>
                     </a>
-                    
+                    <a class="btn-block" href="{{route('returnhouse.create')}}">
+                        <button type="button" class="btn btn-warning btn-block btn-flat btn-lg">退回入库</button>
+                    </a>
                 </div>
             </div>
         </div>

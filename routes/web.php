@@ -77,6 +77,9 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     // 车辆
     Route::post('car/getData', 'CarsController@getData')->name('car.getData');
     Route::resource('car', 'CarsController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
+      // 箱规
+    Route::post('carton/getData', 'CartonsController@getData')->name('carton.getData');
+    Route::resource('carton', 'CartonsController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
 
     // 司机
     Route::post('driver/getData', 'DriversController@getData')->name('driver.getData');
