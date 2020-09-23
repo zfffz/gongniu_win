@@ -296,7 +296,7 @@ function getdispatchlistinfo(){
       return false;
     }
 
-           //验证发货单号存不存在
+           
 // var searchKey = $('#dispatch_no').val();
 // $.ajax({
 //   data:{searchKey:searchKey},
@@ -332,7 +332,7 @@ function getdispatchlistinfo(){
            //  cache:false,
            //  timeout: 1000,
 
-
+//验证发货单号存不存在
             var searchKey = $('#dispatch_no').val();
 $.ajax({
   data:{searchKey:searchKey},
@@ -340,7 +340,7 @@ $.ajax({
     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
   },
   type: "post",
-  async:false,
+  // async:false,
   dataType: "json",
   url:"dispatch_data",
             beforeSend:function(){
@@ -372,7 +372,7 @@ $.ajax({
                                  {$.ajax({
                                   url:'dispatchss_data?dispatch_no='+dispatch_no,
                                   type:'get',
-                                  async:false,
+                                  // async:false,
                                   dataType:'json',
                                   headers:{
                                     Accept:"application/json",
@@ -440,13 +440,15 @@ $.ajax({
 
 
 var searchKey = $('#dispatch_no').val();
+
+if (searchKey!='') {
 $.ajax({
   data:{searchKey:searchKey},
   headers:{
     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
   },
   type: "post",
-  async:false,
+  // async:false,
   dataType: "json",
   url:"getData",
   success: function (result) {
@@ -505,7 +507,7 @@ $.ajax({
                           $.ajax({
                             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
                             type: "POST",
-                            async:false,
+                            // async:false,
                             url: "dispatchs_data",
                             data :{
                               draw : page,
@@ -544,7 +546,7 @@ $.ajax({
                     data: "cinvcode", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                       var searchKey = $('#dispatch_no').val();
-                      return '<input type="text" name="yQuantity"id="yQuantity" value=0  readonly style="width: 70px" onkeypress = "if (event.keyCode = 13)  {getyQuantityinfo()};">';
+                      return '<input type="text" name="yQuantity"id="yQuantity" value=0  readonly style="width: 70px" oninput="fun();">';
 
 
 
@@ -580,7 +582,8 @@ $.ajax({
 
                    });
 
-
+}
+// var tb = document.getElementById("dispatch_table");
 
         }
       }
@@ -597,7 +600,7 @@ var tb = document.getElementById("dispatch_table");
        var iNum = tb.rows[i].cells[6].innerHTML;   
        if  (parseFloat(iNum)<1)
        {
-        var data = tb.rows[i].cells[9].firstChild.selectedIndex; //那个单元格的自己换
+        var data = tb.rows[i].cells[9].firstChild.selectedIndex; //
         if (data!=0) {
           if (arr.indexOf(data)<0) {
               arr.push(data);
@@ -760,7 +763,7 @@ $.ajax({
 
             if(parseInt(yQuantity.value)==parseInt(iQuantity)&&parseFloat(iNum)<1) //验货数量等于数量且件数小于1
             {
-              tb.rows[i].style.backgroundColor='#FFA500'; //桔黄色
+              tb.rows[i].style.backgroundColor='#3CB371'; //桔黄色
               tb.rows[i].cells[8].getElementsByTagName("input")[0].readOnly = true;
 
    
@@ -1078,9 +1081,9 @@ $('#fz').val(num);
 
 });
 //单元格回车事件（回车）
-function getyQuantityinfo(){
+function fun(){
 
-  if(event.keyCode == 13){
+  // if(event.keyCode == 13){
     var i = event.srcElement.parentElement.parentElement.rowIndex; // 通过event.srcelement 获取激活事bai件du的对象 td
  var tb = document.getElementById("dispatch_table");
  var iNum = tb.rows[i].cells[6].innerHTML;
@@ -1089,9 +1092,9 @@ var iQuantity = tb.rows[i].cells[7].innerHTML;
                       if(parseInt(yQuantity.value)==parseInt(iQuantity))
                       {
                         tb.rows[i].cells[8].getElementsByTagName("input")[0].readOnly = true;
-                        tb.rows[i].style.backgroundColor='#FFA500'; //桔黄色
+                        tb.rows[i].style.backgroundColor='#3CB371'; //桔黄色
                         tb.rows[i].cells[9].firstChild.selectedIndex=num; 
-
+ $('#result').focus();
 
 { 
 //总箱数联动
@@ -1104,7 +1107,7 @@ var arr = []; //新增数组
 //        var iNum = tb.rows[i].cells[6].innerHTML;   
        if  (parseFloat(iNum)<1)
        {
-        var data = tb.rows[i].cells[9].firstChild.selectedIndex; //那个单元格的自己换
+        var data = tb.rows[i].cells[9].firstChild.selectedIndex; //
         if (data!=0) {
           if (arr.indexOf(data)<0) {
               arr.push(data);
@@ -1134,10 +1137,10 @@ var arr = []; //新增数组
 
 
                   }
- $('#result').focus();
+ // $('#result').focus();
 
                 // }
-              }
+              // }
 
             }
           
@@ -1535,7 +1538,7 @@ var dispatch_no = $('#dispatch_no').val();
         }
 
 
-//拼箱
+//分组点击事件
 $('#addRow').on( 'click', function (){
 
 
@@ -1686,11 +1689,64 @@ var tb = document.getElementById("dispatch_table");
                               callback(returnData);
 // var yQuantity = tb.tBodies[0].rows[i-1].cells[8].firstChild;
    var zxs=0;
+//    for (i = 1 ; i < tb.rows.length ; i++)
+//     {
+      
+// }
  for (i = 1 ; i < tb.rows.length ; i++)
     {
        var iNum = tb.rows[i].cells[6].innerHTML;
-// tb.rows[i].style.backgroundColor='#90EE90'; 
-// alert(iNum);
+        var xg = tb.rows[i].cells[5].innerHTML;
+
+       var cinvcode = tb.rows[i].cells[1].innerHTML;
+        if (xg=='') 
+ {
+ Swal.fire({
+  // <a href=">存货基础信息</a>
+    // 'You can use <b>bold text</b>, ' +
+    // '<a href="//sweetalert2.github.io">links</a> ' +
+    // 'and other HTML tags',
+                title: '确认继续对货?',
+                html:'存货编码:'+cinvcode+'没有包装规格, 可在' +
+                '<a href="//gongniu_win.test/admin/carton/'+cinvcode+'/edit" target="_blank">存货基础信息</a> ' +
+                // '可在<a href="{{route('carton.index')}}">存货基础信息</a> ' +
+                '中维护',
+                footer: '发货单号：'+$('#dispatch_no').val(),
+                type: 'question',
+                focusConfirm: false,
+                allowEnterKey:false,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+              }).then(
+              function(n){
+                if(n.value){}
+                  else{
+                    $('#dispatch_table tbody').html('');
+
+              $('#ddate').val('');
+              $('#dispatch_no').val('');
+              $('#ccusname').val('');
+              $('#position').val('');
+              $('#result').val('');
+              $('#CTNS').val('');
+              $('#ZXSL').val('');
+              $('#dispatch_no').focus();
+                  }
+
+})
+//        var xg = tb.rows[i].cells[5].innerHTML;
+// // tb.rows[i].style.backgroundColor='#90EE90'; 
+// // alert(xg);
+//  if (xg=='') 
+//  {
+//      Toast.fire({
+//         type: 'warning',
+//         title: '箱规有空值！'
+//       });
+ }
  if (parseFloat(iNum)<1) 
 
 {
@@ -1764,7 +1820,7 @@ $('#CTNS').val(zxs);
                       var searchKey = $('#dispatch_no').val();
                       // return '<input type="checkbox" value="A" name="zb"id="zb"  >';
                       // return '<select><option value="已完成">已完成</option><option value="未完成">未完成</option></select>'''
-          return '<input type="text" name="yQuantity"id="yQuantity" value="' + data.iQuantity + '"  readonly style="width: 70px;" onkeypress = "if (event.keyCode = 13)  {getyQuantityinfo(this)};">';
+          return '<input type="text" name="yQuantity"id="yQuantity" value="' + data.iQuantity + '"  readonly style="width: 70px;" oninput="fun();">';
 
 
 }}

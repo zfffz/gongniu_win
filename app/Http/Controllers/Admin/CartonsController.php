@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\CommonsController;
-use App\Http\Requests\CartonRequest;
-use App\Models\Carton;
+// use App\Http\Requests\CartonRequest;
+// use App\Models\Carton;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -37,15 +37,18 @@ class CartonsController extends CommonsController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CartonRequest $request)
+    public function store($request,$id)
     {
-        $carton=new Carton();
-        $carton->no = $request->no;
-        $carton->name = $request->name;
-        $carton->note = $request->note;
-        $carton->create_id = Auth::user()->no;
+        // select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
+          
+        DB::update("update inventory set cInvDefine13=?, iInvWeight=?,fGrossW=? where cdlcode=?",[$request->no,$request->iInvWeight,$request->fGrossW,$id]);
+        // $carton=new Carton();
+        // $carton->no = $request->no;
+        // $carton->name = $request->name;
+        // $carton->note = $request->note;
+        // $carton->create_id = Auth::user()->no;
 
-        $carton->save();
+        // $carton->save();
 
         return redirect()->route('carton.index');
     }
@@ -57,19 +60,29 @@ class CartonsController extends CommonsController
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+
+
     {
-         $carton = \DB::table('inventory as t1')
-            ->select(
-                \DB::raw("
-            t1.cinvcode as id,
-            t1.cinvcode,
-            t1.cinvname,
-            t1.cInvDefine13
+
+
+         $carton= DB::select("select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
+          
+        return view('admins.carton.show',compact('carton'));
+
+
+
+         // $carton = \DB::table('inventory as t1')
+         //    ->select(
+         //        \DB::raw("
+         //    t1.cinvcode as id,
+         //    t1.cinvcode,
+         //    t1.cinvname,
+         //    t1.cInvDefine13
            
-            "))
-            // ->leftJoin('users as t2','t1.create_id','t2.id')
-            // ->leftJoin('users as t3','t1.edit_id','t3.id')
-            ;
+         //    "))
+         //    // ->leftJoin('users as t2','t1.create_id','t2.id')
+         //    // ->leftJoin('users as t3','t1.edit_id','t3.id')
+         //    ;
        
         return view('admins.carton.show',compact('carton'));
     }
@@ -82,7 +95,7 @@ class CartonsController extends CommonsController
      */
     public function edit($id)
     {
-       $carton= DB::select("select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13  from inventory where cinvcode=?",[$id]);
+       $carton= DB::select("select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
           
         return view('admins.carton.create_and_edit',compact('carton'));
     }
@@ -95,17 +108,24 @@ class CartonsController extends CommonsController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CartonRequest $request, Carton $carton)
+    public function update(Request $request,$id)
     {
-        $carton->update([
-            "name"=>$request->name,
-            "note"=>$request->note,
-            "updated_at"=>date("Y-m-d H:i:s"),
-            "edit_id"=>Auth::user()->no
-        ]);
+        $dModifyDate = date("Y-m-d H:i:s");
+        $cModifyPerson= Auth::user()->name;
+        // dd($request->cInvDefine13);
+       DB::update("update inventory set cInvDefine13=?, iInvWeight=?,fGrossW=?,cModifyPerson=?,dModifyDate=? where cinvcode=?",[$request->cInvDefine13,$request->iInvWeight,$request->fGrossW,$cModifyPerson,$dModifyDate,$id]);
+        // $carton=new Carton();
+        // $carton->no = $request->no;
+        // $carton->name = $request->name;
+        // $carton->note = $request->note;
+        // $carton->create_id = Auth::user()->no;
+
+        // $carton->save();
 
         return redirect()->route('carton.index')->with('success', '库位更新成功！');
 
+
+        // return redirect()->route('carton.index')
     }
 
     /**
@@ -129,7 +149,9 @@ class CartonsController extends CommonsController
             t1.cinvcode as id,
             t1.cinvcode,
             t1.cinvname,
-            t1.cInvDefine13
+            t1.cInvDefine13,
+            t1.iInvWeight,
+            t1.fGrossW
            
             "))
             // ->leftJoin('users as t2','t1.create_id','t2.id')

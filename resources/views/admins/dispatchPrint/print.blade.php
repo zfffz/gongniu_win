@@ -90,7 +90,10 @@
                         <td width="7%" colspan="1"></td>
                         <td width="10%" style="font-family:黑体; font-size:11pt" ><font  tdata="Sum" format="#,##0.00" tindex="5" >######</font></td>
                         <td width="10%" style="font-family:黑体; font-size:11pt" ><font  tdata="Sum" format="#,##0.00" tindex="6" >######</font></td>
-                        <td width="26%" colspan="1"></td>
+                        
+                        <td width="7%" colspan="1"></td>
+                        <td width="10%" style="font-family:黑体; font-size:11pt" ><font  tdata="Sum" format="#,##0.00" tindex="8" >######</font></td>
+                        <td width="19%" colspan="1"></td>
                     </tr>
                     </tbody>
                 </table>

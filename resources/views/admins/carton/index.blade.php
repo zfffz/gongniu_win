@@ -4,19 +4,19 @@
 
 @endsection
 
-@section('title', '箱规')
+@section('title', '存货基础信息')
 
 @section('section')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>箱规信息</h1>
+                    <h1>存货基础信息</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">基础资料</li>
-                        <li class="breadcrumb-item active">箱规管理</li>
+                        <li class="breadcrumb-item active">基础信息管理</li>
                     </ol>
                 </div>
             </div>
@@ -51,8 +51,8 @@
                         <th>存货编码</th>
                         <th>存货名称</th>
                         <th>装箱规格</th>
-                     <!--    <th>备注</th>
-                        <th>状态</th> -->
+                        <th>单位净重</th>
+                        <th>整箱毛重</th>
                        <!--  <th>创建人</th>
                         <th>创建时间</th>
                         <th>修改人</th>
@@ -158,15 +158,15 @@
                     { "data":"cinvcode" },
                     { "data":"cinvname" },
                     { "data":"cInvDefine13" },
-                    // { "data":"status" },
-                    // { "data":"create_name" },
+                    { "data":"iInvWeight" },
+                    { "data":"fGrossW" },
                     // { "data":"created_at" },
                     // { "data":"edit_name" },
                     // { "data":"updated_at" },
                     {"data":"id"}
                 ],
                 columnDefs: [{
-                    targets: 3,//自定义列的序号，从0开始
+                    targets: 5,//自定义列的序号，从0开始
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +

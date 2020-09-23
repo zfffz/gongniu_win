@@ -225,7 +225,7 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
     {
         $searchKey = $request->input('searchKey');
           //$searchKey = $request->searchKey;
-
+    // dd($searchKey);
         $data = \DB:: table('DispatchList as t1')
         ->select(
             \DB::raw("
@@ -271,6 +271,7 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
                 t4.cInvName,
                 t4.cInvStd,
                 t5.cComUnitName,
+                t4.bInvType,
                 isnull(cast(CAST(iinvweight AS DECIMAL(18,3))AS NVARCHAR(20)),0) as iinvweight,
 
          
@@ -312,11 +313,14 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
                 t1.cInvStd,
                 t1.cComUnitName,
                 t1.cinvDefine13,
-               isnull(cast(CAST(iinvweight AS DECIMAL(18,3))AS NVARCHAR(20)),0) as iinvweight,
+               isnull(cast(CAST(t1.iinvweight AS DECIMAL(18,3))AS NVARCHAR(20)),0) as iinvweight,
                 t1.iNum,
                 '' as kz,
+                t4.bInvType,
                 t1.iQuantity
+
                 "))
+        ->leftJoin('Inventory as t4','t1.cInvCode','=','t4.cInvCode')
                    ;
 
 
@@ -337,7 +341,8 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
     private function condition($table,$searchKey){
         if($searchKey!=''){
             // $table->where('cDLCode','=',$searchKey);
-$table->where('cDLCode','like','%'.$searchKey.'%');
+              $table->where('cDLCode','like','%'.$searchKey.'%');
+               $table->Where('bInvType','=','0');
         }
         return $table;
     }

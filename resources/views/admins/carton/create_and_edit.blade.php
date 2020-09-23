@@ -52,19 +52,19 @@
                         <div class="form-group row">
                             <label class="col-sm-2 control-label">箱规</label>
                             <div class="col-sm-8">
-                                <textarea type="text" class="form-control" name="cInvDefine13" autocomplete="off">{{ old('cInvDefine13', $carton[0]->cInvDefine13) }}</textarea>
+                                <input type="text" class="form-control" name="cInvDefine13" autocomplete="off" value="{{ old('cInvDefine13', $carton[0]->cInvDefine13) }}" oninput="value=value.replace(/[^\d]/g,'')">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 control-label">单位净重</label>
                             <div class="col-sm-8">
-                                <textarea type="text" class="form-control" name="cInvDefine13" autocomplete="off">{{ old('cInvDefine13', $carton[0]->cInvDefine13) }}</textarea>
+                                <input type="text" class="form-control" name="iInvWeight" autocomplete="off" value="{{ old('iInvWeight', $carton[0]->iInvWeight) }}"oninput="value=value.replace(/[^\d]/g,'')">
                             </div>
                         </div>
                          <div class="form-group row">
                             <label class="col-sm-2 control-label">整箱毛重</label>
                             <div class="col-sm-8">
-                                <textarea type="text" class="form-control" name="cInvDefine13" autocomplete="off">{{ old('cInvDefine13', $carton[0]->cInvDefine13) }}</textarea>
+                                <input type="text" class="form-control" name="fGrossW" autocomplete="off" value="{{ old('fGrossW', $carton[0]->fGrossW) }}"oninput="value=value.replace(/[^\d]/g,'')">
                             </div>
                         </div>
                     </div>

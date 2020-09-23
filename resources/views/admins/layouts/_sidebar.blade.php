@@ -114,7 +114,7 @@
                            <li class="nav-item">
                             <a href="{{route('carton.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>箱规</p>
+                                <p>存货基础信息</p>
                             </a>
                         </li>
                         <li class="nav-item">
