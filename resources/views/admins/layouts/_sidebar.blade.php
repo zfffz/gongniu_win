@@ -43,12 +43,14 @@
                             <p>发货单打印</p >
                              </a>
                         </li>
+                         @can('manage_users')
                         <li class="nav-item">
                             <a href="{{route('sweepCheck.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>扫码对货</p>
                             </a>
                         </li>
+                         @endcan
                         <li class="nav-item">
                             <a href="{{route('sweepOut.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -81,7 +83,7 @@
                         </li>
                         </ul>
                 </li>
-
+@can('manage_users')
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa fa-cog"></i>
@@ -125,6 +127,7 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
 
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link">

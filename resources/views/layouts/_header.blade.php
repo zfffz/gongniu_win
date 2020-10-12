@@ -2,4 +2,5 @@
     <div class="container">
         @yield('header')
     </div>
+    
 </nav>

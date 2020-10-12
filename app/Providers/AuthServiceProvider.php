@@ -26,13 +26,51 @@ class AuthServiceProvider extends ServiceProvider
      * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
      * @return void
      */
+//     public function boot(GateContract $gate)
+//     {
+//         $this->registerPolicies($gate);
+
+//         //进行拦截注入，Eller-eloquent 自定义需要与配置文件对应。
+//         Auth::provider('Eller-eloquent', function ($app, $config) {
+//             return new EllerEloquentUserProvider($this->app['hash'], $config['model']);
+//         });
+
+//         //  \sweepCheck::auth(function ($request) {
+//         //     // 是否是站长
+//         //     return \Auth::user()->hasRole('admin');
+//         // });
+
+//     }
+// }
     public function boot(GateContract $gate)
     {
         $this->registerPolicies($gate);
-
-        //进行拦截注入，Eller-eloquent 自定义需要与配置文件对应。
+        // 修改策略自动发现的逻辑
+                //进行拦截注入，Eller-eloquent 自定义需要与配置文件对应。
         Auth::provider('Eller-eloquent', function ($app, $config) {
             return new EllerEloquentUserProvider($this->app['hash'], $config['model']);
         });
+       // \sweepCheck::auth(function ($request) {
+       //  //     // 是否是站长
+       //      return \Auth::user()->hasRole('admin');
+       //  });
     }
+
+
+    //  public function boot()
+    // {
+    //     $this->registerPolicies();
+    //     // 修改策略自动发现的逻辑
+    //     Gate::guessPolicyNamesUsing(function ($modelClass) {
+    //         // 动态返回模型对应的策略名称，如：// 'App\Model\User' => 'App\Policies\UserPolicy',
+    //         return 'App\Policies\\'.class_basename($modelClass).'Policy';
+    //      });
+    //  \sweepCheck::auth(function ($request) {
+    //          // 是否是站长
+    //         return \Auth::user()->hasRole('admin');
+    //      });
+    // }
+
+
+
 }

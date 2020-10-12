@@ -1,4 +1,4 @@
-<!-- Navbar -->
+Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom text-sm">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -18,17 +18,35 @@
                 {{ Auth::user()->name }} <span class="caret"></span>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item"  tabindex="-1" href="{{ route('user.show', Auth::user()->no) }}"><i class="fa fa-user"></i> 个人中心</a>
+
+
+
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              @can('operate_users')
+                <a class="dropdown-item" href="{{ url(config('administrator.uri')) }}">
+                  <i class="fas fa-tachometer-alt mr-2"></i>
+                  管理后台
+                </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" id="logout" tabindex="-1" href="#">
+              @endcan
+              <a class="dropdown-item"  href="{{ route('user.show', Auth::user()->no) }}"><i class="far fa-user mr-2"></i> 
+              个人中心
+               </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" id="logout"  href="#">
                     <form action="{{ route('logout') }}" method="POST">
                         {{ csrf_field() }}
                         <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
                     </form>
                 </a>
-            </div>
+ </div>
+ </li>
+
+
+
+          
+         
         </li>
     </ul>
 </nav>
-<!-- /.navbar -->
+<!-- /.navbar

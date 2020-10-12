@@ -8,7 +8,8 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function() {
     // 首页
     Route::get('/', 'PagesController@root')->name('root');
-
+    
+// Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
     // 打包出库
     Route::get('sweepOut/dispatch_data', 'SweepOutsController@dispatch_data')->name('sweepOut.dispatch_data');
     Route::get('sweepOut/dispatchs_data', 'SweepOutsController@dispatchs_data')->name('sweepOut.dispatchs_data');
@@ -126,5 +127,8 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
      Route::get('/wayPrint/{id}/getPrint', 'WayPrintController@getPrint')->name('wayPrint.getPrint');
     Route::post('wayPrint/getData', 'WayPrintController@getData')->name('wayPrint.getData');
     Route::resource('wayPrint', 'WayPrintController', ['only' => [ 'index']]);
+
+//权限
+Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
 
 });

@@ -2,9 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27539095-6813-4977-a3dc-a7979819041e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admins/carton/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/admins/carton/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admins/dispatchPrint/print.blade.php" afterPath="$PROJECT_DIR$/resources/views/admins/dispatchPrint/print.blade.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2019_08_26_162331_create_storage_locations_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2019_08_27_104925_create_sweep_outs_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2019_08_30_140106_create_sweep_out_items_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2019_09_03_113016_create_sweep_cars_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2019_09_03_113311_create_sweep_car_items_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2019_09_12_160159_create_cars_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2019_09_12_164917_create_drivers_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2019_09_25_152644_create_customer_locations_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_04_09_135406_alter_customer_locations_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_04_11_181427_add_edit_id_zzz_storage_locations_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_04_11_181514_add_edit_id_zzz_cars_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_04_11_181552_add_edit_id_zzz_drivers_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_04_13_170316_drop_location_no_to_zzz_sweep_out_items_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_04_13_170531_add_location_no_to_zzz_sweep_outs_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_05_07_153158_create_sweep_check_items_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_05_09_094011_create_dispatchlistms_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_05_11_132505_create_dhies_table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/database/migrations/2020_05_12_145336_create_details_table.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gongniu.iml" afterPath="$PROJECT_DIR$/.idea/gongniu.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/php.xml" afterPath="$PROJECT_DIR$/.idea/php.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/PagesController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/PagesController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Models/User.php" afterPath="$PROJECT_DIR$/app/Models/User.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/app.php" afterPath="$PROJECT_DIR$/config/app.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admins/layouts/_header.blade.php" afterPath="$PROJECT_DIR$/resources/views/admins/layouts/_header.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admins/layouts/_sidebar.blade.php" afterPath="$PROJECT_DIR$/resources/views/admins/layouts/_sidebar.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/_header.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/_header.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/caouecs/laravel-lang/" />
@@ -111,18 +141,132 @@
       <file leaf-file-name="Collection.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Collection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="2072" column="24" lean-forward="false" selection-start-line="2072" selection-start-column="24" selection-end-line="2072" selection-end-column="24" />
+            <state relative-caret-position="53865">
+              <caret line="2007" column="5" lean-forward="false" selection-start-line="2007" selection-start-column="5" selection-end-line="2007" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CartonController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CartonController.php">
+      <file leaf-file-name="administrator.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/administrator.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="324">
+              <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="14" />
+              <folding>
+                <marker date="1602464066451" expanded="true" signature="1920:1971" ph="..." />
+                <marker date="1602464066451" expanded="true" signature="1941:1971" ph="..." />
+                <marker date="1602464066451" expanded="true" signature="3406:3545" ph="..." />
+                <marker date="1602464066451" expanded="true" signature="3586:3768" ph="..." />
+                <marker date="1602464066451" expanded="true" signature="3818:3884" ph="..." />
+                <marker date="1602464066451" expanded="true" signature="3928:4127" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/controllers/AdminController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1782">
+              <caret line="71" column="28" lean-forward="false" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="viewComposers.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/viewComposers.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="756">
+              <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/routes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2025">
+              <caret line="75" column="33" lean-forward="false" selection-start-line="75" selection-start-column="33" selection-end-line="75" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdministratorServiceProvider.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/AdministratorServiceProvider.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2538">
+              <caret line="102" column="34" lean-forward="false" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Models/User.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="351">
+              <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+              <folding>
+                <element signature="e#30#70#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataTable.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/DataTable/DataTable.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="89" column="107" lean-forward="false" selection-start-line="89" selection-start-column="107" selection-end-line="89" selection-end-column="107" />
+              <folding>
+                <marker date="1602314723651" expanded="true" signature="3238:3563" ph="{...}" />
+                <marker date="1602314723651" expanded="true" signature="6551:7195" ph="{...}" />
+                <marker date="1602314723651" expanded="true" signature="6560:6627" ph="SELECT COUNT... " />
+                <marker date="1602314723651" expanded="true" signature="6958:7187" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="7204:7503" ph=" Sets the query filters when getting the rows. ..." />
+                <marker date="1602314723651" expanded="true" signature="7606:8219" ph="{...}" />
+                <marker date="1602314723651" expanded="true" signature="7692:8212" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="7736:8202" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="8228:8412" ph=" Parses the results of a getRows query and converts it into a manageable array with the proper rendering. ..." />
+                <marker date="1602314723651" expanded="true" signature="8454:8900" ph="{...}" />
+                <marker date="1602314723651" expanded="true" signature="8572:8867" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="8909:9120" ph=" Goes through all related columns and sets the proper values for this row. ..." />
+                <marker date="1602314723651" expanded="true" signature="9188:10495" ph="{...}" />
+                <marker date="1602314723651" expanded="true" signature="9243:9292" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="9678:10488" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="9933:10150" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="9977:10135" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="10300:10478" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="10344:10463" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="10504:10716" ph=" Goes through all computed columns and sets the proper values for this row. ..." />
+                <marker date="1602314723651" expanded="true" signature="10785:11224" ph="{...}" />
+                <marker date="1602314723651" expanded="true" signature="11024:11217" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="11063:11206" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="11233:11305" ph=" Sets up the sort options. ..." />
+                <marker date="1602314723651" expanded="true" signature="11349:11907" ph="{...}" />
+                <marker date="1602314723651" expanded="true" signature="11500:11706" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="11844:11900" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="11916:11980" ph=" Gets the sort options. ..." />
+                <marker date="1602314723651" expanded="true" signature="12012:12052" ph="{...}" />
+                <marker date="1602314723651" expanded="true" signature="12061:12356" ph=" Set the number of rows per page for this data table. ..." />
+                <marker date="1602314723651" expanded="true" signature="12463:12879" ph="{...}" />
+                <marker date="1602314723651" expanded="true" signature="12494:12648" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="12778:12832" ph="..." />
+                <marker date="1602314723651" expanded="true" signature="12888:12951" ph=" Gets the rows per page. ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="roles.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/administrator/roles.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -130,8 +274,44 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>global_rows_per_page</find>
+      <find>administrator.</find>
+      <find>*</find>
+      <find>home_page</find>
+      <find>domain</find>
+      <find>admin_index</find>
+      <find>layouts</find>
+      <find>index</find>
+      <find>users</find>
+      <find>distinct</find>
+      <find>getRows</find>
+      <find>querySql</find>
+      <find>get</find>
+    </findStrings>
+    <dirStrings>
+      <dir>C:\Users\admin\Code\gongniu</dir>
+      <dir>C:\Users\admin\Code\gongniu\vendor\summerblue</dir>
+    </dirStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Collection.php" />
+        <option value="$PROJECT_DIR$/config/administrator.php" />
+        <option value="$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/AdministratorServiceProvider.php" />
+        <option value="$PROJECT_DIR$/vendor/summerblue/administrator/src/routes.php" />
+        <option value="$PROJECT_DIR$/vendor/summerblue/administrator/src/views/layouts/default.blade.php" />
+        <option value="$PROJECT_DIR$/vendor/summerblue/administrator/src/views/index.php" />
+        <option value="$PROJECT_DIR$/vendor/summerblue/administrator/src/controllers/AdminController.php" />
+        <option value="$PROJECT_DIR$/vendor/summerblue/administrator/src/viewComposers.php" />
+        <option value="$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/DataTable/DataTable.php" />
+      </list>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
@@ -147,9 +327,6 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true">
     <include_path>
@@ -243,6 +420,9 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
       <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
       <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/ckeditor/ckeditor" />
+      <path value="$PROJECT_DIR$/vendor/summerblue/administrator" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -252,6 +432,62 @@
     <option name="height" value="768" />
   </component>
   <component name="ProjectId" id="1a7MVPlEXhjsed4ZicYpST8eUdr" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="gongniu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gongniu" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="gongniu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gongniu" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="gongniu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gongniu" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="summerblue" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="gongniu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gongniu" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="summerblue" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="administrator" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="gongniu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gongniu" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="summerblue" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="administrator" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -265,15 +501,15 @@
     <property name="nodejs_interpreter_path" value="node" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Homestead\Code\gongniu\app\Models" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\admin\Code\gongniu\vendor\summerblue\administrator\src\views" />
+      <recent name="C:\Users\admin\Code\gongniu\vendor\summerblue\administrator\src\views\layouts" />
       <recent name="D:\Homestead\Code\gongniu\resources\views\admins\dispatchReports" />
       <recent name="D:\Homestead\Code\gongniu\resources\views\sweepCars" />
       <recent name="D:\Homestead\Code\gongniu\resources\views\sweepOuts" />
-      <recent name="D:\Homestead\Code\gongniu\resources\views\admins" />
-      <recent name="D:\Homestead\Code\gongniu\resources\views\admins\storageLocations" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Homestead\Code\gongniu\app\Models" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -385,16 +621,21 @@
       <workItem from="1586764562398" duration="16648000" />
       <workItem from="1591319287114" duration="51000" />
       <workItem from="1600217667369" duration="323000" />
+      <workItem from="1602294540603" duration="1772000" />
+      <workItem from="1602296363652" duration="1789000" />
+      <workItem from="1602298186719" duration="1123000" />
+      <workItem from="1602299672530" duration="1810000" />
+      <workItem from="1602464144926" duration="27000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="374000" />
+    <option name="totallyTimeSpent" value="6895000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.184375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -435,6 +676,381 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/AdministratorServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2538">
+          <caret line="102" column="34" lean-forward="false" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+          <folding>
+            <element signature="e#30#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/DataTable/DataTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2295">
+          <caret line="89" column="107" lean-forward="false" selection-start-line="89" selection-start-column="107" selection-end-line="89" selection-end-column="107" />
+          <folding>
+            <marker date="1602314723651" expanded="true" signature="3238:3563" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6551:7195" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6560:6627" ph="SELECT COUNT... " />
+            <marker date="1602314723651" expanded="true" signature="6958:7187" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7204:7503" ph=" Sets the query filters when getting the rows. ..." />
+            <marker date="1602314723651" expanded="true" signature="7606:8219" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="7692:8212" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7736:8202" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8228:8412" ph=" Parses the results of a getRows query and converts it into a manageable array with the proper rendering. ..." />
+            <marker date="1602314723651" expanded="true" signature="8454:8900" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="8572:8867" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8909:9120" ph=" Goes through all related columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="9188:10495" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="9243:9292" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9678:10488" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9933:10150" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9977:10135" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10300:10478" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10344:10463" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10504:10716" ph=" Goes through all computed columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="10785:11224" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11024:11217" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11063:11206" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11233:11305" ph=" Sets up the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="11349:11907" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11500:11706" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11844:11900" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11916:11980" ph=" Gets the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="12012:12052" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12061:12356" ph=" Set the number of rows per page for this data table. ..." />
+            <marker date="1602314723651" expanded="true" signature="12463:12879" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12494:12648" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12778:12832" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12888:12951" ph=" Gets the rows per page. ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Collection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53865">
+          <caret line="2007" column="5" lean-forward="false" selection-start-line="2007" selection-start-column="5" selection-end-line="2007" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/administrator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="14" />
+          <folding>
+            <marker date="1602464066451" expanded="true" signature="1920:1971" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="1941:1971" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3406:3545" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3586:3768" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3818:3884" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3928:4127" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/views/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2025">
+          <caret line="75" column="33" lean-forward="false" selection-start-line="75" selection-start-column="33" selection-end-line="75" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/AdministratorServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2538">
+          <caret line="102" column="34" lean-forward="false" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+          <folding>
+            <element signature="e#30#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/DataTable/DataTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9585">
+          <caret line="359" column="20" lean-forward="false" selection-start-line="359" selection-start-column="20" selection-end-line="359" selection-end-column="20" />
+          <folding>
+            <marker date="1602314723651" expanded="true" signature="3238:3563" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6551:7195" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6560:6627" ph="SELECT COUNT... " />
+            <marker date="1602314723651" expanded="true" signature="6958:7187" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7204:7503" ph=" Sets the query filters when getting the rows. ..." />
+            <marker date="1602314723651" expanded="true" signature="7606:8219" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="7692:8212" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7736:8202" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8228:8412" ph=" Parses the results of a getRows query and converts it into a manageable array with the proper rendering. ..." />
+            <marker date="1602314723651" expanded="true" signature="8454:8900" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="8572:8867" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8909:9120" ph=" Goes through all related columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="9188:10495" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="9243:9292" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9678:10488" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9933:10150" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9977:10135" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10300:10478" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10344:10463" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10504:10716" ph=" Goes through all computed columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="10785:11224" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11024:11217" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11063:11206" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11233:11305" ph=" Sets up the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="11349:11907" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11500:11706" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11844:11900" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11916:11980" ph=" Gets the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="12012:12052" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12061:12356" ph=" Set the number of rows per page for this data table. ..." />
+            <marker date="1602314723651" expanded="true" signature="12463:12879" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12494:12648" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12778:12832" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12888:12951" ph=" Gets the rows per page. ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/controllers/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1701">
+          <caret line="63" column="62" lean-forward="false" selection-start-line="63" selection-start-column="62" selection-end-line="63" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Collection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53865">
+          <caret line="2007" column="5" lean-forward="false" selection-start-line="2007" selection-start-column="5" selection-end-line="2007" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/administrator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="14" />
+          <folding>
+            <marker date="1602464066451" expanded="true" signature="1920:1971" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="1941:1971" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3406:3545" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3586:3768" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3818:3884" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3928:4127" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/views/layouts/default.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/views/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2025">
+          <caret line="75" column="33" lean-forward="false" selection-start-line="75" selection-start-column="33" selection-end-line="75" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/AdministratorServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2538">
+          <caret line="102" column="34" lean-forward="false" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+          <folding>
+            <element signature="e#30#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/DataTable/DataTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9585">
+          <caret line="359" column="20" lean-forward="false" selection-start-line="359" selection-start-column="20" selection-end-line="359" selection-end-column="20" />
+          <folding>
+            <marker date="1602314723651" expanded="true" signature="3238:3563" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6551:7195" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6560:6627" ph="SELECT COUNT... " />
+            <marker date="1602314723651" expanded="true" signature="6958:7187" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7204:7503" ph=" Sets the query filters when getting the rows. ..." />
+            <marker date="1602314723651" expanded="true" signature="7606:8219" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="7692:8212" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7736:8202" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8228:8412" ph=" Parses the results of a getRows query and converts it into a manageable array with the proper rendering. ..." />
+            <marker date="1602314723651" expanded="true" signature="8454:8900" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="8572:8867" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8909:9120" ph=" Goes through all related columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="9188:10495" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="9243:9292" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9678:10488" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9933:10150" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9977:10135" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10300:10478" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10344:10463" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10504:10716" ph=" Goes through all computed columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="10785:11224" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11024:11217" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11063:11206" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11233:11305" ph=" Sets up the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="11349:11907" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11500:11706" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11844:11900" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11916:11980" ph=" Gets the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="12012:12052" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12061:12356" ph=" Set the number of rows per page for this data table. ..." />
+            <marker date="1602314723651" expanded="true" signature="12463:12879" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12494:12648" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12778:12832" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12888:12951" ph=" Gets the rows per page. ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/controllers/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1647">
+          <caret line="66" column="29" lean-forward="true" selection-start-line="66" selection-start-column="29" selection-end-line="66" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Collection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53865">
+          <caret line="2007" column="5" lean-forward="false" selection-start-line="2007" selection-start-column="5" selection-end-line="2007" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/administrator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2592">
+          <caret line="96" column="14" lean-forward="false" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="14" />
+          <folding>
+            <marker date="1602464066451" expanded="true" signature="1920:1971" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="1941:1971" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3406:3545" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3586:3768" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3818:3884" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3928:4127" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/AdministratorServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2538">
+          <caret line="102" column="34" lean-forward="false" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/DataTable/DataTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9585">
+          <caret line="359" column="20" lean-forward="false" selection-start-line="359" selection-start-column="20" selection-end-line="359" selection-end-column="20" />
+          <folding>
+            <marker date="1602314723651" expanded="true" signature="3238:3563" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6551:7195" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6560:6627" ph="SELECT COUNT... " />
+            <marker date="1602314723651" expanded="true" signature="6958:7187" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7204:7503" ph=" Sets the query filters when getting the rows. ..." />
+            <marker date="1602314723651" expanded="true" signature="7606:8219" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="7692:8212" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7736:8202" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8228:8412" ph=" Parses the results of a getRows query and converts it into a manageable array with the proper rendering. ..." />
+            <marker date="1602314723651" expanded="true" signature="8454:8900" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="8572:8867" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8909:9120" ph=" Goes through all related columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="9188:10495" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="9243:9292" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9678:10488" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9933:10150" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9977:10135" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10300:10478" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10344:10463" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10504:10716" ph=" Goes through all computed columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="10785:11224" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11024:11217" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11063:11206" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11233:11305" ph=" Sets up the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="11349:11907" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11500:11706" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11844:11900" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11916:11980" ph=" Gets the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="12012:12052" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12061:12356" ph=" Set the number of rows per page for this data table. ..." />
+            <marker date="1602314723651" expanded="true" signature="12463:12879" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12494:12648" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12778:12832" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12888:12951" ph=" Gets the rows per page. ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+          <folding>
+            <element signature="e#30#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Collection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55944">
+          <caret line="2072" column="24" lean-forward="false" selection-start-line="2072" selection-start-column="24" selection-end-line="2072" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CartonController.php" />
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Collection.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -443,18 +1059,210 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CartonController.php" />
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Collection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="2072" column="24" lean-forward="false" selection-start-line="2072" selection-start-column="24" selection-end-line="2072" selection-end-column="24" />
+        <state relative-caret-position="53865">
+          <caret line="2007" column="5" lean-forward="false" selection-start-line="2007" selection-start-column="5" selection-end-line="2007" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CartonController.php">
+    <entry file="file://$PROJECT_DIR$/config/permission.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/Auth/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Contracts/Container/Container.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="136" column="20" lean-forward="false" selection-start-line="136" selection-start-column="20" selection-end-line="136" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/Menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1344">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="61" lean-forward="false" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/Includes/Multup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5103">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/Config/Model/Config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6561">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/administrator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="14" />
+          <folding>
+            <marker date="1602464066451" expanded="true" signature="1920:1971" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="1941:1971" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3406:3545" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3586:3768" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3818:3884" ph="..." />
+            <marker date="1602464066451" expanded="true" signature="3928:4127" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/helpers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2020-10-09.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="2843" column="148" lean-forward="true" selection-start-line="2843" selection-start-column="148" selection-end-line="2843" selection-end-column="148" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/views/layouts/default.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="120" column="29" lean-forward="false" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/controllers/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1782">
+          <caret line="71" column="28" lean-forward="false" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/views/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/viewComposers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2025">
+          <caret line="75" column="33" lean-forward="false" selection-start-line="75" selection-start-column="33" selection-end-line="75" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/AdministratorServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2538">
+          <caret line="102" column="34" lean-forward="false" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+          <folding>
+            <element signature="e#30#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/summerblue/administrator/src/Frozennode/Administrator/DataTable/DataTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="89" column="107" lean-forward="false" selection-start-line="89" selection-start-column="107" selection-end-line="89" selection-end-column="107" />
+          <folding>
+            <marker date="1602314723651" expanded="true" signature="3238:3563" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6551:7195" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="6560:6627" ph="SELECT COUNT... " />
+            <marker date="1602314723651" expanded="true" signature="6958:7187" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7204:7503" ph=" Sets the query filters when getting the rows. ..." />
+            <marker date="1602314723651" expanded="true" signature="7606:8219" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="7692:8212" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="7736:8202" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8228:8412" ph=" Parses the results of a getRows query and converts it into a manageable array with the proper rendering. ..." />
+            <marker date="1602314723651" expanded="true" signature="8454:8900" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="8572:8867" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="8909:9120" ph=" Goes through all related columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="9188:10495" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="9243:9292" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9678:10488" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9933:10150" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="9977:10135" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10300:10478" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10344:10463" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="10504:10716" ph=" Goes through all computed columns and sets the proper values for this row. ..." />
+            <marker date="1602314723651" expanded="true" signature="10785:11224" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11024:11217" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11063:11206" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11233:11305" ph=" Sets up the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="11349:11907" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="11500:11706" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11844:11900" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="11916:11980" ph=" Gets the sort options. ..." />
+            <marker date="1602314723651" expanded="true" signature="12012:12052" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12061:12356" ph=" Set the number of rows per page for this data table. ..." />
+            <marker date="1602314723651" expanded="true" signature="12463:12879" ph="{...}" />
+            <marker date="1602314723651" expanded="true" signature="12494:12648" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12778:12832" ph="..." />
+            <marker date="1602314723651" expanded="true" signature="12888:12951" ph=" Gets the rows per page. ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/administrator/roles.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

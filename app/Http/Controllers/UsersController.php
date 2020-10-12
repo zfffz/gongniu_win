@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class UsersController extends CommonsController
 {
+
+	 public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
     public function show(User $user)
     {
         return view('users.show', compact('user'));
