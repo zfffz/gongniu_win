@@ -17,6 +17,9 @@ class StorageLocationsController extends CommonsController
      */
     public function index()
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         return view('admins.storageLocations.index');
     }
 
@@ -27,6 +30,9 @@ class StorageLocationsController extends CommonsController
      */
     public function create()
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $storage_location= new Storage_location();
         return view('admins.storageLocations.create_and_edit',compact('storage_location'));
     }
@@ -39,6 +45,9 @@ class StorageLocationsController extends CommonsController
      */
     public function store(StorageLocationRequest $request)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $storage_location=new Storage_location();
         $storage_location->no = $request->no;
         $storage_location->name = $request->name;
@@ -58,6 +67,9 @@ class StorageLocationsController extends CommonsController
      */
     public function show($id)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $storage_location = Storage_location::find($id);
         return view('admins.storageLocations.show',compact('storage_location'));
     }
@@ -70,6 +82,9 @@ class StorageLocationsController extends CommonsController
      */
     public function edit($id)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $storage_location = Storage_location::find($id);
         return view('admins.storageLocations.create_and_edit',compact('storage_location'));
     }
@@ -84,6 +99,9 @@ class StorageLocationsController extends CommonsController
      */
     public function update(StorageLocationRequest $request, Storage_location $storageLocation)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $storageLocation->update([
             "name"=>$request->name,
             "note"=>$request->note,
@@ -103,6 +121,10 @@ class StorageLocationsController extends CommonsController
      */
     public function destroy(Storage_location $storageLocation)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
+        
         $storageLocation->delete();
         // 把之前的 redirect 改成返回空数组
         return [];

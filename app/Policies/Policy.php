@@ -12,7 +12,7 @@ class Policy
     {
         // 如果用户拥有管理内容的权限的话，即授权通过
         if ($user->can('admin')) {
-            return true;
+            return false;
         }
     }
 }

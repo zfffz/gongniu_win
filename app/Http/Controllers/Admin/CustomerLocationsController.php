@@ -19,6 +19,9 @@ class CustomerLocationsController extends CommonsController
      */
     public function index()
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         return view('admins.customerLocations.index');
     }
 
@@ -29,6 +32,9 @@ class CustomerLocationsController extends CommonsController
      */
     public function create()
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $customer_location= new CustomerLocation();
         $storage_locations = Storage_location::all();
         return view('admins.customerLocations.create_and_edit',compact('customer_location','storage_locations'));
@@ -42,6 +48,9 @@ class CustomerLocationsController extends CommonsController
      */
     public function store(CustomerLocationRequest $request)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $customerLocation=new CustomerLocation();
         $customerLocation->customer_no = $request->customer_no;
         $customerLocation->location_id = $request->location_id;
@@ -61,6 +70,9 @@ class CustomerLocationsController extends CommonsController
      */
     public function show($id)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $customer_location = CustomerLocation::find($id);
 
         $customer_name = DB::table('customer')->select('cCusName')
@@ -80,6 +92,9 @@ class CustomerLocationsController extends CommonsController
      */
     public function edit($id)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $customer_location = CustomerLocation::find($id);
 
         $customer_name = DB::table('customer')->select('cCusName')
@@ -100,6 +115,9 @@ class CustomerLocationsController extends CommonsController
      */
     public function update(CustomerLocationRequest $request,CustomerLocation $customerLocation)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $customerLocation->update([
             "location_id"=>$request->location_id,
             "note"=>$request->note,
@@ -118,6 +136,9 @@ class CustomerLocationsController extends CommonsController
      */
     public function destroy($id)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         //
     }
 

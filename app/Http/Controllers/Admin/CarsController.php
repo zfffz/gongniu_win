@@ -10,13 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class CarsController extends CommonsController
 {
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
+        // 判断当前登录的用户是否有权限
+        
         return view('admins.cars.index');
     }
 
@@ -25,8 +32,22 @@ class CarsController extends CommonsController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
+
     {
+        if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
+// dd($request->user()->hasRoles('basic'));
+//         // $role->hasPermissionTo('manage_contents');
+// if (! $request->user()->Roles()->hasPermissionTo('manage_contents')) {
+//             return view('admins.pages.permission_denied');
+//         }
+        // dd(Auth::user()->can('basic_users'));
+
+        // if (! Auth::user()->can('basic_users')) {
+        //     return view('admins.pages.permission_denied');
+        // }
         $car= new Car();
         return view('admins.cars.create_and_edit',compact('car'));
     }
@@ -58,6 +79,9 @@ class CarsController extends CommonsController
      */
     public function show($id)
     {
+        if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $car = Car::find($id);
         return view('admins.cars.show',compact('car'));
     }
@@ -70,6 +94,9 @@ class CarsController extends CommonsController
      */
     public function edit($id)
     {
+        if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $car = Car::find($id);
         return view('admins.cars.create_and_edit',compact('car'));
     }
@@ -84,6 +111,9 @@ class CarsController extends CommonsController
      */
     public function update(CarRequest $request, Car $car)
     {
+        if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $car->update([
             "model"=>$request->model,
             "note"=>$request->note,
@@ -103,6 +133,9 @@ class CarsController extends CommonsController
      */
     public function destroy(Car $car)
     {
+        if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $car->delete();
         // 把之前的 redirect 改成返回空数组
         return [];

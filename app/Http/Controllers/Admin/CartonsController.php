@@ -17,6 +17,9 @@ class CartonsController extends CommonsController
      */
     public function index()
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         return view('admins.carton.index');
     }
 
@@ -27,6 +30,9 @@ class CartonsController extends CommonsController
      */
     public function create()
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $carton= new Carton();
         return view('admins.carton.create_and_edit',compact('carton'));
     }
@@ -39,6 +45,9 @@ class CartonsController extends CommonsController
      */
     public function store($request,$id)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         // select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
           
         DB::update("update inventory set cInvDefine13=?, iInvWeight=?,fGrossW=? where cdlcode=?",[$request->no,$request->iInvWeight,$request->fGrossW,$id]);
@@ -63,6 +72,9 @@ class CartonsController extends CommonsController
 
 
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
 
 
          $carton= DB::select("select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
@@ -95,6 +107,9 @@ class CartonsController extends CommonsController
      */
     public function edit($id)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
        $carton= DB::select("select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
           
         return view('admins.carton.create_and_edit',compact('carton'));
@@ -110,6 +125,9 @@ class CartonsController extends CommonsController
      */
     public function update(Request $request,$id)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $dModifyDate = date("Y-m-d H:i:s");
         $cModifyPerson= Auth::user()->name;
         // dd($request->cInvDefine13);
@@ -136,6 +154,9 @@ class CartonsController extends CommonsController
      */
     public function destroy(Carton $carton)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $carton->delete();
         // 把之前的 redirect 改成返回空数组
         return [];
@@ -143,6 +164,9 @@ class CartonsController extends CommonsController
 
     public function getData(Request $request)
     {
+         if (! Auth::user()->can('basic_users')) {
+            return view('admins.pages.permission_denied');
+        }
         $builder = \DB::table('inventory as t1')
             ->select(
                 \DB::raw("

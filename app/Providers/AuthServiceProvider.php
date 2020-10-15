@@ -50,11 +50,32 @@ class AuthServiceProvider extends ServiceProvider
         Auth::provider('Eller-eloquent', function ($app, $config) {
             return new EllerEloquentUserProvider($this->app['hash'], $config['model']);
         });
-       // \sweepCheck::auth(function ($request) {
-       //  //     // 是否是站长
-       //      return \Auth::user()->hasRole('admin');
-       //  });
+      // \sweepCheck::auth(function ($request) {
+      //   //     // 是否是站长
+      //       return \Auth::user()->hasRole('admin');
+ //      //   });
+ // Gate::define('edit-settings', function ($user) {
+ //        return $user->isAdmin;
+ //    });
+
+
+
+      
     }
+
+
+// public function boot()
+// {
+//     $this->registerPolicies();
+
+//     Gate::define('edit-settings', function ($user) {
+//         return $user->isAdmin;
+//     });
+
+//     Gate::define('update-post', function ($user, $post) {
+//         return $user->id === $post->user_id;
+//     });
+// }
 
 
     //  public function boot()

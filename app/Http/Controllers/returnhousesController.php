@@ -18,6 +18,11 @@ class returnhousesController extends CommonsController
      */
     public function index()
     {
+      if (! Auth::user()->can('returnhouse_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
+
         return view('returnhouse.index');
     }
 
@@ -28,6 +33,10 @@ class returnhousesController extends CommonsController
      */
     public function create()
     {
+         if (! Auth::user()->can('returnhouse_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //打包员
         $packagers = DB::table('bs_gn_wl')
             ->select('cpersoncode as no','cpersonname as name')
@@ -44,6 +53,10 @@ class returnhousesController extends CommonsController
      */
     public function store(Request $request)
     {
+         if (! Auth::user()->can('returnhouse_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         
         $return_house=\DB::transaction(function() use ($request){
             //创建一张新的打包出库单
@@ -176,6 +189,10 @@ foreach ($res as $ress) {
      */
     public function show($id)
     {
+         if (! Auth::user()->can('returnhouse_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         $returnHouse = ReturnHouse::find($id);
 
         $packager_name = DB::table('bs_gn_wl')
@@ -194,6 +211,10 @@ foreach ($res as $ress) {
      */
     public function edit($id)
     {
+         if (! Auth::user()->can('returnhouse_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //
     }
 
@@ -206,6 +227,10 @@ foreach ($res as $ress) {
      */
     public function update(Request $request, $id)
     {
+         if (! Auth::user()->can('returnhouse_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         // var tb = document.getElementById("dispatch_table");
         // $dispatch_no  = $request->document.getElementById("dispatch_table").rows[1].cells[0].innerHTML;
         // $dispatch_no = $request->input('items');
@@ -299,6 +324,10 @@ foreach ($res as $ress) {
 //         }
     public function destroy(ReturnHouse $returnhouse)
     {
+         if (! Auth::user()->can('returnhouse_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         // 删除前先判断一下有没有生成发货装车单
         // dd($returnHouse->user_no);
         if($returnhouse->status ==1){
@@ -354,6 +383,10 @@ foreach ($res as $ress) {
 
 
     public function dispatch_data(Request $request){
+         if (! Auth::user()->can('returnhouse_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         $dispatch_no = $request->dispatch_no;
         // 1.判断发货单号是否合法
         // $data = DB:: table('dispatchlist as t1')

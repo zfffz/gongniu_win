@@ -19,6 +19,11 @@ class WayPrintController extends CommonsController
      */
     public function index()
     {
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
+
         $drivers= Driver::all();
         return view('admins.wayPrint.index',compact('drivers'));
     }
@@ -41,6 +46,11 @@ class WayPrintController extends CommonsController
 
     public function getPrint($id)
     {
+
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
 
         $head = \DB::table('hy_eo_transport as a')
             ->select(

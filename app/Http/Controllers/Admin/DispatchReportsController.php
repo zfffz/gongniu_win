@@ -5,11 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\CommonsController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DispatchReportsController extends CommonsController
 {
     public function index()
     {
+         if (! Auth::user()->can('dispatchreports_users')) {
+            return view('admins.pages.permission_denied');
+        }
+
+
         return view('admins.dispatchReports.index');
     }
    

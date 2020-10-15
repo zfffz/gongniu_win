@@ -21,6 +21,11 @@ class SweepCarsController extends CommonsController
      */
     public function index()
     {
+         if (! Auth::user()->can('sweepcars_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
+
         return view('sweepCars.index');
     }
 
@@ -31,6 +36,10 @@ class SweepCarsController extends CommonsController
      */
     public function create()
     {
+         if (! Auth::user()->can('sweepcars_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         $cars = Car::all('id','no');
         $drivers = DB::table('bs_gn_wl')
             ->select('cpersoncode as id','cpersonname as name')
@@ -49,6 +58,10 @@ class SweepCarsController extends CommonsController
      */
     public function store(Request $request)
     {
+         if (! Auth::user()->can('sweepcars_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         $sweep_car=\DB::transaction(function() use ($request){
             //创建一张新的扫码上车单
             $sweep_car = new SweepCar([
@@ -126,6 +139,10 @@ class SweepCarsController extends CommonsController
      */
     public function show($id)
     {
+         if (! Auth::user()->can('sweepcars_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         $sweepCar = SweepCar::find($id);
 
         return view('sweepCars.show',compact('sweepCar'));
@@ -139,6 +156,10 @@ class SweepCarsController extends CommonsController
      */
     public function edit($id)
     {
+         if (! Auth::user()->can('sweepcars_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //
     }
 
@@ -151,6 +172,10 @@ class SweepCarsController extends CommonsController
      */
     public function update(Request $request, $id)
     {
+         if (! Auth::user()->can('sweepcars_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //
     }
 
@@ -162,6 +187,10 @@ class SweepCarsController extends CommonsController
      */
     public function destroy(SweepCar $sweepCar,Sweep_car_item $Sweep_car_item)
     {
+         if (! Auth::user()->can('sweepcars_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         $sweep_out_items=\DB::transaction(function() use ($sweepCar){
 
             // 删除之前判断是否已经在U8生成发货运输单

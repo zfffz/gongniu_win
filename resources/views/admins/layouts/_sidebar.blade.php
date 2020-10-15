@@ -37,32 +37,39 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('dispatchprint_users')
                          <li class="nav-item">
                        <a href="{{route('dispatchPrint.index')}}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
                             <p>发货单打印</p >
                              </a>
                         </li>
-                         @can('manage_users')
+                       @endcan
+                       @can('sweepchecks_users')
                         <li class="nav-item">
                             <a href="{{route('sweepCheck.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>扫码对货</p>
                             </a>
                         </li>
-                         @endcan
+                        @endcan
+                      @can('sweepouts_users')
                         <li class="nav-item">
                             <a href="{{route('sweepOut.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>打包入库</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('sweepcars_users')
                         <li class="nav-item">
                             <a href="{{route('sweepCar.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>扫码上车</p>
                             </a>
                         </li>
+                        @endcan
+                       @can('waybills_users')
                         <li class="nav-item">
                             <a href="{{route('wayBill.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -75,15 +82,18 @@
                                 <p>打印发运单</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('returnhouse_users')
                         <li class="nav-item">
                             <a href="{{route('returnhouse.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>退回单</p>
                             </a>
                         </li>
+                        @endcan
                         </ul>
                 </li>
-@can('manage_users')
+@can('basic_users')
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa fa-cog"></i>
@@ -93,12 +103,14 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                         
                         <li class="nav-item">
                             <a href="{{route('storageLocation.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>库位</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{route('car.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -127,8 +139,7 @@
                         </li>
                     </ul>
                 </li>
-                @endcan
-
+      @endcan
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
@@ -138,35 +149,42 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                       
+                       @can('sweepchecks_users')
                         <li class="nav-item">
                             <a href="{{route('sweepCheck.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>扫码对货</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('sweepouts_users')
                         <li class="nav-item">
                             <a href="{{route('sweepOut.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>打包入库</p>
                             </a>
                         </li>
+                        @endcan
+                         @can('sweepcars_users')
                         <li class="nav-item">
                             <a href="{{route('sweepCar.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>扫码上车</p>
                             </a>
                         </li>
+                        @endcan
+                         @can('returnhouse_users')
                          <li class="nav-item">
                             <a href="{{route('returnhouse.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>退回入库</p>
                             </a>
                         </li>
+                         @endcan
                         
                     </ul>
                 </li>
-
+@can('dispatchreports_users')
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-line"></i>
@@ -192,6 +210,8 @@
                         </li>
                     </ul>
                 </li>
+ @endcan
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -14,6 +14,12 @@ class SweepCheckappsController extends CommonsController
    
    public function destroy(SweepCheck $sweepCheck,Sweep_check_item $Sweep_check_item)
     {
+
+         if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
+      
         // 删除前先判断一下有没有生成发货装车单
         // if($sweepOut->status ==1){
         //     echo json_encode(array('status'=>0,'text'=>'已经部分发货装车，不允许删除！'));
@@ -36,6 +42,10 @@ class SweepCheckappsController extends CommonsController
      */
     public function index()
     {
+      if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         return view('sweepChecks.index');
     }
 
@@ -46,7 +56,10 @@ class SweepCheckappsController extends CommonsController
      */
     public function create(Request $request)
     {
-    	
+    	if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //打包员
         // $checkers = DB::table('dhy')
         //     ->select('cpersoncode as no','cpersonname as name')
@@ -80,6 +93,10 @@ class SweepCheckappsController extends CommonsController
      */
     public function show($id)
     {
+      if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //$sweepOut = SweepOut::find($id);
 
         // $sweepCheck = SweepCheck::find($id);
@@ -274,6 +291,10 @@ class SweepCheckappsController extends CommonsController
 
 public function store(Request $request)
 {
+  if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
     $sweep_check=\DB::transaction(function() use ($request){
             //创建一张新的扫码对货单
      $dispatch_no = $request->dispatch_no;

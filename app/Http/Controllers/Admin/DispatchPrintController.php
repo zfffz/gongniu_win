@@ -14,6 +14,11 @@ class DispatchPrintController extends CommonsController
 {
     public function index()
     {
+        
+         if (! Auth::user()->can('dispatchprint_users')) {
+            return view('admins.pages.permission_denied');
+        }
+
         return view('admins.dispatchPrint.index');
     }
 
@@ -49,6 +54,10 @@ class DispatchPrintController extends CommonsController
 //打印发货单
     public function getPrint(Request $request)
     {
+         if (! Auth::user()->can('dispatchprint_users')) {
+            return view('admins.pages.permission_denied');
+        }
+
         $data = explode('|',substr($request['datas'],0,-1));
         $n=0;
         $m=1;
@@ -239,6 +248,10 @@ class DispatchPrintController extends CommonsController
  //    }
  public function lgetPrint1(Request $request)
     {
+         if (! Auth::user()->can('dispatchprint_users')) {
+            return view('admins.pages.permission_denied');
+        }
+
         $data = explode('|',substr($request['datas'],0,-1));
         $n=1;
         $s=0;
@@ -270,6 +283,10 @@ class DispatchPrintController extends CommonsController
 //正式
         public function lgetPrint(Request $request)
     {
+         if (! Auth::user()->can('dispatchprint_users')) {
+            return view('admins.pages.permission_denied');
+        }
+
         $data = explode('|',substr($request['datas'],0,-1));
         $n=1;
         $s=0;
@@ -374,6 +391,10 @@ class DispatchPrintController extends CommonsController
      //打印外箱箱标
     public function outboxPrint(Request $request)
     {
+         if (! Auth::user()->can('dispatchprint_users')) {
+            return view('admins.pages.permission_denied');
+        }
+
         $data = explode('|',substr($request['datas'],0,-1));
         $n=0;
         $m=1;

@@ -42,15 +42,21 @@
                    <!--  <a class="btn-block" href="{{route('sweepCheckapp.create')}}">
                         <button type="button" class="btn btn-warning btn-block btn-flat btn-lg">扫码对货</button>
                     </a> -->
+                     @can('sweepouts_users')
                     <a class="btn-block" href="{{route('sweepOut.create')}}">
                         <button type="button" class="btn btn-primary btn-block btn-flat btn-lg">打包入库</button>
                     </a>
+                    @endcan
+                    @can('sweepcars_users')
                     <a class="btn-block" href="{{route('sweepCar.create')}}">
                         <button type="button" class="btn btn-danger btn-block btn-flat btn-lg">扫码上车</button>
                     </a>
+                     @endcan
+                      @can('returnhouse_users')
                     <a class="btn-block" href="{{route('returnhouse.create')}}">
                         <button type="button" class="btn btn-warning btn-block btn-flat btn-lg">退回入库</button>
                     </a>
+                    @endcan
                 </div>
             </div>
         </div>

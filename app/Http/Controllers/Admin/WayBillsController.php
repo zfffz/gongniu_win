@@ -19,6 +19,12 @@ class WayBillsController extends CommonsController
      */
     public function index()
     {
+
+ if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
+
         $cars= Car::all();
         return view('admins.wayBills.index',compact('cars'));
     }
@@ -30,6 +36,10 @@ class WayBillsController extends CommonsController
      */
     public function create()
     {
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         // $cars = Car::all('id','no');
         // $drivers = Driver::all('id','name');
         // return view('wayBills.create',compact('cars','drivers'));
@@ -43,6 +53,10 @@ class WayBillsController extends CommonsController
      */
     public function store(Request $request)
     {
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //dd($request);
         $sweepcars_id = json_decode(json_encode($request->sweep_cars), true);
 
@@ -99,6 +113,10 @@ class WayBillsController extends CommonsController
      */
     public function show($id)
     {
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         // $sweepCar = SweepCar::find($id);
 
         // return view('sweepCars.show',compact('sweepCar'));
@@ -112,6 +130,10 @@ class WayBillsController extends CommonsController
      */
     public function edit($id)
     {
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //
     }
 
@@ -124,6 +146,10 @@ class WayBillsController extends CommonsController
      */
     public function update(Request $request, $id)
     {
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //
     }
 
@@ -135,6 +161,10 @@ class WayBillsController extends CommonsController
      */
     public function destroy(SweepCar $sweepCar)
     {
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         // $sweep_out_items=\DB::transaction(function() use ($sweepCar){
         //     // 更新打包发货单装车次数
         //     DB::table('zzz_sweep_out_items as t1')
@@ -163,6 +193,10 @@ class WayBillsController extends CommonsController
     }
 
     public function dispatch_data(Request $request){
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         // $dispatch_no = $request->dispatch_no;
         // $data = DB:: table('zzz_sweep_out_items as t1')
         //     ->select('t1.dispatch_no')
@@ -175,6 +209,10 @@ class WayBillsController extends CommonsController
 
     public function getData(Request $request)
     {
+         if (! Auth::user()->can('waybills_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
 
         $builder = \DB::table('zzz_sweep_cars as t1')
             ->select(

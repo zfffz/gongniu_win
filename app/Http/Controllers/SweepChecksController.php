@@ -20,6 +20,10 @@ class SweepChecksController extends CommonsController
    
    public function destroy($id)
     {
+        if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         // $checker=Auth::id();
          // $id = $request->id;
          // dd($id);
@@ -94,6 +98,10 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
      */
     public function index()
     {
+        if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         return view('sweepChecks.index');
     }
 
@@ -104,6 +112,10 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
      */
     public function create(Request $request)
     {
+        if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
     	
         //打包员
         // $checkers = DB::table('dhy')
@@ -142,6 +154,10 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
      */
     public function show($id)
     {
+        if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //$sweepOut = SweepOut::find($id);
 
         // $sweepCheck = SweepCheck::find($id);
@@ -356,15 +372,17 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
         // ->where('t1.cDLCode','=',$dispatch_no)->get();
         // ->where('t1.cDLCode','like','%'.$dispatch_no.'%')->get();
         ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
+//         ->where('t1.cDLCode','=','XSFH00''+'$searhKey)->get();
 
+// $data= DB::select('select t1.cDLCode from dispatchlist as t1 where  t1.cDLCode=''XSFH00''+'?'', [$searchKey]);
 // $results = DB::select('select no from zzz_sweep_outs P left join zzz_sweep_out_items Z on P.id=z.parent_id  where z.dispatch_no = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
 // Model::where('field_name','like','%'.$keywords.'%')->get()
 // $data = DB::select('select cDLCode from dispatchlist where cdlcode like ?', ['%'$dispatch_no'%']);
 
 
-         $data1 = DB:: table('zzz_sweep_checks as t2')
-        ->select('t2.dispatch_no')
-        ->where('t2.dispatch_no','like','%'.$searchKey.'%')->get();
+        //  $data1 = DB:: table('zzz_sweep_checks as t2')
+        // ->select('t2.dispatch_no')
+        // ->where('t2.dispatch_no','like','%'.$searchKey.'%')->get();
 
         if(count($data) == 0){
             echo json_encode(array("status"=>"0","text"=>"发货单号'$searchKey'不存在！"));
@@ -423,6 +441,10 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
 
 public function print(Request $request)
 {
+    if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
     $sweep_check1=\DB::transaction(function() use ($request){
             //创建一张新的扫码对货单
      $dispatch_no = $request->dispatch_no;
@@ -472,6 +494,10 @@ public function print(Request $request)
   //打印外箱箱标
     public function outboxPrint(Request $request)
     {
+        if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
          $dispatch_no = $request->datas;  
          // dd($request);
         // $data = explode('|',substr($request['datas'],0,-1));
@@ -541,6 +567,10 @@ public function print(Request $request)
 //打印拼箱箱标
         public function lgetPrint(Request $request)
     {
+        if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
        $dispatch_no = $request->datas;
 
        $fz = $request->zb;
@@ -604,6 +634,10 @@ public function print(Request $request)
 
 public function store(Request $request)
 {
+    if (! Auth::user()->can('sweepchecks_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
     $sweep_check=\DB::transaction(function() use ($request){
             //创建一张新的扫码对货单
      $dispatch_no = $request->dispatch_no;

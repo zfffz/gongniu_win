@@ -6,9 +6,10 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => 'auth'], function() {
+// Route::group(['middleware' => ['web','admin.login']], function () {
     // 首页
     Route::get('/', 'PagesController@root')->name('root');
-    
+
 // Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
     // 打包出库
     Route::get('sweepOut/dispatch_data', 'SweepOutsController@dispatch_data')->name('sweepOut.dispatch_data');
@@ -50,6 +51,8 @@ Route::group(['middleware' => 'auth'], function() {
      Route::get('sweepCheck/outboxPrint', 'SweepChecksController@outboxPrint')->name('sweepCheck.outboxPrint');
     Route::post('sweepCheck/outboxPrint', 'SweepChecksController@outboxPrint')->name('sweepCheck.outboxPrint');
     Route::resource('sweepCheck', 'SweepChecksController', ['only' => ['create', 'store','index','destroy','show']]);
+
+
 
     //扫码对货app
 Route::get('sweepCheckapp/dispatch_data', 'SweepCheckappsController@dispatch_data')->name('sweepCheckapp.dispatch_data');

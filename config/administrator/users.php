@@ -18,7 +18,25 @@ return [
     {
         return Auth::user()->can('manage_users');
     },
-
+  // 对 CRUD 动作的单独权限控制，通过返回布尔值来控制权限。
+    'action_permissions' => [
+        // 控制『新建按钮』的显示
+        'create' => function ($model) {
+            return true;
+        },
+        // 允许更新
+        'update' => function ($model) {
+            return true;
+        },
+        // 不允许删除
+        'delete' => function ($model) {
+            return false;
+        },
+        // 允许查看
+        'view' => function ($model) {
+            return true;
+        },
+    ],
     // 字段负责渲染『数据表格』，由无数的『列』组成，
     'columns' => [
 
@@ -46,6 +64,19 @@ return [
                 return '<a href="/users/'.$model->id.'" target=_blank>'.$name.'</a>';
             },
         ],
+         'roles' => [
+            'title'  => '角色',
+            'output' => function ($value, $model) {
+                $model->load('roles');
+                $result = [];
+                foreach ($model->roles as $role) {
+                    $result[] = $role->name;
+                }
+
+                return empty($result) ? 'N/A' : implode(' | ', $result);
+            },
+            'sortable' => false,
+        ],
 
         // 'email' => [
         //     'title' => '邮箱',
@@ -65,12 +96,12 @@ return [
         // 'email' => [
         //     'title' => '邮箱',
         // ],
-        'password' => [
-            'title' => '密码',
+        // 'password' => [
+        //     'title' => '密码',
 
-            // 表单使用 input 类型 password
-            'type' => 'password',
-        ],
+        //     // 表单使用 input 类型 password
+        //     'type' => 'password',
+        // ],
         // 'avatar' => [
         //     'title' => '用户头像',
 

@@ -18,6 +18,10 @@ class SweepOutsController extends CommonsController
      */
     public function index()
     {
+        if (! Auth::user()->can('sweepouts_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         return view('sweepOuts.index');
     }
 
@@ -28,6 +32,10 @@ class SweepOutsController extends CommonsController
      */
     public function create()
     {
+         if (! Auth::user()->can('sweepouts_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         //打包员
         $packagers = DB::table('bs_gn_wl')
             ->select('cpersoncode as no','cpersonname as name')
@@ -44,6 +52,10 @@ class SweepOutsController extends CommonsController
      */
     public function store(Request $request)
     {
+         if (! Auth::user()->can('sweepouts_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         
         $sweep_out=\DB::transaction(function() use ($request){
             //创建一张新的打包出库单
@@ -179,6 +191,10 @@ foreach ($res as $ress) {
      */
     public function show($id)
     {
+         if (! Auth::user()->can('sweepouts_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         $sweepOut = SweepOut::find($id);
 
         $packager_name = DB::table('bs_gn_wl')
@@ -302,6 +318,10 @@ foreach ($res as $ress) {
 //         }
     public function destroy(SweepOut $sweepOut,Sweep_out_item $Sweep_out_item)
     {
+         if (! Auth::user()->can('sweepouts_users')) {
+     return view('admins.pages.permission_denied');
+  
+        }
         // 删除前先判断一下有没有生成发货装车单
         // dd($sweepOut->id);
         if($sweepOut->status ==1){

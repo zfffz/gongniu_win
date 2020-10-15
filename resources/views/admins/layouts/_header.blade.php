@@ -22,13 +22,13 @@ Navbar -->
 
 
 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              @can('operate_users')
+             
                 <a class="dropdown-item" href="{{ url(config('administrator.uri')) }}">
                   <i class="fas fa-tachometer-alt mr-2"></i>
                   管理后台
                 </a>
                 <div class="dropdown-divider"></div>
-              @endcan
+          
               <a class="dropdown-item"  href="{{ route('user.show', Auth::user()->no) }}"><i class="far fa-user mr-2"></i> 
               个人中心
                </a>

@@ -7,7 +7,7 @@
       <div class="card-body">
         @if (Auth::check())
           <div class="alert alert-danger text-center mb-0">
-            当前登录账号无后台访问权限。
+            当前登录账号无此功能访问权限。
           </div>
         @else
           <div class="alert alert-danger text-center">

@@ -38,6 +38,9 @@ return [
         'name' => [
             'title'    => '标示',
         ],
+        // 'route' => [
+        //     'title'    => '路由',
+        // ],
         'operation' => [
             'title'    => '管理',
             'sortable' => false,
@@ -56,6 +59,11 @@ return [
             'title' => '角色',
             'name_field' => 'name',
         ],
+        // 'route' => [
+        //     // 'type' => 'relationship',
+        //     'title' => '路由',
+        //     'name_field' => 'name',
+        // ],
     ],
 
     'filters' => [
