@@ -240,20 +240,31 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
      public function getData(Request $request)
     {
         $searchKey = $request->input('searchKey');
+
+         $tou='XSFH00';
+      $searchKey1 =$tou . $searchKey;
           //$searchKey = $request->searchKey;
     // dd($searchKey);
-        $data = \DB:: table('DispatchList as t1')
-        ->select(
-            \DB::raw("
-                t1.cDLCode,
-                t1.cCusName,
+        // $data = \DB:: table('DispatchList as t1')
+        // ->select(
+        //     \DB::raw("
+        //         t1.cDLCode,
+        //         t1.cCusName,
+        //         CONVERT(varchar(100), t1.dDate, 23) as dDate ,
+        //         t3.no
+        //         "))
+        // ->leftJoin('zzz_customer_locations as t2','t1.cCusCode','=','t2.customer_no')
+        // ->leftJoin('zzz_storage_locations as t3','t2.location_id','=','t3.id')
+        // // ->where('t1.cDLCode','=',$searchKey)->get();
+        // ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
+
+        // // ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
+
+
+
+        $data= DB::select('select t1.cDLCode,t1.cCusName,
                 CONVERT(varchar(100), t1.dDate, 23) as dDate ,
-                t3.no
-                "))
-        ->leftJoin('zzz_customer_locations as t2','t1.cCusCode','=','t2.customer_no')
-        ->leftJoin('zzz_storage_locations as t3','t2.location_id','=','t3.id')
-        // ->where('t1.cDLCode','=',$searchKey)->get();
-        ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
+                t3.no from DispatchList as t1 left join zzz_customer_locations as t2 on t1.cCusCode=t2.customer_no left join zzz_storage_locations as t3 on t2.location_id=t3.id where  t1.cDLCode=RIGHT(?, 12)', [$searchKey1]);
 
 //删除对货记录（拼箱）
 
@@ -289,9 +300,6 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
                 t5.cComUnitName,
                 t4.bInvType,
                 isnull(cast(CAST(iinvweight AS DECIMAL(18,3))AS NVARCHAR(20)),0) as iinvweight,
-
-         
-             
 
                 Convert(decimal(30,0),t4.cinvDefine13) as cinvDefine13,
 
@@ -356,8 +364,13 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
 
     private function condition($table,$searchKey){
         if($searchKey!=''){
+             $tou='XSFH00';
+      $searchKey1 =$tou . $searchKey;
             // $table->where('cDLCode','=',$searchKey);
-              $table->where('cDLCode','like','%'.$searchKey.'%');
+              // $table->where('cDLCode','like','%'.$searchKey.'%');
+
+            $table->where('cDLCode','=',substr($searchKey1,-12));
+
                $table->Where('bInvType','=','0');
         }
         return $table;
@@ -365,16 +378,21 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
 
     public function dispatch_data(Request $request){
       $searchKey = $request->input('searchKey');
+      
+      $tou='XSFH00';
+      $searchKey1 =$tou . $searchKey;
+      // $tou.$searchKey1;
+      // dd($searchKey);
         // $dispatch_no = $request->dispatch_no;
         // 1.判断发货单号是否合法
-        $data = DB:: table('dispatchlist as t1')
-        ->select('t1.cDLCode')
-        // ->where('t1.cDLCode','=',$dispatch_no)->get();
-        // ->where('t1.cDLCode','like','%'.$dispatch_no.'%')->get();
-        ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
+        // $data = DB:: table('dispatchlist as t1')
+        // ->select('t1.cDLCode')
+        // // ->where('t1.cDLCode','=',$dispatch_no)->get();
+        // // ->where('t1.cDLCode','like','%'.$dispatch_no.'%')->get();
+        // ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
 //         ->where('t1.cDLCode','=','XSFH00''+'$searhKey)->get();
 
-// $data= DB::select('select t1.cDLCode from dispatchlist as t1 where  t1.cDLCode=''XSFH00''+'?'', [$searchKey]);
+$data= DB::select('select t1.cDLCode from dispatchlist as t1 where  t1.cDLCode=RIGHT(?, 12)', [$searchKey1]);
 // $results = DB::select('select no from zzz_sweep_outs P left join zzz_sweep_out_items Z on P.id=z.parent_id  where z.dispatch_no = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
 // Model::where('field_name','like','%'.$keywords.'%')->get()
 // $data = DB::select('select cDLCode from dispatchlist where cdlcode like ?', ['%'$dispatch_no'%']);
