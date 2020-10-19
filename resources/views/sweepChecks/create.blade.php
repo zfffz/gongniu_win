@@ -145,7 +145,24 @@
                 <option value="6" >F</option>
                 <option value="7" >G</option>
                 <option value="8" >H</option>
-
+                <option value="9" >I</option>
+                <option value="10" >J</option>
+                <option value="11" >K</option>
+                <option value="12" >L</option>
+                <option value="13" >M</option>
+                <option value="14" >N</option>
+                <option value="15" >O</option>
+                <option value="16" >P</option>
+                <option value="17" >Q</option>
+                <option value="18" >R</option>
+                <option value="19" >S</option>
+                <option value="20" >T</option>
+                <option value="21" >U</option>
+                <option value="22" >V</option>
+                <option value="23" >W</option>
+                <option value="24" >X</option>
+                <option value="25" >Y</option>
+                <option value="26" >Z</option>
               </select>
             <!-- 
                 <button type="button" id="addRow"  class="btn btn-block btn-primary"  style="width: 80px;">分组</button>
@@ -275,6 +292,10 @@ function getdispatchlistinfo(){
     $('#ZXSL').val('0');
     $('#CTNS').val('0');
     $('#result').val('');
+    $('#standards').val('0');
+    $('#fz').val('1');
+    
+    
     $("#result").removeClass("is-invalid");
     var dispatch_no = $('#dispatch_no').val();
     if(dispatch_no == ''){
