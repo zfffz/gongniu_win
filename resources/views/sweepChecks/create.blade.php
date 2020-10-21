@@ -86,7 +86,7 @@
            <div class="col-sm-2">    
                         <div class="input-group">
                             <td>
-                                <button type="button" id="addRow" class="btn btn-block btn-primary" style="max-width: 150px">分组</button>
+                                <button type="button" id="addRow" class="btn btn-block btn-primary" style="max-width: 150px" onclick="clickA()">分组</button>
                             </td>
                         </div>
                     </div>      
@@ -286,6 +286,9 @@ $('#standards').removeClass('is-invalid');
 
 function getdispatchlistinfo(){
   if(event.keyCode == 13){
+
+
+
     $('#ddate').val('');
     $('#ccusname').val('');
     $('#position').val('');
@@ -295,7 +298,7 @@ function getdispatchlistinfo(){
     $('#standards').val('0');
     $('#fz').val('1');
     
-    
+   
     $("#result").removeClass("is-invalid");
     var dispatch_no = $('#dispatch_no').val();
     if(dispatch_no == ''){
@@ -355,7 +358,7 @@ function getdispatchlistinfo(){
 
 //验证发货单号存不存在
             var searchKey = $('#dispatch_no').val();
-$.ajax({
+myajax3=$.ajax({
   data:{searchKey:searchKey},
   headers:{
     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
@@ -390,7 +393,7 @@ $.ajax({
                                  // $('#dispatch_no').val(data.cDLCode); 
                                }
                                else
-                                 {$.ajax({
+                                 {myajax2=$.ajax({
                                   url:'dispatchss_data?dispatch_no='+dispatch_no,
                                   type:'get',
                                   // async:false,
@@ -463,7 +466,7 @@ $.ajax({
 var searchKey = $('#dispatch_no').val();
 
 if (searchKey!='') {
-$.ajax({
+myajax1=$.ajax({
   data:{searchKey:searchKey},
   headers:{
     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
@@ -519,13 +522,13 @@ $.ajax({
                         "iDisplayLength":20,
                         
 
-                        "ajax":function(data,callback,settings){
+                      "ajax":function(data,callback,settings){
                           var length = data.length;
                           var start = data.start;
                           var page = (data.start / data.length) + 1;
                           var searchKey = $('#dispatch_no').val();
 
-                          $.ajax({
+                          myajax4=$.ajax({
                             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
                             type: "POST",
                             // async:false,
@@ -542,6 +545,7 @@ $.ajax({
                               returnData.recordsFiltered = result.recordsFiltered;
                               returnData.data = result.data;
                               callback(returnData);
+
 
                             }
                           })
@@ -597,18 +601,66 @@ $.ajax({
 
 
 
-                   
-
 
 
                    });
 
+
 }
 // var tb = document.getElementById("dispatch_table");
 
+ 
         }
-      }
 
+
+
+//  $.when($.ajax("myajax1"), $.ajax("myajax2"), $.ajax("myajax3") ,$.ajax("myajax4")).done(function(){
+
+
+// document.getElementById("addRow").click();
+          
+//         });
+
+
+
+setTimeout(function() {
+
+// if(document.all) {
+
+document.getElementById("addRow").click();
+
+// }
+
+// else {
+
+// var e = document.createEvent("MouseEvents");
+
+// e.initEvent("click", true, true);
+
+// document.getElementById("buttonid").dispatchEvent(e);
+
+// }
+
+}, 1500);
+
+
+// var tb = document.getElementById("dispatch_table");
+// dd(tb.rows.length);
+// if (tb.rows.length>0)
+// {
+
+// document.getElementById("addRow").click();
+// } 
+      }
+// function getdispatchlistinfo(){
+//   if(event.keyCode == 13){
+//     var ccusname = $('#ccusname').val();
+//      if(ccusname == ''){
+//     document.getElementById("addRow").click();
+//   }
+//   }
+
+//   }
 
 //组别下拉菜单选择事件
       function selectOnchang(obj){ 
@@ -639,6 +691,9 @@ var tb = document.getElementById("dispatch_table");
 //扫描结果回车事件
 function getresultinfo(){
   if(event.keyCode == 13){
+
+
+
     // var result  = $(this).val();
     var result = $('#result').val();
     var dispatch_no = $('#dispatch_no').val();
@@ -1627,7 +1682,7 @@ var tb = document.getElementById("dispatch_table");
             if(ccusname == ''){
               Toast.fire({
                 type: 'error',
-                title: '客户名称不能为空！'
+                title: '客户名称不能为空1！'
               });
               $('#dispatch_no').focus();
               return false;

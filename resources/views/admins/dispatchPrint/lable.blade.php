@@ -98,7 +98,8 @@
                // LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById("div1").innerHTML+"</body>");
                // iCurLine=iCurLine+85;//每行占25px
             }
-            LODOP.PRINT();
+            // LODOP.PRINT();
+            LODOP.PREVIEW();
            // LODOP.PRINT_DESIGN();
         });
 

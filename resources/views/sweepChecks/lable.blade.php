@@ -97,7 +97,8 @@
                // iCurLine=iCurLine+85;//每行占25px
             // }
 
-            LODOP.PRINT();
+            // LODOP.PRINT();
+            LODOP.PREVIEW();
            // LODOP.PRINT_DESIGN();
         });
 

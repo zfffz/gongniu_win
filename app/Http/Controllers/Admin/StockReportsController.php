@@ -17,7 +17,7 @@ class StockReportsController extends CommonsController
             return view('admins.pages.permission_denied');
         }
       
-        return view('admins.StockReports.index');
+        return view('admins.stockReports.index');
     }
 
  public function getData(Request $request)
