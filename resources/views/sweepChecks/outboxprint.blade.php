@@ -74,7 +74,7 @@
                     LODOP.NewPageA();  //自动分页
                 }
             // }
-            LODOP.PRINT();
+            LODOP.PREVIEW();
 
         });
 

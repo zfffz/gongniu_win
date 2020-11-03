@@ -241,17 +241,17 @@ class WayBillsController extends CommonsController
         $eddate = date("Y-m-d",strtotime("+1day",strtotime($bedate[1])));
         //dd($searchKey);
         if($searchKey!=''){
-            if ($searchKey->caridKey!=null || $searchKey->caridKey!=''){
+            // if ($searchKey->caridKey!=null || $searchKey->caridKey!=''){
                 $table->where('t1.created_at','>=',$bgdate);
                 $table->where('t1.created_at','<',$eddate);
                 $table->where('t1.car_id','=',$searchKey->caridKey);
                 $table->where('t1.status','=',$searchKey->statusKey); 
-            }
-            else{
-                $table->where('t1.created_at','>=',$bgdate);
-                $table->where('t1.created_at','<',$eddate);
-                $table->where('t1.status','=',$searchKey->statusKey); 
-            }
+            // }
+            // else{
+            //     $table->where('t1.created_at','>=',$bgdate);
+            //     $table->where('t1.created_at','<',$eddate);
+            //     $table->where('t1.status','=',$searchKey->statusKey); 
+            // }
 
 
         }

@@ -43,10 +43,19 @@
                                 <input type="text" {{ $carton[0]->id ? 'disabled': '' }} class="form-control" name="no" autocomplete="off" value="{{ old('no', $carton[0]->no) }}" required>
                             </div>
                         </div>
+
+                       
+
                         <div class="form-group row">
                             <label class="col-sm-2 control-label label_required">存货名称</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="name" disabled="disabled" autocomplete="off" value="{{ old('name', $carton[0]->name) }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 control-label label_required">条形码</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="cinvdefine5"  autocomplete="off" value="{{ old('cinvdefine5', $carton[0]->cinvdefine5) }}" required>
                             </div>
                         </div>
                         <div class="form-group row">

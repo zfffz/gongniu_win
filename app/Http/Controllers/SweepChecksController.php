@@ -392,7 +392,9 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
         // ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
 //         ->where('t1.cDLCode','=','XSFH00''+'$searhKey)->get();
 
-$data= DB::select('select t1.cDLCode from dispatchlist as t1 where  t1.cDLCode=RIGHT(?, 12)', [$searchKey1]);
+// $data= DB::select('select t1.cDLCode from dispatchlist as t1 where  t1.cDLCode=RIGHT(?, 12)', [$searchKey1]);
+
+$data = DB::SELECT("select cVerifier from dispatchlist where CDLCODE=RIGHT(?, 12) AND cVerifier is  NULL ",[$searchKey1]);
 // $results = DB::select('select no from zzz_sweep_outs P left join zzz_sweep_out_items Z on P.id=z.parent_id  where z.dispatch_no = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
 // Model::where('field_name','like','%'.$keywords.'%')->get()
 // $data = DB::select('select cDLCode from dispatchlist where cdlcode like ?', ['%'$dispatch_no'%']);
@@ -402,8 +404,8 @@ $data= DB::select('select t1.cDLCode from dispatchlist as t1 where  t1.cDLCode=R
         // ->select('t2.dispatch_no')
         // ->where('t2.dispatch_no','like','%'.$searchKey.'%')->get();
 
-        if(count($data) == 0){
-            echo json_encode(array("status"=>"0","text"=>"发货单号'$searchKey'不存在！"));
+         if(count($data) == 0){
+            echo json_encode(array("status"=>"0","text"=>"发货单号系统不存在或发货单已审核！"));
             exit();
         }
         else{
@@ -670,6 +672,21 @@ public function store(Request $request)
 
      $ddate=date('Y-m-d H:i:s',time());
 
+
+         $cVerifier= 'auser';
+ //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
+                $date= date("Y-m-d H:i:s");
+                DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$dispatch_no]);
+                //生成销售出库单和更改库存
+                DB::Update("exec zzz_CCGC32 ?",[$dispatch_no]);
+//1.提示销售出库单号
+        $data1 = DB:: table('rdrecord32 as t1')
+        ->select('t1.ccode')
+        ->where('t1.cbuscode','=',$dispatch_no)->get();
+
+                
+
+
      // dd($checker);
         // 1.判断发货单号是否合法
      $pd = DB:: table('zzz_sweep_checks as t1')
@@ -736,6 +753,23 @@ public function store(Request $request)
         $i++;
     }
 
+
+           if(count($data1) != 0)
+        {
+           
+    $revalue = json_encode(array('status'=>1,'text1'=>$data1[0]->ccode));
+
+ // return $revalue ;
+
+        }
+
+        else{
+    $revalue = json_encode(array('status'=>2,'text2'=>'未生成销售出库单，请联系管理员！'));
+    
+ // return $revalue ;
+     }
+
+             return $revalue ;
             // 更新
             // $sweep_check->update(['count' => ($i-1)]);
 

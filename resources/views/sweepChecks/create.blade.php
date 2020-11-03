@@ -3,7 +3,7 @@
 @section('include')
 @endsection
 @section('title', '扫码对货')
-
+<link type="text/css" rel="styleSheet"  href="../css/111.css" />
 @section('header')
 
 <div class="container">
@@ -24,18 +24,18 @@
 
       <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
         <form class="form-inline" role="form">
-          <div class="col-sm-4 mb-3">
+          <div class="col-md-3">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><strong>发货单号</strong></span>
               </div>
-              <input type="text" class="form-control" name="dispatch_no" id="dispatch_no" class="form control" autocomplete="off" maxlength="12" value=""  style="max-width: 186px" onkeypress = "if (event.keyCode = 13)  {getdispatchlistinfo()};"/>
+              <input type="text" class="form-control" name="dispatch_no" id="dispatch_no" class="form control" autocomplete="off" maxlength="12" value=""   onkeypress = "if (event.keyCode = 13)  {getdispatchlistinfo()};"/>
 
               <!--       <input type="text"name="dispatch_no" id="dispatch_no" class="form control" onkeypress = "if (event.keyCode = 13)  {getdispatchlistinfo()};" /> -->
             </div>
           </div>
 
-          <div class="col-sm-4 mb-3">
+          <div class="col-md-3">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><strong>客户名称</strong></span>
@@ -44,33 +44,33 @@
             </div>
           </div>
 
-          <div class="col-sm-4 mb-3">
+           <div class="col-md-2.5">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><strong>单据日期</strong></span>
               </div>
-              <input type="text"name="ddate" id="ddate" class="form control" readonly/>
+              <input type="text"name="ddate" id="ddate" class="form control" style="max-width: 96px"readonly/>
             </div>
           </div>
 
 
-          <div class="col-sm-4 mb-3">
+          <div class="col-md-2.5">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><strong>默认库位</strong></span>
               </div>
-              <input type="text"name="position" id="position" class="form control" readonly/>
+              <input type="text"name="position" id="position" class="form control"  style="max-width: 96px"readonly/>
             </div>
           </div>
 
-          <div class="col-sm-4 mb-3">
+          <div class="col-md-2">
             <div class="input-group">
               <div class="input-group-prepend">
                  <span class="input-group-text"><strong>对货员</strong></span>
                <!--   <label style="margin-top: 2px;margin-right: 1px;">对货员</label> -->
                <!--  <span class="input-group-text"><strong>对  货  员</strong></span> -->
               </div>
-               <select class="form-control" name="checker" id="checker" margin-left="100px" style="max-width: 186px" >
+               <select class="form-control" name="checker" id="checker" margin-left="100px" style="max-width: 96px" >
 
       <option value=""></option>
       @foreach ($checkers as $checker)
@@ -83,60 +83,100 @@
             </div>
           </div>    
 
-           <div class="col-sm-2">    
+           <div class="col-sm-2" hidden>    
                         <div class="input-group">
                             <td>
                                 <button type="button" id="addRow" class="btn btn-block btn-primary" style="max-width: 150px" onclick="clickA()">分组</button>
                             </td>
                         </div>
-                    </div>      
-<!--  <button type="button" id="addRow"  class="btn btn-block btn-primary"  style="width: 155px;">分组</button>
-                   </label> -->
-        </div>
-
-      </form> 
-        <!-- </div>
-        < --><!-- div class="card-header border-transparent">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> 扫描结果:</span>
-                </div>
-                <input type="text"name="result" id="result" class="form control" value="" autocomplete="off" onkeypress = "if (event.keyCode = 13)  {getresultinfo()};"/>
-            </div>
-          </div> -->
-
-
-          <div class="card-header border-transparent">
-            <div class="input-group">
-              <div class="input-group-prepend">
-               <div class="navbar-nav ml-auto" >
-                <span class="input-group-text" style="margin-left: 8px"> 扫描结果:</span>
-              </div>
-              <input type="text" class="form-control" name="result" id="result" autocomplete="off" value=""  style="max-width: 180px" onkeypress = "if (event.keyCode = 13)  {getresultinfo()};" />
-
-
-
-<!-- <table id="example" class="display" cellspacing="0" width="100%"> -->
-
-
-              <span class="input-group-text" style="margin-left: 105px"> 扫描规格:</span>
-
-              <select class="form-control" required name="standards" id="standards" style="width: 100%;">
-                <option value="0" >按支扫描</option>
-                <option value="1" >按箱扫描</option>
-
-              </select>
-<label style="padding-right:138px;">
- </div>
- <div class="col-sm-2">    
-                        <div class="input-group">
-                            <td>
-                                <button type="button" id="btn-print" class="btn btn-block btn-info" style="margin-left: 23px">拼箱箱标打印</button>
-                            </td>
-                        </div>
                     </div>
 
-                    <select class="form-control" required name="fz" id="fz" style="max-width: 50px" disabled="disabled" >
+
+
+
+            <div class="col-md-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><strong> 扫描结果</strong></span>
+                    </div>
+                    <input type="text" class="form-control" name="result" id="result" autocomplete="off" value=""  style="max-width: 180px" onkeypress = "if (event.keyCode = 13)  {getresultinfo()};" />
+                    <!--       <input type="text"name="dispatch_no" id="dispatch_no" class="form control" onkeypress = "if (event.keyCode = 13)  {getdispatchlistinfo()};" /> -->
+                </div>
+            </div>
+
+
+
+            {{--<div class="col-md-2">--}}
+                {{--<span class="input-group-text" style="margin-left: 8px"> 扫描结果:</span>--}}
+
+            {{--<input type="text" class="form-control" name="result" id="result" autocomplete="off" value=""  style="max-width: 180px" onkeypress = "if (event.keyCode = 13)  {getresultinfo()};" />--}}
+            {{--</div>--}}
+
+
+            <div class="col-md-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><strong>扫描规格</strong></span>
+                        <!--   <label style="margin-top: 2px;margin-right: 1px;">对货员</label> -->
+                        <!--  <span class="input-group-text"><strong>对  货  员</strong></span> -->
+                    </div>
+                    <select class="form-control" required name="standards" id="standards" style="max-width: 296px" />
+
+                        <option value="0" style="font-family:黑体; font-size:11pt;">按支扫描</option>
+                        <option value="1" style="font-family:黑体; font-size:11pt;">按箱扫描</option>
+
+                    </select>
+                </div>
+            </div>
+
+            {{--<div class="col-md-2.5">--}}
+                {{--<div class="input-group">--}}
+                    {{--<div class="input-group-prepend">--}}
+                        {{--<span class="input-group-text"><strong>默认库位</strong></span>--}}
+                    {{--</div>--}}
+                    {{--<input type="text"name="position" id="position" class="form control"  style="max-width: 96px"readonly/>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+
+            <div class="col-md-2.4">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >总箱数量</span>
+                    </div>
+                    <input type="text"name="CTNS" id="CTNS" class="form control" style="max-width: 96px" />
+                </div>
+            </div>
+
+            {{--<div class="col-md-2.5">--}}
+                {{--<div class="input-group">--}}
+                    {{--<div class="input-group-prepend">--}}
+                        {{--<span class="input-group-text"><strong>默认库位</strong></span>--}}
+                    {{--</div>--}}
+                    {{--<input type="text"name="position" id="position" class="form control"  style="max-width: 96px"readonly/>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+
+            <div class="col-md-2.8">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >整箱数量</span>
+                    </div>
+                    <input type="text"name="ZXSL" id="ZXSL" class="form control" disabled="disabled" style="max-width: 96px" />
+                </div>
+            </div>
+
+            <div class="col-md-1.1">
+                <div class="input-group">
+                    <td>
+                        <button type="button" id="btn-print" class="btn btn-block btn-info" style="margin-left: 8px">拼箱打印</button>
+                    </td>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-1.5">
+            <select class="form-control" required name="fz" id="fz" style="max-width: 50px" disabled="disabled" >
                 <option value="1" >A</option>
                 <option value="2" >B</option>
                 <option value="3" >C</option>
@@ -163,7 +203,47 @@
                 <option value="24" >X</option>
                 <option value="25" >Y</option>
                 <option value="26" >Z</option>
-              </select>
+            </select>
+            {{--</div>--}}
+<!--  <button type="button" id="addRow"  class="btn btn-block btn-primary"  style="width: 155px;">分组</button>
+                   </label> -->
+        </div>
+
+      {{--</form> --}}
+        <!-- </div>
+        < --><!-- div class="card-header border-transparent">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> 扫描结果:</span>
+                </div>
+                <input type="text"name="result" id="result" class="form control" value="" autocomplete="off" onkeypress = "if (event.keyCode = 13)  {getresultinfo()};"/>
+            </div>
+          </div> -->
+
+
+          {{--<div class="card-header border-transparent">--}}
+            {{--<div class="input-group">--}}
+              {{--<div class="input-group-prepend">--}}
+               {{--<div class="navbar-nav ml-auto" >--}}
+                {{--<span class="input-group-text" style="margin-left: 8px"> 扫描结果:</span>--}}
+              {{--</div>--}}
+              {{--<input type="text" class="form-control" name="result" id="result" autocomplete="off" value=""  style="max-width: 180px" onkeypress = "if (event.keyCode = 13)  {getresultinfo()};" />--}}
+
+
+
+{{--<!-- <table id="example" class="display" cellspacing="0" width="100%"> -->--}}
+
+
+              {{--<span class="input-group-text" style="margin-left: 105px"> 扫描规格:</span>--}}
+
+              {{--<select class="form-control" required name="standards" id="standards" style="width: 100%;">--}}
+                {{--<option value="0" >按支扫描</option>--}}
+                {{--<option value="1" >按箱扫描</option>--}}
+
+              {{--</select>--}}
+{{--<label style="padding-right:138px;">--}}
+ {{--</div>--}}
+
             <!-- 
                 <button type="button" id="addRow"  class="btn btn-block btn-primary"  style="width: 80px;">分组</button>
                    </label> -->
@@ -175,37 +255,22 @@
                         </div>
                     </div> 
                   -->
-                </div>
+                {{--</div>--}}
 
 
 
               </div>
 
  <form class="form-inline" role="form">
-           
-            <div class="col-sm-4 mb-3">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"  style="margin-left: 18px">总箱数</span>
-              </div>
-              <input type="text"name="CTNS" id="CTNS" class="form control" />
-            </div>
-          </div>
-           <div class="col-sm-4 mb-3">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"  style="margin-left: 8px">整箱数量</span>
-              </div>
-              <input type="text"name="ZXSL" id="ZXSL" class="form control" disabled="disabled" />
-            </div>
-          </div>
 
+
+</div>
         
-           </form>
+           {{--</form>--}}
 
               <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table class="table table-bordered" id="dispatch_table" style="white-space:nowrap ; overflow:hidden ;">
+                <div class="table-responsive" >
+                  <table class="table table-bordered" id="dispatch_table" style="white-space:nowrap ; overflow:hidden ; ">
                     <thead>
                       <tr>
                         <th>仓库名称</th>
@@ -256,6 +321,8 @@
 
         @section('script')
         <script>
+              ///页面初始化，聚焦发货单号
+            // $('#dispatch_no').focus();
     //提示基础设置
     const Toast = Swal.mixin({
       toast: true,
@@ -364,7 +431,7 @@ myajax3=$.ajax({
     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
   },
   type: "post",
-  // async:false,
+  async:false,
   dataType: "json",
   url:"dispatch_data",
             beforeSend:function(){
@@ -375,28 +442,38 @@ myajax3=$.ajax({
                 $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
                 $('#notifyAudio')[0].play();
                                 //发货单号红框提示,toast提示
-                                $("#dispatch_no").addClass("is-invalid");
+                             $("#dispatch_no").addClass("is-invalid");
                                 Toast.fire({
                                   type: 'error',
                                   title: data.text
                                 });
                                 //清空发货单号
-                                $('#dispatch_no').val('');
+                                 $('#dispatch_no').val('');
+                                $('#ddate').val('');
+                                $('#ccusname').val('');
+                                $('#position').val('');
+                                $('#result').val(''); 
+                                $('#dispatch_table tbody').html('');                
+                                $('#dispatch_no').focus();
 
-                                if( $('#dispatch_no').val()==''){
-                                  $('#dispatch_no').focus();
-
-                                    // return false;
-                                  }
+                                //     $('#dispatch_no').focus();
+                                //    $("#dispatch_no").addClass("is-invalid");
+                                // // if( $('#dispatch_no').val()==''){
+                                //   $('#dispatch_no').focus();
+                                //   $('#dispatch_no').val('');
+                                //     return false;
+                                //     $('#dispatch_no').focus();
+                                  // }
 
                                 // $('#dispatch_no').focus();
                                  // $('#dispatch_no').val(data.cDLCode); 
                                }
                                else
-                                 {myajax2=$.ajax({
+                                 {
+                                  myajax2=$.ajax({
                                   url:'dispatchss_data?dispatch_no='+dispatch_no,
                                   type:'get',
-                                  // async:false,
+                                  async:false,
                                   dataType:'json',
                                   headers:{
                                     Accept:"application/json",
@@ -432,18 +509,233 @@ myajax3=$.ajax({
 
 
 
-
-
-
-
-
-
                                 // $('#result').focus();
                                 // $('#dispatch_no').focus();
                                 $("#dispatch_no").removeClass("is-invalid");
                                 //取发货单表头信息
                                 $('#result').focus();
-                                $("#dispatch_no").removeClass("is-invalid");
+//                                $("#dispatch_no").removeClass("is-invalid");
+                                //ALERT("CEUI")
+                                
+                              }
+
+                            }
+
+                          })
+
+                             }
+                           }
+                         })
+
+
+
+
+      var searchKey = $('#dispatch_no').val();
+
+      if (searchKey!='') {
+          myajax1=$.ajax({
+              data:{searchKey:searchKey},
+              headers:{
+                  'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+              },
+              type: "post",
+              async:false,
+              dataType: "json",
+              url:"getData",
+              success: function (result) {
+                  $('#dispatch_no').val(result.cDLCode);
+                  $('#ccusname').val(result.cCusName);
+                  $('#ddate').val(result.dDate);
+                  $('#position').val(result.no);
+              }
+          })
+          //取发货单表体信息
+          $("#dispatch_table").dataTable().fnDestroy();
+          var table =
+              $('#dispatch_table').DataTable({
+                  language: {
+                      "sProcessing": "处理中...",
+                      "sLengthMenu": "显示 _MENU_ 项结果",
+                      "sZeroRecords": "没有匹配结果",
+                      "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                      "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                      "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                      "sInfoPostFix": "",
+                      "sSearch": "搜索:",
+                      "sUrl": "",
+                      "sEmptyTable": "表中数据为空",
+                      "sLoadingRecords": "载入中...",
+                      "sInfoThousands": ",",
+                      "oPaginate": {
+                          "sFirst": "首页",
+                          "sPrevious": "上页",
+                          "sNext": "下页",
+                          "sLast": "末页"
+                      },
+                      "oAria": {
+                          "sSortAscending": ": 以升序排列此列",
+                          "sSortDescending": ": 以降序排列此列"
+                      }
+                  },
+                  'paging'      : false,
+                  // "white-space":nowrap,
+                  "lengthChange": false,
+                  "searching": false,
+                  "ordering": false,
+                  "info": true,
+                  "autoWidth": false,
+                  "serverSide": true,
+                  "bProcessing":true,
+
+                  "iDisplayLength":20,
+                  // "sScrollY" : 40,
+                  // "scrollY": "170px", 
+                  //       "bScrollCollapse" : true,
+
+
+                  "ajax":function(data,callback,settings){
+                      var length = data.length;
+                      var start = data.start;
+                      var page = (data.start / data.length) + 1;
+                      var searchKey = $('#dispatch_no').val();
+
+                      myajax4=$.ajax({
+                          headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
+                          type: "POST",
+                          async:false,
+                          url: "dispatchs_data",
+                          data :{
+                              draw : page,
+                              start : start,
+                              length : length,
+                              searchKey : searchKey
+                          },
+                          success:function(result){
+                              var returnData = {};
+                              returnData.recordsTotal = result.recordsTotal;
+                              returnData.recordsFiltered = result.recordsFiltered;
+                              returnData.data = result.data;
+                              callback(returnData);
+
+
+                          }
+                      })
+                  },
+                  "columns":[
+                      { "data":"cWhName" },
+                      { "data":"cInvCode" },
+                      { "data":"cInvName" },
+                      { "data":"cInvStd" },
+                      { "data":"cComUnitName" },
+                      { "data":"cinvDefine13" },
+                      { "data":"iNum"},
+                      // { "data":"kz"},
+                      {"data":"iQuantity"}
+                      // {"data":"cinvcode","render": function(data,type,row,meta){
+                      //     return '<input type="text" name=car_"'+data+'" id=car_"'+data+'" value= 0  >';
+                      // }}
+
+                  ],
+                  columnDefs: [{
+                      targets: 8,//自定义列的序号，从0开始
+
+                      data: "cinvcode", //需要引用的数据列，一般是主键         
+                      render: function(data, type, full){
+                          var searchKey = $('#dispatch_no').val();
+                          return '<input type="text" name="yQuantity"id="yQuantity" value=0  readonly style="width: 70px" oninput="fun();">';
+
+
+
+
+                          //
+
+// onblur="getyQuantityinfo()";">';
+// onkeypress = "if (event.keyCode = 13)  {getyQuantityinfo()};">';
+                      }
+                  },
+
+                      {
+                          targets: 9, //将第3列隐藏，从0开始计数
+                          data: "cinvcode", //需要引用的数据列，一般是主键         
+                          render: function(data, type, full){
+                              var searchKey = $('#dispatch_no').val();
+                              return '<select id="yw"  name="zb" id="zb"  disabled="disabled" style="width: 38px;" ><option value=" "> </option></select>';
+
+                              // '<select id="yw"><option value=""></option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>'
+
+                          }
+                      }
+
+
+                  ]
+
+
+
+
+
+
+              });
+
+
+      }
+var tb = document.getElementById("dispatch_table");
+
+// dd(tb.rows.length);
+// if (tb.rows.length>0)
+// {
+
+
+
+//检查重复
+ myajax2=$.ajax({  url:'dispatchss_data?dispatch_no='+dispatch_no,
+                                  type:'get',
+                                  // async:false,
+                                  dataType:'json',
+                                  headers:{
+                                    Accept:"application/json",
+                                    "Content-Type":"application/json"
+                                  },
+                                  processData:false,
+                                  cache:false,
+                                  timeout: 1000,
+                                  beforeSend:function(){
+
+                                  },
+                                  success:function(data){
+                                    if(data.status==1){
+                                      $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                                      $('#notifyAudio')[0].play();
+                                //发货单号红框提示,toast提示
+                                $("#dispatch_no").addClass("is-invalid");
+                                Toast.fire({
+                                  type: 'error',
+                                  title: data.text
+                                });
+                                //清空发货单号
+                                $('#dispatch_no').val('');
+                                $('#ddate').val('');
+                                $('#ccusname').val('');
+                                $('#position').val('');
+                                $('#result').val(''); 
+                                $('#dispatch_table tbody').html('');                
+                                $('#dispatch_no').focus();
+                              }
+                              else
+                              {
+                              var searchKey = $('#dispatch_no').val();
+                                if (searchKey !='') {
+                                 ($.ajax("myajax1") ,$.ajax("myajax4")).done(function(){
+
+
+document.getElementById("addRow").click();
+          
+        });}
+                                // $('#result').focus();
+                                // $('#dispatch_no').focus();
+                                // $("#dispatch_no").removeClass("is-invalid");
+                                //取发货单表头信息
+                               // $('#dispatch_no').focus();
+                                // $("#dispatch_no").removeClass("is-invalid");
                                 //ALERT("CEUI")
                                 
                               }
@@ -454,194 +746,34 @@ myajax3=$.ajax({
 
 
 
+// }
 
-
-                             }
-                           }
-                         })
-
-
-
-
-var searchKey = $('#dispatch_no').val();
-
-if (searchKey!='') {
-myajax1=$.ajax({
-  data:{searchKey:searchKey},
-  headers:{
-    'X-CSRF-TOKEN' : '{{ csrf_token() }}'
-  },
-  type: "post",
-  // async:false,
-  dataType: "json",
-  url:"getData",
-  success: function (result) {
-    $('#dispatch_no').val(result.cDLCode);
-    $('#ccusname').val(result.cCusName);
-    $('#ddate').val(result.dDate); 
-    $('#position').val(result.no);     
-  }
-})
-          //取发货单表体信息
-          $("#dispatch_table").dataTable().fnDestroy();
-          var table =
-          $('#dispatch_table').DataTable({
-            language: {
-              "sProcessing": "处理中...",
-              "sLengthMenu": "显示 _MENU_ 项结果",
-              "sZeroRecords": "没有匹配结果",
-              "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-              "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-              "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-              "sInfoPostFix": "",
-              "sSearch": "搜索:",
-              "sUrl": "",
-              "sEmptyTable": "表中数据为空",
-              "sLoadingRecords": "载入中...",
-              "sInfoThousands": ",",
-              "oPaginate": {
-                "sFirst": "首页",
-                "sPrevious": "上页",
-                "sNext": "下页",
-                "sLast": "末页"
-              },
-              "oAria": {
-                "sSortAscending": ": 以升序排列此列",
-                "sSortDescending": ": 以降序排列此列"
-              }
-            },
-            'paging'      : false,
-                        // "white-space":nowrap,
-                        "lengthChange": false,
-                        "searching": false,
-                        "ordering": false,
-                        "info": true,
-                        "autoWidth": false,
-                        "serverSide": true,
-                        "bProcessing":true,
-                        "iDisplayLength":20,
-                        
-
-                      "ajax":function(data,callback,settings){
-                          var length = data.length;
-                          var start = data.start;
-                          var page = (data.start / data.length) + 1;
-                          var searchKey = $('#dispatch_no').val();
-
-                          myajax4=$.ajax({
-                            headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
-                            type: "POST",
-                            // async:false,
-                            url: "dispatchs_data",
-                            data :{
-                              draw : page,
-                              start : start,
-                              length : length,
-                              searchKey : searchKey
-                            },
-                            success:function(result){
-                              var returnData = {};
-                              returnData.recordsTotal = result.recordsTotal;
-                              returnData.recordsFiltered = result.recordsFiltered;
-                              returnData.data = result.data;
-                              callback(returnData);
-
-
-                            }
-                          })
-                        },
-                        "columns":[
-                        { "data":"cWhName" },
-                        { "data":"cInvCode" },
-                        { "data":"cInvName" },
-                        { "data":"cInvStd" },
-                        { "data":"cComUnitName" },
-                        { "data":"cinvDefine13" },
-                        { "data":"iNum"}, 
-                        // { "data":"kz"},     
-                        {"data":"iQuantity"}
-                        // {"data":"cinvcode","render": function(data,type,row,meta){
-                        //     return '<input type="text" name=car_"'+data+'" id=car_"'+data+'" value= 0  >';
-                        // }}
-
-                        ],
-                        columnDefs: [{
-                    targets: 8,//自定义列的序号，从0开始
-
-                    data: "cinvcode", //需要引用的数据列，一般是主键         
-                    render: function(data, type, full){
-                      var searchKey = $('#dispatch_no').val();
-                      return '<input type="text" name="yQuantity"id="yQuantity" value=0  readonly style="width: 70px" oninput="fun();">';
-
-
-
-
-                         // 
-
-// onblur="getyQuantityinfo()";">';
-// onkeypress = "if (event.keyCode = 13)  {getyQuantityinfo()};">';
-                       }
-                     },
-
-                       {
-                         targets: 9, //将第3列隐藏，从0开始计数
-                       data: "cinvcode", //需要引用的数据列，一般是主键         
-                    render: function(data, type, full){
-                      var searchKey = $('#dispatch_no').val();
-                      return '<select id="yw"  name="zb" id="zb"  disabled="disabled" style="width: 38px;" ><option value=" "> </option></select>';
-
-                      // '<select id="yw"><option value=""></option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>'
-
-                         }
-                              }
-
-
-                     ]
-
-
-
-
-
-
-                   });
-
-
-}
-// var tb = document.getElementById("dispatch_table");
 
  
         }
 
 
 
-//  $.when($.ajax("myajax1"), $.ajax("myajax2"), $.ajax("myajax3") ,$.ajax("myajax4")).done(function(){
 
+// setTimeout(function() {
+
+// // if(document.all) {
 
 // document.getElementById("addRow").click();
-          
-//         });
 
+// // }
 
+// // else {
 
-setTimeout(function() {
+// // var e = document.createEvent("MouseEvents");
 
-// if(document.all) {
+// // e.initEvent("click", true, true);
 
-document.getElementById("addRow").click();
+// // document.getElementById("buttonid").dispatchEvent(e);
 
-// }
+// // }
 
-// else {
-
-// var e = document.createEvent("MouseEvents");
-
-// e.initEvent("click", true, true);
-
-// document.getElementById("buttonid").dispatchEvent(e);
-
-// }
-
-}, 1500);
+// }, 1500);
 
 
 // var tb = document.getElementById("dispatch_table");
@@ -1436,7 +1568,7 @@ var ctns = $('#CTNS').val();
                 datas.items[i].zb = tb.tBodies[0].rows[i-1].cells[9].firstChild.value;
               }
               Swal.fire({
-                title: '确认保存数据并打印吗?',
+                title: '确认保存数据并审核发货单吗?',
                 text:'共'+length+'条'+','+'共'+ctns+'箱',
                 footer: '发货单号：'+$('#dispatch_no').val(),
                 type: 'question',
@@ -1477,15 +1609,35 @@ var ctns = $('#CTNS').val();
                                     });
                                     return false;
                                   }
+                                   if(t.status == 2){
+                               Toast.fire({
+                                        type: 'error',
+                                        title: t.text2
+
+                                    });
+
+                                $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+                                $('#successAudio')[0].play();
+
+                                // $('#dispatch_table tbody').html('');
+                                // $("#dispatch_no").focus();
+                                return false;
+                                }
+                                if(t.status == 1){
                                 //上传成功提示
-                                Swal.fire({
-                                  toast: true,
-                                  position: 'top-end',
-                                  showConfirmButton: false,
-                                  timer: 2200,
-                                  type: 'success',
-                                  title: '保存成功'
-                                })
+                                  Swal.fire({
+                            type: 'success',
+                             title: '上传成功！',
+                            text: "出库单号为"+t.text1
+                        });
+                                // Swal.fire({
+                                //   toast: true,
+                                //   position: 'top-end',
+                                //   showConfirmButton: false,
+                                //   timer: 2200,
+                                //   type: 'success',
+                                //   title: '保存成功'
+                                // })
                                 $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
                                 $('#successAudio')[0].play();
 
@@ -1499,6 +1651,9 @@ var ctns = $('#CTNS').val();
                                   $('#ZXSL').val('');
                                   $('#fz').val('1');
                                 $('#dispatch_no').focus();
+
+
+                              }
                               },
                               error: function() {
                                 alert("error");
@@ -1618,7 +1773,7 @@ var dispatch_no = $('#dispatch_no').val();
 $('#addRow').on( 'click', function (){
 
 
-   $('#dispatch_no').blur();
+   // $('#dispatch_no').blur();
   var ccusname = $('#ccusname').val();
   var dispatch_no = $('#dispatch_no').val();
   var ddate = $('#ddate').val();
@@ -1659,14 +1814,14 @@ var tb = document.getElementById("dispatch_table");
              }
 
 
-             if(dispatch_no == ''){
-              Toast.fire({
-                type: 'error',
-                title: '未完全对货，请继续对货！'
-              });
-              $('#result').focus();
-              return false;
-            }
+//             if(dispatch_no == ''){
+//              Toast.fire({
+//                type: 'error',
+//                title: '未完全对货，请继续对货！'
+//              });
+//              $('#result').focus();
+//              return false;
+//            }
 
             //发货单号提示
             if(dispatch_no == ''){
@@ -1682,7 +1837,7 @@ var tb = document.getElementById("dispatch_table");
             if(ccusname == ''){
               Toast.fire({
                 type: 'error',
-                title: '客户名称不能为空1！'
+                title: '客户名称不能为空！'
               });
               $('#dispatch_no').focus();
               return false;
@@ -1695,7 +1850,7 @@ var tb = document.getElementById("dispatch_table");
             if(length == 0){
               Toast.fire({
                 type: 'error',
-                title: '明细为空无法保存！'
+                title: '明细为空！'
               });
               $('#dispatch_no').focus();
               return false;
@@ -1729,8 +1884,8 @@ var tb = document.getElementById("dispatch_table");
                 "sSortDescending": ": 以降序排列此列"
               }
             },
-            'paging'      : false,
-                        // "white-space":nowrap,
+                         'paging'      : false,
+                        // "white-space": nowrap,
                         "lengthChange": false,
                         "searching": false,
                         "ordering": false,
@@ -1739,6 +1894,18 @@ var tb = document.getElementById("dispatch_table");
                         "serverSide": true,
                         "bProcessing":true,
                         "iDisplayLength":20,
+                        "rowHeight":1,
+                        // "white-space":nowrap,
+                        // "overflow":hidden,
+                        // "sScrollY" : 40,
+                        // "bScrollCollapse" : true,
+                //      
+      //                   "scrollY": '500px', 
+      // "scroller": { 
+      
+      // }, 
+                         // "scrollCollapse": true,
+                         // "scrollY": "170px",
                         
 
                         "ajax":function(data,callback,settings){

@@ -49,6 +49,7 @@
                     <thead>
                     <tr>
                         <th>存货编码</th>
+                        <th>条形码</th>
                         <th>存货名称</th>
                         <th>装箱规格</th>
                         <th>单位净重</th>
@@ -156,6 +157,7 @@
                 },
                 "columns":[
                     { "data":"cinvcode" },
+                    { "data":"cinvdefine5" },
                     { "data":"cinvname" },
                     { "data":"cInvDefine13" },
                     { "data":"iInvWeight" },
@@ -166,7 +168,7 @@
                     {"data":"id"}
                 ],
                 columnDefs: [{
-                    targets: 5,//自定义列的序号，从0开始
+                    targets: 6,//自定义列的序号，从0开始
                     data: "id", //需要引用的数据列，一般是主键         
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +

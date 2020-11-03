@@ -58,7 +58,7 @@
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
                     <button onclick="deleteTable()" class="btn btn-danger float-left">清空</button>
-                    <button onclick="batchSave()"  class="btn btn-primary float-right"> 上传并审核</button> 
+                    <button onclick="batchSave()"  class="btn btn-primary float-right"> 上传</button> 
                 </div>
                 <!-- /.card-footer -->
             </div>
@@ -137,7 +137,7 @@
             }
 
             Swal.fire({
-                title: '确认上传暂存区数据到系统并审核发货单吗?',
+                title: '确认上传暂存区数据到系统吗?',
                 text:'共'+length+'条',
                 footer: '打包员'+$('#packager option:selected').text()+'  库位'+$('#location_no').val(),
                 type: 'question',
@@ -185,27 +185,27 @@
                                 //     title: t.title1,
                                 // // title: "上传审核成功,共'+length+'条,生成销售出库单号为"+data.ccode,
                                 // });
-                                 if(t.status == 2){
-                               Toast.fire({
-                                        type: 'error',
-                                        title: t.text2
+                               //   if(t.status == 2){
+                               // Toast.fire({
+                               //          type: 'error',
+                               //          title: t.text2
 
-                                    });
+                               //      });
 
-                                $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
-                                $('#successAudio')[0].play();
+                               //  $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+                               //  $('#successAudio')[0].play();
 
-                                $('#dispatch_table tbody').html('');
-                                $("#dispatch_no").focus();
-                                return false;
-                                }
+                               //  $('#dispatch_table tbody').html('');
+                               //  $("#dispatch_no").focus();
+                               //  return false;
+                               //  }
 
 
-                                if(t.status == 1){
+                                if(t.status != 0){
                                 Swal.fire({
                             type: 'success',
-                             title: '上传成功,共'+length+'条！',
-                            text: "出库单号为"+t.text1
+                             title: '上传成功,共'+length+'条！'
+                            // text: "出库单号为"+t.text1
                         });
 
                                 $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');

@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('sweepCar/dispatch_data', 'SweepCarsController@dispatch_data')->name('sweepCar.dispatch_data');
     Route::get('sweepCar/checkPass', 'SweepCarsController@checkPass')->name('sweepCar.checkPass');
     Route::post('sweepCar/getData', 'SweepCarsController@getData')->name('sweepCar.getData');
+    Route::post('sweepCar/delete/{searchKey}', 'SweepCarsController@delete')->name('sweepCar.delete');
     Route::get('sweepCar/checkCdlcode', 'SweepCarsController@checkCdlcode')->name('sweepCar.checkCdlcode');
     Route::resource('sweepCar', 'SweepCarsController', ['only' => ['create', 'store','index','destroy','show']]);
 

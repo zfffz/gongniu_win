@@ -50,7 +50,7 @@ class CartonsController extends CommonsController
         }
         // select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
           
-        DB::update("update inventory set cInvDefine13=?, iInvWeight=?,fGrossW=? where cdlcode=?",[$request->no,$request->iInvWeight,$request->fGrossW,$id]);
+        DB::update("update inventory set cInvDefine13=?, cinvdefine5=?,iInvWeight=?,fGrossW=? where cdlcode=?",[$request->no,$request->cinvdefine5,$request->iInvWeight,$request->fGrossW,$id]);
         // $carton=new Carton();
         // $carton->no = $request->no;
         // $carton->name = $request->name;
@@ -77,7 +77,7 @@ class CartonsController extends CommonsController
         }
 
 
-         $carton= DB::select("select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
+         $carton= DB::select("select cinvcode as id,cinvcode as no,cinvdefine5,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
           
         return view('admins.carton.show',compact('carton'));
 
@@ -110,7 +110,7 @@ class CartonsController extends CommonsController
          if (! Auth::user()->can('basic_users')) {
             return view('admins.pages.permission_denied');
         }
-       $carton= DB::select("select cinvcode as id,cinvcode as no,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
+       $carton= DB::select("select cinvcode as id,cinvcode as no,cinvdefine5,cinvname as name,cInvDefine13,iInvWeight,fGrossW  from inventory where cinvcode=?",[$id]);
           
         return view('admins.carton.create_and_edit',compact('carton'));
     }
@@ -131,7 +131,7 @@ class CartonsController extends CommonsController
         $dModifyDate = date("Y-m-d H:i:s");
         $cModifyPerson= Auth::user()->name;
         // dd($request->cInvDefine13);
-       DB::update("update inventory set cInvDefine13=?, iInvWeight=?,fGrossW=?,cModifyPerson=?,dModifyDate=? where cinvcode=?",[$request->cInvDefine13,$request->iInvWeight,$request->fGrossW,$cModifyPerson,$dModifyDate,$id]);
+       DB::update("update inventory set cInvDefine13=?, cinvdefine5=?,iInvWeight=?,fGrossW=?,cModifyPerson=?,dModifyDate=? where cinvcode=?",[$request->cInvDefine13,$request->cinvdefine5,$request->iInvWeight,$request->fGrossW,$cModifyPerson,$dModifyDate,$id]);
         // $carton=new Carton();
         // $carton->no = $request->no;
         // $carton->name = $request->name;
@@ -172,12 +172,15 @@ class CartonsController extends CommonsController
                 \DB::raw("
             t1.cinvcode as id,
             t1.cinvcode,
+            t1.cinvdefine5,
             t1.cinvname,
             t1.cInvDefine13,
             t1.iInvWeight,
             t1.fGrossW
            
             "))
+            ->where('bInvType','=',0)
+           
             // ->leftJoin('users as t2','t1.create_id','t2.id')
             // ->leftJoin('users as t3','t1.edit_id','t3.id')
             ;
@@ -189,9 +192,11 @@ class CartonsController extends CommonsController
 
     private function condition($table,$searchKey){
         if($searchKey!=''){
+
             $table->where('t1.cinvcode','like','%'.$searchKey.'%');
             $table->orWhere('t1.cinvname','like','%'.$searchKey.'%');
             $table->orWhere('t1.cInvDefine13','like','%'.$searchKey.'%');
+            $table->orWhere('t1.cInvDefine5','like','%'.$searchKey.'%');
             // $table->orWhere('t3.name','like','%'.$searchKey.'%');
         }
         return $table;

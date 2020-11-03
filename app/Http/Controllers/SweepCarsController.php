@@ -99,12 +99,17 @@ class SweepCarsController extends CommonsController
         }
 
                 //记录装车人和装车时间
-                $result1 = DB::select('select cpersonname as name from BS_GN_WL  where cpersoncode = ?', [$request->input('driver_id')]);  //抓取司机名字
-                DB::update('update DispatchList set cDefine14=? where cdlcode=?', [$result1[0]->name, $data['dispatch_no']]);
+
+  // $dated=date('Y-m-d H:i:s',time());
+   DB::insert('insert into  BS_GN_wlstate (cpersoncode,cdlcode,zc,ddate) values (?,?,?,?)', [$request->input('driver_id'),$data['dispatch_no'],'装车',$ddate]);
+
+
+                // $result1 = DB::select('select cpersonname as name from BS_GN_WL  where cpersoncode = ?', [$request->input('driver_id')]);  //抓取司机名字
+                // DB::update('update DispatchList set cDefine14=? where cdlcode=?', [$result1[0]->name, $data['dispatch_no']]);
 
                
-                $result2 = DB::select('select DLID from Dispatchlist  where cdlcode = ?', [$data['dispatch_no']]);  //获取发货单对应的DLID
-                DB::update('update dispatchlist_extradefine set chdefine6=convert(varchar(100),?,120) where DLID=?', [$ddate, $result2[0]->DLID]);
+                // $result2 = DB::select('select DLID from Dispatchlist  where cdlcode = ?', [$data['dispatch_no']]);  //获取发货单对应的DLID
+                // DB::update('update dispatchlist_extradefine set chdefine6=convert(varchar(100),?,120) where DLID=?', [$ddate, $result2[0]->DLID]);
 
                 //查看发货单对应的打包单是否全部装车，更新打包单状态
                 $result3 = DB::SELECT('SELECT parent_id from zzz_sweep_out_items where dispatch_no = ?', [$data['dispatch_no']]);  //获取打包单的id
@@ -179,6 +184,89 @@ class SweepCarsController extends CommonsController
         //
     }
 
+    public function delete(Request $request, $id)
+    {
+
+         if (! Auth::user()->can('sweepcars_users')) {
+     return view('admins.pages.permission_denied');
+        };
+     $searchKey = $request->input('searchKey');
+
+$result6= DB::select("select t1.status as status from zzz_sweep_car_items as t2 inner join zzz_sweep_cars as t1  ON t1.id = t2.parent_id where t2.dispatch_no=?",[$searchKey]);
+// dd($result6[0]->status);
+if($result6[0]->status ==1){
+                echo json_encode(array('status'=>0,'text'=>'已经生成发运单，不允许删除！'));
+                exit();
+            };
+//明细最后一张不让删
+         $result7 = DB::select(" select parent_id FROM zzz_sweep_car_items where dispatch_no=?",[$searchKey]);
+
+ $result8 = DB::select(" select count(id) as count from zzz_sweep_car_items where parent_id=?",[$result7[0]->parent_id]);
+ if($result8[0]->count ==1){
+ echo json_encode(array('status'=>0,'text'=>'明细只有一行，请整单删除！'));
+                exit();
+
+ }
+// $data= DB::select("select flag,dispatch_no from zzz_sweep_checks where id=?",[$id])
+
+        // 更新打包发货单装车次数
+            $delete3 = DB::table('zzz_sweep_out_items as t1')
+                ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+                ->where('t2.dispatch_no','=',$searchKey)
+                ->decrement('t1.car_count');
+            // 更新打包发货单状态
+           $delete4 = DB::table('zzz_sweep_out_items as t1')
+                ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+                ->where('t2.dispatch_no','=',$searchKey)
+                ->where('t1.car_count','=',0)
+                ->update(['t1.status'=>0]);
+
+         
+// dd($searchKey);
+
+      
+
+          
+    // dd($searchKey);
+                 //更新打包出库单表头状态
+            $result3 = DB::select('select t1.parent_id as parent_id from zzz_sweep_out_items as t1 left join zzz_sweep_car_items as t2 on t1.dispatch_no = t2.dispatch_no where t2.dispatch_no = ?', [$searchKey]); 
+            // dd($result3[0]->parent_id);
+            // // //获取打包单主表的id
+            $result4 = DB::select('select count(*) as zcnum from zzz_sweep_out_items where status<>0 and parent_id = ?', [$result3[0]->parent_id]); 
+             
+           // 查询该打包单生成装车单的发货单数
+
+           
+            if ($result4[0]->zcnum > 0) {
+                //部分装车
+               $delete5 = DB::update('update zzz_sweep_outs set status=1 where id=?', [$result3[0]->parent_id]);
+            } else {
+                //全部未装车
+              $delete6 = DB::update('update zzz_sweep_outs set status=0 where id=?', [$result3[0]->parent_id]);
+            };
+               
+   
+
+            //清空U8装车人和装车时间
+$delete1 = DB::update("update dispatchlist set cDefine14='' where cdlcode=?", [$searchKey]);
+            // DB::table('dispatchlist as t1')
+            //     // ->join('zzz_sweep_car_items as t2','t1.cDLCode','=','t2.dispatch_no')
+            //     ->where('t1.cDLCode','=',$searchKey)
+            //     ->update(['t1.cDefine14'=>'']);
+
+        $delete2 = DB::table('dispatchlist_extradefine as t1')
+                ->join('dispatchlist as t2','t1.DLID','=','t2.DLID')
+                // ->join('zzz_sweep_car_items as t3','t2.cDLCode','=','t3.dispatch_no')
+                ->where('t2.cDLCode','=',$searchKey)
+                ->update(['t1.chdefine6'=>'']);
+                 //删除记录
+                    $deleteds1 = DB::delete("delete from BS_GN_wlstate where zc='装车'  and cdlcode=?",[$searchKey]);
+                    //删除装车记录
+  $delete = DB::delete("delete from zzz_sweep_car_items where dispatch_no=?",[$searchKey]);
+           return [];
+        //
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -198,6 +286,7 @@ class SweepCarsController extends CommonsController
                 echo json_encode(array('status'=>0,'text'=>'已经生成发运单，不允许删除！'));
                 exit();
             }
+            // dd($sweepCar->status);
             // 更新打包发货单装车次数
             DB::table('zzz_sweep_out_items as t1')
                 ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')

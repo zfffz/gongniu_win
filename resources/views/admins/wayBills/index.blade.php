@@ -32,7 +32,7 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>车牌</label>
-                                <select class="form-control" required name="car_id" id="car_id" style="width: 100%;">
+                                <select class="form-control" required name="car_id" id="car_id" onBlur="txtblur()" style="width: 100%;">
                                     <option value="" >请选择</option>
                                     @foreach ($cars as $car)
                                         <option value="{{ $car->id }}">
@@ -70,7 +70,7 @@
                         <div class="input-group">
                             <label>查询</label>
                             <td>
-                                <button type="button" class="btn btn-block btn-primary" onclick="table.draw( false );">查询</button>
+                                <button type="button"  id="btn-submit1"  class="btn btn-block btn-primary" >查询</button>
                             </td>
                         </div>
                     </div>
@@ -119,6 +119,7 @@ $(function () {
         theme: 'bootstrap4'
     });
 
+
     $('#reservation').daterangepicker({
         locale: {
         format: 'YYYY-MM-DD',
@@ -132,20 +133,15 @@ $(function () {
         }         
     });
 
-    table.draw( false );
+    table.draw( false ) ;
 
-    // $("td.details-control").css ({
-    // "background": "yellow",
-    // "cursor": "pointer"});
-    // $("tr.shown td.details-control").css ({
-    //     "background": "url('/image/details_close.png') no-repeat center center"
-    // });
-
+    // 
+//点击加号事件
     $('#companiesLists tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
         var row = table.row( tr );
         //console.log(row.data().id);
-
+// alert(1);
         if ( row.child.isShown() ) {
             // This row is already open - close it
             row.child.hide();
@@ -186,17 +182,19 @@ $(function () {
             tr.addClass('down');
         }
     });
+
 });
 
-
+//生成发运单事件
 $('#btn-submit').on('click', function(){
     var datas={};
     datas.sweep_cars={};
     //console.log(datas.sweep_cars);
     var str;
-    var inputs =  $("#companiesLists td[class='rows-select sorting_1 rows-select-down'] input").prev();
+    var inputs =  $("#companiesLists td[class*='rows-select-down'] input").prev();
     inputs=inputs.prevObject;
     var len = inputs.length;
+    // alert(len);
     if(len>0){
         for (var i=0;i<len;i++){   
             
@@ -296,7 +294,82 @@ return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50
         '</tr>'+ str +'</table>';
 };
 
+ // window.onload = function () {
+ //    var car_id = $('#car_id').val();
+ //    if(car_id == ''){
+ //        Toast.fire({
+ //            type: 'error',
+ //            title: '请选择车牌！'
+ //        });
+ //        $('#car_id').addClass('is-invalid');
+ //        $('#car_id').focus();
+ //        return false;
+ //    }
+ //    $('#car_id').focus();
+ // }
+ // table.draw( false ) ;
+//查询点击事件
+$('#btn-submit1').on('click', function(){
+    // function txtblur(event){ //当前元素失去焦点
+var car_id = $('#car_id').val();
+    if(car_id == ''){
+        Toast.fire({
+            type: 'error',
+            title: '请选择车牌！'
+        });
+        $('#car_id').addClass('is-invalid');
+        $('#car_id').focus();
+        return false;
+    }
+    else{
+        table.draw( false ) ;
+    }
+        });
 
+//      $('#companiesLists tbody').on('click', 'td.details-control', function () {
+//         var tr = $(this).closest('tr');
+//         var row = table.row( tr );
+//         //console.log(row.data().id);
+// // alert(1);
+//         if ( row.child.isShown() ) {
+//             // This row is already open - close it
+//             row.child.hide();
+//             tr.removeClass('shown');
+//         }
+//         else {
+//             var dispatch_no;
+//             $.ajax({
+//                 headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
+//                 type: "POST",
+//                 url: "wayBill/getDispatchData",//发货单号
+//                 data :{
+//                     dispatch_no : row.data().id
+//                 }, 
+//                 dataType:"json",                      
+//                 success:function(result){
+//                     dispatch_no = result;
+//                     row.child( format(dispatch_no) ).show();
+//                     tr.addClass('shown');
+
+//                 }   
+//     });
+//         }
+//     });
+
+
+
+ //   window.onload = function () {
+ //    var car_id = $('#car_id').val();
+ //    if(car_id == ''){
+ //        Toast.fire({
+ //            type: 'error',
+ //            title: '请选择车牌！'
+ //        });
+ //        $('#car_id').addClass('is-invalid');
+ //        $('#car_id').focus();
+ //        return false;
+ //    }
+ // }
 var table =
             $('#companiesLists').DataTable({
                 language: {
@@ -331,6 +404,17 @@ var table =
                 "autoWidth": false,
                 "serverSide": true,
                 "bProcessing":true,
+                "destroy":true,
+
+                "createdRow": function (row, data, dataIndex) {
+                // row : tr dom
+                // data: row data
+                // dataIndex:row data's index
+                // if (data[4] == "A") {
+                     $(row).addClass(' down ');
+                // }
+                },// 行属性处理
+
                 "ajax":function(data,callback,settings){
                     var length = data.length;
                     var start = data.start;
@@ -341,6 +425,7 @@ var table =
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
                         type: "POST",
+                        // async:false,
                         url: "wayBill/getData",
                         data :{
                             draw : page,
@@ -351,7 +436,6 @@ var table =
                             statusKey : statusKey
                         },                       
                         success:function(result){
-
                             var returnData = {};
                             returnData.recordsTotal = result.recordsTotal;
                             returnData.recordsFiltered = result.recordsFiltered;
@@ -363,7 +447,7 @@ var table =
 
                 "columns":[  
                     {   "data":"id",
-                        "class":"rows-select",
+                        "class":"rows-select rows-select-down",
                         "width":"35px",
                         "orderable":      false,//是否排序                        
                         "visible": true ,//是否显示
@@ -390,10 +474,57 @@ var table =
                     { "data":"c_date" ,"orderable": false},
                     { "data":"c_time" ,"orderable": false},
                     { "data":"status" ,"orderable": false}  
-                ]              
+                ]
 
             });
+//      $('#companiesLists tbody').on('click', 'td.details-control', function () {
+//         var tr = $(this).closest('tr');
+//         var row = table.row( tr );
+//         //console.log(row.data().id);
+// // alert(1);
+//         if ( row.child.isShown() ) {
+//             // This row is already open - close it
+//             row.child.hide();
+//             tr.removeClass('shown');
+//         }
+//         else {
+//             var dispatch_no;
+//             $.ajax({
+//                 headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
+//                 type: "POST",
+//                 // async:false,
+//                 url: "wayBill/getDispatchData",//发货单号
+//                 data :{
+//                     dispatch_no : row.data().id
+//                 }, 
+//                 dataType:"json",                      
+//                 success:function(result){
+//                     dispatch_no = result;
+//                     row.child( format(dispatch_no) ).show();
+//                     tr.addClass('shown');
+
+//                 }   
+//     });
+//         }
+//     });
+
+
+
+//          $('#companiesLists tbody').on('click', 'td.rows-select', function () {
+//         var td = $(this).attr('class');
+//         var tr = $(this).closest('tr');                
+//         if ( td.indexOf("rows-select-down") >= 0 ) {            
+//             $(this).addClass("rows-select-up").removeClass("rows-select-down");
+//             tr.removeClass('down');
+//         }
+//         else {
+//             $(this).addClass("rows-select-down").removeClass("rows-select-up");
+//             tr.addClass('down');
+//         }
+//     });
 
 
 </script>
+
 @endsection
+

@@ -109,19 +109,21 @@ class SweepOutsController extends CommonsController
                 DB::INSERT('insert into BS_GN_WLstate(cpersoncode,cdlcode,db,ddate)VALUES(?,?,?,?)',[$request->input('packager'),$data['dispatch_no'],'打包',$ddate]);
 
                 // $cVerifier= Auth::user()->name;
-         $cVerifier= 'auser';
- //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
-                $date= date("Y-m-d H:i:s");
-                DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
-                //生成销售出库单和更改库存
-                DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
+//          $cVerifier= 'auser';
+//  //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
+//                 $date= date("Y-m-d H:i:s");
+//                 DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
+//                 //生成销售出库单和更改库存
+//                 DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
+// //1.提示销售出库单号
+//         $data1 = DB:: table('rdrecord32 as t1')
+//         ->select('t1.ccode')
+//         ->where('t1.cbuscode','=',$data['dispatch_no'])->get();
+                
                 //回传打包单号
          DB::update("update dispatchlist set cdefine2= ? where cDLCode =?",[$results[0]->no,$data['dispatch_no']]);
          DB::update("update zzz_sweep_checks  set flag=1 where dispatch_no =?",[$data['dispatch_no']]);
-        //1.提示销售出库单号
-        $data1 = DB:: table('rdrecord32 as t1')
-        ->select('t1.ccode')
-        ->where('t1.cbuscode','=',$data['dispatch_no'])->get();
+        
         //插入库位库存记录表zzz_kwkc
 
 
@@ -154,22 +156,22 @@ foreach ($res as $ress) {
             }
             // 更新
             $sweep_out->update(['count' => ($i-1)]);
-             if(count($data1) != 0)
-        {
+ //             if(count($data1) != 0)
+ //        {
            
-    $revalue = json_encode(array('status'=>1,'text1'=>$data1[0]->ccode));
+ //    $revalue = json_encode(array('status'=>1,'text1'=>$data1[0]->ccode));
 
- // return $revalue ;
+ // // return $revalue ;
 
-        }
+ //        }
 
-        else{
-    $revalue = json_encode(array('status'=>2,'text2'=>'未生成销售出库单，请联系管理员！'));
+ //        else{
+ //    $revalue = json_encode(array('status'=>2,'text2'=>'未生成销售出库单，请联系管理员！'));
     
- // return $revalue ;
-     }
+ // // return $revalue ;
+ //     }
 
-             return $revalue ;
+ //             return $revalue ;
             // 更新
             $sweep_out->update(['count' => ($i-1)]);
 
@@ -409,13 +411,13 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
         //     ->select('t1.cDLCode','t1.cVerifier')
         //     ->where('t1.cDLCode','=',$dispatch_no)->get();
 
-            $data = DB::SELECT("select cVerifier from dispatchlist where CDLCODE= ? AND cVerifier is  NULL ",[$dispatch_no]);
+        //     $data = DB::SELECT("select cVerifier from dispatchlist where CDLCODE= ? AND cVerifier is  NULL ",[$dispatch_no]);
 
-        if(count($data) == 0){
-            echo json_encode(array("status"=>"0","text"=>"发货单号系统不存在或发货单已审核！"));
-            exit();
-        }
-        else{
+        // if(count($data) == 0){
+        //     echo json_encode(array("status"=>"0","text"=>"发货单号系统不存在或发货单已审核！"));
+        //     exit();
+        // }
+        // else{
             // echo json_encode(array("status1"=>"1",'cVerifier'=>$data[0]->cVerifier));
             // if(cVerifier == NULL)
             // { echo json_encode(array('status1'=>0,'text1'=>"发货单号'$dispatch_no'已经审核！"));
@@ -436,7 +438,7 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
                 echo json_encode(array('status'=>0,'text'=>'发货单号'.$jg[0]->dispatch_no.'，已经打包，不允许重复录入！'));
                 exit();
             }
-        }
+        // }
 
 
 // DB::SELECT("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);

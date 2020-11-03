@@ -15,3 +15,8 @@ td.rows-select {
 tr.down td.rows-select {
     background: url('/image/chkboxdown.png') no-repeat center center;
 }
+
+.dispatch_table.dispatch_table-bordered > tr >td {
+height: 80px;
+max-height: 80px;
+}
