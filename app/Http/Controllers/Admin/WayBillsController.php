@@ -53,11 +53,12 @@ class WayBillsController extends CommonsController
      */
     public function store(Request $request)
     {
-         if (! Auth::user()->can('waybills_users')) {
-     return view('admins.pages.permission_denied');
+     //     if (! Auth::user()->can('waybills_users')) {
+     // return view('admins.pages.permission_denied');
   
-        }
-        //dd($request);
+     //    }
+        
+        // dd($request);
         $sweepcars_id = json_decode(json_encode($request->sweep_cars), true);
 
         $valstr = $this->checkRepeat($request);
@@ -85,14 +86,14 @@ class WayBillsController extends CommonsController
             }
         }  
         
-        //dd($str_id); 
+        // dd($str_id); 
         $uname = $request->user()->name;
 
         $sqlvalue =  DB::select("exec z_qt_fhysd ?,?,?",
             [$str_id,$uname,'']);
         //DB::select("exec z_qt_fhysd('".$str_id."','".$uname."')");
         // $v=(array) sqlvalue[0];
-         //dd($sqlvalue[0]->billno);
+         // dd($sqlvalue[0]->billno);
        // $V=count($sqlvalue);
         // dd($V);
         if(count($sqlvalue)>0){

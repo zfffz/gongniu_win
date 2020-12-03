@@ -227,7 +227,9 @@ $('#btn-submit').on('click', function(){
     }).then(
         function(n){
             if(n.value){
+
                 $.ajax({
+
                     url:"{{route('wayBill.store')}}",
                     data:JSON.stringify(datas),
                     type:'post',

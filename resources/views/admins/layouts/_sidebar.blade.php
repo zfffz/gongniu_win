@@ -45,7 +45,8 @@
                              </a>
                         </li>
                        @endcan
-                       @can('sweepchecks_users')
+                       
+                       @can('manage_users')
                         <li class="nav-item">
                             <a href="{{route('sweepCheck.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -152,7 +153,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                       @can('sweepchecks_users')
+                       @can('manage_users')
                         <li class="nav-item">
                             <a href="{{route('sweepCheck.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

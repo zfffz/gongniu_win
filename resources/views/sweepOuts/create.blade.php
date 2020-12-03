@@ -304,6 +304,7 @@
 
             }
             //判断发货单是否已经对货，未对货则要求先对货,再打包
+            //11.20修改检查发货单是否已经审核过，未审核过要求先审核，在打包
                 $.ajax({
                     url:'checkIfdh?dispatch_no='+dispatch_no,
                     type:'get',

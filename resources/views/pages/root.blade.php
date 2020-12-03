@@ -42,6 +42,7 @@
                    <!--  <a class="btn-block" href="{{route('sweepCheckapp.create')}}">
                         <button type="button" class="btn btn-warning btn-block btn-flat btn-lg">扫码对货</button>
                     </a> -->
+                   
                      @can('sweepouts_users')
                     <a class="btn-block" href="{{route('sweepOut.create')}}">
                         <button type="button" class="btn btn-primary btn-block btn-flat btn-lg">打包入库</button>

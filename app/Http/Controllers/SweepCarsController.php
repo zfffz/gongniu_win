@@ -258,7 +258,7 @@ $delete1 = DB::update("update dispatchlist set cDefine14='' where cdlcode=?", [$
                 ->join('dispatchlist as t2','t1.DLID','=','t2.DLID')
                 // ->join('zzz_sweep_car_items as t3','t2.cDLCode','=','t3.dispatch_no')
                 ->where('t2.cDLCode','=',$searchKey)
-                ->update(['t1.chdefine6'=>'']);
+                ->update(['t1.chdefine10'=>'']);
                  //删除记录
                     $deleteds1 = DB::delete("delete from BS_GN_wlstate where zc='装车'  and cdlcode=?",[$searchKey]);
                     //删除装车记录
@@ -320,7 +320,7 @@ $delete1 = DB::update("update dispatchlist set cDefine14='' where cdlcode=?", [$
                 ->join('dispatchlist as t2','t1.DLID','=','t2.DLID')
                 ->join('zzz_sweep_car_items as t3','t2.cDLCode','=','t3.dispatch_no')
                 ->where('t3.parent_id','=',$sweepCar->id)
-                ->update(['t1.chdefine6'=>'']);
+                ->update(['t1.chdefine10'=>'']);
                 //删除记录
       $jg2 =  DB::SELECT("select dispatch_no from zzz_sweep_car_items where parent_id=?",[$sweepCar->id]);
                 foreach ( $jg2 as $Sweep_car_items) {

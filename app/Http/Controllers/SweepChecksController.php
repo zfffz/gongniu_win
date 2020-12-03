@@ -678,7 +678,13 @@ public function store(Request $request)
                 $date= date("Y-m-d H:i:s");
                 DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$dispatch_no]);
                 //生成销售出库单和更改库存
-                DB::Update("exec zzz_CCGC32 ?",[$dispatch_no]);
+                DB::Update("exec zzz_CCGC3201 ?",[$dispatch_no]);
+                DB::Update("exec zzz_CCGC3202 ?",[$dispatch_no]);
+                DB::Update("exec zzz_CCGC3203 ?",[$dispatch_no]);
+                DB::Update("exec zzz_CCGC3204 ?",[$dispatch_no]);
+                // DB::Update("exec zzz_CCGC3205 ?",[$dispatch_no]);
+                DB::Update("exec zzz_CCGC3206 ?",[$dispatch_no]);
+                DB::Update("exec zzz_CCGC3207 ?",[$dispatch_no]);
 //1.提示销售出库单号
         $data1 = DB:: table('rdrecord32 as t1')
         ->select('t1.ccode')

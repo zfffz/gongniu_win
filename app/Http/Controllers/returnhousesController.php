@@ -460,18 +460,37 @@ select id from  zzz_kwkc where source='扫码上车' and  cdlcode= ?",[$dispatch
 
 
   //判断发货单是否已经对货，未对货则要求先对货，再打包
-    public function checkIfdh(Request $request){
+ public function checkIfdh(Request $request){
         $cdlcode = $request->dispatch_no;
-        $query = DB:: table('zzz_sweep_checks as t1')
-            ->where('t1.dispatch_no','=',$cdlcode)
-            ->count();
-        if($query == 0 ){
+
+        //11.20修改检查发货单是否已经审核过，未审核过要求先审核，在打包,以后检查对货可以直接启用
+        // $query = DB:: table('zzz_sweep_checks as t1')
+        //     ->where('t1.dispatch_no','=',$cdlcode)
+        //     ->count();
+
+
+ $query =  DB::SELECT("select DLID as DLID from dispatchlist where dverifydate is NOT NULL and cDLCode=?",[$cdlcode]);
+
+        if(COUNT($query) == 0 ){
             //这张发货单未进行对货
-            echo json_encode(array('status'=>0,'text'=>'未对货，不允许退货入库！'));
+            echo json_encode(array('status'=>0,'text'=>'发货单未审核或不存在，不允许打包入库！'));
         }else{
             echo json_encode(array('status'=>1,'text'=>'success！'));
         }
     }
+    //对货启用后，启用一下语句
+    // public function checkIfdh(Request $request){
+    //     $cdlcode = $request->dispatch_no;
+    //     $query = DB:: table('zzz_sweep_checks as t1')
+    //         ->where('t1.dispatch_no','=',$cdlcode)
+    //         ->count();
+    //     if($query == 0 ){
+    //         //这张发货单未进行对货
+    //         echo json_encode(array('status'=>0,'text'=>'未对货，不允许退货入库！'));
+    //     }else{
+    //         echo json_encode(array('status'=>1,'text'=>'success！'));
+    //     }
+    // }
     public function getData(Request $request)
     {
         $builder = \DB::table('zzz_return_houses as t1')
