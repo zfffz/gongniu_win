@@ -26,7 +26,11 @@ class WayBillsController extends CommonsController
         }
 
         $cars= Car::all();
-        return view('admins.wayBills.index',compact('cars'));
+          $drivers = DB::table('bs_gn_wl')
+            ->select('cpersoncode as id','cpersonname as name')
+            ->where('wlcode','=','04')
+            ->get();
+        return view('admins.wayBills.index',compact('cars','drivers'));
     }
 
     /**
@@ -245,7 +249,7 @@ class WayBillsController extends CommonsController
             // if ($searchKey->caridKey!=null || $searchKey->caridKey!=''){
                 $table->where('t1.created_at','>=',$bgdate);
                 $table->where('t1.created_at','<',$eddate);
-                $table->where('t1.car_id','=',$searchKey->caridKey);
+                $table->where('t4.cpersoncode','=',$searchKey->driveridKey);
                 $table->where('t1.status','=',$searchKey->statusKey); 
             // }
             // else{

@@ -68,13 +68,14 @@
                 <!-- Table row -->
                 <div class="row">
                     <div class="col-12 table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped" id="maintable">
                             <thead>
                             <tr>
                                 <th>序号</th>
                                 <th>发货单号</th>
                                 <th>默认库位</th>
                                 <th>状态</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -84,6 +85,7 @@
                                     <td>{{$sweepOut_item->dispatch_no}}</td>
                                     <td>{{$sweepOut_item->default_location_no}}</td>
                                     <td>{{$sweepOut_item->status == 0 ? '未装车':'已装车'}}</td>
+                                    <td><a href="javascript:void(0);" onclick="deleteCurrentRow(this)" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a></td>
                                 </tr>
                             @endforeach
 
@@ -103,6 +105,79 @@
 @endsection
 @section('script')
     <script>
+
+  function deleteCurrentRow(obj) {
+// const Toast = Swal.mixin({
+//             toast: true,
+//             position: 'top-end',
+//             showConfirmButton: false,
+//             timer: 2000
+//         });
+
+    Swal.fire({
+                title: '确认删除吗?',
+                type: 'warning',
+                showCancelButton: true,
+                focusConfirm: false,
+                allowEnterKey:false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then(
+                function(n){
+                     if(n.value){
+
+// alert(1);
+    var x=obj.parentNode.parentNode.rowIndex;
+//     alert(i);
+
+// alert(x);
+var tb = document.getElementById("maintable");
+
+for (i=0;i<tb.rows.length;i++)
+       {
+        // alert(parseInt(tb.rows[i].rowIndex));
+if (x==parseInt(tb.rows[i].rowIndex)){
+        var searchKey = tb.rows[i].cells[1].innerHTML; 
+ // alert(searchKey);
+}
+
+
+}
+ myajax1=$.ajax({
+
+              data:{searchKey:searchKey},
+              headers:{
+                  'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+              },
+              type: "post",
+              // async:false,
+              dataType: "json",
+              url:('delete/' + searchKey),
+              success: function (result) {
+                  // $('#dispatch_no').val(result.cDLCode);
+                  // $('#ccusname').val(result.cCusName);
+                  // $('#ddate').val(result.dDate);
+                  // $('#position').val(result.no);
+                   if(result.status ==0){
+                                    Swal.fire(
+                                        '提示',
+                                        result.text,
+                                        'error'
+                                    )
+                                }
+                                else
+                                {
+                  location.reload();
+              }
+              }
+          })
+
+
+}
+})
+        }
 
     </script>
 

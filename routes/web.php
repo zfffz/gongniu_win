@@ -16,6 +16,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('sweepOut/dispatchs_data', 'SweepOutsController@dispatchs_data')->name('sweepOut.dispatchs_data');
     Route::get('sweepOut/location_data', 'SweepOutsController@location_data')->name('sweepOut.location_data');
     Route::post('sweepOut/getData', 'SweepOutsController@getData')->name('sweepOut.getData');
+      Route::post('sweepOut/delete/{searchKey}', 'SweepOutsController@delete')->name('sweepOut.delete');
     Route::post('sweepOut/update_cverifier', 'SweepOutsController@update_cverifier')->name('sweepOut.update_cverifier');
     Route::get('sweepOut/checkIfdh', 'SweepOutsController@checkIfdh')->name('sweepOut.checkIfdh');
     Route::resource('sweepOut', 'SweepOutsController', ['only' => [ 'index', 'create', 'store','index','destroy','show','update']]);

@@ -39,9 +39,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-
+                   
+  <div class="col-md-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">是否装车</span>
+                        <!--   <label style="margin-top: 2px;margin-right: 1px;">对货员</label> -->
+                        <!--  <span class="input-group-text"><strong>对  货  员</strong></span> -->
                     </div>
+                    <select class="form-control" required name="standards" id="standards" style="max-width: 150px" />
+
+                        <option value="0" style="font-family:黑体; font-size:11pt;">否</option>
+                        <option value="1" style="font-family:黑体; font-size:11pt;">是</option>
+
+                    </select>
+                </div>
+            </div>
+                 
                 </div>
                 <table id="companiesLists" class="table table-bordered table-striped">
                     <thead>

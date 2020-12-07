@@ -148,7 +148,7 @@
                         <th>发货日期</th>
                         <th>销售类型</th>
                         <th>部门</th>
-                        <th>客户名称</th>
+                       <!--  <th>客户名称</th> -->
                         <th>客户简称</th>
                         <th>业务员</th>
                         <th>备注</th>
@@ -219,8 +219,8 @@ $('#btn-submit').on('click', function(){
         inputs.each(function () {
             datas = datas + $(this).val()+'|';
         });
-        window.location.href = "dispatchPrint/getPrint?datas="+datas;
-
+        // window.location.href = "dispatchPrint/getPrint?datas="+datas;
+window.open("dispatchPrint/getPrint?datas="+datas);
     };
 
 });
@@ -553,8 +553,8 @@ var table =
                     { "data":"cDLCode" ,"orderable": true},
                     { "data":"dDate","orderable": false },
                     { "data":"cSTName" ,"orderable": false},
-                    { "data":"cDepCode" ,"orderable": false},
-                    { "data":"cCusName" ,"orderable": false},
+                    { "data":"cDepname" ,"orderable": false},
+                    // { "data":"cCusName" ,"orderable": false},
                     { "data":"cCusAbbName" ,"orderable": false},
                     { "data":"cPsn_Name" ,"orderable": false},
                     { "data":"cMemo" ,"orderable": false},

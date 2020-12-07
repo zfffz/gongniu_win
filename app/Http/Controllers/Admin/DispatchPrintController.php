@@ -30,7 +30,7 @@ class DispatchPrintController extends CommonsController
             t1.cDLCode, 
             convert(char(10),t1.dDate,120) as dDate,
             t2.cSTName,
-            t1.cDepCode,
+            t6.cDepname,
             t1.cCusName,
             t3.cCusAbbName,
             t4.cPsn_Name,
@@ -42,6 +42,7 @@ class DispatchPrintController extends CommonsController
             "))
         ->leftJoin('SaleType as t2','t1.cSTCode','t2.cSTCode')
         ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
+        ->leftJoin('Department as t6','t1.cDepCode','t6.cDepCode')
         ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')
         ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode');
         // ->leftjoin('dispatchlists as t6','t1.DLID','t6.DLID');
@@ -80,7 +81,7 @@ class DispatchPrintController extends CommonsController
             $body = \DB::table('Sales_FHD_H as t1')
                 ->select(
                     \DB::raw("
-            ROW_NUMBER() OVER(ORDER BY t2.cInvCode) ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity,t2.iTaxUnitPrice,t2.isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5
+            ROW_NUMBER() OVER(ORDER BY t2.cInvCode) ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity,  Convert(decimal(30,2),t2.iTaxUnitPrice) as iTaxUnitPrice,Convert(decimal(30,2),t2.isum) as isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5
             "))
                 ->Join('dispatchlists as t2', 't1.dlid','t2.dlid')
                 ->Join('inventory as t3' ,'t3.cInvCode' , 't2.cInvCode')

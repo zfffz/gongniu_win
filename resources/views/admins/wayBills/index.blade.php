@@ -31,14 +31,13 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>车牌</label>
-                                <select class="form-control" required name="car_id" id="car_id" onBlur="txtblur()" style="width: 100%;">
+                            <label>司机</label>
+                                <select class="form-control" required name="driver_id" id="driver_id" onBlur="txtblur()" style="width: 100%;">
                                     <option value="" >请选择</option>
-                                    @foreach ($cars as $car)
-                                        <option value="{{ $car->id }}">
-                                            {{ $car->no }}
-                                        </option>
-                                    @endforeach
+                                     @foreach($drivers as $driver)
+                                    <option value="{{$driver->id}}">{{$driver->name}}</option>
+                                      @endforeach
+
                                 </select>
                         </div>
                     </div> 
@@ -115,7 +114,7 @@ const Toast = Swal.mixin({
 });
 
 $(function () {
-    $('#car_id').select2({
+    $('#driver_id').select2({
         theme: 'bootstrap4'
     });
 
@@ -313,14 +312,14 @@ return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50
 //查询点击事件
 $('#btn-submit1').on('click', function(){
     // function txtblur(event){ //当前元素失去焦点
-var car_id = $('#car_id').val();
-    if(car_id == ''){
+var driver_id = $('#driver_id').val();
+    if(driver_id == ''){
         Toast.fire({
             type: 'error',
-            title: '请选择车牌！'
+            title: '请选择司机！'
         });
-        $('#car_id').addClass('is-invalid');
-        $('#car_id').focus();
+        $('#driver_id').addClass('is-invalid');
+        $('#driver_id').focus();
         return false;
     }
     else{
@@ -421,7 +420,7 @@ var table =
                     var length = data.length;
                     var start = data.start;
                     var page = (data.start / data.length) + 1;
-                    var caridKey = $('#car_id').val();
+                    var driveridKey = $('#driver_id').val();
                     var dateKey = $('#reservation').val();
                     var statusKey = $('#status').val();
                     $.ajax({
@@ -433,7 +432,7 @@ var table =
                             draw : page,
                             start : start,
                             length : length,
-                            caridKey : caridKey,
+                            driveridKey : driveridKey,
                             dateKey : dateKey,
                             statusKey : statusKey
                         },                       

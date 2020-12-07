@@ -327,7 +327,7 @@
                              $("#dispatch_no").addClass("is-invalid");
                             Toast.fire({
                                 type: 'error',
-                                title: '此发货单未进行对货，不允许打包入库！'
+                                title: '发货单不存在，不允许打包入库！'
                             });
                             //清空发货单号
                             $('#dispatch_no').val('');
