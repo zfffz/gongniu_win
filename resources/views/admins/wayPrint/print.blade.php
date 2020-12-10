@@ -41,10 +41,11 @@
                             <tr>
                                 <th style="font-family:黑体; font-size:20px">序号</th>
                                 <th style="font-family:黑体; font-size:20px">来源单号</th>
-                                <th style="font-family:黑体; font-size:20px">发货日期</th>
-                                <th style="font-family:黑体; font-size:20px">订单号</th>
-                                <th style="font-family:黑体; font-size:20px">客户编码</th>
+                                <!-- <th style="font-family:黑体; font-size:20px">发货日期</th>
+                                <th style="font-family:黑体; font-size:20px">订单号</th> -->
                                 <th style="font-family:黑体; font-size:20px">客户简称</th>
+                                <th style="font-family:黑体; font-size:20px">客户编码</th>
+                                <th style="font-family:黑体; font-size:20px">发货地址</th>
                                 <th style="font-family:黑体; font-size:20px">结算方式</th>
                                 <th style="font-family:黑体; font-size:20px">金额</th>
                                 <th style="font-family:黑体; font-size:20px">表体备注</th>
@@ -53,10 +54,13 @@
                                 <tr>
                                     <td width="5%" style="font-family:黑体; font-size:20px">{{ $dats->ROWNU }}</td>
                                     <td width="10%" style="font-family:黑体; font-size:20px">{{ $dats->csocode }}</td>
-                                    <td width="10%" style="font-family:黑体; font-size:20px">{{ $dats->ddate }}</td>
-                                    <td width="10%" style="font-family:黑体; font-size:20px">{{ $dats->csdcode }}</td>
-                                    <td width="8%" style="font-family:黑体; font-size:20px">{{ $dats->ccuscode }}</td>
+                               <!--      <td width="10%" style="font-family:黑体; font-size:20px">{{ $dats->ddate }}</td>
+                                    <td width="10%" style="font-family:黑体; font-size:20px">{{ $dats->csdcode }}</td> -->
+                                    
                                     <td width="30%" style="font-family:黑体; font-size:20px">{{ $dats->ccusabbname }}</td>
+                                    <td width="8%" style="font-family:黑体; font-size:20px">{{ $dats->ccuscode }}</td>
+                                    <td width="20%" style="font-family:黑体; font-size:20px">{{ $dats->cshipaddress }}</td>
+                                <!--     <td width="30%" style="font-family:黑体; font-size:20px">{{ $dats->ccusabbname }}</td> -->
                                     <td width="8%" style="font-family:黑体; font-size:20px">{{ $dats->cSSName }}</td>
                                     <td width="8%" style="font-family:黑体; font-size:20px">{{ $dats->amount*1 }}</td>
                                     <td width="11%" style="font-family:黑体; font-size:20px">{{ $dats->bz }}</td>

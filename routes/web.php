@@ -4,7 +4,9 @@
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-
+//   Route::get('excel/export','ExcelController@export')->name('excel.export');
+// Route::get('excel/import','ExcelController@import');
+// Route::get('excel/export', 'ExcelController@export');
 Route::group(['middleware' => 'auth'], function() {
 // Route::group(['middleware' => ['web','admin.login']], function () {
     // 首页
@@ -12,6 +14,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 // Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
     // 打包出库
+
     Route::get('sweepOut/dispatch_data', 'SweepOutsController@dispatch_data')->name('sweepOut.dispatch_data');
     Route::get('sweepOut/dispatchs_data', 'SweepOutsController@dispatchs_data')->name('sweepOut.dispatchs_data');
     Route::get('sweepOut/location_data', 'SweepOutsController@location_data')->name('sweepOut.location_data');
@@ -37,6 +40,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('sweepCar/getData', 'SweepCarsController@getData')->name('sweepCar.getData');
     Route::post('sweepCar/delete/{searchKey}', 'SweepCarsController@delete')->name('sweepCar.delete');
     Route::get('sweepCar/checkCdlcode', 'SweepCarsController@checkCdlcode')->name('sweepCar.checkCdlcode');
+    // Route::get('users/export/', 'SweepCarsController@export');
     Route::resource('sweepCar', 'SweepCarsController', ['only' => ['create', 'store','index','destroy','show']]);
 
     //扫码对货
@@ -68,6 +72,7 @@ Route::resource('sweepCheckapp', 'SweepCheckappsController', ['only' => ['create
 
     // 个人中心
 Route::resource('user', 'UsersController', ['only' => ['show']]);
+Route::get('users/export', 'UsersController@export');
 
 
 });
@@ -119,6 +124,7 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     // 报表
     // 1.发货单：发货单 -> 打包出库 -> 扫码上车
     Route::post('dispatchReport/getData', 'DispatchReportsController@getData')->name('dispatchReport.getData');
+       Route::get('/dispatchReport/export', 'DispatchReportsController@export')->name('dispatchReport.export');
     // Route::post('dispatchReport/getData1', 'DispatchReportsController@getData1')->name('dispatchReport.getData1');
     //  Route::post('dispatchReport/stock', 'DispatchReportsController@stock')->name('dispatchReport.getData1');
 

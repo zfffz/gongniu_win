@@ -140,6 +140,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+         Maatwebsite\Excel\ExcelServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -175,8 +176,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+       
         'Jenssegers\Agent\AgentServiceProvider',
+        // Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -192,7 +194,7 @@ return [
     */
 
     'aliases' => [
-
+        
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -229,7 +231,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         // 客户端识别：电脑、手机等
-        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,   
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
 
     ],
 

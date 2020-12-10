@@ -34,83 +34,83 @@
                <div id={{$datas[0]->divid}} >
                   <div class="row">
                       <input class="col-md-2" type="hidden" id="cdlcode" value = {{ $datas[0]->cDLCode}} />
-                      <span class="col-md-10 text-center"><h3 style="font-family:黑体; font-size:25px">上海公牛配货单</h3></span>
+                      <span class="col-md-10 text-center"><h3 style="font-family:黑体; font-size:25px">上海公牛电器发货单</h3></span>
                       <p class="col-md-10 text-center"  style="font-family:黑体; font-size:11pt; line-height:4px ">地址、电话:上海市春中路368号 60899198</p>
                   </div>
                   <div class="row"  >
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">发货单号:{{ $datas[0]->cDLCode}}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">发货日期:{{ $datas[0]->dDate }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">客户编码:{{ $datas[0]->cCusCode }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">区域仓库:{{ $datas[0]->no }}</h5>
-                      <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:11pt; line-height:9pt">客户简称:{{ $datas[0]->ccusabbname }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">联系人:{{ $datas[0]->ccontactname }}</h5>
-                      <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:11pt; line-height:9pt">收货地址:{{ $datas[0]->cshipaddress }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">手机:{{ $datas[0]->cmobilephone }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">电话:{{ $datas[0]->cofficephone }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">业务员:{{ $datas[0]->cpersonname }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">发运方式:{{ $datas[0]->cscname }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">结算方式:{{ $datas[0]->cssname }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">订单号:{{ $datas[0]->csocode }}</h5>
-                      <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:11pt; line-height:9pt">备注:{{ $datas[0]->cmemo }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt;">发货单号:{{ $datas[0]->cDLCode}}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt;">发货日期:{{ $datas[0]->dDate }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt;">客户编码:{{ $datas[0]->cCusCode }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt;">区域仓库:{{ $datas[0]->no }}</h5>
+                      <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:11pt; line-height:3.8pt;">客户简称:{{ $datas[0]->ccusabbname }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt;">联系人:{{ $datas[0]->ccontactname }}</h5>
+                      <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:11pt; line-height:3.8pt">收货地址:{{ $datas[0]->cshipaddress }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">手机:{{ $datas[0]->cmobilephone }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">电话:{{ $datas[0]->cofficephone }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">业务员:{{ $datas[0]->cpersonname }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">发运方式:{{ $datas[0]->cscname }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">结算方式:{{ $datas[0]->cssname }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">订单号:{{ $datas[0]->csocode }}</h5>
+                      <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:11pt; line-height:3.8pt">备注:{{ $datas[0]->cmemo }}</h5>
                   </div>
                </div>
                <div  id={{$datas[0]->tableid}} >
-                <table class="table table-hover table-bordered" style="width: 100%;border: 1px solid black">
+                <table class="table table-hover table-bordered" style="width: 100%;line-height:2pt;border: 1px solid black;word-break:break-all">
                     <tbody>
                     <tr>
-                        <th style="font-family:黑体; font-size:11pt">行</th>
-                        {{--<th style="font-family:黑体; font-size:11pt">仓库</th>--}}
-                        {{--<th style="font-family:黑体; font-size:11pt">存货编码</th>--}}
-                        <th style="font-family:黑体; font-size:11pt">规格</th>
-                        <th style="font-family:黑体; font-size:11pt">存货编码</th>
-                        <th style="font-family:黑体; font-size:11pt">存货名称</th>
-                        <th style="font-family:黑体; font-size:11pt">数量</th>
-                        <th style="font-family:黑体; font-size:11pt">单位</th>
-                        <th style="font-family:黑体; font-size:11pt">单价</th>
-                        <th style="font-family:黑体; font-size:11pt">金额</th>
-                        <th style="font-family:黑体; font-size:11pt">条码</th>
+          <th style="font-family:黑体; font-size:11pt ; line-height:initial; ">行</th>
+      {{--<th style="font-family:黑体; font-size:11pt ; line-height:initial; ">仓库</th>--}}
+      {{--<th style="font-family:黑体; font-size:11pt ; line-height:initial; ">存货编码</th>--}}
+          <th style="font-family:黑体; font-size:11pt ; line-height:initial; ">规格</th>
+          <th style="font-family:黑体; font-size:11pt ; line-height:initial">存货编码</th>
+          <th style="font-family:黑体; font-size:11pt ; line-height:initial">存货名称</th>
+          <th style="font-family:黑体; font-size:11pt ; line-height:initial">数量</th>
+          <th style="font-family:黑体; font-size:11pt ; line-height:initial">单位</th>
+          <th style="font-family:黑体; font-size:11pt ; line-height:initial">单价</th>
+          <th style="font-family:黑体; font-size:11pt ; line-height:initial">金额</th>
+          <!-- <th style="font-family:黑体; font-size:11pt ; line-height:initial">条码</th> -->
                     </tr>
                     @foreach ($datas[1] as $dats)
                         <tr>
-                            <td width="7%" style="font-family:黑体; font-size:11pt">{{ $dats->ROWNU }}</td>
-                            <td width="8%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvStd }}</td>
-                            <td width="10%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvcode }}</td>
-                            <td width="21%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvName }}</td>
-                            <td width="7%" style="font-family:黑体; font-size:11pt">{{ ($dats->iQuantity*1) }}</td>
-                            <td width="7%" style="font-family:黑体; font-size:11pt">{{ $dats->cComUnitName }}</td>
-                            <td width="10%" style="font-family:黑体; font-size:11pt">{{ $dats->iTaxUnitPrice }}</td>
-                            <td width="10%" style="font-family:黑体; font-size:11pt">{{ ($dats->isum) }}</td>
-                            <td width="20%" style="font-family:黑体; font-size:11pt">{{ $dats->cInvDefine5 }}</td>
+                            <td width="6%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->ROWNU }}</td>
+                            <td width="8%" style="font-family:黑体; font-size:11pt; line-height:3.8pt;word-wrap: break-word;">{{ $dats->cInvStd }}</td>
+                            <td width="10%" style="font-family:黑体; font-size:11pt;line-height:3.8pt ;word-wrap: break-word;">{{ $dats->cInvcode }}</td>
+                            <td width="42%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->cInvName }}</td>
+                            <td width="7%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ ($dats->iQuantity*1) }}</td>
+                            <td width="6%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->cComUnitName }}</td>
+                            <td width="8%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->iTaxUnitPrice }}</td>
+                            <td width="10%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word; ">{{ ($dats->isum) }}</td>
+                            <!-- <td width="6%" style="font-family:黑体; font-size:11pt; line-height:3.8pt;word-wrap: break-word;">{{ $dats->cInvDefine5 }}</td> -->
                         </tr>
                     @endforeach
                     <tr>
-                        <td width="7%" colspan="1" style="font-family:黑体; font-size:11pt">合计</td>
-                        <td width="9%" colspan="1"></td>
-                        <td width="12%" colspan="1"></td>
-                        <td width="21%" colspan="1"></td>
-                        <td width="10%" style="font-family:黑体; font-size:11pt" ><font  tdata="Sum" format="#,##0.00" tindex="5" >######</font></td>
-                        <td width="8%" style="font-family:黑体; font-size:11pt" ><font  tdata="Sum" format="#,##0.00" tindex="6" >######</font></td>
-                        <td width="7%" colspan="1"></td>
+                        <td width="6%" colspan="1" style="font-family:黑体; font-size:11pt">合计</td>
+                        <td width="8%" colspan="1"></td>
+                        <td width="10%" colspan="1"></td>
+                        <td width="42%" colspan="1"></td>
+                        <td width="7%" style="font-family:黑体; font-size:11pt" ><font  tdata="Sum" format="#,##" tindex="5" >######</font></td>
+                        <td width="6%" colspan="1"></td>
+                        <td width="8%" colspan="1"></td>
                         <td width="10%" style="font-family:黑体; font-size:11pt" ><font  tdata="Sum" format="#,##0.00" tindex="8" >######</font></td>
-                        <td width="19%" colspan="1"></td>
+                        <!-- <td width="6%" colspan="1"></td> -->
                     </tr>
                     </tbody>
                 </table>
                </div>
                <div  id={{$datas[0]->pageid}}>
                  <div class="row" >
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">制单人:{{ $datas[0]->cmaker }}</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">制单时间:{{ $datas[0]->createtime }}</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">审核人:{{ $datas[0]->cverifier }}</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">审核日期:{{ $datas[0]->dverifydate }}</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">配货员签字：</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">对货员签字：</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">打包员签字：</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">客户签字:</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">白联:留存</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">红联:仓库</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">蓝联:回单</h5>
-                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:9pt">黄联:客户</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">制单人:{{ $datas[0]->cmaker }}</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">制单时间:{{ $datas[0]->createtime }}</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">审核人:{{ $datas[0]->cverifier }}</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">审核日期:{{ $datas[0]->dverifydate }}</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">配货员签字：</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">对货员签字：</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">打包员签字：</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">客户签字:</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">白联:留存</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">红联:仓库</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">蓝联:回单</h5>
+                   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">黄联:客户</h5>
                </div>
                </div>
             </div>
@@ -126,7 +126,7 @@
         $('#btn-submit').on('click', function(){
             LODOP=getLodop();
             LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
-            LODOP.SET_PRINT_PAGESIZE(1,2300,1390,'');//定义纸张
+            LODOP.SET_PRINT_PAGESIZE(1,2400,1390,'');//定义纸张
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",1);//打印后自动关闭预览窗口
             var strBodyStyle = "<link href=\"http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\"><style> .card{color: black}.table-bordered table,.table-bordered tbody tr th,.table-bordered tbody tr td{border: 1px solid  black; color: black/* 整体表格边框 */}</style>";
@@ -140,19 +140,21 @@
                var pageid ='page'+j;
                 var cdlcode = $("#"+divid+ " input[id='cdlcode']").val();
                 var printtime = new Date();
-                LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
-                LODOP.ADD_PRINT_TABLE(220,5, '97%', 'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_HTM(5, '10mm', "RightMargin:1cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_TABLE(220,'10mm', "RightMargin:1cm", 'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                // LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);//高度溢出缩放
                 LODOP.SET_PRINT_STYLEA(0,"Offset2Top",-215); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
-                LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_HTM(5, '10mm', "RightMargin:1cm", '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
                 LODOP.SET_PRINT_STYLEA(0,"LinkedItem",-1);//以上内容紧跟在前一个对象之后
 
               //  LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
         //        LODOP.ADD_PRINT_HTM('12cm', 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
-                LODOP.ADD_PRINT_HTM('12.5cm',5,300,'8mm',"<font style='font-size:10pt' format='Num'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>"); //打印页码
+                LODOP.ADD_PRINT_HTM('12.5cm','10mm',300,'8mm',"<font style='font-size:10pt' format='Num'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>"); //打印页码
                 LODOP.SET_PRINT_STYLEA(0,"ItemType",1);//设置上面的为页眉页脚，每页固定位置输出
+                // LODOP.SET_PRINT_STYLEA(0,"LineSpacing",13);
            //     LODOP.SET_PRINT_STYLEA(0,"LinkedItem",1);
                 LODOP.ADD_PRINT_BARCODE(5,750,80, 80, 'QRCode', cdlcode);  //打印发货单二维码
-                LODOP.ADD_PRINT_TEXT(5,5,'50mm','5mm',printtime.toLocaleString( ));
+                LODOP.ADD_PRINT_TEXT(5,'10mm','50mm','5mm',printtime.toLocaleString( ));
                 LODOP.NewPageA();  //自动分页
                // LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById("div1").innerHTML+"</body>");
             }

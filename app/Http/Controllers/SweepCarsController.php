@@ -11,9 +11,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\updateSweepOut;
+// use App\Exports\UsersExport;
+// use Maatwebsite\Excel\Facades\Excel;
+
+// class UsersController extends Controller 
+// {
+
+// }
+
+
+
 
 class SweepCarsController extends CommonsController
 {
+
+    // public function export() 
+    // {
+    //     return Excel::download(new UsersExport, 'users.xlsx');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -397,7 +412,7 @@ $delete1 = DB::update("update dispatchlist set cDefine14='' where cdlcode=?", [$
             t1.created_at
             "))
             ->leftJoin('zzz_cars as t2','t1.car_id','t2.id')
-            ->leftJoin('bs_gn_wl as t3','t1.driver_id','t3.cpersoncode');
+            ->leftJoin('person as t3','t1.driver_id','t3.cpersoncode');
 
 
             // $drivers = DB::table('bs_gn_wl')

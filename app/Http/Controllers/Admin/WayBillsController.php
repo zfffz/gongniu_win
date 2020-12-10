@@ -231,7 +231,7 @@ class WayBillsController extends CommonsController
             case t1.status when 0 then '未生成' when 1 then '已生成' end as status 
             "))
             ->leftJoin('zzz_cars as t3','t1.car_id','t3.id')
-            ->leftJoin('bs_gn_wl as t4','t1.driver_id','t4.cpersoncode');
+            ->leftJoin('person as t4','t1.driver_id','t4.cpersoncode');
 
         $data=parent::dataPage($request,$this->condition($builder,$request),'asc');
 

@@ -31,7 +31,7 @@
                 <div class="row" style="margin-bottom: 5px;">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <input type="text" name="search" id="search" class="form-control" placeholder="姓名/手机号/创建人" />
+                            <input type="text" name="search" id="search" class="form-control" placeholder="发货单号/库位号" />
                             <div class="input-group-append">
                                 <button class="btn btn-default" type="button" onclick="table.draw( false );">
                                     <i class="fas fa-search"></i>
@@ -39,28 +39,23 @@
                             </div>
                         </div>
                     </div>
-                   
-  <div class="col-md-3">
+                
+<div class="col-md-1.1">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">是否装车</span>
-                        <!--   <label style="margin-top: 2px;margin-right: 1px;">对货员</label> -->
-                        <!--  <span class="input-group-text"><strong>对  货  员</strong></span> -->
-                    </div>
-                    <select class="form-control" required name="standards" id="standards" style="max-width: 150px" />
-
-                        <option value="0" style="font-family:黑体; font-size:11pt;">否</option>
-                        <option value="1" style="font-family:黑体; font-size:11pt;">是</option>
-
-                    </select>
+                    <td>
+                      <!--   <button type="button" id="btn-export" class="btn btn-block btn-info" href="{{route('dispatchReport.export')}}" style="margin-left: 658px">导出</button> -->
+                        <p class="box-header">
+    <a class="btn btn-success" href="{{route('dispatchReport.export')}}">导出</a></p>
+                    </td>
                 </div>
             </div>
-                 
+              
                 </div>
                 <table id="companiesLists" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>发货单号</th>
+                        <th>客户名称</th>
                         <th>库位</th>
                         <th>打包员</th>
                         <th>打包时间</th>
@@ -77,6 +72,57 @@
 @endsection
 @section('script')
     <script>
+        // $('#btn-export').on('click', function(){
+
+// alert(1);
+  // 判断库位是否合法
+   // window.location.href = "dispatchPrint/getPrint?datas="+datas;
+   // window.open("dispatchReport/export");
+
+
+
+              // $.ajax({
+              //   url:"dispatchReport/export",
+              //   type:'get',
+              //   dataType:'json',
+              //   headers:{
+              //     Accept:"application/json",
+              //     "Content-Type":"application/json"
+              //   },
+              //   processData:false,
+              //   cache:false,
+              //   timeout: 1000,
+              //   beforeSend:function(){
+
+              //   },
+              //   success:function(data){
+              //     if(data.length==0){
+              //       $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+              //       $('#notifyAudio')[0].play();
+              //       //发货单号红框提示,toast提示
+              //       $("#location_no").addClass("is-invalid");
+              //       Toast.fire({
+              //         type: 'error',
+              //         title: '库位非法或不存在！'
+              //       });
+              //       //清空发货单号
+              //       $('#location_no').val('');
+              //       return false;
+              //     }else{
+              //       //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+              //       $("#location_no").removeClass("is-invalid");
+              //       $("#dispatch_no").focus();
+              //     }
+              //   },
+              //   error:function(){
+              //     alert("error");
+              //     return false;
+              //   }
+              // });
+
+
+
+        // });
         var table =
             $('#companiesLists').DataTable({
                 language: {
@@ -138,6 +184,7 @@
                 },
                 "columns":[
                     { "data":"dispatch_no" },
+                    { "data":"ccusname" },
                     { "data":"location_no" },
                     { "data":"packager_name" },
                     { "data":"out_created_at" },

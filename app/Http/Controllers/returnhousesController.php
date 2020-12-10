@@ -504,7 +504,7 @@ select id from  zzz_kwkc where source='扫码上车' and  cdlcode= ?",[$dispatch
             t1.count,
             t1.created_at
             "))
-            ->leftJoin('bs_gn_wl as t2','t1.packager_no','t2.cpersoncode')
+            ->leftJoin('person as t2','t1.packager_no','t2.cpersoncode')
             ->leftJoin('zzz_storage_locations as t3','t1.location_no','t3.no');
 
         $data=parent::dataPage7($request,$this->condition($builder,$request->searchKey),'asc');

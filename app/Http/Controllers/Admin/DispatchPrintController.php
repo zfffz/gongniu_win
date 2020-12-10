@@ -62,7 +62,9 @@ class DispatchPrintController extends CommonsController
         $data = explode('|',substr($request['datas'],0,-1));
         $n=0;
         $m=1;
+         // dd($data);
         foreach ($data as $cdlcode){
+
 
             $head = \DB::table('Sales_FHD_H as a')
                 ->select(
@@ -73,11 +75,12 @@ class DispatchPrintController extends CommonsController
             a.cmaker,a.cverifier,CONVERT(varchar(10), a.dcreatesystime,23) as createtime, a.dverifydate,
             '' as divid, '' as tableid, '' as pageid
             "))
-                ->Join('zzz_customer_locations as b','a.cCusCode','b.customer_no')
-                ->Join('zzz_storage_locations as c','b.location_id','c.id')
+                ->leftJoin('zzz_customer_locations as b','a.cCusCode','b.customer_no')
+                ->leftJoin('zzz_storage_locations as c','b.location_id','c.id')
                 ->leftJoin('Sales_FHD_T as d','a.cdlcode','d.cdlcode')
                 ->where('a.cDLCode','=',$cdlcode)->get();
             ;
+
             $body = \DB::table('Sales_FHD_H as t1')
                 ->select(
                     \DB::raw("
@@ -106,7 +109,7 @@ class DispatchPrintController extends CommonsController
             $m=$m+1;
         }
         //echo json_encode(array('status'=>0,'returndata'=>$data2));
-        //dd($data2);
+        // dd($data2);
         return view('admins.dispatchPrint.print',compact('data2','n'));
         //return redirect()->route('dispatchPrint.printpage');
 

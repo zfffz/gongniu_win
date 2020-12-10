@@ -219,8 +219,8 @@ $('#btn-submit').on('click', function(){
         inputs.each(function () {
             datas = datas + $(this).val()+'|';
         });
-        // window.location.href = "dispatchPrint/getPrint?datas="+datas;
-window.open("dispatchPrint/getPrint?datas="+datas);
+        window.location.href = "dispatchPrint/getPrint?datas="+datas;
+// window.open("dispatchPrint/getPrint?datas="+datas);
     };
 
 });

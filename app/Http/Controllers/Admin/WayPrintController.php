@@ -63,14 +63,14 @@ class WayPrintController extends CommonsController
         $body = \DB::table('hy_eo_transport as t1')
             ->select(
                 \DB::raw("
-			ROW_NUMBER() OVER(ORDER BY t2.csocode) ROWNU,t2.csocode,t3.ddate,t3.csocode as csdcode,t3.ccuscode,t3.ccusabbname,t5.cSSName, sum(t2.cdefine27) as amount,''as bz
+			ROW_NUMBER() OVER(ORDER BY t2.csocode) ROWNU,t2.csocode,t3.ddate,t3.csocode as csdcode,t3.cshipaddress,t3.ccuscode,t3.ccusabbname,t5.cSSName, sum(t2.cdefine27) as amount,''as bz
             "))
 			->Join('hy_eo_transports as t2', 't1.id','t2.id')
 			->Join('Sales_FHD_H as t3' ,'t3.cdlcode' , 't2.csocode')
 			->Join('Sales_FHD_T as t4' , 't4.dlid' , 't3.dlid')
 			->Join('SettleStyle as t5' , 't5.cSSCode' , 't4.csscode')
 			->where('t1.id','=',$id)
-			->groupBy('t2.csocode','t3.ddate','t3.csocode','t3.ccuscode','t3.ccusabbname','t5.cSSName')
+			->groupBy('t2.csocode','t3.ddate','t3.csocode','t3.ccuscode','t3.ccusabbname','t5.cSSName','t3.cshipaddress')
 			->get();
         $data[0] = $head[0];
         $count = count($body);
