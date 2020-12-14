@@ -68,7 +68,7 @@ class WayPrintController extends CommonsController
 			->Join('hy_eo_transports as t2', 't1.id','t2.id')
 			->Join('Sales_FHD_H as t3' ,'t3.cdlcode' , 't2.csocode')
 			->Join('Sales_FHD_T as t4' , 't4.dlid' , 't3.dlid')
-			->Join('SettleStyle as t5' , 't5.cSSCode' , 't4.csscode')
+			->leftJoin('SettleStyle as t5' , 't5.cSSCode' , 't4.csscode')
 			->where('t1.id','=',$id)
 			->groupBy('t2.csocode','t3.ddate','t3.csocode','t3.ccuscode','t3.ccusabbname','t5.cSSName','t3.cshipaddress')
 			->get();

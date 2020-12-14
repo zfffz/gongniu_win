@@ -5,7 +5,7 @@
 @endsection
 
 @section('title', '发货单信息')
-
+<link type="text/css" rel="styleSheet"  href="../css/111.css" />
 @section('section')
     <section class="content-header">
         <div class="container-fluid">
@@ -29,7 +29,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row" style="margin-bottom: 5px;">
-                    <div class="col-sm-4">
+                   <!--  <div class="col-sm-4">
                         <div class="input-group">
                             <input type="text" name="search" id="search" class="form-control" placeholder="发货单号/库位号" />
                             <div class="input-group-append">
@@ -38,14 +38,99 @@
                                 </button>
                             </div>
                         </div>
+                    </div> -->
+
+ <div class="col-md-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><strong>发货单号</strong></span>
+              </div>
+              <input type="text" class="form-control"  required name="dispatch_no" id="dispatch_no" class="form control" autocomplete="off" maxlength="12"/>
+
+              <!--       <input type="text"name="dispatch_no" id="dispatch_no" class="form control" onkeypress = "if (event.keyCode = 13)  {getdispatchlistinfo()};" /> -->
+            </div>
+          </div>
+
+
+            <div class="col-md-1.5">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><strong>库位</strong></span>
+                        <!--   <label style="margin-top: 2px;margin-right: 1px;">对货员</label> -->
+                        <!--  <span class="input-group-text"><strong>对  货  员</strong></span> -->
                     </div>
+                 <select class="form-control" required name="position" id="position">
+                                <option value="" >请选择</option>
+                                <?php
+                                $jg=\Illuminate\Support\Facades\DB::table('zzz_storage_locations')
+                                    ->select('id','no')
+                                    ->get();
+                                foreach($jg as $k=>$v){
+                                    echo ("<option value='$v->no'>".$v->no."</option>");
+                                }
+                                ?>
+                            </select>
+                </div>
+            </div>
+  <div class="col-md-1.5">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="margin-left: 8px"><strong>状态</strong></span>
+                        <!--   <label style="margin-top: 2px;margin-right: 1px;">对货员</label> -->
+                        <!--  <span class="input-group-text"><strong>对  货  员</strong></span> -->
+                    </div>
+                    <select class="form-control" required name="iscar" id="iscar" style="max-width: 296px" />
+<option value="" >请选择</option>
+                        <option value="0" >未装车</option>
+                        <option value="1" >已装车</option>
+
+                    </select>
+                </div>
+            </div>
+          
+  <div class="col-md-1.5">
+                <div class="input-group">
+                   <span class="input-group-text" style="margin-left: 8px"><strong>日期</strong></span>
+                    <div class="input-group-prepend">
+                         <span class="input-group-text">
+                                <i class="far fa-calendar-alt"></i>
+                              </span>
+
+
+         
+                            </div>
+                            <input type="text" class="form-control float-right" id="reservation" name="reservation">
+                        
+                          <!-- /.input group -->
+                        </div>
+                    </div>
+
+
+          
+
+
+            <div class="col-md-1.1">
+                <div class="input-group">
+                    <td>
+                        <button type="button" id="btn-query" class="btn btn-block btn-info" style="margin-left: 8px" onclick="table.draw( false );">查询</button>
+                    </td>
+                </div>
+            </div>
+
+
+
+
+                    
                 
 <div class="col-md-1.1">
                 <div class="input-group">
                     <td>
                       <!--   <button type="button" id="btn-export" class="btn btn-block btn-info" href="{{route('dispatchReport.export')}}" style="margin-left: 658px">导出</button> -->
-                        <p class="box-header">
-    <a class="btn btn-success" href="{{route('dispatchReport.export')}}">导出</a></p>
+    <!--                     <p class="box-header">
+    <a class="btn btn-success" style="margin-left: 8px" 
+    >导出</a></p> -->
+      <button type="button" id="btn-export" style="margin-left: 8px" class="btn btn-success">导出</button>
+  <!--     href="{{route('dispatchReport.export')}}" -->
                     </td>
                 </div>
             </div>
@@ -54,14 +139,16 @@
                 <table id="companiesLists" class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        <th>序号</th>
                         <th>发货单号</th>
-                        <th>客户名称</th>
+                        <th>日期</th>
                         <th>库位</th>
-                        <th>打包员</th>
-                        <th>打包时间</th>
-                        <th>车辆</th>
-                        <th>司机</th>
-                        <th>装车时间</th>
+                        <th>客户简称</th>
+                        <th>发货地址</th>
+                        <th>默认库位</th>
+
+                        <th>状态</th>
+                        
                     </tr>
                     </thead>
                 </table>
@@ -72,6 +159,22 @@
 @endsection
 @section('script')
     <script>
+        $(function () {
+
+    $('#reservation').daterangepicker({
+        locale: {
+        format: 'YYYY-MM-DD',
+        applyLabel: '确定',
+        cancelLabel: '取消',
+        fromLabel: "开始时间",
+        toLabel: "结束时间",
+        customRangeLabel: "自定义",
+        daysOfWeek: ["日","一","二","三","四","五","六"],
+        monthNames: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
+        }         
+    });
+});
+
         // $('#btn-export').on('click', function(){
 
 // alert(1);
@@ -152,16 +255,23 @@
                 'paging'      : true,
                 "lengthChange": false,
                 "searching": false,
-                "ordering": true,
+                "ordering": false,
                 "info": true,
                 "autoWidth": false,
                 "serverSide": true,
-                "bProcessing":true,
+                "iDisplayLength":20,
+                // "bProcessing":true,
                 "ajax":function(data,callback,settings){
                     var length = data.length;
                     var start = data.start;
                     var page = (data.start / data.length) + 1;
-                    var searchKey = $('#search').val();
+                    var dateKey = $('#reservation').val();
+                     var dispatch_no = $('#dispatch_no').val();
+                    var location_no = $('#position').val();
+                    var status = $('#iscar').val();
+                    // var cDepartmentKey = $('#cDepartment').val();
+                    // var cWhCodeKey = $('#cWhCode').val();
+                    // var status =$('#status').val();
 
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
@@ -171,7 +281,12 @@
                             draw : page,
                             start : start,
                             length : length,
-                            searchKey : searchKey
+                            // cSTcodeKey : cSTcodeKey,
+                            // cDLCodeKey : cDLCodeKey,
+                            dateKey : dateKey,
+                            dispatch_no : dispatch_no,
+                            location_no : location_no,
+                            status : status
                         },
                         success:function(result){
                             var returnData = {};
@@ -183,16 +298,49 @@
                     })
                 },
                 "columns":[
+                 { "data":"ROWNU" },
                     { "data":"dispatch_no" },
-                    { "data":"ccusname" },
+                    { "data":"dDate" },
                     { "data":"location_no" },
-                    { "data":"packager_name" },
-                    { "data":"out_created_at" },
-                    { "data":"car_no" },
-                    { "data":"driver_name" },
-                    { "data":"car_created_at" }
+                    { "data":"cCusAbbName" },
+                    { "data":"cShipAddress" },
+                    { "data":"default_location_no" },
+
+                    { "data":"status" }
+                    // { "data":"car_created_at" } 
                 ]
             });
+
+            $('#btn-export').on('click', function(){
+
+  var dateKey = $('#reservation').val();
+                     var dispatch_no = $('#dispatch_no').val();
+                    var location_no = $('#position').val();
+                    var status = $('#iscar').val();
+
+$.ajax({
+  data:{  
+    dateKey : dateKey,
+    dispatch_no : dispatch_no,
+    location_no : location_no,
+    status : status
+     },
+  headers:{
+    'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+  },
+  type: "post",
+  // async:false,
+  dataType: "json",
+  url:'{{route('dispatchReport.export')}}',
+            // beforeSend:function(){
+
+            // },
+            success:function(data){
+                // alert(data);
+                location.href = data.data;
+            }
+        });
+                 });
     </script>
 
 @endsection

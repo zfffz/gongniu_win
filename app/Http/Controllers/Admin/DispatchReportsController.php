@@ -16,50 +16,113 @@ class DispatchReportsController extends CommonsController
          if (! Auth::user()->can('dispatchreports_users')) {
             return view('admins.pages.permission_denied');
         }
+ 
+      //库位
+    // $packagers = DB::table('bs_gn_wl')
+    //         ->select('cpersoncode as no','cpersonname as name')
+    //         ->where('wlcode','=','03')
+    //         ->get();
+    //         dd(1);
 
-
+        // return view('dispatchReports.index',compact('location_no','$data'));
         return view('admins.dispatchReports.index');
     }
    
 
     public function getData(Request $request)
     {
+        // dd(1);
         $builder = \DB::table('zzz_sweep_outs as t1')
             ->select(
                 \DB::raw("
-            t1.id,
+            ROW_NUMBER() OVER(ORDER BY t1.id ) ROWNU,
             t2.dispatch_no,
-            t8.ccusname,
-            t2.default_location_no as location_no,
-            t5.cpersonname as packager_name,
-            t6.no as car_no,
-            t7.cpersonname as driver_name,
-            t1.created_at as out_created_at,
-            t4.created_at as car_created_at
+            convert(char(10),t8.dDate,120) as dDate,
+            t1.location_no,
+            t5.cCusAbbName,
+            t8.cShipAddress,
+            t2.default_location_no,
+            case t2.status when 0 then '未装车' else '已装车' end  as status    
             "))
             ->leftJoin('zzz_sweep_out_items as t2','t1.id','t2.parent_id')
-            ->leftJoin('dispatchlist as t8','t8.cdlcode','t2.dispatch_no')
-            ->leftJoin('zzz_sweep_car_items as t3','t2.dispatch_no','t3.dispatch_no')
-            ->leftJoin('zzz_sweep_cars as t4','t3.parent_id','t4.id')
-            ->leftJoin('person as t5','t1.packager_no','t5.cpersoncode')
-            ->leftJoin('zzz_cars as t6','t4.car_id','t6.id')
-            ->leftJoin('person as t7','t4.driver_id','t7.cpersoncode')
-            ->Where('t2.status','=','0');
+            ->leftJoin('dispatchlist as t8','t8.cdlcode','t2.dispatch_no') 
+            ->leftJoin('customer as t5','t5.ccuscode','t8.ccuscode');
+            // ->leftJoin('zzz_storage_locations as t6','t6.no','t1.location_no');
+            // ->leftJoin('zzz_sweep_car_items as t3','t2.dispatch_no','t3.dispatch_no')
+            // ->leftJoin('zzz_sweep_cars as t4','t3.parent_id','t4.id')
+            // ->leftJoin('person as t5','t1.packager_no','t5.cpersoncode')
+            // ->leftJoin('zzz_cars as t6','t4.car_id','t6.id')
+            // ->leftJoin('person as t7','t4.driver_id','t7.cpersoncode')
+            // ->Where('t2.status','=','0');
+       
             
 
-        $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
+        $data=parent::dataPage($request,$this->condition($builder,$request),'asc');
+    
+
+    
 
         return $data;
     }
 
     private function condition($table,$searchKey){
+
+
+
+       $bedate = explode(" - ",$searchKey->dateKey);
+        $bgdate = $bedate[0];
+        $eddate = $bedate[1];
+        // dd($searchKey);
         if($searchKey!=''){
-            $table->where('t2.dispatch_no','like','%'.$searchKey.'%');
-            $table->orWhere('t2.default_location_no','like','%'.$searchKey.'%');
-            // $table->andWhere('t7.wlcode','=','04');
-            // $table->andWhere('t2.status','=','0');
+
+               $table->where('t8.dDate','>=',$bgdate);
+               $table->where('t8.dDate','<=',$eddate);
+
+            if($searchKey->dispatch_no!='' || $searchKey->dispatch_no!=null ){
+                $table->where('t2.dispatch_no','=',$searchKey->dispatch_no);
+            }
+
+            if($searchKey->location_no!='' || $searchKey->location_no!=null ){
+                $table->where('t1.location_no','=',$searchKey->location_no);
+            }
+
+            if($searchKey->status!='' || $searchKey->status!=null ){
+                $table->where('t2.status','=',$searchKey->status);
+            }
+
+            // if($searchKey->cWhCodeKey!='' || $searchKey->cWhCodeKey!=null ){
+            //     $table->where('t1.cWhCode','=',$searchKey->cWhCodeKey);
+            // }
+
+            // if($searchKey->status =='1' ){
+            //     $table->where('t1.iPrintCount ','>=','1');
+            // }
+
+            // if($searchKey->status =='0' ){
+            //     $table->where(function($query){
+            //         $query->whereNull('t1.iPrintCount ')
+            //               ->orwhere('t1.iPrintCount','=','0');
+            //     });
+
+            // }
+
         }
+
         return $table;
+
+
+
+
+
+
+
+        // if($searchKey!=''){
+        //     $table->where('t2.dispatch_no','like','%'.$searchKey.'%');
+        //     $table->orWhere('t2.default_location_no','like','%'.$searchKey.'%');
+        //     // $table->andWhere('t7.wlcode','=','04');
+        //     // $table->andWhere('t2.status','=','0');
+        // }
+        // return $table;
     }
 
      private function condition1($table,$searchKey){
@@ -77,30 +140,96 @@ class DispatchReportsController extends CommonsController
 
 
 
+  // $dispatch_no = $request->dispatch_no;
+  // dd($dispatch_no);
+    // if($request!=''){
+ $bedate = explode(" - ",$request->dateKey);
+        $bgdate = $bedate[0];
+        $eddate = $bedate[1];
+    //            $data->where('t8.dDate','>=',$bgdate);
+    //            $data->where('t8.dDate','<=',$eddate);
 
+            // if($request->dispatch_no!='' || $request->dispatch_no!=null ){
+                $dispatch_no= $request->dispatch_no;
+            // }
 
+            // if($request->location_no!='' || $request->location_no!=null ){
+                $location_no= $request->location_no;
+            // }
+
+            // if($request->status!='' || $request->status!=null ){
+                 $status= $request->status;
+            // }
+
+        // }
 
         $data = \DB::table('zzz_sweep_outs as t1')
             ->select(
                 \DB::raw("
-           
+            ROW_NUMBER() OVER(ORDER BY t1.id ) ROWNU,
             t2.dispatch_no,
-            t8.ccusname,
-            t2.default_location_no as location_no,
-            t5.cpersonname as packager_name,
-            t6.no as car_no,
-            t7.cpersonname as driver_name,
-            t1.created_at as out_created_at,
-            t4.created_at as car_created_at
+            convert(char(10),t8.dDate,120) as dDate,
+            t1.location_no,
+            t5.cCusAbbName,
+            t8.cShipAddress,
+            t2.default_location_no,
+            case t2.status when 0 then '未装车' else '已装车' end  as status    
             "))
             ->leftJoin('zzz_sweep_out_items as t2','t1.id','t2.parent_id')
-            ->leftJoin('dispatchlist as t8','t8.cdlcode','t2.dispatch_no')
-            ->leftJoin('zzz_sweep_car_items as t3','t2.dispatch_no','t3.dispatch_no')
-            ->leftJoin('zzz_sweep_cars as t4','t3.parent_id','t4.id')
-            ->leftJoin('person as t5','t1.packager_no','t5.cpersoncode')
-            ->leftJoin('zzz_cars as t6','t4.car_id','t6.id')
-            ->leftJoin('person as t7','t4.driver_id','t7.cpersoncode')
-            ->Where('t2.status','=','0')
+            ->leftJoin('dispatchlist as t8','t8.cdlcode','t2.dispatch_no') 
+            ->leftJoin('customer as t5','t5.ccuscode','t8.ccuscode')
+                 ->where(function($query)use($dispatch_no){
+    # 进行判断
+    if ($dispatch_no!='' || $dispatch_no!=null) {
+        $query->where('t2.dispatch_no','Like',"%$dispatch_no%");
+    }
+})
+                 ->where(function($query)use($location_no){
+    # 进行判断
+    if ($location_no!='' || $location_no!=null ) {
+        $query->where('t1.location_no','=',"$location_no");
+    }
+})
+                 ->where(function($query)use($status){
+    # 进行判断
+    if ($status!='' || $status!=null ) {
+        $query->where('t2.status','=',"$status");
+    }
+})
+                          ->where(function($query)use($bgdate){
+    # 进行判断
+    if ($bgdate!='' || $bgdate!=null ) {
+        $query->where('t8.dDate','>=',$bgdate);
+    }
+})
+                            ->where(function($query)use($eddate){
+    # 进行判断
+    if ($eddate!='' || $eddate!=null ) {
+        $query->where('t8.dDate','<=',$eddate);
+    }
+})
+
+                          
+// ->where(function($query)use($username){
+//     # 进行判断
+//     if (!empty($username)) {
+//         $query->where('t1.username','Like',"%$username%");
+//     }
+// })
+// ->where(function($query)use($hospital_id){
+//     # 进行判断
+//     if (!empty($hospital_id)) {
+//         $query->where('t1.hospital_id','=',$hospital_id);
+//     }
+// })
+
+
+
+
+
+
+
+
             ->get()->toArray();        
             // dd($data);
         //     $data = array_merge([[
@@ -116,14 +245,32 @@ class DispatchReportsController extends CommonsController
 
         // return Excel::download(new ReportExport($result), '调查数据.xlsx');
       
+// $bedate = explode(" - ",$request->dateKey);
+//         $bgdate = $bedate[0];
+//         $eddate = $bedate[1];
+    
+ 
 
+// $data->get()->toArray();  
 
-
+ // dd($data);
          // $data = [[1,2,3],[1,2,3]];
       
-         $download_file_name = '已打包未装车'.date('Ymd').'.xlsx';
+         $new_file_name = '打包装车记录'.date('Ymd').'.xlsx';
             
-         return Excel::download(new ReportExport($data), $download_file_name);
+        Excel::store(new ReportExport($data), $new_file_name);
+
+        // $res['data'] = route('download', ['file' => $download_file_name]);
+        // return $res;
+
+        $res['data'] = route('download', ['file' => $new_file_name]);
+return $res;
+//         $response =array(
+// 'success' => true,
+// 'url'=> route('download_file')
+//         );
+//         header('Content-type: application/json');
+//         echo json_encode($response);
 
 
         // return Excel::create('数据更新', function($excel) use ($data) {
@@ -152,5 +299,24 @@ class DispatchReportsController extends CommonsController
         //     });
         // })->download('xlsx');
     }
+
+
+public function DownloadFile ($file_name) {
+    // dd(1);
+    // $file =null;
+    $file = storage_path('app\\'.$file_name);
+    // dd($file);
+    return response()->download($file);
+}
+
+
+// public function DownloadFile ($file_name) {
+
+//     $download_file_name = '打包装车记录test'.date('Ymd').'.xlsx';
+//     // dd(1);
+//     $file = public_path('storage\app\\'.$file_name.'.xls');
+//     return response()->download($file);
+// }
+
 
 }

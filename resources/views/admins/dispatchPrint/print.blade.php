@@ -44,8 +44,8 @@
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt;">区域仓库:{{ $datas[0]->no }}</h5>
                       <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:11pt; line-height:3.8pt;">客户简称:{{ $datas[0]->ccusabbname }}</h5>
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt;">联系人:{{ $datas[0]->ccontactname }}</h5>
-                      <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:11pt; line-height:3.8pt">收货地址:{{ $datas[0]->cshipaddress }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">手机:{{ $datas[0]->cmobilephone }}</h5>
+                      <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:11pt; line-height:7.3pt">收货地址:{{ $datas[0]->cshipaddress }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:7.3pt">手机:{{ $datas[0]->cmobilephone }}</h5>
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">电话:{{ $datas[0]->cofficephone }}</h5>
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">业务员:{{ $datas[0]->cpersonname }}</h5>
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:11pt; line-height:3.8pt">发运方式:{{ $datas[0]->cscname }}</h5>
@@ -84,14 +84,14 @@
                         </tr>
                     @endforeach
                     <tr>
-                        <td width="6%" colspan="1" style="font-family:黑体; font-size:11pt">合计</td>
+                        <td width="6%" colspan="1" style="font-family:黑体; font-size:11pt;line-height:3.8pt">合计</td>
                         <td width="8%" colspan="1"></td>
                         <td width="10%" colspan="1"></td>
                         <td width="42%" colspan="1"></td>
-                        <td width="7%" style="font-family:黑体; font-size:11pt" ><font  tdata="Sum" format="#,##" tindex="5" >######</font></td>
+                        <td width="7%" style="font-family:黑体; font-size:11pt ;line-height:3.8pt" ><font  tdata="Sum" format="#,##" tindex="5" >######</font></td>
                         <td width="6%" colspan="1"></td>
                         <td width="8%" colspan="1"></td>
-                        <td width="10%" style="font-family:黑体; font-size:11pt" ><font  tdata="Sum" format="#,##0.00" tindex="8" >######</font></td>
+                        <td width="10%" style="font-family:黑体; font-size:11pt ;line-height:3.8pt" ><font  tdata="Sum" format="#,##0.00" tindex="8" >######</font></td>
                         <!-- <td width="6%" colspan="1"></td> -->
                     </tr>
                     </tbody>
@@ -126,7 +126,7 @@
         $('#btn-submit').on('click', function(){
             LODOP=getLodop();
             LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
-            LODOP.SET_PRINT_PAGESIZE(1,2400,1390,'');//定义纸张
+            LODOP.SET_PRINT_PAGESIZE(1,'2400mm','1390mm','');//定义纸张
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",1);//打印后自动关闭预览窗口
             var strBodyStyle = "<link href=\"http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\"><style> .card{color: black}.table-bordered table,.table-bordered tbody tr th,.table-bordered tbody tr td{border: 1px solid  black; color: black/* 整体表格边框 */}</style>";

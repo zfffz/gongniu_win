@@ -4,6 +4,7 @@ use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 class ReportExport implements FromArray, WithHeadings, WithEvents
 {
    
@@ -35,14 +36,14 @@ class ReportExport implements FromArray, WithHeadings, WithEvents
     public function headings() : array
     {
         return [
+            '序号',
             '发货单号',
-            '客户名称',
+            '日期',
             '库位',
-            '打包员',  
-            '车牌号',
-            '司机',
-            '打包时间',
-            '装车时间'
+            '客户简称',  
+            '发货地址',
+            '默认库位',
+            '状态'
         ];
     }
  
@@ -50,14 +51,14 @@ class ReportExport implements FromArray, WithHeadings, WithEvents
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(15);
-                $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(38);
-                $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(6);
-                $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(10);
-                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(12);
-                $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(10);
-                $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(22);
-                $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(22);           
+                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(6);
+                $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(18);
+                $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(12);
+                $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(6);
+                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(46);
+                $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(46);
+                $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(11);
+                $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(10);           
             }
         ];
     }

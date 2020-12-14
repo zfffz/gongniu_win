@@ -124,7 +124,8 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     // 报表
     // 1.发货单：发货单 -> 打包出库 -> 扫码上车
     Route::post('dispatchReport/getData', 'DispatchReportsController@getData')->name('dispatchReport.getData');
-       Route::get('/dispatchReport/export', 'DispatchReportsController@export')->name('dispatchReport.export');
+       Route::post('/dispatchReport/export', 'DispatchReportsController@export')->name('dispatchReport.export');
+       Route::get('/dispatchReport/DownloadFile/{file}', 'DispatchReportsController@DownloadFile')->name('download');
     // Route::post('dispatchReport/getData1', 'DispatchReportsController@getData1')->name('dispatchReport.getData1');
     //  Route::post('dispatchReport/stock', 'DispatchReportsController@stock')->name('dispatchReport.getData1');
 
@@ -138,6 +139,7 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
      Route::get('/wayPrint/{id}/getPrint', 'WayPrintController@getPrint')->name('wayPrint.getPrint');
     Route::post('wayPrint/getData', 'WayPrintController@getData')->name('wayPrint.getData');
     Route::resource('wayPrint', 'WayPrintController', ['only' => [ 'index']]);
+
 
 //权限
 Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');

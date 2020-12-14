@@ -83,19 +83,20 @@ class DispatchPrintController extends CommonsController
 
             $body = \DB::table('Sales_FHD_H as t1')
                 ->select(
-                    \DB::raw("
-            ROW_NUMBER() OVER(ORDER BY t2.cInvCode) ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity,  Convert(decimal(30,2),t2.iTaxUnitPrice) as iTaxUnitPrice,Convert(decimal(30,2),t2.isum) as isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5
+    \DB::raw("t2.irowno as ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity,  Convert(decimal(30,2),t2.iTaxUnitPrice) as iTaxUnitPrice,Convert(decimal(30,2),t2.isum) as isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5
             "))
                 ->Join('dispatchlists as t2', 't1.dlid','t2.dlid')
                 ->Join('inventory as t3' ,'t3.cInvCode' , 't2.cInvCode')
-                ->Join('Warehouse as t4' , 't4.cWhCode' , 't2.cWhCode')
+                ->leftJoin('Warehouse as t4' , 't4.cWhCode' , 't2.cWhCode')
                 ->Join('ComputationUnit as t5' , 't5.cComunitCode' , 't3.cComUnitCode')
                 ->where('t1.cDLCode','=',$cdlcode)
+                ->orderby('t2.autoid')
                 ->get();
 
             $head[0]->divid = 'div'.$m;  //拼div的id
             $head[0]->tableid ='table'.$m;  //拼table对应的div的id
             $head[0]->pageid ='page'.$m;   //拼页脚id
+            $data1=[];
             $data1[0] = $head[0];
             $count = count($body);
             if ($count>0) {
@@ -560,7 +561,7 @@ foreach ($data as $cdlcode){
 
        $bedate = explode(" - ",$searchKey->dateKey);
         $bgdate = $bedate[0];
-        $eddate = date("Y-m-d",strtotime("+1day",strtotime($bedate[1])));
+        $eddate = $bedate[1];
         //dd($searchKey);
         if($searchKey!=''){
 

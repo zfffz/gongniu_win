@@ -84,7 +84,7 @@ class SweepOutsController extends CommonsController
                     'entry_id'=>$i,
                     'dispatch_no'=> $data['dispatch_no'],
                     'default_location_no'=> $data['default_location_no'],
-                    // 'location_no'=> $data['location_no']
+                    // 'location_no'=> $data['location_no'],
                 ]);
 
                 $sweep_out_item->save();
@@ -200,7 +200,7 @@ foreach ($res as $ress) {
         }
         $sweepOut = SweepOut::find($id);
 
-        $packager_name = DB::table('bs_gn_wl')
+        $packager_name = DB::table('person')
             ->select('cpersoncode as no','cpersonname as name')
             ->where('cpersoncode','=',$sweepOut->packager_no)
             ->get()[0]->name;
