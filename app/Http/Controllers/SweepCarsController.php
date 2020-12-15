@@ -420,7 +420,7 @@ $delete1 = DB::update("update dispatchlist set cDefine14='' where cdlcode=?", [$
             // ->where('wlcode','=','04')
             // ->get();
 
-        $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
+        $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'desc');
 
         return $data;
     }

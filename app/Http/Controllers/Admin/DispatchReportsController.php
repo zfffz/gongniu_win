@@ -304,7 +304,7 @@ return $res;
 public function DownloadFile ($file_name) {
     // dd(1);
     // $file =null;
-    $file = storage_path('app\\'.$file_name);
+    $file = storage_path('app/'.$file_name);
     // dd($file);
     return response()->download($file);
 }

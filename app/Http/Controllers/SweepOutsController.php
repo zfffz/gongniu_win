@@ -594,7 +594,7 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
             ->leftJoin('person as t2','t1.packager_no','t2.cpersoncode')
             ->leftJoin('zzz_storage_locations as t3','t1.location_no','t3.no');
 
-        $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'asc');
+        $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'desc');
 
         return $data;
     }

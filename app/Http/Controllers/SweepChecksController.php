@@ -221,7 +221,7 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
         ->leftJoin('zzz_sweep_checks as t2','t1.parent_id','=','t2.id');
         // ->where('t2.cDLCode','=',$dispatch_no)->get();
 
-        $data=parent::dataPage2($request,$this->conditions($builder,$request->searchKey),'asc');
+        $data=parent::dataPage2($request,$this->conditions($builder,$request->searchKey),'desc');
 
         return $data;
         // echo json_encode(array('status'=>1,'ddate'=>$data[0]->ddate));

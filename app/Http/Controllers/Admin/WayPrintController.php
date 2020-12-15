@@ -23,8 +23,11 @@ class WayPrintController extends CommonsController
      return view('admins.pages.permission_denied');
   
         }
-
-        $drivers= Driver::all();
+$drivers = DB::table('bs_gn_wl')
+            ->select('cpersoncode as id','cpersonname as name')
+            ->where('wlcode','=','04')
+            ->get();
+        // $drivers= Driver::all();
         return view('admins.wayPrint.index',compact('drivers'));
     }
 
@@ -96,6 +99,7 @@ class WayPrintController extends CommonsController
             }
             else{
                 $table->where('t1.billdate','>=',$bgdate);
+                // $table->where('t1.billdate','<',$eddate);
                 $table->where('t1.billdate','<',$eddate);
             }
 

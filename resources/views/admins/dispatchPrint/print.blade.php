@@ -126,7 +126,7 @@
         $('#btn-submit').on('click', function(){
             LODOP=getLodop();
             LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
-            LODOP.SET_PRINT_PAGESIZE(1,'2400mm','1390mm','');//定义纸张
+            LODOP.SET_PRINT_PAGESIZE(1,'240mm','139mm','');//定义纸张
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",1);//打印后自动关闭预览窗口
             var strBodyStyle = "<link href=\"http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\"><style> .card{color: black}.table-bordered table,.table-bordered tbody tr th,.table-bordered tbody tr td{border: 1px solid  black; color: black/* 整体表格边框 */}</style>";
