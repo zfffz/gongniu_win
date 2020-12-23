@@ -45,7 +45,7 @@ class DispatchPrintController extends CommonsController
         ->leftJoin('Department as t6','t1.cDepCode','t6.cDepCode')
         ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')
         ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode');
-        // ->leftjoin('dispatchlists as t6','t1.DLID','t6.DLID');
+        // ->leftjoin('dispatchlists as t8','t1.DLID','t8.DLID')
 
         $data=parent::dataPage3($request,$this->condition($builder,$request),'asc');
 

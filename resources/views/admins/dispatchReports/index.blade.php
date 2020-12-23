@@ -136,18 +136,18 @@
             </div>
               
                 </div>
-                <table id="companiesLists" class="table table-bordered table-striped">
+                <table id="companiesLists" class="table table-bordered table-striped" style="table-layout:fixed;">
                     <thead>
                     <tr>
-                        <th>序号</th>
-                        <th>发货单号</th>
-                        <th>日期</th>
-                        <th>库位</th>
-                        <th>客户简称</th>
-                        <th>发货地址</th>
-                        <th>默认库位</th>
+                        <th style="width: 4% !important;">序号</th>
+                        <th style="width: 12% !important;">发货单号</th>
+                        <th style="width: 9% !important;">日期</th>
+                        <th style="width: 4% !important;">库位</th>
+                        <th style="width: 25% !important;">客户简称</th>
+                        <th style="width: 38% !important;">发货地址</th>
+                        <th style="width: 8% !important;">默认库位</th>
 
-                        <th>状态</th>
+                        <th style="width: 6% !important;">状态</th>
                         
                     </tr>
                     </thead>
