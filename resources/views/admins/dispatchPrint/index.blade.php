@@ -113,7 +113,7 @@
                     <div class="col-sm-2">
                         <div class="input-group">
                             <td>
-                                <button type="button" class="btn btn-block btn-primary" onclick="table.draw( false );">查询</button>
+                                <button type="button" class="btn btn-block btn-primary"id="select" onclick="table.draw( false );">查询</button>
                             </td>
                         </div>
                     </div>
@@ -208,6 +208,7 @@ $('#btn-submit').on('click', function(){
     inputs=inputs.prevObject;
 
     var len = inputs.length;
+
     if(len == 0){
         Toast.fire({
             type: 'error',
@@ -215,12 +216,108 @@ $('#btn-submit').on('click', function(){
         });
         return false;
     }else{
-        var datas='';
+
+
+ var datas='';
         inputs.each(function () {
             datas = datas + $(this).val()+'|';
         });
+
+
+ var dispatch_no='';
+        inputs.each(function () {
+            dispatch_no = dispatch_no + $(this).val()+'|';
+        });
+
+
+// alert(dispatch_no);
+   $.ajax({
+                    url:'dispatchPrint/checkprint?dispatch_no='+dispatch_no,
+                    type:'get',
+                    dataType:'json',
+                    // async: false,
+                    headers:{
+                        Accept:"application/json",
+                        "Content-Type":"application/json"
+                    },
+                    processData:false,
+                    cache:false,
+                    timeout: 3000,
+                    beforeSend:function(){
+                    },
+                    success:function(t){
+                        if(t.status==0){
+                            //发货单号红框提示,toast提示
+                             $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                             $('#notifyAudio')[0].play();
+                             // $("#dispatch_no").addClass("is-invalid");
+                            Toast.fire({
+                                type: 'error',
+                                title: t.text
+                            });
+                            document.getElementById("select").click();
+                            //清空发货单号
+                            // $('#dispatch_no').val('');
+                            // $("#dispatch_no").focus();
+                            // result = false;
+                        }else{
+                          window.open("dispatchPrint/getPrint?datas="+datas);
+                            //如果合法
+                            // $("#dispatch_no").removeClass("is-invalid");
+                            // result = true;
+                        }
+
+                    },
+                    error:function(){
+                        alert("error");
+                        // result = false;
+                    }
+
+                });
+   // window.open("dispatchPrint/getPrint?datas="+datas);
+// myajax3=$.ajax({
+//   data:{data:data},
+//   headers:{
+//     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+//   },
+//   type: "post",
+//   // async:false,
+//   dataType: "json",
+//   url:"check",
+//             beforeSend:function(){
+
+//             },
+//             success:function(data){
+//               if(data.status==0){
+//                 $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+//                 $('#notifyAudio')[0].play();
+//                                 //发货单号红框提示,toast提示
+//                              // $("#dispatch_no").addClass("is-invalid");
+//                                 Toast.fire({
+//                                   type: 'error',
+//                                   title: data.text
+//                                 });
+                                 
+//                                }
+//                                else
+//                                {
+                            
+//                                }
+                             
+                               
+//                            }
+//                          })
+
+
+
+
+
+
+    
+
+       
         // window.location.href = "dispatchPrint/getPrint?datas="+datas;
-window.open("dispatchPrint/getPrint?datas="+datas);
+
     };
 
 });

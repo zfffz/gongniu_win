@@ -131,7 +131,7 @@
         $('#btn-submit').on('click', function(){
             LODOP=getLodop();
             LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
-            LODOP.SET_PRINT_PAGESIZE(1,'240mm','139mm','');//定义纸张
+            LODOP.SET_PRINT_PAGESIZE(1,'240mm','138.8mm','');//定义纸张
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",1);//打印后自动关闭预览窗口
             var strBodyStyle = "<link href=\"http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\"><style> .card{color: black}.table-bordered table,.table-bordered tbody tr th,.table-bordered tbody tr td{border: 1px solid  black; color: black/* 整体表格边框 */}</style>";
@@ -159,7 +159,7 @@
                 LODOP.SET_PRINT_STYLEA(0,"ItemType",1);//设置上面的为页眉页脚，每页固定位置输出
                 // LODOP.SET_PRINT_STYLEA(0,"LineSpacing",13);
            //     LODOP.SET_PRINT_STYLEA(0,"LinkedItem",1);
-                LODOP.ADD_PRINT_BARCODE(5,750,80, 80, 'QRCode', cdlcode);  //打印发货单二维码
+                LODOP.ADD_PRINT_BARCODE(18,750,80, 80, 'QRCode', cdlcode);  //打印发货单二维码
                 LODOP.ADD_PRINT_TEXT(5,'10mm','50mm','5mm',printtime.toLocaleString( ));
                 LODOP.NewPageA();  //自动分页
                // LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById("div1").innerHTML+"</body>");
@@ -172,10 +172,15 @@
                 }
             };
             LODOP.PREVIEWB();
+             // window.close();
+             b=document.getElementById('btn-submit');
+b.disabled="disabled";
+             // .disabled="disabled"
         });
 
         $('#printstatus').change(function(){
             var printcount= $('#printstatus').val();
+
             if (printcount > 0) {
                 var m= $('#count').val();
                 var datas ={};
@@ -186,7 +191,7 @@
                     datas.items[j-1]={};
                     datas.items[j-1].cdlcode = cdlcode;
                 }
-
+// alert(datas);
                 $.ajax({
                     url:"{{route('dispatchPrint.updPrintstatus')}}",
                     data:JSON.stringify(datas),
@@ -201,6 +206,7 @@
                     cache:false,
                     timeout: 1000,
                     success:function(t){
+
                         //插入成功
                         if (t.FTranType ==0 ){//这里的FTranType对应后台数组的FTranType，判断要用“==”
                             alert(t.FText);   //t.FTranType ==0 插入失败，可能是发货单号不存在等原因
@@ -209,7 +215,7 @@
                     },
                     error:function(){
                         //系统错误，有可能是后台php语法错误，sql语句运行错误等
-                        alert("error");
+                        // alert("error");
                         //disLoad();
                     }
                 });

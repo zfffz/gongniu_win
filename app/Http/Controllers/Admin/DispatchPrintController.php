@@ -12,6 +12,8 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class DispatchPrintController extends CommonsController
 {
+    // public function index()
+  
     public function index()
     {
         
@@ -493,6 +495,62 @@ foreach ($data as $cdlcode){
 
     }
 
+   // public function check(Request $request)
+   //  {
+   //      dd(1);
+   //       $check = $request->input('items');
+   //        // dd($check);
+   //      foreach($check as $da){
+       
+
+   //      $data= DB::select('select iPrintCount from dispatchlist where cdlcode=?', [$da['cdlcode']]);
+        
+   //      if($data[0]>0){
+   //          echo json_encode(array("status"=>"0","text"=>"发货单'$data[0]'已打印！"));
+   //          exit();
+   //      }
+
+   //      }
+   //      // dd($query12);
+   //     // if ($data[0]>0) {
+   //     //       echo json_encode(array("status"=>"1","text"=>"发货单'$data['cdlcode']'已打印！"));
+   //     //      exit();
+   //     //   }
+
+
+   //  }
+
+      public function checkprint(Request $request){
+
+         $data = explode('|',substr($request['dispatch_no'],0,-1));
+      $n=0;
+      // $t=0;
+        // dd($data);
+        foreach ($data as $cdlcode){
+        // dd(1);
+        // $cdlcode = $request->dispatch_no;
+
+        //11.20修改检查发货单是否已经审核过，未审核过要求先审核，在打包,以后检查对货可以直接启用
+        // $query = DB:: table('zzz_sweep_checks as t1')
+        //     ->where('t1.dispatch_no','=',$cdlcode)
+        //     ->count();
+// dverifydate is NOT NULL and
+
+ $query =  DB::SELECT("select total from PrintPolicy_VCH where VchID=?",[$cdlcode]);
+ $n=$n+COUNT($query);
+ // $t=$t+1;
+
+}
+// dd($query);
+// dd($n);
+        if($n == 0 ){
+            //这张发货单未进行对货
+            echo json_encode(array('status'=>1,'text'=>'success！'));
+        }else{
+            echo json_encode(array('status'=>0,'text'=>'发货单已打印！'));
+            // exit();
+        }
+    }
 
     //更新发货单打印次数和打印状态
     public function updPrintstatus(Request $request)
@@ -526,6 +584,22 @@ foreach ($data as $cdlcode){
                     ]
                 );
 
+        $jg4= DB::select('select ISNULL(total,0) from PrintPolicy_VCH where VchID= ?', [$data['cdlcode']]);
+// [$dispatch_no,$result,$result]);
+        // console.log($jg4);
+                // if ($jg4[0]=0) {
+                    # code...
+               // dd($jg4);
+
+            //     $jg4 = \DB::table('PrintPolicy_VCH')
+            //         ->select(
+            //             "Total
+            // "))
+            //         ->where('cDLCode','=',$data['cdlcode'])
+                    // $retVal = ($jg4=) ? a : b ;
+
+        if(count($jg4)==0)
+        {
                 //插入u8打印日志
                 $jg3=DB::table('PrintPolicy_VCH')->insert(
                     [
@@ -536,16 +610,26 @@ foreach ($data as $cdlcode){
                         'Total'=>'1'
                     ]
                 );
+ }
+ // else if ($jg4[0]>0) {
+ //    $jg5=DB::table('PrintPolicy_VCH')
+ //                    ->where('cdlcode','=',$data['cdlcode'])
+ //                    ->update(
+ //                        [
+ //                            'iPrintCount'=>$query1[0]->iPrintCount + 1,
 
+ //                        ]
+ //                    );
+ // }
                 if (!$jg1) {
                     throw new \Exception("2");
                 }
                 if (!$jg2) {
                     throw new \Exception("3");
                 }
-                if (!$jg3) {
-                    throw new \Exception("4");
-                }
+                // if (!$jg3) {
+                //     throw new \Exception("4");
+                // }
                 DB::commit();
                 echo json_encode(array("FTranType"=>1,"FText"=>'打印更新成功！'),JSON_UNESCAPED_UNICODE);
             }catch(\Exception $e){
@@ -558,12 +642,14 @@ foreach ($data as $cdlcode){
         }
     }
 
+
     private function condition($table,$searchKey){
 
        $bedate = explode(" - ",$searchKey->dateKey);
         $bgdate = $bedate[0];
         $eddate = $bedate[1];
         //dd($searchKey);
+        $table->where('t1.bReturnFlag','=',0);
         if($searchKey!=''){
 
                $table->where('t1.dDate','>=',$bgdate);
