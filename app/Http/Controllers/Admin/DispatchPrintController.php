@@ -551,7 +551,78 @@ foreach ($data as $cdlcode){
             // exit();
         }
     }
+    //预览打印
+   public function checkprint1(Request $request){
+// dd(1);
+        $updcdlcode = $request->input('items');
+         $n=0;
+         $t=0;
+        foreach($updcdlcode as $data){
+     
 
+   // DB::insert('insert into  zzz_print (cpersoncode,cdlcode,hd,ddate) values (?,?,?,?)', [$checkers[0]->no,$dispatch_no,'对货',$ddate]);
+   //    // $t=0;
+        // dd($data);
+        // foreach ($data as $cdlcode){
+        // dd(1);
+        // $cdlcode = $request->dispatch_no;
+
+        //11.20修改检查发货单是否已经审核过，未审核过要求先审核，在打包,以后检查对货可以直接启用
+        // $query = DB:: table('zzz_sweep_checks as t1')
+        //     ->where('t1.dispatch_no','=',$cdlcode)
+        //     ->count();
+// dverifydate is NOT NULL and
+// DB::insert('insert into  BS_GN_wlstate (cpersoncode,cdlcode,hd,ddate) values (?,?,?,?)', [$checkers[0]->no,$dispatch_no,'对货',$ddate]);
+
+    // $jg2=DB::table('zzz_print')->insert(
+    //                 [
+    //                     'cdlcode'=>$data['cdlcode'],
+    //                     'CreateTime'=>date('Y-m-d h:i:s', time()),
+    //                     'userid'=>$request->user()->id
+    //                 ]
+    //             );
+ $query1 =  DB::SELECT("select cdlcode from zzz_print where cdlcode=?",[$data['cdlcode']]);
+
+ $query =  DB::SELECT("select total from PrintPolicy_VCH where VchID=?",[$data['cdlcode']]);
+ $n=$n+COUNT($query);
+ $t=$t+COUNT($query1);
+
+}
+// dd($query);
+// dd($n);
+        if($n == 0 ){
+            if ($t == 0) {
+                 echo json_encode(array('status'=>1,'text'=>'success！'));
+            }
+            else
+          {
+            //这张发货单未进行对货
+            echo json_encode(array('status'=>0,'text'=>'发货单正在打印中！'));
+             exit();
+        }
+    }
+        else{
+            echo json_encode(array('status'=>0,'text'=>'发货单已打印！'));
+            exit();
+        }
+
+    }
+        //预览打印
+   public function checkprint2(Request $request){
+  $updcdlcode = $request->input('items');
+  foreach($updcdlcode as $data){
+DB::insert('insert into  zzz_print (cdlcode,userid,CreateTime) values (?,?,?)', [$data['cdlcode'],$request->user()->id,date('Y-m-d h:i:s', time())]);
+}
+
+      }
+
+        public function checkprint3(Request $request){
+  $updcdlcode = $request->input('items');
+  foreach($updcdlcode as $data){
+$deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]);
+}
+
+      }
     //更新发货单打印次数和打印状态
     public function updPrintstatus(Request $request)
     {
@@ -585,6 +656,8 @@ foreach ($data as $cdlcode){
                 );
 
         $jg4= DB::select('select ISNULL(total,0) from PrintPolicy_VCH where VchID= ?', [$data['cdlcode']]);
+
+        $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]);
 // [$dispatch_no,$result,$result]);
         // console.log($jg4);
                 // if ($jg4[0]=0) {

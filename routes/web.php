@@ -117,6 +117,9 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::post('dispatchPrint/outboxPrint', 'DispatchPrintController@outboxPrint')->name('dispatchPrint.outboxPrint');
     Route::post('dispatchPrint/updPrintstatus', 'DispatchPrintController@updPrintstatus')->name('dispatchPrint.updPrintstatus');
     Route::get('dispatchPrint/checkprint', 'DispatchPrintController@checkprint')->name('dispatchPrint.checkprint');
+     Route::post('dispatchPrint/checkprint1', 'DispatchPrintController@checkprint1')->name('dispatchPrint.checkprint1');
+     Route::post('dispatchPrint/checkprint2', 'DispatchPrintController@checkprint2')->name('dispatchPrint.checkprint2');
+       Route::post('dispatchPrint/checkprint3', 'DispatchPrintController@checkprint3')->name('dispatchPrint.checkprint3');
     //  Route::post('dispatchPrint/printpage', 'DispatchPrintController@printpage')->name('dispatchPrint.printpage');
     Route::resource('dispatchPrint', 'DispatchPrintController', ['only' => [ 'index']]);
 

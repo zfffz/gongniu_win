@@ -41,8 +41,8 @@
                     <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">客户简称:{{ $datas[0]->ccusabbname }}</h5>
                     <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">客户编码:{{ $datas[0]->cCusCode }}</h5>
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">发货单号:{{ $datas[0]->cDLCode}}</h5>
-                       <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:10.5pt; line-height:5pt;white-space: nowrap;text-overflow:ellipsis;">收货地址:{{ $datas[0]->cshipaddress }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:5pt;white-space: nowrap;">发货日期:{{ $datas[0]->dDate }}</h5>
+                       <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:10.5pt; line-height:4.5pt;white-space: nowrap;text-overflow:ellipsis;">收货地址:{{ $datas[0]->cshipaddress }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:4.5pt;white-space: nowrap;">发货日期:{{ $datas[0]->dDate }}</h5>
                      
                       
                       
@@ -62,41 +62,41 @@
                 <table class="table table-hover table-bordered" style="width: 100%;line-height:0.2pt;border: 1px solid black;word-break:break-all">
                     <tbody>
                     <tr>
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:initial; ">行</th>
-      {{--<th style="font-family:黑体; font-size:10.5pt ; line-height:initial; ">仓库</th>--}}
-      {{--<th style="font-family:黑体; font-size:10.5pt ; line-height:initial; ">存货编码</th>--}}
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:initial; ">规格</th>
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:initial">存货编码</th>
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:initial">存货名称</th>
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:initial">数量</th>
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:initial">单位</th>
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:initial">单价</th>
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:initial">金额</th>
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt; ">行</th>
+      {{--<th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt; ">仓库</th>--}}
+      {{--<th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt; ">存货编码</th>--}}
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt; ">规格</th>
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">存货编码</th>
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">存货名称</th>
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">数量</th>
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">单位</th>
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">单价</th>
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">金额</th>
           <!-- <th style="font-family:黑体; font-size:11pt ; line-height:initial">条码</th> -->
                     </tr>
 
                     @foreach ($datas[1] as $dats)
                         <tr>
                             <td width="5.9%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->ROWNU }}</td>
-                            <td width="8.9%" style="font-family:黑体; font-size:10.2pt; line-height:7.6pt;word-wrap: break-word;">{{ $dats->cInvStd }}</td>
+                            <td width="8.9%" style="font-family:黑体; font-size:10.2pt; line-height:3.8pt;word-wrap: break-word;">{{ $dats->cInvStd }}</td>
                             <td width="9.5%" style="font-family:黑体; font-size:11pt;line-height:3.8pt ;word-wrap: break-word;">{{ $dats->cInvcode }}</td>
-                            <td width="42.7%" style="font-family:黑体; font-size:10.5pt;line-height:7.6pt;word-wrap: break-word;">{{ $dats->cInvName }}</td>
+                            <td width="42.7%" style="font-family:黑体; font-size:10.5pt;line-height:7.0pt;word-wrap: break-word;">{{ $dats->cInvName }}</td>
                             <td width="6.5%" style="font-family:黑体; font-size:10.3pt;line-height:3.8pt;word-wrap: break-word;">{{ ($dats->iQuantity*1) }}</td>
                             <td width="6%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->cComUnitName }}</td>
                             <td width="8%" style="font-family:黑体; font-size:10.3pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->iTaxUnitPrice }}</td>
-                            <td width="10.2%" style="font-family:黑体; font-size:10.3pt;line-height:1.3pt;word-wrap: break-word; ">{{ ($dats->isum) }}</td>
+                            <td width="10.2%" style="font-family:黑体; font-size:10.3pt;line-height:3.8pt;word-wrap: break-word; ">{{ ($dats->isum) }}</td>
                             <!-- <td width="6%" style="font-family:黑体; font-size:11pt; line-height:3.8pt;word-wrap: break-word;">{{ $dats->cInvDefine5 }}</td> -->
                         </tr>
                     @endforeach
                     <tr>
-                        <td width="5.9%" colspan="1" style="font-family:黑体; font-size:11pt;line-height:3.8pt">合计</td>
+                        <td width="5.9%" colspan="1" style="font-family:黑体; font-size:11pt;line-height:1.5pt">合计</td>
                         <td width="8.9%" colspan="1"></td>
                         <td width="9.5%" colspan="1"></td>
                         <td width="42.7%" colspan="1"></td>
-                        <td width="6.5%" style="font-family:黑体; font-size:10.3pt ;line-height:3.8pt" ><font  tdata="Sum" format="###" tindex="5" >######</font></td>
+                        <td width="6.5%" style="font-family:黑体; font-size:10.3pt ;line-height:1.5pt" ><font  tdata="Sum" format="###" tindex="5" >######</font></td>
                         <td width="6%" colspan="1"></td>
                         <td width="8%" colspan="1"></td>
-                        <td width="10.2%" style="font-family:黑体; font-size:10.3pt ;line-height:1.3pt" ><font  tdata="Sum" format="###0.00" tindex="8" >######</font></td>
+                        <td width="10.2%" style="font-family:黑体; font-size:10.3pt ;line-height:1.4pt" ><font  tdata="Sum" format="###0.00" tindex="8" >######</font></td>
                         <!-- <td width="6%" colspan="1"></td> -->
                     </tr>
                     </tbody>
@@ -128,10 +128,87 @@
 
 @section('script')
     <script>
+       const Toast = Swal.mixin({
+      toast: true,
+      position: 'middle-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
         $('#btn-submit').on('click', function(){
-            LODOP=getLodop();
+
+            // var printcount= $('#printstatus').val();
+            // if (printcount > 0) {
+            //     var m= $('#count').val();
+             var m= $('#count').val();
+                var datas ={};
+                datas.items = {};
+                for(var j=1;j<=m;j++) {
+                    var divid = 'div' + j;
+                    var cdlcode = $("#" + divid + " input[id='cdlcode']").val();
+                    datas.items[j-1]={};
+                    datas.items[j-1].cdlcode = cdlcode;
+                }
+// alert(datas);
+            $.ajax({
+                    url:"{{route('dispatchPrint.checkprint1')}}",
+                    data:JSON.stringify(datas),
+                    type:'post',
+                    dataType:'json',
+                    headers:{
+                        Accept:"application/json",
+                        "Content-Type":"application/json",
+                        'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                    },
+                    processData:false,
+                    cache:false,
+                    timeout: 3000,
+                    success:function(t){
+                        if(t.status==0){
+                            //发货单号红框提示,toast提示
+                             $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                             $('#notifyAudio')[0].play();
+                             // $("#dispatch_no").addClass("is-invalid");
+                             // alert(t.text);
+                            Toast.fire({
+                                type: 'error',
+                                title: t.text
+                            });
+                            // document.getElementById("select").click();
+                            //清空发货单号
+                            // $('#dispatch_no').val('');
+                            // $("#dispatch_no").focus();
+                            // result = false;
+                        }else{
+
+ $.ajax({
+                    url:"{{route('dispatchPrint.checkprint2')}}",
+                    data:JSON.stringify(datas),
+                    type:'post',
+                    dataType:'json',
+                    headers:{
+                        Accept:"application/json",
+                        "Content-Type":"application/json",
+                        'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                    },
+                    processData:false,
+                    cache:false,
+                    timeout: 3000,
+                    success:function(t){
+
+
+
+                    }
+  })
+
+ LODOP=getLodop();
             LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
-            LODOP.SET_PRINT_PAGESIZE(1,'240mm','138.8mm','');//定义纸张
+            // LODOP.SET_PRINT_MODE("HIDE_PBUTTIN_PREVIEW",1);
+            // LODOP.SET_SHOW_MODE("HIDE_QBUTTIN_PREVIEW",0);
+            // LODOP. SET_SHOW_MODE("HIDE_QBUTTIN_PREVIEW",true);
+            // LODOP. SET_SHOW_MODE("PREVIEW_NO_MINIMIZE",true);
+            // LODOP.SET_SHOW_MODE("SETUP_ENABLESS","11111111100000");
+            // LODOP.SET_PRINT_MODE ("HIDE_QBUTTIN_PREVIEW",true);
+            LODOP.SET_PRINT_PAGESIZE(1,'240mm','139.2mm','');//定义纸张
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",1);//打印后自动关闭预览窗口
             var strBodyStyle = "<link href=\"http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\"><style> .card{color: black}.table-bordered table,.table-bordered tbody tr th,.table-bordered tbody tr td{border: 1px solid  black; color: black/* 整体表格边框 */}</style>";
@@ -146,10 +223,10 @@
                 var cdlcode = $("#"+divid+ " input[id='cdlcode']").val();
                 var printtime = new Date();
                 LODOP.ADD_PRINT_HTM(5, '10mm', "RightMargin:1cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
-                LODOP.ADD_PRINT_TABLE(210,'10mm', "RightMargin:1cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_TABLE(205,'10mm', "RightMargin:1cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
                 // LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);//高度溢出缩放
-                LODOP.SET_PRINT_STYLEA(0,"Offset2Top",-205); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
-                LODOP.ADD_PRINT_HTM(5, '10mm', "RightMargin:3cm", '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
+                LODOP.SET_PRINT_STYLEA(0,"Offset2Top",-200); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
+                LODOP.ADD_PRINT_HTM(3, '10mm', "RightMargin:3cm", '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
                 LODOP.SET_PRINT_STYLEA(0,"LinkedItem",-1);//以上内容紧跟在前一个对象之后
 
               //  LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
@@ -165,20 +242,43 @@
                // LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById("div1").innerHTML+"</body>");
             }
 
-            if (LODOP.CVERSION) CLODOP.On_Return=function(TaskID,Value){
+
+
+
+              if (LODOP.CVERSION) CLODOP.On_Return=function(TaskID,Value){
                 document.getElementById('printstatus').value=Value;
                 if (document.getElementById('printstatus').value >0){
                     $('#printstatus').change();
+                
+
+                }
+
+                if(document.getElementById('printstatus').value ==0){
+                   $.ajax({
+                    url:"{{route('dispatchPrint.checkprint3')}}",
+                    data:JSON.stringify(datas),
+                    type:'post',
+                    dataType:'json',
+                    headers:{
+                        Accept:"application/json",
+                        "Content-Type":"application/json",
+                        'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                    },
+                    processData:false,
+                    cache:false,
+                    timeout: 3000,
+                    success:function(t){
+
+
+
+                    }
+  })
+
                 }
             };
+            // alert()
             LODOP.PREVIEWB();
-             // window.close();
-             b=document.getElementById('btn-submit');
-b.disabled="disabled";
-             // .disabled="disabled"
-        });
-
-        $('#printstatus').change(function(){
+ $('#printstatus').change(function(){
             var printcount= $('#printstatus').val();
 
             if (printcount > 0) {
@@ -222,6 +322,41 @@ b.disabled="disabled";
 
             }
         });
+                          // window.open("dispatchPrint/getPrint?datas="+datas);
+                            //如果合法
+                            // $("#dispatch_no").removeClass("is-invalid");
+                            // result = true;
+                        }
+
+                    },
+                    // error:function(){
+                    //     alert("error");
+                        // result = false;
+                    // }
+
+                });
+
+
+
+
+      
+
+
+
+
+
+
+
+           
+
+          
+             // window.close();
+             b=document.getElementById('btn-submit');
+b.disabled="disabled";
+             // .disabled="disabled"
+        });
+
+       
 
 
     </script>
