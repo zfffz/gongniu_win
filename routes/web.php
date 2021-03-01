@@ -100,11 +100,16 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::post('customerLocation/getData', 'CustomerLocationsController@getData')->name('customerLocation.getData');
     Route::get('customerLocation/getCustomerData', 'CustomerLocationsController@getCustomerData')->name('customerLocation.getCustomerData');
     Route::resource('customerLocation', 'CustomerLocationsController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
-
+    
+    //生成发运单
     Route::post('wayBill/getData', 'WayBillsController@getData')->name('wayBill.getData');
     Route::post('wayBill/getDispatchData', 'WayBillsController@getDispatchData')->name('wayBill/getDispatchData');
     Route::resource('wayBill', 'WayBillsController', ['only' => [ 'index','store']]);
 
+    //
+    Route::post('transVouch/getData', 'TransVouchsController@getData')->name('transVouch.getData');
+    Route::post('transVouch/getDispatchData', 'TransVouchsController@getDispatchData')->name('transVouch/getDispatchData');
+    Route::resource('transVouch', 'TransVouchsController', ['only' => [ 'index','store']]);
 
    //发货单打印
     Route::post('dispatchPrint/getData', 'DispatchPrintController@getData')->name('dispatchPrint.getData');
@@ -139,10 +144,15 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
       Route::post('stockReport/getData', 'StockReportsController@getData')->name('stockReport/getData');
      Route::resource('stockReport', 'StockReportsController', ['only' => [ 'index']]);
 
-
+    //发运单打印
      Route::get('/wayPrint/{id}/getPrint', 'WayPrintController@getPrint')->name('wayPrint.getPrint');
     Route::post('wayPrint/getData', 'WayPrintController@getData')->name('wayPrint.getData');
     Route::resource('wayPrint', 'WayPrintController', ['only' => [ 'index']]);
+
+       //调运单打印
+     Route::get('/transPrint/{id}/getPrint', 'TransPrintController@getPrint')->name('transPrint.getPrint');
+    Route::post('transPrint/getData', 'TransPrintController@getData')->name('transPrint.getData');
+    Route::resource('transPrint', 'TransPrintController', ['only' => [ 'index']]);
 
 
 //权限

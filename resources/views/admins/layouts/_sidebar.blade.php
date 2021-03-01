@@ -87,6 +87,20 @@
                             </a>
                         </li>
                         @endcan
+                        @can('transvouch_users')
+                        <li class="nav-item">
+                            <a href="{{route('transVouch.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>生成调运单</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('transPrint.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>打印调运单</p>
+                            </a>
+                        </li>
+                        @endcan
                         @can('returnhouse_users')
                         <li class="nav-item">
                             <a href="{{route('returnhouse.create')}}" class="nav-link">
