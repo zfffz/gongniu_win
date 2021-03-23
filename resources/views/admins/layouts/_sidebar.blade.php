@@ -41,7 +41,7 @@
                          <li class="nav-item">
                        <a href="{{route('dispatchPrint.index')}}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
-                            <p>发货单打印</p >
+                            <p>单据打印</p >
                              </a>
                         </li>
                        @endcan

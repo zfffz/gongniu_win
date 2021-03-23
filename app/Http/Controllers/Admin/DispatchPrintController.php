@@ -13,7 +13,32 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 class DispatchPrintController extends CommonsController
 {
     // public function index()
-  
+  public function deletesd(Request $request)
+    {
+          if (! Auth::user()->can('dispatchprint_users')) {
+            return view('admins.pages.permission_denied');
+        }
+// dd($request);
+       
+      $user= Auth::id();
+      // dd(Auth);
+       $username= Auth::user()->name;
+
+// dd($username);
+$selected= DB::select("select id from zzz_print where userid=? ",[$user]);
+if (count($selected)==0) 
+{
+echo json_encode(array("status"=>"1","text"=>"当前用户'$username'无正在打印单据！"));
+}
+if (count($selected)>0) {
+        $deleted= DB::delete("delete from zzz_print where userid=? ",[$user]);
+echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
+
+}
+     
+        // return $deleted;
+    }
+
     public function index()
     {
         
@@ -22,6 +47,72 @@ class DispatchPrintController extends CommonsController
         }
 
         return view('admins.dispatchPrint.index');
+    }
+
+    public function getDatadb(Request $request)
+    {
+ // $builder = \DB::table('dispatchlist1 as t1')
+ //            ->select(
+ //                \DB::raw("
+ //            t1.cDLCode, 
+ //            convert(char(10),t1.dDate,120) as dDate,
+ //            t2.cSTName,
+ //            t6.cDepname,
+ //            t1.cCusName,
+ //            t3.cCusAbbName,
+ //            t4.cPsn_Name,
+ //            t1.cMemo,
+ //            t1.cMaker,
+ //            t1.bReturnFlag,
+ //            t5.cSCName,
+ //            case isnull(t1.iPrintCount,0) when 0 then '否' else '是' end as status,
+ //            isnull(t1.iPrintCount,0) as iprintCount
+ //            "))
+ //        ->leftJoin('SaleType as t2','t1.cSTCode','t2.cSTCode')
+ //        ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
+ //        ->leftJoin('Department as t6','t1.cDepCode','t6.cDepCode')
+ //        ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')
+ //        ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode');
+        // ->where('t1.bReturnFlag','=',0);
+        // ->leftjoin('dispatchlists as t8','t1.DLID','t8.DLID')
+
+        $builder2 = \DB::table('transvouch as t1')
+            ->select(
+                \DB::raw("
+            t1.ctvcode as cDLCode, 
+            convert(char(10),t1.dtvdate,120) as dDate,
+            '' as cSTName,
+            t6.cDepname,
+            t1.cdefine3 as cCusName,
+            t1.cdefine3 as cCusAbbName,
+            t4.cPsn_Name,
+            t1.ctvMemo as cMemo,
+            t1.cMaker,
+            '0' as bReturnFlag,
+            '' as cSCName,
+            case isnull(t1.iPrintCount,0) when 0 then '否' else '是' end as status,
+            isnull(t1.iPrintCount,0) as iprintCount
+            "))
+        ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')  
+        ->leftJoin('Department as t6','t4.cDept_num','t6.cDepCode') 
+        // ->leftJoin('warehouse as t7','t7.cWhCode','t1.cowhcode') 
+        ;
+
+
+
+
+        // ->leftJoin('SaleType as t2','t1.cSTCode','t2.cSTCode')
+        // ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
+        
+        
+        // ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode')
+
+         // $builder =$builder1 ->unionALL($builder2);
+        
+        // $data=parent::dataPage3($request,$this->condition($builder,$request),'asc');
+     $data=parent::dataPage9($request,$this->condition1($builder2,$request),'asc');
+        // $data=$data2->unionALL($data3);
+        return $data;
     }
 
     public function getData(Request $request)
@@ -38,6 +129,7 @@ class DispatchPrintController extends CommonsController
             t4.cPsn_Name,
             t1.cMemo,
             t1.cMaker,
+            t1.bReturnFlag,
             t5.cSCName,
             case isnull(t1.iPrintCount,0) when 0 then '否' else '是' end as status,
             isnull(t1.iPrintCount,0) as iprintCount
@@ -47,10 +139,43 @@ class DispatchPrintController extends CommonsController
         ->leftJoin('Department as t6','t1.cDepCode','t6.cDepCode')
         ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')
         ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode');
+        // ->where('t1.bReturnFlag','=',0);
         // ->leftjoin('dispatchlists as t8','t1.DLID','t8.DLID')
 
-        $data=parent::dataPage3($request,$this->condition($builder,$request),'asc');
+        // $builder2 = \DB::table('transvouch as t1')
+        //     ->select(
+        //         \DB::raw("
+        //     t1.ctvcode as cDLCode, 
+        //     convert(char(10),t1.dtvdate,120) as dDate,
+        //     '' as cSTName,
+        //     t6.cDepname,
+        //     t1.cdefine3 as cCusName,
+        //     t1.cdefine3 as cCusAbbName,
+        //     t4.cPsn_Name,
+        //     t1.ctvMemo as cMemo,
+        //     t1.cMaker,
+        //     '0' as bReturnFlag,
+        //     '' as cSCName,
+        //     case isnull(t1.iPrintCount,0) when 0 then '否' else '是' end as status,
+        //     isnull(t1.iPrintCount,0) as iprintCount
+        //     "))
+        // ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')  
+        // ->leftJoin('Department as t6','t4.cDept_num','t6.cDepCode') ;
 
+
+
+
+        // ->leftJoin('SaleType as t2','t1.cSTCode','t2.cSTCode')
+        // ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
+        
+        
+        // ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode')
+
+         // $builder =$builder1 ->unionALL($builder2);
+        
+        $data=parent::dataPage3($request,$this->condition($builder,$request),'asc');
+        // $data=parent::dataPage9($request,$this->condition1($builder2,$request),'asc');
+        // $data=$data2->unionALL($data3);
         return $data;
     }
 
@@ -119,6 +244,72 @@ class DispatchPrintController extends CommonsController
 
     }
 
+
+
+
+//打印调拨单
+    public function dbgetPrint(Request $request)
+    {
+         if (! Auth::user()->can('dispatchprint_users')) {
+            return view('admins.pages.permission_denied');
+        }
+
+        $data = explode('|',substr($request['datas'],0,-1));
+        $n=0;
+        $m=1;
+         // dd($data);
+        foreach ($data as $cdlcode){
+
+
+            $head = \DB::table('transvouch as a')
+                ->select(
+                    \DB::raw("
+
+                      a.ctvcode as cDLCode,a.cdefine3 as cxh,CONVERT(varchar(100), a.dtvdate, 23) as dtvdate,w.cWhName as ciwhname,h.cWhName as cowhname,a.cTVMemo,p.cPersonName,a.cdefine1 as djlx,a.cdefine2 as dmsdh, a.cmaker, '' as divid, '' as tableid, '' as pageid 
+
+          
+            "))
+                ->leftJoin('warehouse as w','a.ciwhcode','w.cwhcode')
+                ->leftJoin('warehouse as h','h.cwhcode','a.cowhcode')
+                ->leftJoin('person as p','p.cPersonCode','a.cPersonCode')
+                ->where('a.ctvcode','=',$cdlcode)->get();
+            ;
+
+            $body = \DB::table('transvouchs as t1')
+                ->select(
+    \DB::raw("t1.irowno as ROWNU,t1.cInvcode,t3.cInvStd,t5.cComUnitName, t3.cInvName,t1.iTVQuantity , rtrim( Convert(decimal(30,2),t1.cdefine26)) as iTaxUnitPrice,rtrim(Convert(decimal(30,2),t1.cdefine27)) as isum
+            "))
+                // ->Join('dispatchlists as t2', 't1.dlid','t2.dlid')
+                ->Join('inventory as t3' ,'t3.cInvCode' , 't1.cInvCode')
+                // ->leftJoin('Warehouse as t4' , 't4.cWhCode' , 't2.cWhCode')
+                ->Join('ComputationUnit as t5' , 't5.cComunitCode' , 't3.cComUnitCode')
+                ->where('t1.ctvCode','=',$cdlcode)
+                ->orderby('t1.autoid')
+                ->get();
+// dd($body);
+            $head[0]->divid = 'div'.$m;  //拼div的id
+            $head[0]->tableid ='table'.$m;  //拼table对应的div的id
+            $head[0]->pageid ='page'.$m;   //拼页脚id
+            $data1=[];
+            $data1[0] = $head[0];
+            $count = count($body);
+            if ($count>0) {
+                for($i=0;$i<$count;$i++){
+                    $data1[1][$i] = $body[$i];
+                }
+            }
+            $data2[$n][0]=$data1[0];
+            $data2[$n][1]=$data1[1];
+            $n=$n+1;
+            $m=$m+1;
+        }
+        //echo json_encode(array('status'=>0,'returndata'=>$data2));
+        // dd($data2);
+
+        return view('admins.dispatchPrint.dbprint',compact('data2','n'));
+        //return redirect()->route('dispatchPrint.printpage');
+
+    }
 
 
  //    public function lgetPrint(Request $request)
@@ -524,6 +715,8 @@ foreach ($data as $cdlcode){
 
          $data = explode('|',substr($request['dispatch_no'],0,-1));
       $n=0;
+        $m=0;
+      $c=0;
       // $t=0;
         // dd($data);
         foreach ($data as $cdlcode){
@@ -538,11 +731,21 @@ foreach ($data as $cdlcode){
 
  $query =  DB::SELECT("select total from PrintPolicy_VCH where VchID=?",[$cdlcode]);
  $n=$n+COUNT($query);
+
+  $checkfh =  DB::SELECT("select DLID from dispatchlist where cdlCode=?",[$cdlcode]);
+  $m=$m+COUNT($checkfh);
+  $c=$c+1;
  // $t=$t+1;
 
 }
 // dd($query);
 // dd($n);
+  if ($m<$c) {
+       echo json_encode(array('status'=>0,'text'=>'调拨单打印按钮不能打印发货单！'));
+  
+ }
+ else
+    {
         if($n == 0 ){
             //这张发货单未进行对货
             echo json_encode(array('status'=>1,'text'=>'success！'));
@@ -550,7 +753,43 @@ foreach ($data as $cdlcode){
             echo json_encode(array('status'=>0,'text'=>'发货单已打印！'));
             // exit();
         }
+        }
     }
+
+
+      public function dbcheckprint(Request $request){
+
+         $data = explode('|',substr($request['dispatch_no'],0,-1));
+      $n=0;
+      $m=0;
+      $c=0;
+        foreach ($data as $cdlcode){
+     
+
+ $query =  DB::SELECT("select total from PrintPolicy_VCH where VchID=?",[$cdlcode]);
+
+  $n=$n+COUNT($query);
+
+  $checkdb =  DB::SELECT("select ID from transvouch where cTVCode=?",[$cdlcode]);
+  $m=$m+COUNT($checkdb);
+  $c=$c+1;
+}
+  if ($m<$c) {
+       echo json_encode(array('status'=>0,'text'=>'调拨单打印按钮不能打印发货单！'));
+  
+ }
+ else
+    {
+        if($n == 0 ){
+            //这张调拨单未进行对货
+            echo json_encode(array('status'=>1,'text'=>'success！'));
+        }else{
+            echo json_encode(array('status'=>0,'text'=>'调拨单已打印！'));
+            // exit();
+        }
+}
+    }
+
     //预览打印
    public function checkprint1(Request $request){
 // dd(1);
@@ -597,12 +836,12 @@ foreach ($data as $cdlcode){
             else
           {
             //这张发货单未进行对货
-            echo json_encode(array('status'=>0,'text'=>'发货单正在打印中！'));
+            echo json_encode(array('status'=>0,'text'=>'单据正在打印中！'));
              exit();
         }
     }
         else{
-            echo json_encode(array('status'=>0,'text'=>'发货单已打印！'));
+            echo json_encode(array('status'=>0,'text'=>'单据已打印！'));
             exit();
         }
 
@@ -611,7 +850,7 @@ foreach ($data as $cdlcode){
    public function checkprint2(Request $request){
   $updcdlcode = $request->input('items');
   foreach($updcdlcode as $data){
-DB::insert('insert into  zzz_print (cdlcode,userid,CreateTime) values (?,?,?)', [$data['cdlcode'],$request->user()->id,date('Y-m-d h:i:s', time())]);
+DB::insert('insert into  zzz_print (cdlcode,userid,CreateTime) values (?,?,?)', [$data['cdlcode'],$request->user()->id,date('Y-m-d H:i:s', time())]);
 }
 
       }
@@ -650,8 +889,18 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
                 $jg2=DB::table('zzz_print_diary')->insert(
                     [
                         'FBillNo'=>$data['cdlcode'],
-                        'FCreateTime'=>date('Y-m-d h:i:s', time()),
+                        'FCreateTime'=>date('Y-m-d H:i:s', time()),
                         'FCreateUserID'=>$request->user()->id
+                    ]
+                );
+                 // $cprintier= Auth::user()->name;
+                  $jg18=DB::table('zzz_print_tj')->insert(
+                    [
+                        'FBillNo'=>$data['cdlcode'],
+                        'FCreateTime'=>date('Y-m-d H:i:s', time()),
+                        'FCreateUserID'=>$request->user()->id,
+                        'FCreateUserName'=>$request->user()->name
+
                     ]
                 );
 
@@ -677,7 +926,7 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
                 $jg3=DB::table('PrintPolicy_VCH')->insert(
                     [
                         'PolicyID'=>'01_131460',
-                        'lastPrintTime'=>date('Y-m-d h:i:s', time()),
+                        'lastPrintTime'=>date('Y-m-d H:i:s', time()),
                         'VchID'=>$data['cdlcode'],
                         'VchUniqueID'=>$data['cdlcode'],
                         'Total'=>'1'
@@ -715,6 +964,153 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
         }
     }
 
+
+      //更新调拨单打印次数和打印状态
+    public function updPrintstatusdb(Request $request)
+    {
+        $updcdlcode = $request->input('items');
+        foreach($updcdlcode as $data){
+          //  $time=date('Y-m-d h:i:s', time());
+            DB::beginTransaction();
+            try{
+                //更新发货单打印次数
+                $query1 = \DB::table('transvouch')
+                    ->select(
+                        \DB::raw("isnull(iPrintCount,0) as iPrintCount
+            "))
+                    ->where('ctvCode','=',$data['cdlcode'])->get();
+
+                $jg1=DB::table('transvouch')
+                    ->where('ctvCode','=',$data['cdlcode'])
+                    ->update(
+                        [
+                            'iPrintCount'=>$query1[0]->iPrintCount + 1,
+                        ]
+                    );
+
+                //插入发货单打印日志zzz_print_diary
+                $jg2=DB::table('zzz_print_diary')->insert(
+                    [
+                        'FBillNo'=>$data['cdlcode'],
+                        'FCreateTime'=>date('Y-m-d H:i:s', time()),
+                        'FCreateUserID'=>$request->user()->id
+                    ]
+                );
+
+       $jg18=DB::table('zzz_print_tj')->insert(
+                    [
+                        'FBillNo'=>$data['cdlcode'],
+                        'FCreateTime'=>date('Y-m-d H:i:s', time()),
+                        'FCreateUserID'=>$request->user()->id,
+                        'FCreateUserName'=>$request->user()->name
+
+                    ]
+                );
+
+        $jg4= DB::select('select ISNULL(total,0) from PrintPolicy_VCH where VchID= ?', [$data['cdlcode']]);
+
+        $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]);
+// [$dispatch_no,$result,$result]);
+        // console.log($jg4);
+                // if ($jg4[0]=0) {
+                    # code...
+               // dd($jg4);
+
+            //     $jg4 = \DB::table('PrintPolicy_VCH')
+            //         ->select(
+            //             "Total
+            // "))
+            //         ->where('cDLCode','=',$data['cdlcode'])
+                    // $retVal = ($jg4=) ? a : b ;
+
+        if(count($jg4)==0)
+        {
+                //插入u8打印日志
+                $jg3=DB::table('PrintPolicy_VCH')->insert(
+                    [
+                        'PolicyID'=>'0304_131459',
+                        'lastPrintTime'=>date('Y-m-d H:i:s', time()),
+                        'VchID'=>$data['cdlcode'],
+                        'VchUniqueID'=>$data['cdlcode'],
+                        'Total'=>'1'
+                    ]
+                );
+ }
+ // else if ($jg4[0]>0) {
+ //    $jg5=DB::table('PrintPolicy_VCH')
+ //                    ->where('cdlcode','=',$data['cdlcode'])
+ //                    ->update(
+ //                        [
+ //                            'iPrintCount'=>$query1[0]->iPrintCount + 1,
+
+ //                        ]
+ //                    );
+ // }
+                if (!$jg1) {
+                    throw new \Exception("2");
+                }
+                if (!$jg2) {
+                    throw new \Exception("3");
+                }
+                // if (!$jg3) {
+                //     throw new \Exception("4");
+                // }
+                DB::commit();
+                echo json_encode(array("FTranType"=>1,"FText"=>'打印更新成功！'),JSON_UNESCAPED_UNICODE);
+            }catch(\Exception $e){
+                DB::rollback();//事务回滚
+                echo $e->getMessage();
+                echo json_encode(array("FTranType"=>0,"FText"=>'数据异常！'),JSON_UNESCAPED_UNICODE);
+            }
+            //将打印信息写入日志
+
+        }
+    }
+  private function condition1($table,$searchKey){
+
+       $bedate = explode(" - ",$searchKey->dateKey);
+        $bgdate = $bedate[0];
+        $eddate = $bedate[1];
+        //dd($searchKey);
+        $table->where('t1.cmaker','=','auser');
+        $table->where('t1.cdefine1','=','要货申请');
+        if($searchKey!=''){
+
+               $table->where('t1.dtvDate','>=',$bgdate);
+               $table->where('t1.dtvDate','<=',$eddate);
+
+            if($searchKey->cSTcodeKey!='' || $searchKey->cSTcodeKey!=null ){
+                $table->where('t1.cSTCode','=',$searchKey->cSTcodeKey);
+            }
+
+            if($searchKey->cDLCodeKey!='' || $searchKey->cDLCodeKey!=null ){
+                $table->where('t1.cTVCode','=',$searchKey->cDLCodeKey);
+            }
+
+            if($searchKey->cDepartmentKey!='' || $searchKey->cDepartmentKey!=null ){
+                $table->where('t6.cDepCode','=',$searchKey->cDepartmentKey);
+            }
+
+            if($searchKey->cWhCodeKey!='' || $searchKey->cWhCodeKey!=null ){
+                $table->where('t1.coWhCode','=',$searchKey->cWhCodeKey);
+            }
+
+            if($searchKey->status =='1' ){
+                $table->where('t1.iPrintCount ','>=','1');
+            }
+
+            if($searchKey->status =='0' ){
+                $table->where(function($query){
+                    $query->whereNull('t1.iPrintCount ')
+                          ->orwhere('t1.iPrintCount','=','0');
+                });
+
+            }
+
+        }
+
+        return $table;
+    }
 
     private function condition($table,$searchKey){
 

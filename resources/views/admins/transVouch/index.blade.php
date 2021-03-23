@@ -29,10 +29,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="row" style="margin-bottom: 5px;">
-                    <div class="col-sm-2">
+                    <div class="col-sm-1.8">
                         <div class="form-group">
                             <label>司机</label>
-                                <select class="form-control" required name="driver_id" id="driver_id" onBlur="txtblur()" style="width: 100%;">
+                                <select class="form-control" required name="driver_id" id="driver_id" onBlur="txtblur()" style="width: 23mm;">
                                     <option value="" >请选择</option>
                                      @foreach($drivers as $driver)
                                     <option value="{{$driver->id}}">{{$driver->name}}</option>
@@ -41,15 +41,40 @@
                                 </select>
                         </div>
                     </div> 
-                    <div class="col-sm-2">
+                    <div class="col-sm-1.8">
                         <div class="form-group">
                             <label>状态</label>
-                                <select class="form-control" required name="status" id="status" style="width: 100%;">
+                                <select class="form-control" required name="status" id="status" style="width: 23mm;">
                                     <option value="0" >未生成</option>
                                     <option value="1" >已生成</option>
                                 </select>
                         </div>
-                    </div>    
+                    </div>
+                     <div class="col-sm-1.8">
+                        <div class="form-group">
+                            <label>调拨出仓库</label>
+                                <select class="form-control" required name="houseout" id="houseout" onBlur="txtblur1()" style="width: 33mm;">
+                                    <option value="" >请选择</option>
+                                     @foreach($warehouses as $warehouse)
+                                    <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                      @endforeach
+
+                                </select>
+                        </div>
+                    </div> 
+                      <div class="col-sm-1.8">
+                        <div class="form-group">
+                            <label>调拨入仓库</label>
+                                <select class="form-control" required name="housein" id="housein" onBlur="txtblur2()" style="width: 33mm;">
+                                    <option value="" >请选择</option>
+                                     @foreach($warehouses as $warehouse)
+                                    <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                      @endforeach
+
+                                </select>
+                        </div>
+                    </div> 
+
                     <div class="col-sm-3">
                         <!-- Date range -->
                         <div class="form-group">
@@ -151,7 +176,7 @@ $(function () {
             $.ajax({
                 headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
                 type: "POST",
-                url: "wayBill/getDispatchData",//发货单号
+                url: "transVouch/getTransVouch",//调拨单号
                 data :{
                     dispatch_no : row.data().id
                 }, 
@@ -312,7 +337,12 @@ return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50
 //查询点击事件
 $('#btn-submit1').on('click', function(){
     // function txtblur(event){ //当前元素失去焦点
+        $("#driver_id").removeClass("is-invalid");
+        $("#housein").removeClass("is-invalid");
+        $("#houseout").removeClass("is-invalid");
 var driver_id = $('#driver_id').val();
+var housein = $('#housein').val();
+var houseout = $('#houseout').val();
     if(driver_id == ''){
         Toast.fire({
             type: 'error',
@@ -322,6 +352,31 @@ var driver_id = $('#driver_id').val();
         $('#driver_id').focus();
         return false;
     }
+    if(housein == ''){
+        Toast.fire({
+            type: 'error',
+            title: '请选择调拨入仓库！'
+        });
+        $('#housein').addClass('is-invalid');
+        $('#housein').focus();
+        return false;
+    }
+    if(houseout == ''){
+        Toast.fire({
+            type: 'error',
+            title: '请选择调拨出仓库！'
+        });
+        $('#houseout').addClass('is-invalid');
+        $('#houseout').focus();
+        return false;
+    }
+
+
+
+
+
+
+
     else{
         table.draw( false ) ;
     }
@@ -422,6 +477,8 @@ var table =
                     var page = (data.start / data.length) + 1;
                     var driveridKey = $('#driver_id').val();
                     var dateKey = $('#reservation').val();
+                    var housein = $('#housein').val();
+                    var houseout = $('#houseout').val();
                     var statusKey = $('#status').val();
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
@@ -434,6 +491,8 @@ var table =
                             length : length,
                             driveridKey : driveridKey,
                             dateKey : dateKey,
+                            housein : housein,
+                            houseout : houseout,
                             statusKey : statusKey
                         },                       
                         success:function(result){

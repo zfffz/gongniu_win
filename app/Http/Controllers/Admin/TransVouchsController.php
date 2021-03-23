@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\CommonsController;
-use App\Models\TransVouch;
+// use App\Models\TransVouch;
 use App\Models\Car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\updateSweepOut;
 
-class TransVouchController extends CommonsController
+class TransVouchsController extends CommonsController
 {
     /**
      * Display a listing of the resource.
@@ -19,6 +19,7 @@ class TransVouchController extends CommonsController
      */
     public function index()
     {
+        // dd(1);
 
  if (! Auth::user()->can('transvouch_users')) {
      return view('admins.pages.permission_denied');
@@ -30,7 +31,13 @@ class TransVouchController extends CommonsController
             ->select('cpersoncode as id','cpersonname as name')
             ->where('wlcode','=','04')
             ->get();
-        return view('admins.transVouchs.index',compact('cars','drivers'));
+          $warehouses =  DB::select("select cwhcode as id,cwhname as name from warehouse where dwhenddate is NULL");
+            // $warehouses =DB::table('warehouse')
+            // ->select('cwhcode as id','cwhname as name')
+            // ->where('dwhenddate','is','NULL')
+            // ->get();
+        return view('admins.transVouch.index',compact('cars','drivers','warehouses'));
+         // return view('admins.transVouch.index');
     }
 
     /**
@@ -264,7 +271,7 @@ class TransVouchController extends CommonsController
         return $table;
     }
 
-    public function getDispatchData(Request $request){
+    public function getTransVouch(Request $request){
         $dispatch_no = $request->dispatch_no;    
         $builder = \DB::table('zzz_sweep_car_items as t1')->select(\DB::raw("
             dispatch_no,

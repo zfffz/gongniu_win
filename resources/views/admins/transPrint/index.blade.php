@@ -184,7 +184,7 @@ $('#btn-submit').on('click', function(){
         function(n){
             if(n.value){
                 $.ajax({
-                    url:"{{route('wayBill.store')}}",
+                    url:"{{route('transVouch.store')}}",
                     data:JSON.stringify(datas),
                     type:'post',
                     dataType:'json',

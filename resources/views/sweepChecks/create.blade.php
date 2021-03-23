@@ -371,7 +371,7 @@ function getdispatchlistinfo(){
     if(dispatch_no == ''){
       Toast.fire({
         type: 'warning',
-        title: '发货单号不能为空！'
+        title: '单据号不能为空！'
       });
       $('#dispatch_no').focus();
       $("#dispatch_no").addClass("is-invalid");
@@ -834,7 +834,7 @@ function getresultinfo(){
               if( $('#dispatch_no').val()==''){
                Toast.fire({
                 type: 'error',
-                title: '发货单号为空，请先扫描发货单！'
+                title: '单据号为空，请先扫描发货单！'
               });
 
                $('#dispatch_no').focus();

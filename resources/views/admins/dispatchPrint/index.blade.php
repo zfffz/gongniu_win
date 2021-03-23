@@ -4,19 +4,19 @@
 
 @endsection
 
-@section('title', '发货单打印')
+@section('title', '单据打印')
 <link type="text/css" rel="styleSheet"  href="../css/111.css" />
 @section('section')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>发货单打印</h1>
+                    <h1>单据打印</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">单据列表</li>
-                        <li class="breadcrumb-item active">车上发货单列表</li>
+                        <li class="breadcrumb-item active">车上单据列表</li>
                     </ol>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                     </div> 
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <label>发货单号</label>
+                            <label>单号</label>
                             <input class="form-control" name="cDLCode" id="cDLCode"/>
                         </div>
                     </div>
@@ -113,28 +113,51 @@
                     <div class="col-sm-2">
                         <div class="input-group">
                             <td>
-                                <button type="button" class="btn btn-block btn-primary"id="select" onclick="table.draw( false );">查询</button>
+                                <button type="button" class="btn btn-block btn-primary fa fa-search"id="select"  style="background-color: #A0522D ;height:35px; width: 110px;">发货单查询</button>
                             </td>
                         </div>
                     </div>
+          
                     <div class="col-sm-2">    
                         <div class="input-group">
                             <td>
-                                <button type="button" id="btn-submit" class="btn btn-block btn-success">发货单打印</button>
-                            </td>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">    
-                        <div class="input-group">
-                            <td>
-                                <button type="button" id="btn-print" class="btn btn-block btn-info">拼箱箱标打印</button>
+                                <button type="button" id="btn-submit" class="btn btn-block btn-success fa fa-print"style="background-color: #A0522D ;height:35px; width: 110px;margin-left :-60px">发货单打印</button>
                             </td>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="input-group">
                             <td>
-                                <button type="button" id="btn-submit1" class="btn btn-block btn-warning">外箱标打印</button>
+                                <button type="button" class="btn btn-block btn-primary fa fa-search"id="selectdb"  style="background-color: #008000;height:35px; width: 110px;margin-left :-95px">调拨单查询</button>
+                            </td>
+                        </div>
+                    </div>
+                     <div class="col-sm-2">    
+                        <div class="input-group">
+                            <td>
+                                <button type="button" id="btn-dbsubmit" class="btn btn-block btn-success fa fa-print" style="background-color: #008000;height:35px; width: 110px;margin-left :-155px">调拨单打印</button>
+                            </td>
+                        </div>
+                    </div>
+                 
+                    <div class="col-sm-1">    
+                        <div class="input-group">
+                            <td>
+                                <button type="button" id="btn-print" class="btn btn-block btn-info fa fa-print " style="height:35px; width: 130px; display:none">拼箱箱标打印</button>
+                            </td>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="input-group">
+                            <td>
+                                <button type="button" id="btn-submit1" class="btn btn-block btn-warning fa fa-print" style="height:35px; width: 110px; display:none ">外箱标打印</button>
+                            </td>
+                        </div>
+                    </div>
+                       <div class="col-sm-2">    
+                        <div class="input-group">
+                            <td>
+                                <button type="button" id="btn-dbdelete" class="btn btn-block btn-danger fa fa-trash" style="height:35px; width: 100px;margin-left :35px">清除锁定</button>
                             </td>
                         </div>
                     </div>
@@ -175,6 +198,7 @@ const Toast = Swal.mixin({
     timer: 2000
 });
 
+
 $(function () {
 
     $('#reservation').daterangepicker({
@@ -201,6 +225,77 @@ $(function () {
 
 
 });
+$('#btn-dbdelete').on('click', function(){
+  // dd(1);
+
+
+  // alert(user);
+    Swal.fire({
+                title: '此操作可能导致重复打印单据,确认删除吗?',
+                type: 'warning',
+                showCancelButton: true,
+                focusConfirm: false,
+                allowEnterKey:false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then(
+                function(n){
+                    if(n.value){
+
+
+                       var searchKey = $('#dispatch_no').val();
+// var datas = '1';
+ //                      // alert(1);
+ // if (searchKey!='') {
+          $.ajax({
+                    url:"{{route('dispatchPrint.deletesd')}}",
+                    // data:JSON.stringify(datas),
+                    type:'post',
+                    dataType:'json',
+                    headers:{
+                      Accept:"application/json",
+                      "Content-Type":"application/json",
+                      'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                    },
+                    processData:false,
+                    cache:false,
+                    timeout: 1000,
+                    beforeSend: function() {
+                    },
+                    success:function(t){
+                                    if(t.status==1){
+                                      $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                                      $('#notifyAudio')[0].play();
+                                //发货单号红框提示,toast提示
+                                // $("#dispatch_no").addClass("is-invalid");
+                                Toast.fire({
+                                  type: 'error',
+                                  title: t.text
+                                });
+                        // var tr=obj.parentNode.parentNode;
+
+                        // var tbody=tr.parentNode;
+                        // tbody.removeChild(tr);
+                        // $("#dispatch_no").focus();
+                    }else if (t.status==0)
+                    { 
+                     $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+                                $('#successAudio')[0].play(); 
+                      Toast.fire({
+                                  type: 'success',
+                                  title: t.text
+                                });
+                    }
+                        // $("#dispatch_no").focus();
+                    
+                }
+              });
+                    }
+
+                  });
+            });
 
 
 $('#btn-submit').on('click', function(){
@@ -307,12 +402,6 @@ $('#btn-submit').on('click', function(){
                                
 //                            }
 //                          })
-
-
-
-
-
-
     
 
        
@@ -321,6 +410,153 @@ $('#btn-submit').on('click', function(){
     };
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$('#btn-dbsubmit').on('click', function(){
+    var inputs = $("#dispatchlist input[name='ckb-jobid']:checked ").prev();
+    inputs=inputs.prevObject;
+
+    var len = inputs.length;
+
+ 
+    if(len == 0){
+        Toast.fire({
+            type: 'error',
+            title: '请选择要打印的单据！'
+        });
+        return false;
+    }else{
+
+
+ var datas='';
+        inputs.each(function () {
+            datas = datas + $(this).val()+'|';
+        });
+
+
+ var dispatch_no='';
+        inputs.each(function () {
+            dispatch_no = dispatch_no + $(this).val()+'|';
+        });
+
+
+// alert(dispatch_no);
+   $.ajax({
+                    url:'dispatchPrint/dbcheckprint?dispatch_no='+dispatch_no,
+                    type:'get',
+                    dataType:'json',
+                    // async: false,
+                    headers:{
+                        Accept:"application/json",
+                        "Content-Type":"application/json"
+                    },
+                    processData:false,
+                    cache:false,
+                    timeout: 3000,
+                    beforeSend:function(){
+                    },
+                    success:function(t){
+                        if(t.status==0){
+                            //发货单号红框提示,toast提示
+                             $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                             $('#notifyAudio')[0].play();
+                             // $("#dispatch_no").addClass("is-invalid");
+                            Toast.fire({
+                                type: 'error',
+                                title: t.text
+                            });
+                            document.getElementById("selectdb").click();
+                            //清空发货单号
+                            // $('#dispatch_no').val('');
+                            // $("#dispatch_no").focus();
+                            // result = false;
+                        }else{
+                          window.open("dispatchPrint/dbgetPrint?datas="+datas);
+                            //如果合法
+                            // $("#dispatch_no").removeClass("is-invalid");
+                            // result = true;
+                        }
+
+                    },
+                    error:function(){
+                        alert("error");
+                        // result = false;
+                    }
+
+                });
+   // window.open("dispatchPrint/getPrint?datas="+datas);
+// myajax3=$.ajax({
+//   data:{data:data},
+//   headers:{
+//     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+//   },
+//   type: "post",
+//   // async:false,
+//   dataType: "json",
+//   url:"check",
+//             beforeSend:function(){
+
+//             },
+//             success:function(data){
+//               if(data.status==0){
+//                 $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+//                 $('#notifyAudio')[0].play();
+//                                 //发货单号红框提示,toast提示
+//                              // $("#dispatch_no").addClass("is-invalid");
+//                                 Toast.fire({
+//                                   type: 'error',
+//                                   title: data.text
+//                                 });
+                                 
+//                                }
+//                                else
+//                                {
+                            
+//                                }
+                             
+                               
+//                            }
+//                          })
+    
+
+       
+        // window.location.href = "dispatchPrint/getPrint?datas="+datas;
+
+    };
+
+});
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -572,6 +808,126 @@ function childclick(){
     }
 }
 
+$('#selectdb').on( 'click', function (){
+
+      $("#checkAll").prop("checked", false);
+    var cSTName = $('#cSTName').val();
+
+    if(cSTName !=''){
+Toast.fire({
+            type: 'error',
+            title: '调拨单没有销售类型，无法根据此条件查询！'
+        });
+        return false;
+      }
+      {
+var table =
+            $('#dispatchlist').DataTable({
+                language: {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                },
+                'paging'      : true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "destroy":true,
+                "autoWidth": false,
+                "serverSide": true,
+                "iDisplayLength":20,
+               // "bProcessing":true,
+                "ajax":function(data,callback,settings){
+                    var length = data.length;
+                    var start = data.start;
+                    var page = (data.start / data.length) + 1;
+                    var cSTcodeKey = $('#cSTName').val();
+                    var cDLCodeKey = $('#cDLCode').val();
+                    var dateKey = $('#reservation').val();
+                    var cDepartmentKey = $('#cDepartment').val();
+                    var cWhCodeKey = $('#cWhCode').val();
+                    var status =$('#status').val();
+                    $.ajax({
+                        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
+                        type: "POST",
+                        url: "dispatchPrint/getDatadb",
+                        data :{
+                            draw : page,
+                            start : start,
+                            length : length,
+                            cSTcodeKey : cSTcodeKey,
+                            cDLCodeKey : cDLCodeKey,
+                            dateKey : dateKey,
+                            cDepartmentKey : cDepartmentKey,
+                            cWhCodeKey : cWhCodeKey,
+                            status : status
+                        },                       
+                        success:function(result){
+
+                            var returnData = {};
+                            returnData.recordsTotal = result.recordsTotal;
+                            returnData.recordsFiltered = result.recordsFiltered;
+                            returnData.data = result.data;
+                            callback(returnData);
+                        }
+                    })                    
+                },
+
+                "columns":[
+                    {"data": null},
+                    { "data":"cDLCode" ,"orderable": true},
+                    { "data":"dDate","orderable": false },
+                    { "data":"cSTName" ,"orderable": false},
+                    { "data":"cDepname" ,"orderable": false},
+                    // { "data":"cCusName" ,"orderable": false},
+                    { "data":"cCusAbbName" ,"orderable": false},
+                    { "data":"cPsn_Name" ,"orderable": false},
+                    { "data":"cMemo" ,"orderable": false},
+                    { "data":"cMaker" ,"orderable": false},
+                    { "data":"cSCName" ,"orderable": false},
+                    { "data":"status" ,"orderable": false},      //是否打印
+                    { "data":"iprintCount" ,"orderable": false}   //打印次数
+                ],
+
+                columnDefs: [
+                    {
+                        targets: [0], // 目标列位置，下标从0开始
+                        data:"cDLCode",
+                        bSortable: false,//是否排序
+                        render: function(id, type, data) { // 返回自定义内容
+                            return '<input type="checkbox" onclick = childclick() name="ckb-jobid" value="' + data.cDLCode + '">';
+                        }
+                    }
+                    //重点结束
+                ],
+            });
+}
+});
+
+$('#select').on( 'click', function (){
+
+// $browsers.removeAttr("checked"); 
+        $("#checkAll").prop("checked", false);
 
 
 var table =
@@ -605,6 +961,7 @@ var table =
                 "searching": false,
                 "ordering": true,
                 "info": true,
+                "destroy":true,
                 "autoWidth": false,
                 "serverSide": true,
                 "iDisplayLength":20,
@@ -673,7 +1030,7 @@ var table =
                     //重点结束
                 ],
             });
-
+  });
 
 </script>
 @endsection

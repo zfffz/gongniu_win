@@ -18,7 +18,7 @@
   </ul>
     <ul class="navbar-nav ml-auto" >
       <label style="margin-top: 2px;margin-right: 4px;white-space:nowrap">库位</label>
-      <input type="text" class="form-control" name="location_no" id="location_no"  onblur="fun();" autocomplete="off" value="" style="max-width: 80px">
+      <input type="text" class="form-control" name="location_no" id="location_no"  autocomplete="off" value="" style="max-width: 80px">
     </ul>
 @endsection
 
@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
+                        <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="单据号">
                     </div>
                 </div>
                 <div class="card-header border-transparent">
@@ -43,7 +43,7 @@
                         <table class="table m-0" id="dispatch_table">
                             <thead>
                             <tr>
-                                <th>发货单号</th>
+                                <th>单据号</th>
                                 <th>默认库位</th>
                                
                                 <th>操作</th>
@@ -327,7 +327,7 @@
                              $("#dispatch_no").addClass("is-invalid");
                             Toast.fire({
                                 type: 'error',
-                                title: '发货单不存在，不允许打包入库！'
+                                title: '单据不存在，不允许打包入库！'
                             });
                             //清空发货单号
                             $('#dispatch_no').val('');
@@ -578,7 +578,7 @@
                   }
                 },
                 error:function(){
-                  alert("error");
+                  alert("error1");
                   return false;
                 }
               });

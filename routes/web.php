@@ -106,14 +106,14 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::post('wayBill/getDispatchData', 'WayBillsController@getDispatchData')->name('wayBill/getDispatchData');
     Route::resource('wayBill', 'WayBillsController', ['only' => [ 'index','store']]);
 
-    //
+    //生成调运单
     Route::post('transVouch/getData', 'TransVouchsController@getData')->name('transVouch.getData');
     Route::post('transVouch/getDispatchData', 'TransVouchsController@getDispatchData')->name('transVouch/getDispatchData');
     Route::resource('transVouch', 'TransVouchsController', ['only' => [ 'index','store']]);
 
    //发货单打印
     Route::post('dispatchPrint/getData', 'DispatchPrintController@getData')->name('dispatchPrint.getData');
-    Route::get('dispatchPrint/getPrint', 'DispatchPrintController@getPrint')->name('dispatchPrint.getPrint');
+    Route::get('dispatchPrint/getPrint', 'DispatchPrintController@getPrint')->name('dispatchPrint.getPrint');  
      Route::post('dispatchPrint/lgetData', 'DispatchPrintController@lgetData')->name('dispatchPrint.lgetData');
     Route::get('dispatchPrint/lgetPrint', 'DispatchPrintController@lgetPrint')->name('dispatchPrint.lgetPrint');
     Route::post('dispatchPrint/lgetPrint', 'DispatchPrintController@lgetPrint')->name('dispatchPrint.lgetPrint');
@@ -121,10 +121,17 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::get('dispatchPrint/outboxPrint', 'DispatchPrintController@outboxPrint')->name('dispatchPrint.outboxPrint');
     Route::post('dispatchPrint/outboxPrint', 'DispatchPrintController@outboxPrint')->name('dispatchPrint.outboxPrint');
     Route::post('dispatchPrint/updPrintstatus', 'DispatchPrintController@updPrintstatus')->name('dispatchPrint.updPrintstatus');
-    Route::get('dispatchPrint/checkprint', 'DispatchPrintController@checkprint')->name('dispatchPrint.checkprint');
+    Route::get('dispatchPrint/checkprint', 'DispatchPrintController@checkprint')->name('dispatchPrint.checkprint');   
      Route::post('dispatchPrint/checkprint1', 'DispatchPrintController@checkprint1')->name('dispatchPrint.checkprint1');
      Route::post('dispatchPrint/checkprint2', 'DispatchPrintController@checkprint2')->name('dispatchPrint.checkprint2');
        Route::post('dispatchPrint/checkprint3', 'DispatchPrintController@checkprint3')->name('dispatchPrint.checkprint3');
+          Route::post('dispatchPrint/deletesd', 'DispatchPrintController@deletesd')->name('dispatchPrint.deletesd');
+           // Route::post('sweepCheck/print', 'SweepChecksController@print')->name('sweepCheck.print');
+       //调拨单打印
+        Route::get('dispatchPrint/dbcheckprint', 'DispatchPrintController@dbcheckprint')->name('dispatchPrint.dbcheckprint');
+        Route::get('dispatchPrint/dbgetPrint', 'DispatchPrintController@dbgetPrint')->name('dispatchPrint.dbgetPrint');  
+          Route::post('dispatchPrint/getDatadb', 'DispatchPrintController@getDatadb')->name('dispatchPrint.getDatadb');
+          Route::post('dispatchPrint/updPrintstatusdb', 'DispatchPrintController@updPrintstatusdb')->name('dispatchPrint.updPrintstatusdb');
     //  Route::post('dispatchPrint/printpage', 'DispatchPrintController@printpage')->name('dispatchPrint.printpage');
     Route::resource('dispatchPrint', 'DispatchPrintController', ['only' => [ 'index']]);
 

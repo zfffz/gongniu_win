@@ -64,7 +64,19 @@ class CommonsController extends Controller
     $data["data"] = $list;
     return response()->json($data);
     }
-
+protected function dataPage9($request,$builder,$asc='desc'){
+    $draw = $request->get('draw');
+    $start = $request->get('start');
+    $length = $request->get('length');
+    $total = $builder->count();
+    $list = $builder->orderBy('t1.ctvCode', $asc)->offset($start)->take($length)->get()->toArray();
+    $data = [];
+    $data["draw"] = $draw;
+    $data["recordsTotal"] = $total;
+    $data["recordsFiltered"] = $total;
+    $data["data"] = $list;
+    return response()->json($data);
+    }
 
     protected function dataPage5($request,$builder,$asc='desc'){
         $draw = $request->get('draw');

@@ -58,12 +58,14 @@ class SweepOutsController extends CommonsController
         }
         
         $sweep_out=\DB::transaction(function() use ($request){
-            //创建一张新的打包出库单
+            //创建一张新的打包出库单dd\\
+
             $sweep_out = new SweepOut([
                 'packager_no'=>$request->input('packager'),
                 'location_no'=>$request->input('location_no'),
                 'user_no'=>Auth::id()
             ]);
+            // DD($sweep_out);
             $sweep_out->save();
             // $revalue =[];
 
@@ -76,7 +78,7 @@ class SweepOutsController extends CommonsController
                 $jg = Sweep_out_item::where('dispatch_no','=',$data['dispatch_no'])->get();
 
                 if(count($jg)>0){
-                    echo json_encode(array('status'=>0,'text'=>'发货单号'.$jg[0]->dispatch_no.'，系统已经存在，不允许重复创建！'));
+                    echo json_encode(array('status'=>0,'text'=>'单据号'.$jg[0]->dispatch_no.'，系统已经存在，不允许重复创建！'));
                     exit();
                 }
 
@@ -101,9 +103,10 @@ class SweepOutsController extends CommonsController
         // else{
         //  echo json_encode(array("status"=>"0"));
         //     }
+
                 //取打包单号
          $results = DB::select('select no from zzz_sweep_outs P left join zzz_sweep_out_items Z on P.id=z.parent_id  where z.dispatch_no = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
-               
+              
          //记录打包员和打包时间
                 $ddate = date("Y-m-d H:i:s");
                 // dd($request->input('packager'));
@@ -120,16 +123,29 @@ class SweepOutsController extends CommonsController
 //         $data1 = DB:: table('rdrecord32 as t1')
 //         ->select('t1.ccode')
 //         ->where('t1.cbuscode','=',$data['dispatch_no'])->get();
-                
+                           $dis=(substr($data['dispatch_no'],0,4));
+
+// 获取发货单默认库位编码
+          if ($dis=='XSFH') {
                 //回传打包单号
          DB::update("update dispatchlist set cdefine2= ? where cDLCode =?",[$results[0]->no,$data['dispatch_no']]);
-         DB::update("update zzz_sweep_checks  set flag=1 where dispatch_no =?",[$data['dispatch_no']]);
-        
-        //插入库位库存记录表zzz_kwkc
 
-
+          //插入库位库存记录表zzz_kwkc
 
            $res = DB::select('select cinvcode,cinvname,iquantity from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID  where Z.cDLCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+     }
+
+         else if ($dis=='CKDB') {
+
+          DB::update("update transvouch set cdefine12= ? where cTVCode =?" ,[$results[0]->no,$data['dispatch_no']]);
+
+         $res = DB::select('select P.cinvcode,I.cinvname,P.iTVQuantity AS iquantity from transvouchs P left join transvouch Z on P.ID=Z.ID  left join inventory I on I.cInvCode=P.cinVCODE where Z.cTVCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+
+         }
+         
+         DB::update("update zzz_sweep_checks  set flag=1 where dispatch_no =?",[$data['dispatch_no']]);
+        
+       
 foreach ($res as $ress) {
 
 
@@ -526,7 +542,7 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
             $jg = Sweep_out_item::where('dispatch_no','=',$dispatch_no)->get();
 
             if(count($jg)>0){
-                echo json_encode(array('status'=>0,'text'=>'发货单号'.$jg[0]->dispatch_no.'，已经打包，不允许重复录入！'));
+                echo json_encode(array('status'=>0,'text'=>'单据号'.$jg[0]->dispatch_no.'，已经打包，不允许重复录入！'));
                 exit();
             }
         // }
@@ -534,18 +550,38 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
 
 // DB::SELECT("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
 
-
-
-
-
-        // 获取默认库位编码
-        $data = DB:: table('dispatchlist as t1')
+//截取前四位，可能有调拨单
+           $dis=(substr($dispatch_no,0,4));
+// 获取发货单默认库位编码
+          if ($dis=='XSFH') {
+              $data = DB:: table('dispatchlist as t1')
             ->select('t1.cDLCode','t1.cCusCode','t3.no')
             ->leftJoin('zzz_customer_locations as t2','t1.cCusCode','=','t2.customer_no')
             ->leftJoin('zzz_storage_locations as t3','t2.location_id','=','t3.id')
             ->where('t1.cDLCode','=',$dispatch_no)->get();
+          }
+        
+       
+          else if ($dis=='CKDB') {
+                        // 获取调拨单默认库位编码
+
+            $data =  DB::SELECT("select t1.cTVCode,SUBSTRING(t1.cdefine3,1, CHARINDEX('销',t1.cdefine3)) as cdefine3,t3.no from transvouch as t1 left join customer as t0 on SUBSTRING(t1.cdefine3,1, CHARINDEX('销',t1.cdefine3))=t0.ccusname left join zzz_customer_locations as t2 on t0.cCusCode=t2.customer_no left join  zzz_storage_locations as t3 on t2.location_id=t3.id where t1.cTVCode=?",[$dispatch_no]);
+
+
+            //   $data = DB:: table('transvouch as t1')
+            // ->select('t1.cTVCode','t1.cdefine3','t3.no')
+            // ->leftJoin('customer as t0','t1.cdefine3','=','t0.cCusName')
+            // ->leftJoin('zzz_customer_locations as t2','t0.cCusCode','=','t2.customer_no')
+            // ->leftJoin('zzz_storage_locations as t3','t2.location_id','=','t3.id')
+            // ->where('t1.cTVCode','=',$dispatch_no)->get();
+           
+
+
+           }
+         
 
        if($data[0]->no ==''){
+
            echo json_encode(array('status'=>0,'text'=>'默认库位未维护，请联系管理员！'));
            exit();
        }else{
@@ -568,12 +604,21 @@ $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=?",[$Sweep_out_items
         //     ->where('t1.dispatch_no','=',$cdlcode)
         //     ->count();
 // dverifydate is NOT NULL and
+        //截取前四位，可能有调拨单
+           $dis=(substr($cdlcode,0,4));
+// 获取发货单默认库位编码
+           // DD($dis);
+          if ($dis=='XSFH') {
 
  $query =  DB::SELECT("select DLID as DLID from dispatchlist where  cDLCode=?",[$cdlcode]);
-
+ }
+ else if ($dis=='CKDB') {
+ $query =  DB::SELECT("select ID as DLID from transvouch where  cTVCode=?",[$cdlcode]);
+ }
+ // dd($query);
         if(COUNT($query) == 0 ){
             //这张发货单未进行对货
-            echo json_encode(array('status'=>0,'text'=>'发货单不存在，不允许打包入库！'));
+            echo json_encode(array('status'=>0,'text'=>'单据不存在，不允许打包入库！'));
         }else{
             echo json_encode(array('status'=>1,'text'=>'success！'));
         }
