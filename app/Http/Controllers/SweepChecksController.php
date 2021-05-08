@@ -72,11 +72,31 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
 //删除BS_GN_wlstate上的对货记录
 $deleteds1 = DB::delete("delete from BS_GN_wlstate where cdlcode=? and hd='对货'",[$data[0]->dispatch_no]);
 //更新发货单上对货记录(对货人)
+  $dis=(substr($data[0]->dispatch_no,0,4));
+
+// 获取发货单默认库位编码
+          if ($dis=='XSFH') {
 DB::update("update DispatchList set cDefine11='' where cdlcode=?",[$data[0]->dispatch_no]);
 
 $data1= DB::select("select DLID from dispatchlist where cDLCode=?",[$data[0]->dispatch_no]);
 //更新发货单上对货记录(对货时间)
 DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$data1[0]->DLID]);
+
+
+}
+   else if($dis=='CKDB')
+     {
+DB::update("update DispatchList set cDefine11='' where cdlcode=?",[$data[0]->dispatch_no]);
+
+
+$data1= DB::select("select ID from transvouch where ctvcode=?",[$data[0]->dispatch_no]);
+//更新发货单上对货记录(对货时间)
+DB::update("update transvouch_extradefine set chdefine4='' where ID=?",[$data1[0]->ID]);
+
+
+}
+
+
 
 // update DispatchList set cDefine11=@cname where cdlcode=@cdlcode
 //     update dispatchlist_extradefine set chdefine4=convert(varchar(100),@ddate,120) where DLID=@dlid
@@ -241,31 +261,28 @@ DB::update("update dispatchlist_extradefine set chdefine4='' where DLID=?",[$dat
     {
         $searchKey = $request->input('searchKey');
 
+  $dis=(substr($searchKey,0,4));
+          if ($dis=='XSFH') {
+
+
          $tou='XSFH00';
       $searchKey1 =$tou . $searchKey;
-          //$searchKey = $request->searchKey;
-    // dd($searchKey);
-        // $data = \DB:: table('DispatchList as t1')
-        // ->select(
-        //     \DB::raw("
-        //         t1.cDLCode,
-        //         t1.cCusName,
-        //         CONVERT(varchar(100), t1.dDate, 23) as dDate ,
-        //         t3.no
-        //         "))
-        // ->leftJoin('zzz_customer_locations as t2','t1.cCusCode','=','t2.customer_no')
-        // ->leftJoin('zzz_storage_locations as t3','t2.location_id','=','t3.id')
-        // // ->where('t1.cDLCode','=',$searchKey)->get();
-        // ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
-
-        // // ->where('t1.cDLCode','like','%'.$searchKey.'%')->get();
-
-
-
-        $data= DB::select('select t1.cDLCode,t1.cCusName,
+  
+  $data= DB::select('select t1.cDLCode,t1.cCusName,
                 CONVERT(varchar(100), t1.dDate, 23) as dDate ,
                 t3.no from DispatchList as t1 left join zzz_customer_locations as t2 on t1.cCusCode=t2.customer_no left join zzz_storage_locations as t3 on t2.location_id=t3.id where  t1.cDLCode=RIGHT(?, 12)', [$searchKey1]);
-
+}
+ 
+  //      else if($dis=='CKDB')
+  //      {
+  //       $tou='CKDB00';
+  //     $searchKey1 =$tou . $searchKey;
+  
+  // $data= DB::select('select t1.cTVCode,SUBSTRING(t1.cdefine3,1, CHARINDEX('销',t1.cdefine3))  AS cCusName,
+  //               CONVERT(varchar(100), t1.dTVDate, 23) as dDate ,
+  //               t3.no from transvouch as t1 left join customer as t0 SUBSTRING(t1.cdefine3,1, CHARINDEX('销',t1.cdefine3))=t0.ccusname    zzz_customer_locations as t2 on t1.cCusCode=t2.customer_no left join zzz_storage_locations as t3 on t2.location_id=t3.id where  t1.cDLCode=RIGHT(?, 12)', [$searchKey1]);
+            
+  //      }
 //删除对货记录（拼箱）
 
 // $dispatch_no= DB::select("select dispatch_no from zzz_sweep_checks where id=?",[$id]);
@@ -342,7 +359,6 @@ $deleted11 = DB::delete("delete from zzz_sweep_check_items1 where parent_id=?",[
                 '' as kz,
                 t4.bInvType,
                 t1.iQuantity
-
                 "))
         ->leftJoin('Inventory as t4','t1.cInvCode','=','t4.cInvCode')
                    ;
@@ -677,7 +693,7 @@ public function store(Request $request)
  //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
                 $date= date("Y-m-d H:i:s");
                 DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$dispatch_no]);
-                //生成销售出库单和更改库存
+                //生成销售出库单和更改库
                 DB::Update("exec zzz_CCGC3201 ?",[$dispatch_no]);
                 DB::Update("exec zzz_CCGC3202 ?",[$dispatch_no]);
                 DB::Update("exec zzz_CCGC3203 ?",[$dispatch_no]);

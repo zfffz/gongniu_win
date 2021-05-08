@@ -292,7 +292,7 @@ var table =
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
                         type: "POST",
-                        url: "wayPrint/getData",
+                        url: "transPrint/getData",
                         data :{
                             draw : page,
                             start : start,
@@ -333,7 +333,7 @@ var table =
                     render: function(data, type, full){
                         return '<div class="text-center py-0 align-middle">' +
                             '<div class="btn-group">' +
-                            '<a href="wayPrint/'+data+'/getPrint" target="_blank" class="btn btn-info btn-xs"><i class="fa fa-trash-o fa-eye"></i>打印显示</a>' +
+                            '<a href="transPrint/'+data+'/getPrint" target="_blank" class="btn btn-info btn-xs"><i class="fa fa-trash-o fa-eye"></i>打印显示</a>' +
                             '</div>' +
                             '</div>';
                         }

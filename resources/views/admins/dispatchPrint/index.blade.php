@@ -167,18 +167,18 @@
                     <thead>
                     <tr>
                         <th width="5"><input type="checkbox" id="checkAll" class="checkAll" value=""></th>
-                        <th>发货单号</th>
-                        <th>发货日期</th>
-                        <th>销售类型</th>
-                        <th>部门</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">发货单号</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">发货日期</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">销售类型</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">部门</th>
                        <!--  <th>客户名称</th> -->
-                        <th>客户简称</th>
-                        <th>业务员</th>
-                        <th>备注</th>
-                        <th>制单人</th>
-                        <th>发运方式</th>
-                        <th>打印否</th>
-                        <th>打印数</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">客户简称</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">业务员</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">备注</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">制单人</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">发运方式</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">打印否</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">打印数</th>
                     </tr>
                     </thead>
                 </table>
@@ -894,8 +894,8 @@ var table =
                 },
 
                 "columns":[
-                    {"data": null},
-                    { "data":"cDLCode" ,"orderable": true},
+                    {"data": null,"orderable": false},
+                    { "data":"cDLCode" ,"orderable": false },
                     { "data":"dDate","orderable": false },
                     { "data":"cSTName" ,"orderable": false},
                     { "data":"cDepname" ,"orderable": false},
@@ -913,9 +913,9 @@ var table =
                     {
                         targets: [0], // 目标列位置，下标从0开始
                         data:"cDLCode",
-                        bSortable: false,//是否排序
+                        // bSortable: false,//是否排序
                         render: function(id, type, data) { // 返回自定义内容
-                            return '<input type="checkbox" onclick = childclick() name="ckb-jobid" value="' + data.cDLCode + '">';
+                            return '<input type="checkbox" "orderable"=false onclick = childclick() name="ckb-jobid" value="' + data.cDLCode + '">';
                         }
                     }
                     //重点结束
@@ -1003,8 +1003,8 @@ var table =
                 },
 
                 "columns":[
-                    {"data": null},
-                    { "data":"cDLCode" ,"orderable": true},
+                    { "data": null,"orderable": false},
+                    { "data":"cDLCode" ,"orderable": false},
                     { "data":"dDate","orderable": false },
                     { "data":"cSTName" ,"orderable": false},
                     { "data":"cDepname" ,"orderable": false},
@@ -1018,17 +1018,51 @@ var table =
                     { "data":"iprintCount" ,"orderable": false}   //打印次数
                 ],
 
+
+
+
                 columnDefs: [
                     {
                         targets: [0], // 目标列位置，下标从0开始
                         data:"cDLCode",
-                        bSortable: false,//是否排序
+                        // bSortable: false,//是否排序
                         render: function(id, type, data) { // 返回自定义内容
                             return '<input type="checkbox" onclick = childclick() name="ckb-jobid" value="' + data.cDLCode + '">';
                         }
-                    }
-                    //重点结束
-                ],
+                    },
+                    //重点结束\
+                     {
+                      targets: [5],
+                      data:"cCusAbbName",
+                      render: function( data, type, full, meta ) {
+                      if(data){
+                        if(data.length>9){
+                       return "<span title='"+data+"'>"+ data.substr(0, 9) + "...</span>";
+                                }else{
+                                return data;
+                                    }
+                                 }else{
+                                      return "";
+                                    }
+                                 }
+          },       
+
+                      {
+                      targets: [7],
+                      data:"cMemo",
+                      render: function( data, type, full, meta ) {
+                      if(data){
+                        if(data.length>4){
+                       return "<span title='"+data+"'>"+ data.substr(0, 4) + "...</span>";
+                                }else{
+                                return data;
+                                    }
+                                 }else{
+                                      return "";
+                                    }
+                                 }
+                      },  
+          ],
             });
   });
 

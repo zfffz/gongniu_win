@@ -191,12 +191,37 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
         $m=1;
          // dd($data);
         foreach ($data as $cdlcode){
+             // $data= DB::select("select flag,dispatch_no from zzz_sweep_checks where id=?",[$id]);
 
+        //   $check =  DB::SELECT("select ccuscode,ddate FROM dispatchlist where cdlcode=?",[$cdlcode]);
 
+        //     $check1 = DB::SELECT("select DLID,cdlcode FROM dispatchlist where ccuscode=? and isnull(iprintcount,0)=0 and bReturnFlag=0 and DateDiff(dd,ddate,getdate())<=4",[$check[0]->ccuscode]);
+
+        //     if(count($check1)>1)
+
+        //     { 
+        //         $head = \DB::table('Sales_FHD_H as a')
+        //         ->select(
+        //             \DB::raw("
+        //     '建议合并发货' as tx,a.cDLCode,a.cCusCode,a.ccusabbname,a.cmemo,a.cshipaddress,
+        //     a.cpersonname,a.cscname,a.dDate,d.ccontactname,d.cmobilephone,
+        //     d.cofficephone,d.cssname,a.csocode,c.no,
+        //     a.cmaker,a.cverifier,CONVERT(varchar(10), a.dcreatesystime,23) as createtime, a.dverifydate,
+        //     '' as divid, '' as tableid, '' as pageid
+        //     "))
+        //         ->leftJoin('zzz_customer_locations as b','a.cCusCode','b.customer_no')
+        //         ->leftJoin('zzz_storage_locations as c','b.location_id','c.id')
+        //         ->leftJoin('Sales_FHD_T as d','a.cdlcode','d.cdlcode')
+        //         ->where('a.cDLCode','=',$cdlcode)->get();
+        //     ;
+        // }
+
+// else
+//           { 
             $head = \DB::table('Sales_FHD_H as a')
                 ->select(
                     \DB::raw("
-            a.cDLCode,a.cCusCode,a.ccusabbname,a.cmemo,a.cshipaddress,
+            '' as tx,a.cDLCode,a.cCusCode,a.ccusabbname,a.cmemo,a.cshipaddress,
             a.cpersonname,a.cscname,a.dDate,d.ccontactname,d.cmobilephone,
             d.cofficephone,d.cssname,a.csocode,c.no,
             a.cmaker,a.cverifier,CONVERT(varchar(10), a.dcreatesystime,23) as createtime, a.dverifydate,
@@ -207,7 +232,7 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
                 ->leftJoin('Sales_FHD_T as d','a.cdlcode','d.cdlcode')
                 ->where('a.cDLCode','=',$cdlcode)->get();
             ;
-
+// }
             $body = \DB::table('Sales_FHD_H as t1')
                 ->select(
     \DB::raw("t2.irowno as ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity, rtrim( Convert(decimal(30,2),t2.iTaxUnitPrice)) as iTaxUnitPrice,rtrim(Convert(decimal(30,2),t2.isum)) as isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5

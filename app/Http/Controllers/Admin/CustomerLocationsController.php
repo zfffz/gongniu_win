@@ -37,6 +37,7 @@ class CustomerLocationsController extends CommonsController
         }
         $customer_location= new CustomerLocation();
         $storage_locations = Storage_location::all();
+ 
         return view('admins.customerLocations.create_and_edit',compact('customer_location','storage_locations'));
     }
 

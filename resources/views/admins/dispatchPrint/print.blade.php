@@ -34,8 +34,10 @@
                <div id={{$datas[0]->divid}} >
                   <div class="row">
                       <input class="col-md-2" type="hidden" id="cdlcode" value = {{ $datas[0]->cDLCode}} />
+                     
                       <span class="col-md-10 text-center"><h3 style="font-family:黑体; font-size:25px">上海公牛电器发货单</h3></span>
-                      <p class="col-md-10 text-center"  style="font-family:黑体; font-size:10.5pt; line-height:4px ">地址、电话:上海市春中路368号 60899198</p>
+                   
+                      <p class="col-md-10 text-center"  style="font-family:黑体; font-size:10.5pt; line-height:4px ">地址、电话:上海市春中路368号 60899198 </p>
                   </div>
                   <div class="row"  >
                     <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">客户简称:{{ $datas[0]->ccusabbname }}</h5>
@@ -228,23 +230,23 @@
                var pageid ='page'+j;
                 var cdlcode = $("#"+divid+ " input[id='cdlcode']").val();
                 var printtime = new Date();
-                LODOP.ADD_PRINT_HTM(5, '10mm', "RightMargin:1cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
-                LODOP.ADD_PRINT_TABLE('52.4mm','10mm', "RightMargin:1cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_HTM(5, '8mm', "RightMargin:1.2cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_TABLE('52.4mm','8mm', "RightMargin:1.2cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
                 // LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);//高度溢出缩放
                 LODOP.SET_PRINT_STYLEA(0,"Offset2Top",'-50.4mm'); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
-                LODOP.ADD_PRINT_HTM('0.4mm', '10mm', "RightMargin:3cm", '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_HTM('0.4mm', '8mm', "RightMargin:3cm", '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
                  // LODOP.ADD_PRINT_HTM('0.4mm', '10mm', "RightMargin:3cm", '100%','<style>*{background:#000}</style>'+strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
                 LODOP.SET_PRINT_STYLEA(0,"LinkedItem",-1);//以上内容紧跟在前一个对象之后
 
               //  LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
         //        LODOP.ADD_PRINT_HTM('12cm', 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
     
-                LODOP.ADD_PRINT_HTM("95%",'10mm',650,'3mm',"<font style='font-size:10pt' format='Num'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>"); //打印页码
+                LODOP.ADD_PRINT_HTM("95%",'8mm',650,'3mm',"<font style='font-size:10pt' format='Num'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>"); //打印页码
                 LODOP.SET_PRINT_STYLEA(0,"ItemType",1);//设置上面的为页眉页脚，每页固定位置输出
                 // LODOP.SET_PRINT_STYLEA(0,"LineSpacing",13);
            //     LODOP.SET_PRINT_STYLEA(0,"LinkedItem",1);
                 LODOP.ADD_PRINT_BARCODE(19,750,80, 80, 'QRCode', cdlcode);  //打印发货单二维码
-                LODOP.ADD_PRINT_TEXT(5,'10mm','50mm','5mm',printtime.toLocaleString( ));
+                LODOP.ADD_PRINT_TEXT(5,'8mm','50mm','5mm',printtime.toLocaleString( ));
                 LODOP.NewPageA();  //自动分页
                // LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById("div1").innerHTML+"</body>");
             }

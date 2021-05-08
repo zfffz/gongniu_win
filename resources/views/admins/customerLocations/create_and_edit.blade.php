@@ -40,7 +40,9 @@
                         <div class="form-group row">
                             <label class="col-sm-2 control-label label_required">客户</label>
                             <div class="col-sm-8">
+
                                 <select class="form-control" {{ $customer_location->id ? 'disabled': '' }}  required name="customer_no" id="customer_no" style="width: 100%;">
+
                                     @if($customer_location->customer_no)
                                         <option value="{{$customer_location->customer_no}}" selected>{{$customer_name}}</option>
                                     @endif

@@ -30,7 +30,7 @@ class StockReportsController extends CommonsController
             t1.location_no,
             t1.cinvcode,
             t1.cinvname,
-            t1.iquantity,
+             rtrim(Convert(decimal(30,2),t1.iquantity)) as iquantity,
             t1.time
             "));
             // ->leftJoin('zzz_sweep_out_items as t2','t1.id','t2.parent_id')

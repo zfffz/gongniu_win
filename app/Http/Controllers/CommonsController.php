@@ -56,7 +56,7 @@ class CommonsController extends Controller
     $start = $request->get('start');
     $length = $request->get('length');
     $total = $builder->count();
-    $list = $builder->orderBy('t1.cDLCode', $asc)->offset($start)->take($length)->get()->toArray();
+    $list = $builder->orderBy('t1.ccuscode', $asc)->orderBy('t1.cdlcode', $asc)->offset($start)->take($length)->get()->toArray();
     $data = [];
     $data["draw"] = $draw;
     $data["recordsTotal"] = $total;
@@ -69,7 +69,7 @@ protected function dataPage9($request,$builder,$asc='desc'){
     $start = $request->get('start');
     $length = $request->get('length');
     $total = $builder->count();
-    $list = $builder->orderBy('t1.ctvCode', $asc)->offset($start)->take($length)->get()->toArray();
+    $list = $builder->orderBy('t1.cdefine3', $asc)->orderBy('t1.ctvCode', $asc)->offset($start)->take($length)->get()->toArray();
     $data = [];
     $data["draw"] = $draw;
     $data["recordsTotal"] = $total;

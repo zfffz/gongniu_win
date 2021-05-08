@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\updateSweepOut;
 
+
+use Illuminate\Support\Facades\Input;
+
 class TransVouchsController extends CommonsController
 {
     /**
@@ -23,7 +26,7 @@ class TransVouchsController extends CommonsController
 
  if (! Auth::user()->can('transvouch_users')) {
      return view('admins.pages.permission_denied');
-  
+
         }
 
         $cars= Car::all();
@@ -32,11 +35,15 @@ class TransVouchsController extends CommonsController
             ->where('wlcode','=','04')
             ->get();
           $warehouses =  DB::select("select cwhcode as id,cwhname as name from warehouse where dwhenddate is NULL");
+           $fyfs = DB::table('ShippingChoice')
+            ->select('cSCCode as id','cSCName as name')
+            ->get();
+
             // $warehouses =DB::table('warehouse')
             // ->select('cwhcode as id','cwhname as name')
             // ->where('dwhenddate','is','NULL')
             // ->get();
-        return view('admins.transVouch.index',compact('cars','drivers','warehouses'));
+        return view('admins.transVouch.index',compact('cars','drivers','warehouses','fyfs'));
          // return view('admins.transVouch.index');
     }
 
@@ -49,7 +56,7 @@ class TransVouchsController extends CommonsController
     {
          if (! Auth::user()->can('transvouch_users')) {
      return view('admins.pages.permission_denied');
-  
+
         }
         // $cars = Car::all('id','no');
         // $drivers = Driver::all('id','name');
@@ -66,9 +73,11 @@ class TransVouchsController extends CommonsController
     {
      //     if (! Auth::user()->can('waybills_users')) {
      // return view('admins.pages.permission_denied');
-  
+
      //    }
-        
+            // $sweep_check=\DB::transaction(function() use ($request){
+
+// });
         // dd($request);
         $sweepcars_id = json_decode(json_encode($request->sweep_cars), true);
 
@@ -79,15 +88,15 @@ class TransVouchsController extends CommonsController
             return $valstr;
         }
 
-        $strcsc = $this->checkCsc($request);
-        $objcsc = json_decode($strcsc);
+        // $strcsc = $this->checkCsc($request);
+        // $objcsc = json_decode($strcsc);
         //dd($valobj);
-        if($objcsc->status == 1){
-            return $strcsc;
-        }
+        // if($objcsc->status == 1){
+        //     return $strcsc;
+        // }
         $str_id = "";
         $count = count($sweepcars_id);
-        if (count($sweepcars_id)>0) { 
+        if (count($sweepcars_id)>0) {
             for($i=0;$i<$count;$i++){
                 if ($str_id == "") {
                     $str_id = $sweepcars_id[$i];
@@ -95,22 +104,25 @@ class TransVouchsController extends CommonsController
                     $str_id = $str_id.'-'.$sweepcars_id[$i];
                 }
             }
-        }  
-        
-        // dd($str_id); 
-        $uname = $request->user()->name;
+        }
 
-        $sqlvalue =  DB::select("exec z_qt_fhysd ?,?,?",
-            [$str_id,$uname,'']);
+       
+         $csccode = $request->csccode;
+ 
+        $uname = $request->user()->name;
+// dd($csccode);
+        $sqlvalue =  DB::select("exec z_zf_dbysd ?,?,?,?",
+            [$str_id,$uname,'',$csccode]);
         //DB::select("exec z_qt_fhysd('".$str_id."','".$uname."')");
         // $v=(array) sqlvalue[0];
          // dd($sqlvalue[0]->billno);
        // $V=count($sqlvalue);
         // dd($V);
+
         if(count($sqlvalue)>0){
-             $revalue = json_encode(array('status'=>0,'text'=>$sqlvalue[0]->billno,'title'=>'发运单创建成功！'));       
+             $revalue = json_encode(array('status'=>0,'text'=>$sqlvalue[0]->billno,'title'=>'发运单创建成功！'));
         }else{
-            $revalue = json_encode(array('status'=>1,'text'=>$sqlvalue[0]->billno,'title'=>'发运单创建未成功！'));  
+            $revalue = json_encode(array('status'=>1,'text'=>$sqlvalue[0]->billno,'title'=>'发运单创建未成功！'));
         }
 
         //dd($revalue);
@@ -127,7 +139,7 @@ class TransVouchsController extends CommonsController
     {
          if (! Auth::user()->can('transvouch_users')) {
      return view('admins.pages.permission_denied');
-  
+
         }
         // $sweepCar = SweepCar::find($id);
 
@@ -144,7 +156,7 @@ class TransVouchsController extends CommonsController
     {
          if (! Auth::user()->can('transvouch_users')) {
      return view('admins.pages.permission_denied');
-  
+
         }
         //
     }
@@ -160,7 +172,7 @@ class TransVouchsController extends CommonsController
     {
          if (! Auth::user()->can('transvouch_users')) {
      return view('admins.pages.permission_denied');
-  
+
         }
         //
     }
@@ -175,7 +187,7 @@ class TransVouchsController extends CommonsController
     {
          if (! Auth::user()->can('transvouch_users')) {
      return view('admins.pages.permission_denied');
-  
+
         }
         // $sweep_out_items=\DB::transaction(function() use ($sweepCar){
         //     // 更新打包发货单装车次数
@@ -207,7 +219,7 @@ class TransVouchsController extends CommonsController
     public function dispatch_data(Request $request){
          if (! Auth::user()->can('transvouch_users')) {
      return view('admins.pages.permission_denied');
-  
+
         }
         // $dispatch_no = $request->dispatch_no;
         // $data = DB:: table('zzz_sweep_out_items as t1')
@@ -223,7 +235,7 @@ class TransVouchsController extends CommonsController
     {
          if (! Auth::user()->can('transvouch_users')) {
      return view('admins.pages.permission_denied');
-  
+
         }
 
         $builder = \DB::table('zzz_sweep_cars as t1')
@@ -233,12 +245,15 @@ class TransVouchsController extends CommonsController
             t1.no,
             t3.no as car_name,
             t4.cpersonname as drive_name,
-            CONVERT(VARCHAR(10),t1.created_at,120) as c_date, 
+            CONVERT(VARCHAR(10),t1.created_at,120) as c_date,
             CONVERT(VARCHAR(10),t1.created_at,108) as c_time,
-            case t1.status when 0 then '未生成' when 1 then '已生成' end as status 
+            case t1.status when 0 then '未生成' when 1 then '已生成' end as status
             "))
             ->leftJoin('zzz_cars as t3','t1.car_id','t3.id')
-            ->leftJoin('person as t4','t1.driver_id','t4.cpersoncode');
+            ->leftJoin('bs_gn_wl as t4','t1.driver_id','t4.cpersoncode')
+            // ->leftJoin('zzz_sweep_car_items as t5','t5.parent_id','t1.id')
+            // ->leftJoin('transvouch as t6','t6.ctvcode','t5.dispatch_no')
+        ;
 
         $data=parent::dataPage($request,$this->condition($builder,$request),'asc');
 
@@ -254,25 +269,26 @@ class TransVouchsController extends CommonsController
         //dd($searchKey);
         if($searchKey!=''){
             // if ($searchKey->caridKey!=null || $searchKey->caridKey!=''){
+                $table->where('t1.cowhcode','=',$searchKey->houseoutKey);
                 $table->where('t1.created_at','>=',$bgdate);
                 $table->where('t1.created_at','<',$eddate);
                 $table->where('t4.cpersoncode','=',$searchKey->driveridKey);
-                $table->where('t1.status','=',$searchKey->statusKey); 
+                $table->where('t1.status','=',$searchKey->statusKey);
             // }
             // else{
             //     $table->where('t1.created_at','>=',$bgdate);
             //     $table->where('t1.created_at','<',$eddate);
-            //     $table->where('t1.status','=',$searchKey->statusKey); 
+            //     $table->where('t1.status','=',$searchKey->statusKey);
             // }
 
 
         }
-       
+
         return $table;
     }
 
     public function getTransVouch(Request $request){
-        $dispatch_no = $request->dispatch_no;    
+        $dispatch_no = $request->dispatch_no;
         $builder = \DB::table('zzz_sweep_car_items as t1')->select(\DB::raw("
             dispatch_no,
             isnull(transportno,'') transportno
@@ -297,7 +313,7 @@ class TransVouchsController extends CommonsController
         $str_no = "";
         $con = 0;
         $count = count($sweepcars);
-        if (count($sweepcars)>0) { 
+        if (count($sweepcars)>0) {
              $con = 1;
             for($i=0;$i<$count;$i++){
                 if ($str_no == "") {
@@ -312,6 +328,9 @@ class TransVouchsController extends CommonsController
 
     //检查单据发运方式是否一致
     public function checkCsc(Request $request){
+$dispatch_no = $request->dispatch_no;
+$dis=(substr($dispatch_no,0,4));
+// dd($dis);
 
         $sweepcars_id = json_decode(json_encode($request->sweep_cars), true);
         //$sweepcars_id[] = array($request->sweep_cars);
@@ -326,6 +345,7 @@ class TransVouchsController extends CommonsController
         ->select('a.csccode','a.cscname')
         ->groupBy('a.csccode','a.cscname')
         ->get();
+
 
         // $dispatch_csc = \DB::table('Sales_FHD_T as a')
         // ->Join( \DB::table('zzz_sweep_car_items as b')
@@ -342,7 +362,7 @@ class TransVouchsController extends CommonsController
         $str_csc = "";
         $count = count($dispatch_csc);
         $con = 0;
-        if (count($dispatch_csc)>1) { 
+        if (count($dispatch_csc)>1) {
             $con = 1;
             for($i=0;$i<$count;$i++){
                 if ($str_csc == "") {

@@ -45,7 +45,7 @@
                 </div>
                 <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
+                        <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="单据号">
                         <input type="hidden" name="location_no_default" id="location_no_default" value="">
                     </div>
                 </div>
@@ -389,6 +389,18 @@
                             beforeSend: function() {
                             },
                             success:function(t){
+                                 if(t.status == 0){
+                            $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                            $('#notifyAudio')[0].play();
+                            //上传失败提示
+                        Swal.fire({
+                          type: 'error',
+                          title: t.title,
+                          text: t.text
+                        });
+                            return false;
+                        }
+                        else{
                                 //上传成功提示
                                 Toast.fire({
                                     type: 'success',
@@ -399,6 +411,7 @@
 
                                 $('#dispatch_table tbody').html('');
                                 $("#dispatch_no").focus();
+                                }
                             },
                             error: function() {
                                 alert("error");
@@ -462,44 +475,45 @@
                         if(!result){
                             return false;
                         }
+                        // 先用装车单据，先不卡打包单据,修改共三处，此处为第一处此处把addRow();移到外面()
+                        // 判断发货单号合法性，同时获取该单号的默认库位
+                        // $.ajax({
+                        //     url:'dispatch_data?dispatch_no='+dispatch_no,
+                        //     type:'get',
+                        //     dataType:'json',
+                        //     headers:{
+                        //         Accept:"application/json",
+                        //         "Content-Type":"application/json"
+                        //     },
+                        //     processData:false,
+                        //     cache:false,
+                        //     timeout: 1000,
+                        //     beforeSend:function(){
 
-                        //判断发货单号合法性，同时获取该单号的默认库位
-                        $.ajax({
-                            url:'dispatch_data?dispatch_no='+dispatch_no,
-                            type:'get',
-                            dataType:'json',
-                            headers:{
-                                Accept:"application/json",
-                                "Content-Type":"application/json"
-                            },
-                            processData:false,
-                            cache:false,
-                            timeout: 1000,
-                            beforeSend:function(){
+                        //     },
+                        //     success:function(data){
+                        //         if(data.length==0){
+                        //             //发货单号红框提示,toast提示
+                        //             $('#notifyAudio')[0].play();
+                        //             $("#dispatch_no").addClass("is-invalid");
+                        //             Toast.fire({
+                        //                 type: 'error',
+                        //                 title: '单据未打包！'
+                        //             });
+                        //             //清空发货单号
+                        //             $('#dispatch_no').val('');
+                        //         }else{
+                        //             //如果合法
+                        //             $("#dispatch_no").removeClass("is-invalid");
+                        //             addRow();
+                        //         }
 
-                            },
-                            success:function(data){
-                                if(data.length==0){
-                                    //发货单号红框提示,toast提示
-                                    $('#notifyAudio')[0].play();
-                                    $("#dispatch_no").addClass("is-invalid");
-                                    Toast.fire({
-                                        type: 'error',
-                                        title: '发货单未出库！'
-                                    });
-                                    //清空发货单号
-                                    $('#dispatch_no').val('');
-                                }else{
-                                    //如果合法
-                                    $("#dispatch_no").removeClass("is-invalid");
-                                    addRow();
-                                }
-
-                            },
-                            error:function(){
-                                alert("error");
-                            }
-                        });
+                        //     },
+                        //     error:function(){
+                        //         alert("error");
+                        //     }
+                        // });
+                         addRow();
                     }else{
 
                     }

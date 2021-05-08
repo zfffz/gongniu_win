@@ -171,7 +171,7 @@
                         <li class="nav-item">
                             <a href="{{route('sweepCheck.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>扫码对货</p>
+                                <p>扫码对货列表</p>
                             </a>
                         </li>
                         @endcan
@@ -179,7 +179,7 @@
                         <li class="nav-item">
                             <a href="{{route('sweepOut.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>打包入库</p>
+                                <p>打包入库列表</p>
                             </a>
                         </li>
                         @endcan
@@ -187,7 +187,7 @@
                         <li class="nav-item">
                             <a href="{{route('sweepCar.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>扫码上车</p>
+                                <p>扫码上车列表</p>
                             </a>
                         </li>
                         @endcan
@@ -195,7 +195,7 @@
                          <li class="nav-item">
                             <a href="{{route('returnhouse.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>退回入库</p>
+                                <p>退回入库列表</p>
                             </a>
                         </li>
                          @endcan
@@ -216,6 +216,14 @@
                             <a href="{{route('dispatchReport.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>发货单出库上车记录</p>
+                            </a>
+                        </li>
+                    </ul>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('stockReport1.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>库位存量查询</p>
                             </a>
                         </li>
                     </ul>

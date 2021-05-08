@@ -74,9 +74,9 @@ class SweepCarsController extends CommonsController
     public function store(Request $request)
     {
          if (! Auth::user()->can('sweepcars_users')) {
-     return view('admins.pages.permission_denied');  
+     return view('admins.pages.permission_denied');
+  
         }
-
         $sweep_car=\DB::transaction(function() use ($request){
             //创建一张新的扫码上车单
             $sweep_car = new SweepCar([
@@ -89,50 +89,15 @@ class SweepCarsController extends CommonsController
             //创建一张新的项目清单
             $sweep_car_items = $request->input('items');
             $i=1;
-                   foreach($sweep_car_items as $data){
-                       $dis=(substr($data['dispatch_no'],0,4));
-
-          if ($dis=='CKDB') {
-   
- $CHECK1 = DB::select('select cOWhCode from  transvouch Z  where Z.cTVCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
-
-$data1[$i] = $CHECK1[0]->cOWhCode;
-}
-
-$i++;
-}
- $dis=(substr($data['dispatch_no'],0,4));
-
-          if ($dis=='CKDB') {
-                if (count(array_unique($data1))>1) {  
-
-     echo json_encode(array('status'=>0,'text'=>'不同转出仓库的调拨单不能做一张装车单！'));
-exit();
-}
-}
-     
-
-$i=1;
-
 
             foreach($sweep_car_items as $data){
-
-
-
                 // 生成装车明细
                 $sweep_car_item = $sweep_car->sweep_car_items()->make([
                     'entry_id'=>$i,
                     'dispatch_no'=> $data['dispatch_no']
                 ]);
                 $sweep_car_item->save();
- $dis=(substr($data['dispatch_no'],0,4));
 
-          if ($dis=='CKDB') {
-               
-                 $CHECK1 = DB::select('select cOWhCode from  transvouch Z  where Z.cTVCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
-   
-    DB::update("update A set A.cowhcode=? FROM zzz_sweep_cars A LEFT JOIN zzz_sweep_car_items B on A.id=B.parent_id where B.dispatch_no =? ",[$CHECK1[0]->cOWhCode,$data['dispatch_no']]);
-}
                 // 更新发货单状态（是否装车）
                 Sweep_out_item::where('dispatch_no','=',$data['dispatch_no'])->update(['status' => 1]);
 
@@ -142,65 +107,26 @@ $i=1;
                //插库存记录
                  // $res1 = DB::select('select location_no from [dbo].[zzz_sweep_car_items] a left join  [zzz_sweep_out_items] b  on a.dispatch_no=b.dispatch_no  LEFT JOIN [zzz_sweep_outs] C ON B.parent_id=C.id WHERE   a.dispatch_no= :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
  $ddate = date("Y-m-d H:i:s");
-   $dis=(substr($data['dispatch_no'],0,4));
+
+                 $dis=(substr($data['dispatch_no'],0,4));
 
           if ($dis=='XSFH') {
  
-                
+      
+
+
+//获取信息插入流水账
                 $res = DB::select('select cinvcode,cinvname,iquantity,s.location_no from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID left join  zzz_sweep_out_items t on t.dispatch_no=z.cdlcode left join zzz_sweep_outs s on t.parent_id=s.id where Z.cDLCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+              }
 
-
- //                $cVerifier= 'auser';
- // //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
- //                $date= date("Y-m-d H:i:s");
- //                DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
-
- //                //生成销售出库单和更改库存
- //                DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
-
-            }
-               else if ($dis=='CKDB')
+              else if ($dis=='CKDB')
                {
-  $res = DB::select('select P.cinvcode,I.cinvname,P.iTVQuantity as iquantity,s.location_no from TransVouchs P left join transvouch Z on P.ID=Z.ID left join inventory I on I.cInvCode=P.cInvCode   left join  zzz_sweep_out_items t on t.dispatch_no=z.cTVCode left join zzz_sweep_outs s on t.parent_id=s.id where Z.cTVCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
-
-
-  
-
- 
-
-                  }
+           $res = DB::select('select P.cinvcode,I.cinvname,P.iTVQuantity as iquantity,s.location_no from TransVouchs P left join transvouch Z on P.ID=Z.ID left join inventory I on I.cInvCode=P.cInvCode   left join  zzz_sweep_out_items t on t.dispatch_no=z.cTVCode left join zzz_sweep_outs s on t.parent_id=s.id where Z.cTVCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+              };
             foreach ($res as $ress) {
-
-//没有打包单据，此处为第二处修改
-// $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join zzz_sweep_out_items a on a.parent_id=b.id where dispatch_no=?",[$data['dispatch_no']]);
-
-//   $iquay=DB::select("select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?",[$ress->cinvcode,$location_no[0]->location_no]);
-//           // $iquay = DB::select('select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?',[$ress->cinvcode,$location_no]);
-
-//           if (count($iquay)>0) {
-//             $iquantity8 = ($iquay[0]->iquantity)-($ress->iquantity);     //原先的减去本次的
-//             // dd($iquantity8);
-//               DB::update("update zzz_CurrentStock  set iquantity=? where cinvcode =? and location_no=?",[$iquantity8,$ress->cinvcode,$location_no[0]->location_no]);
-//           }
-//           else
-//           {
-
-//                 return false;
-          
-            
-             
-//           }
-
-
-
-
-
-
-
-
          DB::INSERT('insert into zzz_kwkc( source,cdlcode,location_no,cinvcode,cinvname,iquantity,time)VALUES(?,?,?,?,?,?,?)',["扫码上车", $data['dispatch_no'],$ress->location_no,$ress->cinvcode,$ress->cinvname,$ress->iquantity, $ddate]);
         }
- 
+
                 //记录装车人和装车时间
 
   // $dated=date('Y-m-d H:i:s',time());
@@ -215,8 +141,7 @@ $i=1;
                 // DB::update('update dispatchlist_extradefine set chdefine6=convert(varchar(100),?,120) where DLID=?', [$ddate, $result2[0]->DLID]);
 
                 //查看发货单对应的打包单是否全部装车，更新打包单状态
-   //直接修改发货单号取值为固定值，此为修改第三处
-                $result3 = DB::SELECT('SELECT parent_id from zzz_sweep_out_items where dispatch_no = ?', ['XSFH00327383']);  //获取打包单的id
+                $result3 = DB::SELECT('SELECT parent_id from zzz_sweep_out_items where dispatch_no = ?', [$data['dispatch_no']]);  //获取打包单的id
                 $result4 = DB::select('select count(*) as wzcnum from zzz_sweep_out_items where status=0 and parent_id = ?', [$result3[0]->parent_id]); //查询该打包单未生成装车单的发货单数
                 if ($result4[0]->wzcnum > 0) {
                     //部分装车
@@ -228,7 +153,6 @@ $i=1;
 
                 $i++;
             }
-     
 
             // 更新
             $sweep_car->update(['count' => ($i-1)]);
@@ -296,7 +220,7 @@ $i=1;
      return view('admins.pages.permission_denied');
         };
      $searchKey = $request->input('searchKey');
-// dd( $searchKey);
+
 $result6= DB::select("select t1.status as status from zzz_sweep_car_items as t2 inner join zzz_sweep_cars as t1  ON t1.id = t2.parent_id where t2.dispatch_no=?",[$searchKey]);
 // dd($result6[0]->status);
 if($result6[0]->status ==1){
@@ -312,7 +236,6 @@ if($result6[0]->status ==1){
                 exit();
 
  }
-  $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=? and source='扫码上车'",[$searchKey]);
 // $data= DB::select("select flag,dispatch_no from zzz_sweep_checks where id=?",[$id])
 
         // 更新打包发货单装车次数
@@ -351,9 +274,9 @@ if($result6[0]->status ==1){
               $delete6 = DB::update('update zzz_sweep_outs set status=0 where id=?', [$result3[0]->parent_id]);
             };
                
-   // dd([$searchKey]);
-$dis=(substr($searchKey,0,4));
-// dd($dis);
+       
+        $dis=(substr([$searchKey],0,4));
+
           if ($dis=='XSFH') {
             //清空U8装车人和装车时间
 $delete1 = DB::update("update dispatchlist set cDefine14='' where cdlcode=?", [$searchKey]);
@@ -367,11 +290,13 @@ $delete1 = DB::update("update dispatchlist set cDefine14='' where cdlcode=?", [$
                 // ->join('zzz_sweep_car_items as t3','t2.cDLCode','=','t3.dispatch_no')
                 ->where('t2.cDLCode','=',$searchKey)
                 ->update(['t1.chdefine10'=>'']);
-                  }
-                      else if($dis=='CKDB')
+              }
+
+              else if($dis=='CKDB')
               {
-                         //清空U8装车人和装车时间
-$delete1 = DB::update("update transvouch set cDefine14='' where ctvcode=?", [$searchKey]);
+
+           //清空U8装车人和装车时间
+$delete1 = DB::update("update transvouch set cDefine14='' where cdlcode=?", [$searchKey]);
            
 
         $delete2 = DB::table('transvouch_extradefine as t1')
@@ -382,76 +307,10 @@ $delete1 = DB::update("update transvouch set cDefine14='' where ctvcode=?", [$se
 
 
               }
-
-
-
-
-
-
-
-
-
-$dis=(substr($searchKey,0,4));
-
-          if ($dis=='XSFH') {
-                
-
-           $res = DB::select("select cinvcode,cinvname,iquantity from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID  where Z.cDLCode =?",[$searchKey]);
-     }
-
-         else if ($dis=='CKDB') {
-
-        
-
-         $res = DB::select("select P.cinvcode,I.cinvname,P.iTVQuantity AS iquantity from transvouchs P left join transvouch Z on P.ID=Z.ID  left join inventory I on I.cInvCode=P.cinVCODE where Z.cTVCode =?", [$searchKey]);
-         }
-    
-foreach ($res as $ress) {
-
-$location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join zzz_sweep_out_items a on a.parent_id=b.id where dispatch_no=?", [$searchKey]);
-
-
-//查现有库存
-  $iquay=DB::select("select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?",[$ress->cinvcode,$location_no[0]->location_no]);
-          // $iquay = DB::select('select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?',[$ress->cinvcode,$location_no]);
-
-
-          if (count($iquay)>0) {
-            $iquantity8 = ($iquay[0]->iquantity)+($ress->iquantity);   
-       
-              DB::update("update zzz_CurrentStock  set iquantity=? where cinvcode =? and location_no=?",[$iquantity8,$ress->cinvcode,$location_no[0]->location_no]);
-          }
-          else
-          {
-
-                    
-         
-                return false;
-                     
-          }          
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                  //删除记录
                     $deleteds1 = DB::delete("delete from BS_GN_wlstate where zc='装车'  and cdlcode=?",[$searchKey]);
                     //删除装车记录
+              }
   $delete = DB::delete("delete from zzz_sweep_car_items where dispatch_no=?",[$searchKey]);
            return [];
         //
@@ -499,7 +358,10 @@ $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join
                 DB::update('update zzz_sweep_outs set status=0 where id=?', [$result3[0]->parent_id]);
             }
 
+       
+        // $dis=(substr([$searchKey],0,4));
 
+        //   if ($dis=='XSFH') {
             //清空U8装车人和装车时间
             DB::table('dispatchlist as t1')
                 ->join('zzz_sweep_car_items as t2','t1.cDLCode','=','t2.dispatch_no')
@@ -511,72 +373,11 @@ $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join
                 ->join('zzz_sweep_car_items as t3','t2.cDLCode','=','t3.dispatch_no')
                 ->where('t3.parent_id','=',$sweepCar->id)
                 ->update(['t1.chdefine10'=>'']);
-
-            //清空U8调拨单装车人和装车时间
-            DB::table('transvouch as t1')
-                ->join('zzz_sweep_car_items as t2','t1.ctvCode','=','t2.dispatch_no')
-                ->where('t2.parent_id','=',$sweepCar->id)
-                ->update(['t1.cDefine14'=>'']);
-
-            DB::table('transvouch_extradefine as t1')
-                ->join('transvouch as t2','t1.ID','=','t2.ID')
-                ->join('zzz_sweep_car_items as t3','t2.ctvCode','=','t3.dispatch_no')
-                ->where('t3.parent_id','=',$sweepCar->id)
-                ->update(['t1.chdefine10'=>'']);
+              // }
+              // else if 
                 //删除记录
       $jg2 =  DB::SELECT("select dispatch_no from zzz_sweep_car_items where parent_id=?",[$sweepCar->id]);
- 
                 foreach ( $jg2 as $Sweep_car_items) {
-
-
-
-             
-$dis=(substr($Sweep_car_items->dispatch_no,0,4)); 
-//计算现存量
-
-          if ($dis=='XSFH') {
-                
-
-           $res = DB::select("select cinvcode,cinvname,iquantity from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID  where Z.cDLCode =?",[$Sweep_car_items->dispatch_no]);
-     }
-
-         else if ($dis=='CKDB') {
-
-        
-
-         $res = DB::select("select P.cinvcode,I.cinvname,P.iTVQuantity AS iquantity from transvouchs P left join transvouch Z on P.ID=Z.ID  left join inventory I on I.cInvCode=P.cinVCODE where Z.cTVCode =?", [$Sweep_car_items->dispatch_no]);
-         }
-          
-       
-foreach ($res as $ress) {
-$location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join zzz_sweep_out_items a on a.parent_id=b.id where dispatch_no=?", [$Sweep_car_items->dispatch_no]);
-//查现有库存
-  $iquay=DB::select("select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?",[$ress->cinvcode,$location_no[0]->location_no]);
-          // $iquay = DB::select('select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?',[$ress->cinvcode,$location_no]);
-
-          if (count($iquay)>0) {
-            $iquantity8 = ($iquay[0]->iquantity)+($ress->iquantity);   
-            // dd($iquantity8);
-              DB::update("update zzz_CurrentStock  set iquantity=? where cinvcode =? and location_no=?",[$iquantity8,$ress->cinvcode,$location_no[0]->location_no]);
-          }
-          else
-          {
-
-                    
-         
-                return false;
-                     
-          }          
-
-        }
-
-
-
-
-
-  $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=? and source='扫码上车'",[$Sweep_car_items->dispatch_no]);
-
-
 
 
                     $deleteds1 = DB::delete("delete from BS_GN_wlstate where zc='装车'  and cdlcode=?",[$Sweep_car_items->dispatch_no]);
@@ -628,13 +429,9 @@ $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join
         $query = DB:: table('zzz_sweep_car_items as t1')
             ->where('t1.dispatch_no','=',$cdlcode)
             ->count();
-        $query1 = DB:: table('zzz_return_house_items as t1')
-            ->where('t1.dispatch_no','=',$cdlcode)
-            ->count();
-            // $query-1>=$query1
-        if($query>$query1){
-            //装车单只可以比退回单多一次
-            echo json_encode(array('status'=>0));
+        if($query !== 0 ){
+            //这张发货单已经生成过装车单
+            echo json_encode(array('status'=>0,'text'=>'已经生成装车单了，不允许重复生单！'));
         }else{
             echo json_encode(array('status'=>1,'text'=>'success！'));
         }

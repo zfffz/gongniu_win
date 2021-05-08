@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-body" style="border-bottom: 1px solid rgba(0,0,0,.125);padding-bottom: 0.25rem;">
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="发货单号">
+                        <input type="text" class="form-control form-control-lg" name="dispatch_no" id="dispatch_no" autocomplete="off" value="" placeholder="单据号">
                     </div>
                 </div>
                 <div class="card-header border-transparent">
@@ -43,7 +43,7 @@
                         <table class="table m-0" id="dispatch_table">
                             <thead>
                             <tr>
-                                <th>发货单号</th>
+                                <th>单据号</th>
                                 <th>默认库位</th>
                                 <th>操作</th>
                             </tr>
@@ -536,50 +536,50 @@
           });
 
 
-          $('#location_no').blur(function() {
-        var location_no = $(this).val();
- // 判断库位是否合法
-              $.ajax({
-                url:'location_data?location_no='+location_no,
-                type:'get',
-                dataType:'json',
-                headers:{
-                  Accept:"application/json",
-                  "Content-Type":"application/json"
-                },
-                processData:false,
-                cache:false,
-                timeout: 1000,
-                beforeSend:function(){
+//           $('#location_no').blur(function() {
+//         var location_no = $(this).val();
+//  // 判断库位是否合法
+//               $.ajax({
+//                 url:'location_data?location_no='+location_no,
+//                 type:'get',
+//                 dataType:'json',
+//                 headers:{
+//                   Accept:"application/json",
+//                   "Content-Type":"application/json"
+//                 },
+//                 processData:false,
+//                 cache:false,
+//                 timeout: 1000,
+//                 beforeSend:function(){
 
-                },
-                success:function(data){
-                  if(data.length==0){
-                    $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-                    $('#notifyAudio')[0].play();
-                    //发货单号红框提示,toast提示
-                    $("#location_no").addClass("is-invalid");
-                    Toast.fire({
-                      type: 'error',
-                      title: '库位非法或不存在！'
-                    });
-                    $('#location_no').focus();
-                    //清空发货单号
-                    $('#location_no').val('');
-                    return false;
-                  }else{
-                    //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
-                    $("#location_no").removeClass("is-invalid");
-                    $("#dispatch_no").focus();
-                  }
-                },
-                error:function(){
-                  alert("error");
-                  return false;
-                }
-              });
+//                 },
+//                 success:function(data){
+//                   if(data.length==0){
+//                     $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+//                     $('#notifyAudio')[0].play();
+//                     //发货单号红框提示,toast提示
+//                     $("#location_no").addClass("is-invalid");
+//                     Toast.fire({
+//                       type: 'error',
+//                       title: '库位非法或不存在！'
+//                     });
+//                     $('#location_no').focus();
+//                     //清空发货单号
+//                     $('#location_no').val('');
+//                     return false;
+//                   }else{
+//                     //如果合法，给默认库位赋值，焦点回到库位框,发货单号成功提示
+//                     $("#location_no").removeClass("is-invalid");
+//                     $("#dispatch_no").focus();
+//                   }
+//                 },
+//                 error:function(){
+//                   alert("error");
+//                   return false;
+//                 }
+//               });
 
-});
+// });
 
 
             $('#dispatch_no').keydown(function(event) {

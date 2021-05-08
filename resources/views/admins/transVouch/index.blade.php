@@ -32,7 +32,7 @@
                     <div class="col-sm-1.8">
                         <div class="form-group">
                             <label>司机</label>
-                                <select class="form-control" required name="driver_id" id="driver_id" onBlur="txtblur()" style="width: 23mm;">
+                                <select class="form-control" required name="driver_id" id="driver_id" style="width: 23mm;">
                                     <option value="" >请选择</option>
                                      @foreach($drivers as $driver)
                                     <option value="{{$driver->id}}">{{$driver->name}}</option>
@@ -40,7 +40,7 @@
 
                                 </select>
                         </div>
-                    </div> 
+                    </div>
                     <div class="col-sm-1.8">
                         <div class="form-group">
                             <label>状态</label>
@@ -50,10 +50,10 @@
                                 </select>
                         </div>
                     </div>
-                     <div class="col-sm-1.8">
+                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>调拨出仓库</label>
-                                <select class="form-control" required name="houseout" id="houseout" onBlur="txtblur1()" style="width: 33mm;">
+                                <select class="form-control" required name="houseout" id="houseout"  style="width: 33mm;">
                                     <option value="" >请选择</option>
                                      @foreach($warehouses as $warehouse)
                                     <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -61,21 +61,10 @@
 
                                 </select>
                         </div>
-                    </div> 
-                      <div class="col-sm-1.8">
-                        <div class="form-group">
-                            <label>调拨入仓库</label>
-                                <select class="form-control" required name="housein" id="housein" onBlur="txtblur2()" style="width: 33mm;">
-                                    <option value="" >请选择</option>
-                                     @foreach($warehouses as $warehouse)
-                                    <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
-                                      @endforeach
+                    </div>
 
-                                </select>
-                        </div>
-                    </div> 
 
-                    <div class="col-sm-3">
+                    <div class="col-sm-2.5">
                         <!-- Date range -->
                         <div class="form-group">
                           <label>日期</label>
@@ -90,7 +79,7 @@
                           <!-- /.input group -->
                         </div>
                     </div>
-                    <div class="col-sm-1">    
+                    <div class="col-sm-2">
                         <div class="input-group">
                             <label>查询</label>
                             <td>
@@ -98,7 +87,19 @@
                             </td>
                         </div>
                     </div>
-                    <div class="col-sm-2">    
+                    <div class="col-sm-1.8">
+                        <div class="form-group">
+                            <label>发运方式</label>
+                                <select class="form-control" required name="cSCName" id="csccode" style="width: 23mm;">
+                                    <option value="" >请选择</option>
+                                     @foreach($fyfs as $fyfss)
+                                    <option value="{{$fyfss->id}}">{{$fyfss->name}}</option>
+                                      @endforeach
+
+                                </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
                         <div class="input-group">
                             <label>创建</label>
                             <td>
@@ -154,12 +155,12 @@ $(function () {
         customRangeLabel: "自定义",
         daysOfWeek: ["日","一","二","三","四","五","六"],
         monthNames: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
-        }         
+        }
     });
 
     table.draw( false ) ;
 
-    // 
+    //
 //点击加号事件
     $('#companiesLists tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
@@ -179,25 +180,25 @@ $(function () {
                 url: "transVouch/getTransVouch",//调拨单号
                 data :{
                     dispatch_no : row.data().id
-                }, 
-                dataType:"json",                      
+                },
+                dataType:"json",
                 success:function(result){
                     dispatch_no = result;
                     row.child( format(dispatch_no) ).show();
                     tr.addClass('shown');
 
-                }   
+                }
     });
 
-            
+
 
         }
     });
 
     $('#companiesLists tbody').on('click', 'td.rows-select', function () {
         var td = $(this).attr('class');
-        var tr = $(this).closest('tr');                
-        if ( td.indexOf("rows-select-down") >= 0 ) {            
+        var tr = $(this).closest('tr');
+        if ( td.indexOf("rows-select-down") >= 0 ) {
             $(this).addClass("rows-select-up").removeClass("rows-select-down");
             tr.removeClass('down');
         }
@@ -211,8 +212,25 @@ $(function () {
 
 //生成调运单事件
 $('#btn-submit').on('click', function(){
+
+    var csccode = $('#csccode').val();
+// alert(csccode);
+    if(csccode == ''){
+        // alert(1);
+        Toast.fire({
+            type: 'error',
+            title: '生成调运单需选择发运方式！'
+        });
+        $('#csccode').addClass('is-invalid');
+        $('#csccode').focus();
+          return false;
+}
+
+
+  var csccode = $('#csccode').val();
     var datas={};
     datas.sweep_cars={};
+  datas.csccode = csccode;
     //console.log(datas.sweep_cars);
     var str;
     var inputs =  $("#companiesLists td[class*='rows-select-down'] input").prev();
@@ -220,11 +238,11 @@ $('#btn-submit').on('click', function(){
     var len = inputs.length;
     // alert(len);
     if(len>0){
-        for (var i=0;i<len;i++){   
-            
+        for (var i=0;i<len;i++){
+
                 datas.sweep_cars[i] = inputs[i].value;
- 
-        };        
+
+        };
     }else{
         Toast.fire({
             type: 'error',
@@ -232,7 +250,7 @@ $('#btn-submit').on('click', function(){
         });
         return false;
     };
-    //alert(len);    
+    //alert(len);
     // console.log(inputs);
      //console.log(datas);
 
@@ -305,18 +323,18 @@ $('#btn-submit').on('click', function(){
 });
 
 
-function format ( d ) {  
+function format ( d ) {
      //var str = d ;
      //console.log(d);
      var str = '';
-    $.each(d, function(key, val) {   
+    $.each(d, function(key, val) {
         str =str+'<tr><td>'+val.dispatch_no+'</td><td>'+val.transportno+'</td></tr>';
-        }); 
+        });
 
 return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
         '<tr>'+
-            '<th>发货单号</th><th>发运单号</td>'+
- 
+            '<th>调拨单号</th><th>调运单号</td>'+
+
         '</tr>'+ str +'</table>';
 };
 
@@ -352,15 +370,6 @@ var houseout = $('#houseout').val();
         $('#driver_id').focus();
         return false;
     }
-    if(housein == ''){
-        Toast.fire({
-            type: 'error',
-            title: '请选择调拨入仓库！'
-        });
-        $('#housein').addClass('is-invalid');
-        $('#housein').focus();
-        return false;
-    }
     if(houseout == ''){
         Toast.fire({
             type: 'error',
@@ -368,6 +377,15 @@ var houseout = $('#houseout').val();
         });
         $('#houseout').addClass('is-invalid');
         $('#houseout').focus();
+        return false;
+    }
+     if(csccode == ''){
+        Toast.fire({
+            type: 'error',
+            title: '请选择发运方式！'
+        });
+        $('#csccode').addClass('is-invalid');
+        $('#csccode').focus();
         return false;
     }
 
@@ -378,6 +396,7 @@ var houseout = $('#houseout').val();
 
 
     else{
+  
         table.draw( false ) ;
     }
         });
@@ -400,14 +419,14 @@ var houseout = $('#houseout').val();
 //                 url: "wayBill/getDispatchData",//发货单号
 //                 data :{
 //                     dispatch_no : row.data().id
-//                 }, 
-//                 dataType:"json",                      
+//                 },
+//                 dataType:"json",
 //                 success:function(result){
 //                     dispatch_no = result;
 //                     row.child( format(dispatch_no) ).show();
 //                     tr.addClass('shown');
 
-//                 }   
+//                 }
 //     });
 //         }
 //     });
@@ -426,6 +445,7 @@ var houseout = $('#houseout').val();
  //        return false;
  //    }
  // }
+
 var table =
             $('#companiesLists').DataTable({
                 language: {
@@ -478,7 +498,7 @@ var table =
                     var driveridKey = $('#driver_id').val();
                     var dateKey = $('#reservation').val();
                     var housein = $('#housein').val();
-                    var houseout = $('#houseout').val();
+                    var houseoutKey = $('#houseout').val();
                     var statusKey = $('#status').val();
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
@@ -492,9 +512,9 @@ var table =
                             driveridKey : driveridKey,
                             dateKey : dateKey,
                             housein : housein,
-                            houseout : houseout,
+                            houseoutKey : houseoutKey,
                             statusKey : statusKey
-                        },                       
+                        },
                         success:function(result){
                             var returnData = {};
                             returnData.recordsTotal = result.recordsTotal;
@@ -502,14 +522,14 @@ var table =
                             returnData.data = result.data;
                             callback(returnData);
                         }
-                    })                    
+                    })
                 },
 
-                "columns":[  
+                "columns":[
                     {   "data":"id",
                         "class":"rows-select rows-select-down",
                         "width":"35px",
-                        "orderable":      false,//是否排序                        
+                        "orderable":      false,//是否排序
                         "visible": true ,//是否显示
 
                         "render": function(data,type,row,meta){
@@ -524,16 +544,16 @@ var table =
                         "width": "35px"
                     },
                     {
-                        
+
                         "orderable":      false,
                         "defaultContent": '',
-                        "data":"no" 
+                        "data":"no"
                     },
                     { "data":"car_name" ,"orderable": false},
                     { "data":"drive_name","orderable": false },
                     { "data":"c_date" ,"orderable": false},
                     { "data":"c_time" ,"orderable": false},
-                    { "data":"status" ,"orderable": false}  
+                    { "data":"status" ,"orderable": false}
                 ]
 
             });
@@ -556,14 +576,14 @@ var table =
 //                 url: "wayBill/getDispatchData",//发货单号
 //                 data :{
 //                     dispatch_no : row.data().id
-//                 }, 
-//                 dataType:"json",                      
+//                 },
+//                 dataType:"json",
 //                 success:function(result){
 //                     dispatch_no = result;
 //                     row.child( format(dispatch_no) ).show();
 //                     tr.addClass('shown');
 
-//                 }   
+//                 }
 //     });
 //         }
 //     });
@@ -572,8 +592,8 @@ var table =
 
 //          $('#companiesLists tbody').on('click', 'td.rows-select', function () {
 //         var td = $(this).attr('class');
-//         var tr = $(this).closest('tr');                
-//         if ( td.indexOf("rows-select-down") >= 0 ) {            
+//         var tr = $(this).closest('tr');
+//         if ( td.indexOf("rows-select-down") >= 0 ) {
 //             $(this).addClass("rows-select-up").removeClass("rows-select-down");
 //             tr.removeClass('down');
 //         }

@@ -34,6 +34,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('returnhouse', 'returnhousesController', ['only' => [ 'index', 'create', 'store','index','destroy','show','update']]);
 
 
+    // // 扫码上车
+    // Route::get('sweepCar/dispatch_data', 'SweepCarsController@dispatch_data')->name('sweepCar.dispatch_data');
+    // Route::get('sweepCar/checkPass', 'SweepCarsController@checkPass')->name('sweepCar.checkPass');
+    // Route::post('sweepCar/getData', 'SweepCarsController@getData')->name('sweepCar.getData');
+    // Route::post('sweepCar/delete/{searchKey}', 'SweepCarsController@delete')->name('sweepCar.delete');
+    // Route::get('sweepCar/checkCdlcode', 'SweepCarsController@checkCdlcode')->name('sweepCar.checkCdlcode');
+    // // Route::get('users/export/', 'SweepCarsController@export');
+    // Route::resource('sweepCar', 'SweepCarsController', ['only' => ['create', 'store','index','destroy','show']]);
+
     // 扫码上车
     Route::get('sweepCar/dispatch_data', 'SweepCarsController@dispatch_data')->name('sweepCar.dispatch_data');
     Route::get('sweepCar/checkPass', 'SweepCarsController@checkPass')->name('sweepCar.checkPass');
@@ -109,6 +118,7 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     //生成调运单
     Route::post('transVouch/getData', 'TransVouchsController@getData')->name('transVouch.getData');
     Route::post('transVouch/getDispatchData', 'TransVouchsController@getDispatchData')->name('transVouch/getDispatchData');
+    Route::post('transVouch/getTransVouch', 'TransVouchsController@getTransVouch')->name('transVouch/getTransVouch');
     Route::resource('transVouch', 'TransVouchsController', ['only' => [ 'index','store']]);
 
    //发货单打印
@@ -150,6 +160,10 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     //出入库报表
       Route::post('stockReport/getData', 'StockReportsController@getData')->name('stockReport/getData');
      Route::resource('stockReport', 'StockReportsController', ['only' => [ 'index']]);
+      //现存量报表
+      Route::post('stockReport1/getData', 'StockReport1sController@getData')->name('stockReport1/getData');
+     Route::resource('stockReport1', 'StockReport1sController', ['only' => [ 'index']]);
+Route::get('stockReport1/getInventoryData', 'stockReport1sController@getInventoryData')->name('stockReport1/getInventoryData');
 
     //发运单打印
      Route::get('/wayPrint/{id}/getPrint', 'WayPrintController@getPrint')->name('wayPrint.getPrint');

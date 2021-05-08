@@ -40,7 +40,8 @@ $drivers = DB::table('bs_gn_wl')
 			t1.id,t1.ccode, t1.cdriver,t1.ccusadd,t1.cmaker,
             CONVERT(VARCHAR(10),t1.billdate,120) as billdate, 
             isnull(t1.iPrintCount,'') as iPrintCount 
-            "));
+            "))
+            ;
 
         $data=parent::dataPage($request,$this->condition($builder,$request),'asc');
 
@@ -63,6 +64,7 @@ $drivers = DB::table('bs_gn_wl')
 			->Join('ShippingChoice as b','a.csccode','b.cSCCode')
 			->where('a.id','=',$id)->get();
 			;
+
         $body = \DB::table('hy_eo_transport as t1')
             ->select(
                 \DB::raw("
@@ -75,6 +77,7 @@ $drivers = DB::table('bs_gn_wl')
 			->where('t1.id','=',$id)
 			->groupBy('t2.csocode','t3.ddate','t3.csocode','t3.ccuscode','t3.ccusabbname','t5.cSSName','t3.cshipaddress')
 			->get();
+
         $data[0] = $head[0];
         $count = count($body);
         if ($count>0) { 
@@ -91,13 +94,16 @@ $drivers = DB::table('bs_gn_wl')
         $bgdate = $bedate[0];
         $eddate = date("Y-m-d",strtotime("+1day",strtotime($bedate[1])));
         //dd($searchKey);
+        $table->where('t1.cvouchtype','=','发货运输清单');
         if($searchKey!=''){
             if ($searchKey->driverKey!=null || $searchKey->driverKey!=''){
+              
                 $table->where('t1.billdate','>=',$bgdate);
                 $table->where('t1.billdate','<',$eddate);
                 $table->where('t1.cdriver','=',$searchKey->driverKey); 
             }
             else{
+
                 $table->where('t1.billdate','>=',$bgdate);
                 // $table->where('t1.billdate','<',$eddate);
                 $table->where('t1.billdate','<',$eddate);
