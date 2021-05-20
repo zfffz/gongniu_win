@@ -150,13 +150,13 @@ $i=1;
                 $res = DB::select('select cinvcode,cinvname,iquantity,s.location_no from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID left join  zzz_sweep_out_items t on t.dispatch_no=z.cdlcode left join zzz_sweep_outs s on t.parent_id=s.id where Z.cDLCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
 
 
- //                $cVerifier= 'auser';
- // //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
- //                $date= date("Y-m-d H:i:s");
- //                DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
+                $cVerifier= 'auser';
+ //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
+                $date= date("Y-m-d H:i:s");
+                DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
 
- //                //生成销售出库单和更改库存
- //                DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
+                //生成销售出库单和更改库存
+                DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
 
             }
                else if ($dis=='CKDB')
@@ -297,10 +297,10 @@ $i=1;
         };
      $searchKey = $request->input('searchKey');
 // dd( $searchKey);
-$result6= DB::select("select t1.status as status from zzz_sweep_car_items as t2 inner join zzz_sweep_cars as t1  ON t1.id = t2.parent_id where t2.dispatch_no=?",[$searchKey]);
+$result6= DB::select("select t1.status as status,t1.statusd from zzz_sweep_car_items as t2 inner join zzz_sweep_cars as t1  ON t1.id = t2.parent_id where t2.dispatch_no=?",[$searchKey]);
 // dd($result6[0]->status);
-if($result6[0]->status ==1){
-                echo json_encode(array('status'=>0,'text'=>'已经生成发运单，不允许删除！'));
+if($result6[0]->status ==1|| $result6[0]->statusd ==1 ){
+                echo json_encode(array('status'=>0,'text'=>'已经生成运单，不允许删除！'));
                 exit();
             };
 //明细最后一张不让删
@@ -315,17 +315,17 @@ if($result6[0]->status ==1){
   $deleteds2= DB::delete("delete from zzz_kwkc where  cdlcode=? and source='扫码上车'",[$searchKey]);
 // $data= DB::select("select flag,dispatch_no from zzz_sweep_checks where id=?",[$id])
 
-        // 更新打包发货单装车次数
-            $delete3 = DB::table('zzz_sweep_out_items as t1')
-                ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
-                ->where('t2.dispatch_no','=',$searchKey)
-                ->decrement('t1.car_count');
-            // 更新打包发货单状态
-           $delete4 = DB::table('zzz_sweep_out_items as t1')
-                ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
-                ->where('t2.dispatch_no','=',$searchKey)
-                ->where('t1.car_count','=',0)
-                ->update(['t1.status'=>0]);
+        // 更新打包发货单装车次数,0508 装车不用打包 注释
+           //  $delete3 = DB::table('zzz_sweep_out_items as t1')
+           //      ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+           //      ->where('t2.dispatch_no','=',$searchKey)
+           //      ->decrement('t1.car_count');
+           //  // 更新打包发货单状态
+           // $delete4 = DB::table('zzz_sweep_out_items as t1')
+           //      ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+           //      ->where('t2.dispatch_no','=',$searchKey)
+           //      ->where('t1.car_count','=',0)
+           //      ->update(['t1.status'=>0]);
 
          
 // dd($searchKey);
@@ -333,23 +333,23 @@ if($result6[0]->status ==1){
       
 
           
-    // dd($searchKey);
-                 //更新打包出库单表头状态
-            $result3 = DB::select('select t1.parent_id as parent_id from zzz_sweep_out_items as t1 left join zzz_sweep_car_items as t2 on t1.dispatch_no = t2.dispatch_no where t2.dispatch_no = ?', [$searchKey]); 
-            // dd($result3[0]->parent_id);
-            // // //获取打包单主表的id
-            $result4 = DB::select('select count(*) as zcnum from zzz_sweep_out_items where status<>0 and parent_id = ?', [$result3[0]->parent_id]); 
+
+                 //更新打包出库单表头状态  0508
+            // $result3 = DB::select('select t1.parent_id as parent_id from zzz_sweep_out_items as t1 left join zzz_sweep_car_items as t2 on t1.dispatch_no = t2.dispatch_no where t2.dispatch_no = ?', [$searchKey]); 
+      
+            // // // //获取打包单主表的id
+            // $result4 = DB::select('select count(*) as zcnum from zzz_sweep_out_items where status<>0 and parent_id = ?', [$result3[0]->parent_id]); 
              
            // 查询该打包单生成装车单的发货单数
 
-           
-            if ($result4[0]->zcnum > 0) {
-                //部分装车
-               $delete5 = DB::update('update zzz_sweep_outs set status=1 where id=?', [$result3[0]->parent_id]);
-            } else {
-                //全部未装车
-              $delete6 = DB::update('update zzz_sweep_outs set status=0 where id=?', [$result3[0]->parent_id]);
-            };
+           //0508
+            // if ($result4[0]->zcnum > 0) {
+            //     //部分装车
+            //    $delete5 = DB::update('update zzz_sweep_outs set status=1 where id=?', [$result3[0]->parent_id]);
+            // } else {
+            //     //全部未装车
+            //   $delete6 = DB::update('update zzz_sweep_outs set status=0 where id=?', [$result3[0]->parent_id]);
+            // };
                
    // dd([$searchKey]);
 $dis=(substr($searchKey,0,4));
@@ -472,33 +472,32 @@ $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join
         $sweep_out_items=\DB::transaction(function() use ($sweepCar){
 
             // 删除之前判断是否已经在U8生成发货运输单
-            if($sweepCar->status ==1){
-                echo json_encode(array('status'=>0,'text'=>'已经生成发运单，不允许删除！'));
+            if($sweepCar->status ==1 || $sweepCar->statusd ==1){
+                echo json_encode(array('status'=>0,'text'=>'已经生成运单，不允许删除！'));
                 exit();
             }
             // dd($sweepCar->status);
-            // 更新打包发货单装车次数
-            DB::table('zzz_sweep_out_items as t1')
-                ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
-                ->where('t2.parent_id','=',$sweepCar->id)
-                ->decrement('t1.car_count');
-            // 更新打包发货单状态
-            DB::table('zzz_sweep_out_items as t1')
-                ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
-                ->where('t2.parent_id','=',$sweepCar->id)
-                ->where('t1.car_count','=',0)
-                ->update(['t1.status'=>0]);
-                 // 更新打包出库单表头状态
-            $result3 = DB::SELECT('SELECT t1.parent_id as parent_id from zzz_sweep_out_items as t1 LEFT join zzz_sweep_car_items as t2 ON t1.dispatch_no = t2.dispatch_no where t2.parent_id = ?', [$sweepCar->id]);  //获取打包单主表的id
-            $result4 = DB::select('select count(*) as zcnum from zzz_sweep_out_items where status<>0 and parent_id = ?', [$result3[0]->parent_id]); //查询该打包单生成装车单的发货单数
-            if ($result4[0]->zcnum > 0) {
-                //部分装车
-                DB::update('update zzz_sweep_outs set status=1 where id=?', [$result3[0]->parent_id]);
-            } else {
-                //全部未装车
-                DB::update('update zzz_sweep_outs set status=0 where id=?', [$result3[0]->parent_id]);
-            }
-
+            // 更新打包发货单装车次数0508
+            // DB::table('zzz_sweep_out_items as t1')
+            //     ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+            //     ->where('t2.parent_id','=',$sweepCar->id)
+            //     ->decrement('t1.car_count');
+            // // 更新打包发货单状态
+            // DB::table('zzz_sweep_out_items as t1')
+            //     ->join('zzz_sweep_car_items as t2','t1.dispatch_no','=','t2.dispatch_no')
+            //     ->where('t2.parent_id','=',$sweepCar->id)
+            //     ->where('t1.car_count','=',0)
+            //     ->update(['t1.status'=>0]);
+            //      // 更新打包出库单表头状态
+            // $result3 = DB::SELECT('SELECT t1.parent_id as parent_id from zzz_sweep_out_items as t1 LEFT join zzz_sweep_car_items as t2 ON t1.dispatch_no = t2.dispatch_no where t2.parent_id = ?', [$sweepCar->id]);  //获取打包单主表的id
+            // $result4 = DB::select('select count(*) as zcnum from zzz_sweep_out_items where status<>0 and parent_id = ?', [$result3[0]->parent_id]); //查询该打包单生成装车单的发货单数
+            // if ($result4[0]->zcnum > 0) {
+            //     //部分装车
+            //     DB::update('update zzz_sweep_outs set status=1 where id=?', [$result3[0]->parent_id]);
+            // } else {
+            //     //全部未装车
+            //     DB::update('update zzz_sweep_outs set status=0 where id=?', [$result3[0]->parent_id]);
+            // }
 
             //清空U8装车人和装车时间
             DB::table('dispatchlist as t1')
@@ -524,10 +523,11 @@ $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join
                 ->where('t3.parent_id','=',$sweepCar->id)
                 ->update(['t1.chdefine10'=>'']);
                 //删除记录
-      $jg2 =  DB::SELECT("select dispatch_no from zzz_sweep_car_items where parent_id=?",[$sweepCar->id]);
- 
-                foreach ( $jg2 as $Sweep_car_items) {
 
+
+      $jg2 =  DB::SELECT("select dispatch_no from zzz_sweep_car_items where parent_id=?",[$sweepCar->id]);
+
+                foreach ( $jg2 as $Sweep_car_items) {
 
 
              
@@ -548,25 +548,26 @@ $dis=(substr($Sweep_car_items->dispatch_no,0,4));
          }
           
        
-foreach ($res as $ress) {
-$location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join zzz_sweep_out_items a on a.parent_id=b.id where dispatch_no=?", [$Sweep_car_items->dispatch_no]);
-//查现有库存
-  $iquay=DB::select("select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?",[$ress->cinvcode,$location_no[0]->location_no]);
-          // $iquay = DB::select('select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?',[$ress->cinvcode,$location_no]);
 
-          if (count($iquay)>0) {
-            $iquantity8 = ($iquay[0]->iquantity)+($ress->iquantity);   
-            // dd($iquantity8);
-              DB::update("update zzz_CurrentStock  set iquantity=? where cinvcode =? and location_no=?",[$iquantity8,$ress->cinvcode,$location_no[0]->location_no]);
-          }
-          else
-          {
+foreach ($res as $ress) {
+// $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join zzz_sweep_out_items a on a.parent_id=b.id where dispatch_no=?", [$Sweep_car_items->dispatch_no]);
+// //查现有库存
+//   $iquay=DB::select("select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?",[$ress->cinvcode,$location_no[0]->location_no]);
+//           // $iquay = DB::select('select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?',[$ress->cinvcode,$location_no]);
+
+//           if (count($iquay)>0) {
+//             $iquantity8 = ($iquay[0]->iquantity)+($ress->iquantity);   
+//             // dd($iquantity8);
+//               DB::update("update zzz_CurrentStock  set iquantity=? where cinvcode =? and location_no=?",[$iquantity8,$ress->cinvcode,$location_no[0]->location_no]);
+//           }
+//           else
+//           {
 
                     
          
-                return false;
+//                 return false;
                      
-          }          
+//           }          
 
         }
 
@@ -631,13 +632,26 @@ $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join
         $query1 = DB:: table('zzz_return_house_items as t1')
             ->where('t1.dispatch_no','=',$cdlcode)
             ->count();
+
+
+        $query2 = DB::select("select cdlcode from dispatchlist where ISNULL(cverifier,'') !='' and  cdlCode =?", [$cdlcode]);
+         $query3 = DB::select("select ctvcode from transvouch where ISNULL(cverifyperson,'') !='' and  ctvCode =?", [$cdlcode]);
+  
+     if(count($query2)==0&&count($query3)==0)
+     {
+        echo json_encode(array('status'=>2));
+     }
             // $query-1>=$query1
+     else
+     {
         if($query>$query1){
             //装车单只可以比退回单多一次
             echo json_encode(array('status'=>0));
         }else{
             echo json_encode(array('status'=>1,'text'=>'success！'));
         }
+
+    }
     }
 
 

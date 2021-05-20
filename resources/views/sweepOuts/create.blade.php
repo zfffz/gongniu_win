@@ -674,6 +674,7 @@
                                 }).then(
                                   function(n){
                                     if(n.value){
+                              
                                       addRow('text-danger',data.no);
                                     }else{
                                       $('#dispatch_no').val('');
@@ -681,6 +682,7 @@
                                   })
                               }
                               else{
+                               
                                 $("#dispatch_no").removeClass("is-invalid");
                                 addRow('text-success',data.no);
                               }

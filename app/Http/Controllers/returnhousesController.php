@@ -118,12 +118,25 @@ class ReturnHousesController extends CommonsController
                 // $cVerifier= Auth::user()->name;
          $cVerifier= 'auser';
         $ddate= date("Y-m-d H:i:s");
+
           $res = DB::select('select cinvcode,cinvname,iquantity from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID  where Z.cDLCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+  //退回的不能在生成运单了，会重复生成运单
+     //      $res2 = DB::select('
+     // SELECT max(PARENT_ID) as parent_id FROM zzz_sweep_car_items WHERE dispatch_no= :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+
+     //       DB::update('update zzz_sweep_cars  set status=1 where ID = ?', [$res2[0]->parent_id]);
 
       }
       else if ($dis=='CKDB') {
 
          $res = DB::select('select P.cinvcode,I.cinvname,P.iTVQuantity AS iquantity from transvouchs P left join transvouch Z on P.ID=Z.ID  left join inventory I on I.cInvCode=P.cinVCODE where Z.cTVCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+
+         //退回的不能在生成运单了，会重复生成运单
+
+     //      $res2 = DB::select('
+     // SELECT max(PARENT_ID) as parent_id FROM zzz_sweep_car_items WHERE dispatch_no= :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+
+     //         DB::update('update zzz_sweep_cars  set statusd=1 where ID = ?', [$res2[0]->parent_id]);
 
       }
 foreach ($res as $ress) {
@@ -589,6 +602,7 @@ select id from  zzz_kwkc where source='扫码上车' and  cdlcode= ?",[$dispatch
         // $query = DB:: table('zzz_sweep_checks as t1')
         //     ->where('t1.dispatch_no','=',$cdlcode)
         //     ->count();
+
    $dis=(substr($cdlcode,0,4));
        if ($dis=='XSFH') {
 

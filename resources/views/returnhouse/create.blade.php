@@ -324,7 +324,7 @@
                              $("#dispatch_no").addClass("is-invalid");
                             Toast.fire({
                                 type: 'error',
-                                title: '此发货单未进行对货，不允许退货入库！'
+                                title: '单据不存在不允许打包入库！'
                             });
                             //清空发货单号
                             $('#dispatch_no').val('');
@@ -354,6 +354,15 @@
 
         function addRow(type,default_location_no){
             var dispatch_no = $('#dispatch_no').val();
+             if (parseInt(dispatch_no)>200000) 
+             {
+                     str="XSFH00";
+                                                }
+              else{
+                     str="CKDB00";
+                                                }
+                 var dispatch_no=str+dispatch_no;
+                    var dispatch_no=dispatch_no.substr(dispatch_no.length-12);
 
             //直接添加入列表
             var trcomp="<tr>" +
@@ -585,6 +594,26 @@
             $('#dispatch_no').keydown(function(event) {
                 if(event.keyCode == 13){
                     var dispatch_no = $(this).val();
+                     if(dispatch_no.length <6)
+                     {
+                          Toast.fire({
+                           type: 'warning',
+                           title: '位数需大于五位！'
+                      });
+                      $('#dispatch_no').focus();
+                      $("#dispatch_no").addClass("is-invalid");
+                      return false;
+                                                }
+                    if (parseInt(dispatch_no)>200000) 
+                        { 
+                            str="XSFH00";
+                                                }
+                      else{
+                             str="CKDB00";
+                                                }
+                    
+                    var dispatch_no=str+dispatch_no;
+                    var dispatch_no=dispatch_no.substr(dispatch_no.length-12);
                     //判断发货单号是否重复录入
                     var result = checkRow(dispatch_no);
                     if(!result){

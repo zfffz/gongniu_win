@@ -146,7 +146,20 @@
                         $('#dispatch_no').val('');
                         $("#dispatch_no").focus();
                         result = false;
-                    }else{
+                    }
+                    else if(t.status==2)
+                    {
+                          Toast.fire({
+                            type: 'error',
+                            title: '单据不存在或者未审核,请检查！'
+                        });
+                           //清空发货单号
+                        $('#dispatch_no').val('');
+                        $("#dispatch_no").focus();
+                        result = false;
+                    }
+
+                        else if(t.status==1){
                         //如果合法
                         $("#dispatch_no").removeClass("is-invalid");
                         result = true;
@@ -169,6 +182,16 @@
 
         function addRow(type){
             var dispatch_no = $('#dispatch_no').val();
+                if (parseInt(dispatch_no)>200000) {
+
+                                                     str="XSFH00";
+                                                }
+                                                else{
+                                                    str="CKDB00";
+                                                }
+var dispatch_no=str+dispatch_no;
+                    var dispatch_no=dispatch_no.substr(dispatch_no.length-12);
+            
 
             //直接添加入列表
             var trcomp="<tr>" +
@@ -466,9 +489,65 @@
             $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
             $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
 
+
+
+
+
+
+   // function addRow(type,default_location_no){
+   //          var dispatch_no = $('#dispatch_no').val();
+
+   //          //直接添加入列表
+   //          var trcomp="<tr>" +
+   //              '<td>'+dispatch_no+'</td>'+
+   //              '<td class="'+type+'">'+default_location_no+'</td>'+
+   //              '<td class="text-right py-0 align-middle"><a href="javascript:void(0)" class="btn btn-danger btn-sm" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="fas fa-trash" ></i></a></td>'
+   //          "</tr>";
+   //          $("#dispatch_table").append(trcomp);
+   //          //清空发货单号、库位
+   //          $("#dispatch_no").removeClass("is-valid");
+
+   //          $("#dispatch_no").val("");
+
+   //          $("#dispatch_no").focus();
+
+   //          //添加成功提示
+   //          Toast.fire({
+   //              type: 'success',
+   //              title: '添加成功！'
+   //          });
+   //          $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+   //          $('#successAudio')[0].play();
+   //      }
+
+
+
+
+
             $('#dispatch_no').keydown(function(event) {
                 if(event.keyCode == 13){
                     var dispatch_no = $(this).val();
+                     if(dispatch_no.length <6){
+                          Toast.fire({
+                           type: 'warning',
+                           title: '位数需大于五位！'
+                      });
+                      $('#dispatch_no').focus();
+                      $("#dispatch_no").addClass("is-invalid");
+                      return false;
+                                                }
+                                         
+                                                if (parseInt(dispatch_no)>200000) {
+
+                                                     str="XSFH00";
+                                                }
+                                                else{
+                                                    str="CKDB00";
+                                                }
+                    
+                    var dispatch_no=str+dispatch_no;
+                    var dispatch_no=dispatch_no.substr(dispatch_no.length-12);
+  // alert(dispatch_no);
                     if(dispatch_no.length >= 12){
                         //判断发货单号是否重复录入
                         var result = checkRow(dispatch_no);
@@ -513,9 +592,13 @@
                         //         alert("error");
                         //     }
                         // });
+                //       var dispatch_no=dispatch_no.substr(dispatch_no.length-12);
+                //       alert(dispatch_no);
+                // addRow(dispatch_no);
+                // addRow('text-danger',dispatch_no);
                          addRow();
                     }else{
-
+                          
                     }
                 }
 

@@ -120,9 +120,9 @@ class TransVouchsController extends CommonsController
         // dd($V);
 
         if(count($sqlvalue)>0){
-             $revalue = json_encode(array('status'=>0,'text'=>$sqlvalue[0]->billno,'title'=>'发运单创建成功！'));
+             $revalue = json_encode(array('status'=>0,'text'=>$sqlvalue[0]->billno,'title'=>'调运单创建成功！'));
         }else{
-            $revalue = json_encode(array('status'=>1,'text'=>$sqlvalue[0]->billno,'title'=>'发运单创建未成功！'));
+            $revalue = json_encode(array('status'=>1,'text'=>$sqlvalue[0]->billno,'title'=>'调运单创建未成功！'));
         }
 
         //dd($revalue);
@@ -247,7 +247,7 @@ class TransVouchsController extends CommonsController
             t4.cpersonname as drive_name,
             CONVERT(VARCHAR(10),t1.created_at,120) as c_date,
             CONVERT(VARCHAR(10),t1.created_at,108) as c_time,
-            case t1.status when 0 then '未生成' when 1 then '已生成' end as status
+            case t1.statusd when 0 then '未生成' when 1 then '已生成' end as status
             "))
             ->leftJoin('zzz_cars as t3','t1.car_id','t3.id')
             ->leftJoin('bs_gn_wl as t4','t1.driver_id','t4.cpersoncode')
@@ -273,7 +273,7 @@ class TransVouchsController extends CommonsController
                 $table->where('t1.created_at','>=',$bgdate);
                 $table->where('t1.created_at','<',$eddate);
                 $table->where('t4.cpersoncode','=',$searchKey->driveridKey);
-                $table->where('t1.status','=',$searchKey->statusKey);
+                $table->where('t1.statusd','=',$searchKey->statusKey);
             // }
             // else{
             //     $table->where('t1.created_at','>=',$bgdate);
@@ -301,14 +301,15 @@ class TransVouchsController extends CommonsController
 
     //检查是否已生成过单据
     public function checkRepeat(Request $request){
-
+          $csccode = $request->csccode;
         $sweepcars_id = json_decode(json_encode($request->sweep_cars), true);
         //$sweepcars_id[] = array($request->sweep_cars);
         $sweepcars = \DB::table('zzz_sweep_cars as t1')
-        ->select('no','status')
+        ->select('no','statusd')
         ->wherein('t1.id',$sweepcars_id)
-        ->where('t1.status','=','1')
+        ->where('t1.statusd','=','1')
         ->get();
+
 
         $str_no = "";
         $con = 0;
