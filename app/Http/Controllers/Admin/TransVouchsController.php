@@ -274,6 +274,7 @@ class TransVouchsController extends CommonsController
                 $table->where('t1.created_at','<',$eddate);
                 $table->where('t4.cpersoncode','=',$searchKey->driveridKey);
                 $table->where('t1.statusd','=',$searchKey->statusKey);
+                // $table->where('t1.status','<>','2');
             // }
             // else{
             //     $table->where('t1.created_at','>=',$bgdate);

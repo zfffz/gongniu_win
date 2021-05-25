@@ -76,6 +76,7 @@ class SweepCarsController extends CommonsController
          if (! Auth::user()->can('sweepcars_users')) {
      return view('admins.pages.permission_denied');  
         }
+          // dd(1);
 
         $sweep_car=\DB::transaction(function() use ($request){
             //创建一张新的扫码上车单
@@ -89,6 +90,8 @@ class SweepCarsController extends CommonsController
             //创建一张新的项目清单
             $sweep_car_items = $request->input('items');
             $i=1;
+
+
                    foreach($sweep_car_items as $data){
                        $dis=(substr($data['dispatch_no'],0,4));
 
@@ -113,7 +116,6 @@ exit();
      
 
 $i=1;
-
 
             foreach($sweep_car_items as $data){
 
@@ -233,6 +235,36 @@ $i=1;
             // 更新
             $sweep_car->update(['count' => ($i-1)]);
 
+          $jy1= $sweep_car->count;
+ 
+           $result18 = DB::select('select count(parent_id) count from zzz_sweep_car_items where SUBSTRING(dispatch_no,0,5) =? and parent_id = ?',['XSFH',$sweep_car->id]);
+   
+       
+
+           if ($jy1==$result18[0]->count)
+            {
+               
+DB::update("update zzz_sweep_cars set statusd=1 where id=?",[$sweep_car->id]);
+
+           }
+          
+           else
+            {
+                $result16 = DB::select('select count(parent_id) count from zzz_sweep_car_items where SUBSTRING(dispatch_no,0,5) =? and parent_id = ?',['CKDB',$sweep_car->id]);
+                
+           
+ 
+           if ($jy1==$result16[0]->count) {
+       
+                DB::update('update zzz_sweep_cars set status=1 where id=?',[$sweep_car->id]);
+           }
+           else
+            { };
+};
+
+
+
+
             return $sweep_car;
         });
 
@@ -298,8 +330,11 @@ $i=1;
      $searchKey = $request->input('searchKey');
 // dd( $searchKey);
 $result6= DB::select("select t1.status as status,t1.statusd from zzz_sweep_car_items as t2 inner join zzz_sweep_cars as t1  ON t1.id = t2.parent_id where t2.dispatch_no=?",[$searchKey]);
-// dd($result6[0]->status);
-if($result6[0]->status ==1|| $result6[0]->statusd ==1 ){
+// dd(1);
+$result16= DB::select("select isnull(transportno,0) as transportno from zzz_sweep_car_items  where dispatch_no=?",[$searchKey]);
+
+// dd(1);
+if($result16[0]->transportno <>0){
                 echo json_encode(array('status'=>0,'text'=>'已经生成运单，不允许删除！'));
                 exit();
             };
@@ -405,30 +440,30 @@ $dis=(substr($searchKey,0,4));
 
          $res = DB::select("select P.cinvcode,I.cinvname,P.iTVQuantity AS iquantity from transvouchs P left join transvouch Z on P.ID=Z.ID  left join inventory I on I.cInvCode=P.cinVCODE where Z.cTVCode =?", [$searchKey]);
          }
-    
+ 
 foreach ($res as $ress) {
 
 $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join zzz_sweep_out_items a on a.parent_id=b.id where dispatch_no=?", [$searchKey]);
 
 
-//查现有库存
-  $iquay=DB::select("select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?",[$ress->cinvcode,$location_no[0]->location_no]);
-          // $iquay = DB::select('select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?',[$ress->cinvcode,$location_no]);
+//查现有库存 0521 注释掉 后面要恢复
+  // $iquay=DB::select("select cinvcode,cinvname,iquantity from zzz_CurrentStock where cinvcode =? and location_no=?",[$ress->cinvcode,$location_no[0]->location_no]);
+         
+  //  dd(count($iquay));
 
-
-          if (count($iquay)>0) {
-            $iquantity8 = ($iquay[0]->iquantity)+($ress->iquantity);   
+  //         if (count($iquay)>0) {
+  //           $iquantity8 = ($iquay[0]->iquantity)+($ress->iquantity);   
        
-              DB::update("update zzz_CurrentStock  set iquantity=? where cinvcode =? and location_no=?",[$iquantity8,$ress->cinvcode,$location_no[0]->location_no]);
-          }
-          else
-          {
+  //             DB::update("update zzz_CurrentStock  set iquantity=? where cinvcode =? and location_no=?",[$iquantity8,$ress->cinvcode,$location_no[0]->location_no]);
+  //         }
+  //         else
+  //         {
 
                     
          
-                return false;
+  //               return false;
                      
-          }          
+  //         }          
 
         }
 
@@ -451,8 +486,68 @@ $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join
 
                  //删除记录
                     $deleteds1 = DB::delete("delete from BS_GN_wlstate where zc='装车'  and cdlcode=?",[$searchKey]);
+
+
+
+                       $result87 = DB::select(" select parent_id FROM zzz_sweep_car_items where dispatch_no=?",[$searchKey]);
+
+                       $jy1=  DB::select("select count  FROM zzz_sweep_cars where id=?",[$result87[0]->parent_id]);
+
+                       $jy2= $jy1[0]->count-1;
+
                     //删除装车记录
   $delete = DB::delete("delete from zzz_sweep_car_items where dispatch_no=?",[$searchKey]);
+
+$delete11 = DB::update("update zzz_sweep_cars set count=? where id=?", [$jy2,$result87[0]->parent_id]);
+
+
+
+
+
+
+
+          // $jy1=  DB::select("select count  FROM zzz_sweep_cars where id=?",[$result87[0]->parent_id]);
+
+ 
+          // $sweep_car->count;
+ 
+           $result88 = DB::select('select count(parent_id) count from zzz_sweep_car_items where SUBSTRING(dispatch_no,0,5) =? and parent_id = ?',['XSFH',$result87[0]->parent_id]);
+
+           if ($jy2==$result88[0]->count)
+            {
+               
+DB::update("update zzz_sweep_cars set statusd=1 where id=?",[$result87[0]->parent_id]);
+
+           }
+          
+           else
+            {
+                $result86 = DB::select('select count(parent_id) count from zzz_sweep_car_items where SUBSTRING(dispatch_no,0,5) =? and parent_id = ?',['CKDB',$result87[0]->parent_id]);
+                
+           
+   // dd($result86[0]->count);
+           if ($jy2==$result86[0]->count) {
+       
+                DB::update('update zzz_sweep_cars set status=1 where id=?',[$result87[0]->parent_id]);
+           }
+           else
+            { };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
            return [];
         //
     }
@@ -472,7 +567,14 @@ $location_no = DB::select(" select b.location_no from zzz_sweep_outs b left join
         $sweep_out_items=\DB::transaction(function() use ($sweepCar){
 
             // 删除之前判断是否已经在U8生成发货运输单
-            if($sweepCar->status ==1 || $sweepCar->statusd ==1){
+            // if($sweepCar->status ==1 || $sweepCar->statusd ==1){
+            //     echo json_encode(array('status'=>0,'text'=>'已经生成运单，不允许删除！'));
+            //     exit();
+            // }
+
+
+            $a = DB::select("select transportno from zzz_sweep_car_items where transportno is NOT NULL and parent_id=?", [$sweepCar->id]);
+  if(count($a) >0){
                 echo json_encode(array('status'=>0,'text'=>'已经生成运单，不允许删除！'));
                 exit();
             }
