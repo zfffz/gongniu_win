@@ -59,7 +59,7 @@
                     <!-- /.col -->
                     <!-- /.col -->
                     <div class="col-sm-3 invoice-col">
-                        发货单数量
+                        单据数量
                         <address>
                             <strong>{{$sweepCar->count}}</strong><br>
                         </address>

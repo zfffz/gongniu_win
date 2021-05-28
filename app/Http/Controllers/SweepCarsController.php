@@ -152,13 +152,13 @@ $i=1;
                 $res = DB::select('select cinvcode,cinvname,iquantity,s.location_no from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID left join  zzz_sweep_out_items t on t.dispatch_no=z.cdlcode left join zzz_sweep_outs s on t.parent_id=s.id where Z.cDLCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
 
 
-                $cVerifier= 'auser';
- //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
-                $date= date("Y-m-d H:i:s");
-                DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
+ //                $cVerifier= 'auser';
+ // //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
+ //                $date= date("Y-m-d H:i:s");
+ //                DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$data['dispatch_no']]);
 
-                //生成销售出库单和更改库存
-                DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
+ //                //生成销售出库单和更改库存
+ //                DB::Update("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
 
             }
                else if ($dis=='CKDB')
@@ -218,15 +218,15 @@ $i=1;
 
                 //查看发货单对应的打包单是否全部装车，更新打包单状态
    //直接修改发货单号取值为固定值，此为修改第三处
-                $result3 = DB::SELECT('SELECT parent_id from zzz_sweep_out_items where dispatch_no = ?', ['XSFH00327383']);  //获取打包单的id
-                $result4 = DB::select('select count(*) as wzcnum from zzz_sweep_out_items where status=0 and parent_id = ?', [$result3[0]->parent_id]); //查询该打包单未生成装车单的发货单数
-                if ($result4[0]->wzcnum > 0) {
-                    //部分装车
-                    DB::update('update zzz_sweep_outs set status=1 where id=?', [$result3[0]->parent_id]);
-                } else {
-                    //全部装车
-                    DB::update('update zzz_sweep_outs set status=2 where id=?', [$result3[0]->parent_id]);
-                }
+                // $result3 = DB::SELECT('SELECT parent_id from zzz_sweep_out_items where dispatch_no = ?', ['XSFH00327383']);  //获取打包单的id
+                // $result4 = DB::select('select count(*) as wzcnum from zzz_sweep_out_items where status=0 and parent_id = ?', [$result3[0]->parent_id]); //查询该打包单未生成装车单的发货单数
+                // if ($result4[0]->wzcnum > 0) {
+                //     //部分装车
+                //     DB::update('update zzz_sweep_outs set status=1 where id=?', [$result3[0]->parent_id]);
+                // } else {
+                //     //全部装车
+                //     DB::update('update zzz_sweep_outs set status=2 where id=?', [$result3[0]->parent_id]);
+                // }
 
                 $i++;
             }
@@ -707,6 +707,9 @@ foreach ($res as $ress) {
         $data = DB:: table('zzz_sweep_out_items as t1')
             ->select('t1.dispatch_no')
             ->where('t1.dispatch_no','=',$dispatch_no)->get();
+
+
+    
 
         echo json_encode($data);
 
