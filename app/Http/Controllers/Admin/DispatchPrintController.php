@@ -272,6 +272,80 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
 
 
 
+
+
+//无价格打印模板
+     public function getPrintwjg(Request $request)
+    {
+         if (! Auth::user()->can('dispatchprint_users')) {
+            return view('admins.pages.permission_denied');
+        }
+
+        $data = explode('|',substr($request['datas'],0,-1));
+        $n=0;
+        $m=1;
+         // dd($data);
+        foreach ($data as $cdlcode){
+           
+            $head = \DB::table('Sales_FHD_H as a')
+                ->select(
+                    \DB::raw("
+            '' as tx,a.cDLCode,a.cCusCode,a.ccusabbname,a.cmemo,a.cshipaddress,
+            a.cpersonname,a.cscname,a.dDate,d.ccontactname,d.cmobilephone,
+            d.cofficephone,d.cssname,a.csocode,c.no,
+            a.cmaker,a.cverifier,CONVERT(varchar(10), a.dcreatesystime,23) as createtime, a.dverifydate,
+            '' as divid, '' as tableid, '' as pageid
+            "))
+                ->leftJoin('zzz_customer_locations as b','a.cCusCode','b.customer_no')
+                ->leftJoin('zzz_storage_locations as c','b.location_id','c.id')
+                ->leftJoin('Sales_FHD_T as d','a.cdlcode','d.cdlcode')
+                ->where('a.cDLCode','=',$cdlcode)->get();
+            ;
+// }
+            $body = \DB::table('Sales_FHD_H as t1')
+                ->select(
+    \DB::raw("t2.irowno as ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity, rtrim( Convert(decimal(30,2),t2.iTaxUnitPrice)) as iTaxUnitPrice,rtrim(Convert(decimal(30,2),t2.isum)) as isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5
+            "))
+                ->Join('dispatchlists as t2', 't1.dlid','t2.dlid')
+                ->Join('inventory as t3' ,'t3.cInvCode' , 't2.cInvCode')
+                ->leftJoin('Warehouse as t4' , 't4.cWhCode' , 't2.cWhCode')
+                ->Join('ComputationUnit as t5' , 't5.cComunitCode' , 't3.cComUnitCode')
+                ->where('t1.cDLCode','=',$cdlcode)
+                ->orderby('t2.autoid')
+                ->get();
+// dd($body);
+            $head[0]->divid = 'div'.$m;  //拼div的id
+            $head[0]->tableid ='table'.$m;  //拼table对应的div的id
+            $head[0]->pageid ='page'.$m;   //拼页脚id
+            $data1=[];
+            $data1[0] = $head[0];
+            $count = count($body);
+            if ($count>0) {
+                for($i=0;$i<$count;$i++){
+                    $data1[1][$i] = $body[$i];
+                }
+            }
+            $data2[$n][0]=$data1[0];
+            $data2[$n][1]=$data1[1];
+            $n=$n+1;
+            $m=$m+1;
+        }
+        //echo json_encode(array('status'=>0,'returndata'=>$data2));
+        // dd($data2);
+
+        return view('admins.dispatchPrint.printwjg',compact('data2','n'));
+        //return redirect()->route('dispatchPrint.printpage');
+
+    }
+
+
+
+
+
+
+
+
+
 //打印调拨单
     public function dbgetPrint(Request $request)
     {
@@ -740,7 +814,7 @@ foreach ($data as $cdlcode){
 
          $data = explode('|',substr($request['dispatch_no'],0,-1));
       $n=0;
-        $m=0;
+      $m=0;
       $c=0;
       // $t=0;
         // dd($data);

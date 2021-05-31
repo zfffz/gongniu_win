@@ -29,10 +29,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="row" style="margin-bottom: 5px;">
-                    <div class="col-sm-1.8">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <label>司机</label>
-                                <select class="form-control" required name="driver_id" id="driver_id" style="width: 23mm;">
+                                <select class="form-control" required name="driver_id" id="driver_id" style="width: 100%;">
                                     <option value="" >请选择</option>
                                      @foreach($drivers as $driver)
                                     <option value="{{$driver->id}}">{{$driver->name}}</option>
@@ -41,10 +41,10 @@
                                 </select>
                         </div>
                     </div>
-                    <div class="col-sm-1.8">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <label>状态</label>
-                                <select class="form-control" required name="status" id="status" style="width: 23mm;">
+                                <select class="form-control" required name="status" id="status" style="width: 100%">
                                     <option value="0" >未生成</option>
                                     <option value="1" >已生成</option>
                                 </select>
@@ -79,7 +79,7 @@
                           <!-- /.input group -->
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1">
                         <div class="input-group">
                             <label>查询</label>
                             <td>
@@ -87,18 +87,7 @@
                             </td>
                         </div>
                     </div>
-                    <div class="col-sm-1.8">
-                        <div class="form-group">
-                            <label>发运方式</label>
-                                <select class="form-control" required name="cSCName" id="csccode" style="width: 23mm;">
-                                    <option value="" >请选择</option>
-                                     @foreach($fyfs as $fyfss)
-                                    <option value="{{$fyfss->id}}">{{$fyfss->name}}</option>
-                                      @endforeach
-
-                                </select>
-                        </div>
-                    </div>
+            
                     <div class="col-sm-2">
                         <div class="input-group">
                             <label>创建</label>
@@ -213,24 +202,24 @@ $(function () {
 //生成调运单事件
 $('#btn-submit').on('click', function(){
 
-    var csccode = $('#csccode').val();
+    // var csccode = $('#csccode').val();
 // alert(csccode);
-    if(csccode == ''){
-        // alert(1);
-        Toast.fire({
-            type: 'error',
-            title: '生成调运单需选择发运方式！'
-        });
-        $('#csccode').addClass('is-invalid');
-        $('#csccode').focus();
-          return false;
-}
+//     if(csccode == ''){
+//         // alert(1);
+//         Toast.fire({
+//             type: 'error',
+//             title: '生成调运单需选择发运方式！'
+//         });
+//         $('#csccode').addClass('is-invalid');
+//         $('#csccode').focus();
+//           return false;
+// }
 
 
-  var csccode = $('#csccode').val();
+  // var csccode = $('#csccode').val();
     var datas={};
     datas.sweep_cars={};
-  datas.csccode = csccode;
+  // datas.csccode = csccode;
     //console.log(datas.sweep_cars);
     var str;
     var inputs =  $("#companiesLists td[class*='rows-select-down'] input").prev();
@@ -379,15 +368,15 @@ var houseout = $('#houseout').val();
         $('#houseout').focus();
         return false;
     }
-     if(csccode == ''){
-        Toast.fire({
-            type: 'error',
-            title: '请选择发运方式！'
-        });
-        $('#csccode').addClass('is-invalid');
-        $('#csccode').focus();
-        return false;
-    }
+    //  if(csccode == ''){
+    //     Toast.fire({
+    //         type: 'error',
+    //         title: '请选择发运方式！'
+    //     });
+    //     $('#csccode').addClass('is-invalid');
+    //     $('#csccode').focus();
+    //     return false;
+    // }
 
 
 

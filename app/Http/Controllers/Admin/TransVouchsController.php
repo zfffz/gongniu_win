@@ -34,7 +34,8 @@ class TransVouchsController extends CommonsController
             ->select('cpersoncode as id','cpersonname as name')
             ->where('wlcode','=','04')
             ->get();
-          $warehouses =  DB::select("select cwhcode as id,cwhname as name from warehouse where dwhenddate is NULL");
+          $warehouses =  DB::select("select cwhcode as id,cwhname as name from warehouse where dwhenddate is NULL and (cwhname=? or cwhname=? or cwhname=?)",['发货仓','四楼仓','开关临时仓']);
+          // ->get();
            $fyfs = DB::table('ShippingChoice')
             ->select('cSCCode as id','cSCName as name')
             ->get();
@@ -107,12 +108,12 @@ class TransVouchsController extends CommonsController
         }
 
        
-         $csccode = $request->csccode;
+         // $csccode = $request->csccode;
  
         $uname = $request->user()->name;
 // dd($csccode);
-        $sqlvalue =  DB::select("exec z_zf_dbysd ?,?,?,?",
-            [$str_id,$uname,'',$csccode]);
+        $sqlvalue =  DB::select("exec z_zf_dbysd ?,?,?",
+            [$str_id,$uname,'']);
         //DB::select("exec z_qt_fhysd('".$str_id."','".$uname."')");
         // $v=(array) sqlvalue[0];
          // dd($sqlvalue[0]->billno);

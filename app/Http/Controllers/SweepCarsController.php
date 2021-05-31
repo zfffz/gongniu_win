@@ -708,9 +708,7 @@ foreach ($res as $ress) {
             ->select('t1.dispatch_no')
             ->where('t1.dispatch_no','=',$dispatch_no)->get();
 
-
-    
-
+  
         echo json_encode($data);
 
     }
@@ -741,7 +739,19 @@ foreach ($res as $ress) {
 
         $query2 = DB::select("select cdlcode from dispatchlist where ISNULL(cverifier,'') !='' and  cdlCode =?", [$cdlcode]);
          $query3 = DB::select("select ctvcode from transvouch where ISNULL(cverifyperson,'') !='' and  ctvCode =?", [$cdlcode]);
-  
+
+         $dis=(substr($cdlcode,0,4)); 
+         if ($dis=='CKDB') 
+         {
+         //只能扫三个仓库的调拨单 四楼仓、四楼临时仓、发货仓
+         $query6 = DB::select("select cowhcode from transvouch where ctvcode=? and (cowhcode=? or cowhcode=? or cowhcode=?)",[$cdlcode,1,6,13]);
+        }
+        if ($dis=='XSFH')
+        {
+         $query6 = DB::select("select DLID from DISPATCHLIST where cdlcode=?",[$cdlcode]);
+        }
+
+
      if(count($query2)==0&&count($query3)==0)
      {
         echo json_encode(array('status'=>2));
@@ -753,7 +763,23 @@ foreach ($res as $ress) {
             //装车单只可以比退回单多一次
             echo json_encode(array('status'=>0));
         }else{
+
+            $query5 = DB::select("select id from hy_eo_transports where csocode =?", [$cdlcode]);
+
+if(count($query5)>0)
+     {
+        echo json_encode(array('status'=>5));
+     }
+     else
+     {
+      if(count($query6)==0)
+      {
+        echo json_encode(array('status'=>6));
+      }
+      else{
             echo json_encode(array('status'=>1,'text'=>'success！'));
+            }
+            }
         }
 
     }

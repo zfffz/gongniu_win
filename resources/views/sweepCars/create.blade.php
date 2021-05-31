@@ -158,6 +158,29 @@
                         $("#dispatch_no").focus();
                         result = false;
                     }
+                    else if(t.status==5)
+                    {
+                          Toast.fire({
+                            type: 'error',
+                            title: '此单据已经生成运单，不用再装车！'
+                        });
+                           //清空发货单号
+                        $('#dispatch_no').val('');
+                        $("#dispatch_no").focus();
+                        result = false;
+                    }
+                    else if(t.status==6)
+                    {
+
+                          Toast.fire({
+                            type: 'error',
+                            title: '装车单只能扫调拨单转出仓库是四楼仓、开关临时仓和发货仓，请检查！'
+                        });
+                           //清空发货单号
+                        $('#dispatch_no').val('');
+                        $("#dispatch_no").focus();
+                        result = false;
+                    }
 
                         else if(t.status==1){
                         //如果合法
@@ -571,17 +594,32 @@ var dispatch_no=str+dispatch_no;
 
                         //     },
                         //     success:function(data){
-                        //         if(data.length==0){
+
+
+                        //         // if(data.length==0){
+                        //         //     //发货单号红框提示,toast提示
+                        //         //     $('#notifyAudio')[0].play();
+                        //         //     $("#dispatch_no").addClass("is-invalid");
+                        //         //     Toast.fire({
+                        //         //         type: 'error',
+                        //         //         title: '单据未打包！'
+                        //         //     });
+                        //         //     //清空发货单号
+                        //         //     $('#dispatch_no').val('');
+                        //         // }
+
+                        //        if(data.status==0){
                         //             //发货单号红框提示,toast提示
                         //             $('#notifyAudio')[0].play();
                         //             $("#dispatch_no").addClass("is-invalid");
                         //             Toast.fire({
                         //                 type: 'error',
-                        //                 title: '单据未打包！'
+                        //                 title: '单据已经生成运单，无需装车！'
                         //             });
                         //             //清空发货单号
                         //             $('#dispatch_no').val('');
-                        //         }else{
+                        //         }
+                        //         else{
                         //             //如果合法
                         //             $("#dispatch_no").removeClass("is-invalid");
                         //             addRow();
