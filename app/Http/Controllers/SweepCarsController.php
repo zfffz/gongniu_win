@@ -760,7 +760,7 @@ foreach ($res as $ress) {
      else
      {
         if($query>$query1){
-            //装车单只可以比退回单多一次
+            //装车单只可以比退回单多一次,没保存的时候装车单次数是不能大于退回单次数
             echo json_encode(array('status'=>0));
         }else{
 

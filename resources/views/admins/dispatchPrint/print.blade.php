@@ -72,9 +72,13 @@
           <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">存货名称</th>
           <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">数量</th>
           <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">单位</th>
+         
+           @if($datas[0]->noprice==1)
+ 
+           @else
           <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">单价</th>
           <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">金额</th>
-         
+          @endif
           <!-- <th style="font-family:黑体; font-size:11pt ; line-height:initial">条码</th> -->
                     </tr>
 
@@ -87,8 +91,13 @@
                             <td width="34.7%" style="font-family:黑体; font-size:10.5pt;line-height:6.8pt;word-wrap: break-word;">{{ $dats->cInvName }}</td>
                             <td width="6.5%" style="font-family:黑体; font-size:10.3pt;line-height:3.8pt;word-wrap: break-word;">{{ ($dats->iQuantity*1) }}</td>
                             <td width="6%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->cComUnitName }}</td>
+
+                            @if($datas[0]->noprice==1)
+ 
+                             @else
                             <td width="8%" style="font-family:黑体; font-size:10.3pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->iTaxUnitPrice }}</td>
                             <td width="10.2%" style="font-family:黑体; font-size:10.3pt;line-height:3.8pt;word-wrap: break-word; ">{{ ($dats->isum) }}</td>
+                             @endif
                           
                             
                             <!-- <td width="6%" style="font-family:黑体; font-size:11pt; line-height:3.8pt;word-wrap: break-word;">{{ $dats->cInvDefine5 }}</td> -->
@@ -102,9 +111,12 @@
                         <td width="34.7%" colspan="1"></td>
                         <td width="6.5%" style="font-family:黑体; font-size:10.3pt ;line-height:1.5pt" ><font  tdata="Sum" format="###" tindex="6" >######</font></td>
                         <td width="6%" colspan="1"></td>
+                        @if($datas[0]->noprice==1)
+ 
+                             @else
                         <td width="8%" colspan="1"></td>
                         <td width="10.2%" style="font-family:黑体; font-size:10.3pt ;line-height:1.4pt" ><font  tdata="Sum" format="###0.00" tindex="9" >######</font></td>
-                        
+                         @endif
                         <!-- <td width="6%" colspan="1"></td> -->
                     </tr>
                     </tbody>
@@ -234,7 +246,7 @@
                 LODOP.ADD_PRINT_TABLE('52.4mm','8mm', "RightMargin:1.2cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
                 // LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);//高度溢出缩放
                 LODOP.SET_PRINT_STYLEA(0,"Offset2Top",'-50.4mm'); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
-                LODOP.ADD_PRINT_HTM('0.4mm', '8mm', "RightMargin:3cm", '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_HTM('0.4mm', '8mm', "RightMargin:3cm", '100%', strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
                  // LODOP.ADD_PRINT_HTM('0.4mm', '10mm', "RightMargin:3cm", '100%','<style>*{background:#000}</style>'+strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
                 LODOP.SET_PRINT_STYLEA(0,"LinkedItem",-1);//以上内容紧跟在前一个对象之后
 

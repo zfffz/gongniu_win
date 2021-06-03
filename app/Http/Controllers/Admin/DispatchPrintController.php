@@ -225,7 +225,7 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
             a.cpersonname,a.cscname,a.dDate,d.ccontactname,d.cmobilephone,
             d.cofficephone,d.cssname,a.csocode,c.no,
             a.cmaker,a.cverifier,CONVERT(varchar(10), a.dcreatesystime,23) as createtime, a.dverifydate,
-            '' as divid, '' as tableid, '' as pageid
+            '' as divid, '' as tableid, '' as pageid,'' as noprice
             "))
                 ->leftJoin('zzz_customer_locations as b','a.cCusCode','b.customer_no')
                 ->leftJoin('zzz_storage_locations as c','b.location_id','c.id')
@@ -244,6 +244,15 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
                 ->where('t1.cDLCode','=',$cdlcode)
                 ->orderby('t2.autoid')
                 ->get();
+
+     $query5 = DB::select("select ccusdefine6 from customer where cCusCode =?", [$head[0]->cCusCode]);
+
+     if($query5[0]->ccusdefine6=='是')
+     {
+
+        $head[0]->noprice = '1';
+
+    };
 // dd($body);
             $head[0]->divid = 'div'.$m;  //拼div的id
             $head[0]->tableid ='table'.$m;  //拼table对应的div的id
@@ -263,6 +272,7 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
         }
         //echo json_encode(array('status'=>0,'returndata'=>$data2));
         // dd($data2);
+
 
         return view('admins.dispatchPrint.print',compact('data2','n'));
         //return redirect()->route('dispatchPrint.printpage');
