@@ -34,9 +34,24 @@
                <div id={{$datas[0]->divid}} >
                   <div class="row">
                       <input class="col-md-2" type="hidden" id="cdlcode" value = {{ $datas[0]->cDLCode}} />
-                     
+
+                      @if($datas[0]->bj==0)
                       <span class="col-md-10 text-center"><h3 style="font-family:黑体; font-size:25px">上海公牛电器发货单</h3></span>
-                   
+                     @else
+                    @endif
+
+                    @if($datas[0]->bj==-1)
+                     <span class="col-md-10 text-center"><h3 style="font-family:黑体; font-size:25px">上海公牛电器发货单-1</h3></span>
+                     @else
+                    @endif
+
+                    @if($datas[0]->bj==-2)
+                    <span class="col-md-10 text-center"><h3 style="font-family:黑体; font-size:25px">上海公牛电器发货单-2</h3></span>
+                     @else
+                     @endif
+
+
+
                       <p class="col-md-10 text-center"  style="font-family:黑体; font-size:10.5pt; line-height:4px ">地址、电话:上海市春中路368号 60899198 </p>
                   </div>
                   <div class="row"  >
@@ -155,7 +170,6 @@
       timer: 3000
     });
         $('#btn-submit').on('click', function(){
-
             // var printcount= $('#printstatus').val();
             // if (printcount > 0) {
             //     var m= $('#count').val();
@@ -199,7 +213,6 @@
                             // $("#dispatch_no").focus();
                             // result = false;
                         }else{
-
  $.ajax({
                     url:"{{route('dispatchPrint.checkprint2')}}",
                     data:JSON.stringify(datas),
@@ -214,12 +227,8 @@
                     cache:false,
                     timeout: 3000,
                     success:function(t){
-
-
-
                     }
   })
-
  LODOP=getLodop();
             LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
             // LODOP.SET_PRINT_MODE("HIDE_PBUTTIN_PREVIEW",1);
@@ -249,7 +258,6 @@
                 LODOP.ADD_PRINT_HTM('0.4mm', '8mm', "RightMargin:3cm", '100%', strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
                  // LODOP.ADD_PRINT_HTM('0.4mm', '10mm', "RightMargin:3cm", '100%','<style>*{background:#000}</style>'+strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
                 LODOP.SET_PRINT_STYLEA(0,"LinkedItem",-1);//以上内容紧跟在前一个对象之后
-
               //  LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
         //        LODOP.ADD_PRINT_HTM('12cm', 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
     
@@ -262,18 +270,12 @@
                 LODOP.NewPageA();  //自动分页
                // LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById("div1").innerHTML+"</body>");
             }
-
-
-
-
               if (LODOP.CVERSION) CLODOP.On_Return=function(TaskID,Value){
                 document.getElementById('printstatus').value=Value;
                 if (document.getElementById('printstatus').value >0){
                     $('#printstatus').change();
                 
-
                 }
-
                 if(document.getElementById('printstatus').value ==0){
                    $.ajax({
                     url:"{{route('dispatchPrint.checkprint3')}}",
@@ -289,19 +291,14 @@
                     cache:false,
                     timeout: 3000,
                     success:function(t){
-
-
-
                     }
   })
-
                 }
             };
             // alert()
             LODOP.PREVIEWB();
  $('#printstatus').change(function(){
             var printcount= $('#printstatus').val();
-
             if (printcount > 0) {
                 var m= $('#count').val();
                 var datas ={};
@@ -327,7 +324,6 @@
                     cache:false,
                     timeout: 1000,
                     success:function(t){
-
                         //插入成功
                         if (t.FTranType ==0 ){//这里的FTranType对应后台数组的FTranType，判断要用“==”
                             alert(t.FText);   //t.FTranType ==0 插入失败，可能是发货单号不存在等原因
@@ -340,7 +336,6 @@
                         //disLoad();
                     }
                 });
-
             }
         });
                           // window.open("dispatchPrint/getPrint?datas="+datas);
@@ -348,37 +343,20 @@
                             // $("#dispatch_no").removeClass("is-invalid");
                             // result = true;
                         }
-
                     },
                     // error:function(){
                     //     alert("error");
                         // result = false;
                     // }
-
                 });
-
-
-
-
       
-
-
-
-
-
-
-
            
-
           
              // window.close();
              b=document.getElementById('btn-submit');
 b.disabled="disabled";
              // .disabled="disabled"
         });
-
        
-
-
     </script>
 @endsection

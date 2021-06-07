@@ -186,17 +186,22 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
             return view('admins.pages.permission_denied');
         }
 
+$delete18 = DB::update("update dispatchlist_extradefine set chdefine11=NULL  WHERE CHDEFINE11=1");
+
         $data = explode('|',substr($request['datas'],0,-1));
         $n=0;
         $m=1;
+         $t=0;
+         $f=0;
          // dd($data);
         foreach ($data as $cdlcode){
-             // $data= DB::select("select flag,dispatch_no from zzz_sweep_checks where id=?",[$id]);
+          
 
-        //   $check =  DB::SELECT("select ccuscode,ddate FROM dispatchlist where cdlcode=?",[$cdlcode]);
+          // $check =  DB::SELECT("select ccuscode,ddate,substring(cdefine10,0,15) as cdefine10 FROM dispatchlist where cdlcode=?",[$cdlcode]);
 
-        //     $check1 = DB::SELECT("select DLID,cdlcode FROM dispatchlist where ccuscode=? and isnull(iprintcount,0)=0 and bReturnFlag=0 and DateDiff(dd,ddate,getdate())<=4",[$check[0]->ccuscode]);
+          //   $check1 = DB::SELECT("select DLID,cdlcode FROM dispatchlist where ccuscode=? and isnull(iprintcount,0)=0 and bReturnFlag=0 and substring(cdefine10,0,15)=? ",[$check[0]->ccuscode,$check[0]->cdefine10]);
 
+// substring(cdefine10,0,15)
         //     if(count($check1)>1)
 
         //     { 
@@ -225,7 +230,7 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
             a.cpersonname,a.cscname,a.dDate,d.ccontactname,d.cmobilephone,
             d.cofficephone,d.cssname,a.csocode,c.no,
             a.cmaker,a.cverifier,CONVERT(varchar(10), a.dcreatesystime,23) as createtime, a.dverifydate,
-            '' as divid, '' as tableid, '' as pageid,'' as noprice
+            '' as divid, '' as tableid, '' as pageid,'' as noprice,'' as bj
             "))
                 ->leftJoin('zzz_customer_locations as b','a.cCusCode','b.customer_no')
                 ->leftJoin('zzz_storage_locations as c','b.location_id','c.id')
@@ -244,8 +249,75 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
                 ->where('t1.cDLCode','=',$cdlcode)
                 ->orderby('t2.autoid')
                 ->get();
-
+     
      $query5 = DB::select("select ccusdefine6 from customer where cCusCode =?", [$head[0]->cCusCode]);
+     $check  =  DB::SELECT("select ccuscode,ddate,substring(cdefine10,0,15) as cdefine10 FROM dispatchlist where cdlcode=?",[$cdlcode]);
+     $check1 = DB::SELECT("select chdefine11,dispatchlist.DLID,dispatchlist.cdlcode FROM dispatchlist left join dispatchlist_extradefine as t1 on t1.DLID=dispatchlist.DLID where ccuscode=? and isnull(iprintcount,0)=0 and bReturnFlag=0 and substring(cdefine10,0,15)=? and cdlcode!=? ",[$check[0]->ccuscode,$check[0]->cdefine10,$cdlcode]);
+     $check2 =DB::SELECT("select DLID,cdlcode FROM dispatchlist where ccuscode=? and isnull(iprintcount,0)>0 and bReturnFlag=0 and substring(cdefine10,0,15)=? and cdlcode!=?",[$check[0]->ccuscode,$check[0]->cdefine10,$cdlcode]);
+     $check6  =  DB::SELECT("select ccuscode FROM dispatchlist where cdlcode=? and isnull(cdefine10,'')!=''",[$cdlcode]);
+
+      // $check8 =  DB::SELECT("select zzz_print.cdlcode from zzz_print left join dispatchlist on zzz_print.cdlcode=dispatchlist.cdlcode where dispatchlist.cdlcode!=? and substring(cdefine10,0,15)=?",[$cdlcode,$check[0]->cdefine10]);
+ //     $query10 =  DB::SELECT("select cdlcode from dispatchlist where substring(cdefine10,0,15)=?",[$check[0]->cdefine10]);
+ //     if(count($query10))
+
+
+
+ // $t=$t+COUNT($query10);
+        // dd($query8);
+     //有另一单未打印、非退货，dms单号前15位相同，发货单号不等于当前单号认为是拆单的第一张
+     if(count($check1)>0)
+     {
+
+         // dd($check1[0]->chdefine11);
+        if($check1[0]->chdefine11 ==1)
+        {
+               $head[0]->bj = '-2';
+        }
+        else
+        {
+
+
+        $delete28 = DB::table('dispatchlist_extradefine as t1')
+                ->join('dispatchlist as t2','t1.DLID','=','t2.DLID')
+                // ->join('zzz_sweep_car_items as t3','t2.cDLCode','=','t3.dispatch_no')
+                ->where('t2.cDLCode','=',$cdlcode)
+                ->update(['t1.chdefine11'=>'1']);
+           // $data18=[];
+//             $data18[0] = $check[0]->cdefine10;
+           
+//              $data28[$f][0]=$data18[0];
+//        $f=$f+1;
+//                foreach ($data28 as $cdlcode28){
+// dd($cdlcode28[0]);
+//                $cdlcode28=$data18[0];
+
+                
+      
+                
+//                }
+
+     // $t=$t+count($check1);
+     // if($t>1)
+     // {
+     //      $head[0]->bj = '-2';
+     // }
+          $head[0]->bj = '-1';
+          }
+     }
+     
+     //有另一单已打印、非退货，dms单号前15位相同，发货单号不等于当前单号认为是拆单的第二张
+     if(count($check2)>0)
+     {
+        
+          $head[0]->bj = '-2';
+     }
+     //dms单号为空或前两种情况都没有即没有拆单
+       if((count($check6)==0)||((count($check1)==0)&&(count($check2)==0)))
+     {
+        
+          $head[0]->bj = '0';
+     }
+
 
      if($query5[0]->ccusdefine6=='是')
      {
@@ -253,7 +325,7 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
         $head[0]->noprice = '1';
 
     };
-// dd($body);
+
             $head[0]->divid = 'div'.$m;  //拼div的id
             $head[0]->tableid ='table'.$m;  //拼table对应的div的id
             $head[0]->pageid ='page'.$m;   //拼页脚id
@@ -271,7 +343,7 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
             $m=$m+1;
         }
         //echo json_encode(array('status'=>0,'returndata'=>$data2));
-        // dd($data2);
+        // dd($data28);
 
 
         return view('admins.dispatchPrint.print',compact('data2','n'));

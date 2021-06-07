@@ -125,6 +125,14 @@
                             </td>
                         </div>
                     </div>
+<!-- 
+                     <div class="col-sm-2">    
+                        <div class="input-group">
+                            <td>
+                                <button type="button" id="btn-submit" class="btn btn-block btn-success fa fa-print"style="background-color: #A0522D ;height:35px; width: 110px;margin-left :-120px">无价格打印</button>
+                            </td>
+                        </div>
+                    </div> -->
                     <div class="col-sm-2">
                         <div class="input-group">
                             <td>
@@ -140,24 +148,24 @@
                         </div>
                     </div>
                  
-                    <div class="col-sm-1">    
+                    <div class="col-sm-0">    
                         <div class="input-group">
                             <td>
                                 <button type="button" id="btn-print" class="btn btn-block btn-info fa fa-print " style="height:35px; width: 130px; display:none">拼箱箱标打印</button>
                             </td>
                         </div>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-0">
                         <div class="input-group">
                             <td>
                                 <button type="button" id="btn-submit1" class="btn btn-block btn-warning fa fa-print" style="height:35px; width: 110px; display:none ">外箱标打印</button>
                             </td>
                         </div>
                     </div>
-                       <div class="col-sm-2">    
+                       <div class="col-sm-4">    
                         <div class="input-group">
                             <td>
-                                <button type="button" id="btn-dbdelete" class="btn btn-block btn-danger fa fa-trash" style="height:35px; width: 100px;margin-left :35px">清除锁定</button>
+                                <button type="button" id="btn-dbdelete" class="btn btn-block btn-danger fa fa-trash" style="height:35px; width: 100px;margin-left :225px">清除锁定</button>
                             </td>
                         </div>
                     </div>

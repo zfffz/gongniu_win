@@ -56,7 +56,8 @@ class CommonsController extends Controller
     $start = $request->get('start');
     $length = $request->get('length');
     $total = $builder->count();
-    $list = $builder->orderBy('t1.ccuscode', $asc)->orderBy('t1.cdlcode', $asc)->offset($start)->take($length)->get()->toArray();
+    $list = $builder->orderBy('t1.cdlcode', $asc)->offset($start)->take($length)->get()->toArray();
+    // $list = $builder->orderBy('t1.ccuscode', $asc)->orderBy('t1.cdlcode', $asc)->offset($start)->take($length)->get()->toArray();
     $data = [];
     $data["draw"] = $draw;
     $data["recordsTotal"] = $total;
