@@ -28,11 +28,17 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <div class="row" style="margin-bottom: 5px;">
-                    <div class="col-sm-2">
-                        <div class="form-group">
+             
+                 <div class="row" style="margin-bottom: 5px;">
+
+
+
+                    <div class="col-md-3">
+   <div class="row" style="margin-bottom: 5px;">
+<div class="col-md-6" >
+ <div class="form-group">
                             <label>销售类型</label>
-                                <select class="form-control" required name="cSTName" id="cSTName" style="width: 80%;">
+                                <select class="form-control" required name="cSTName" id="cSTName" style="width: 100%;">
                                     <option value="" >请选择</option>
                                     <?php
                                     $jg=\Illuminate\Support\Facades\DB::table('SaleType')
@@ -44,14 +50,21 @@
                                     ?>
                                 </select>
                         </div>
-                    </div> 
-                    <div class="col-sm-2">
+</div>
+<div class="col-md-6" >
+
+              
                         <div class="form-group">
                             <label>单号</label>
-                            <input class="form-control" name="cDLCode" id="cDLCode"/>
+                            <input class="form-control" name="cDLCode" id="cDLCode"   style="width: 100%;"/>
                         </div>
-                    </div>
-                    <div class="col-sm-2">
+                 
+</div>
+    </div>
+</div>
+
+
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label>部门</label>
                             <select class="form-control" required name="cDepartment" id="cDepartment" style="width: 100%;">
@@ -67,7 +80,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-md-3">
                         <!-- Date range -->
                         <div class="form-group">
                           <label>日期</label>
@@ -83,10 +96,12 @@
                         </div>
                     </div>
 
-<div class="col-sm-2">
+<div class="col-md-3">
+    <div class="row" style="margin-bottom: 5px;">
+<div class="col-md-6" >
     <div class="form-group">
         <label>仓库</label>
-        <select class="form-control" required name="cWhCode" id="cWhCode" style="width: 60%;">
+        <select class="form-control" required name="cWhCode" id="cWhCode" style="width: 100%;">
             <option value="" >请选择</option>
             <?php
             $jg=\Illuminate\Support\Facades\DB::table('Warehouse')
@@ -99,9 +114,26 @@
         </select>
     </div>
 </div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label>发运方式</label>
+        <select class="form-control" required name="csccode" id="csccode" style="width: 100%;">
+            <option value="" >请选择</option>
+            <?php
+            $jg=\Illuminate\Support\Facades\DB::table('ShippingChoice')
+                ->select('csccode as FInterID','cscName as FName')
+                ->get();
+            foreach($jg as $k=>$v){
+                echo ("<option value='$v->FInterID'>".$v->FName."</option>");
+            }
+            ?>
+        </select>
+    </div>
+</div>
+</div>
+</div>
 
-
-                    <div class="col-sm-1">
+                    <div class="col-md-1">
                         <div class="form-group">
                             <label>是否打印</label>
                             <select class="form-control" required name="status" id="status" style="width: 100%;">
@@ -983,6 +1015,7 @@ var table =
                     var dateKey = $('#reservation').val();
                     var cDepartmentKey = $('#cDepartment').val();
                     var cWhCodeKey = $('#cWhCode').val();
+                    var csccodeKey = $('#csccode').val();
                     var status =$('#status').val();
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
@@ -997,6 +1030,7 @@ var table =
                             dateKey : dateKey,
                             cDepartmentKey : cDepartmentKey,
                             cWhCodeKey : cWhCodeKey,
+                            csccodeKey : csccodeKey,
                             status : status
                         },                       
                         success:function(result){
@@ -1044,8 +1078,8 @@ var table =
                       data:"cCusAbbName",
                       render: function( data, type, full, meta ) {
                       if(data){
-                        if(data.length>9){
-                       return "<span title='"+data+"'>"+ data.substr(0, 9) + "...</span>";
+                        if(data.length>6){
+                       return "<span title='"+data+"'>"+ data.substr(0, 6) + "...</span>";
                                 }else{
                                 return data;
                                     }

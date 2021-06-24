@@ -79,10 +79,10 @@
                 <table class="table table-hover table-bordered" style="width: 100%;line-height:0.2pt;border: 1px solid black;word-break:break-all">
                     <tbody>
                     <tr>
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt; ">行</th>
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt; ">仓库</th>
-      {{--<th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt; ">存货编码</th>--}}
-          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt; ">规格</th>
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt;">行</th>
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt;">仓库</th>
+      {{--<th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt;">存货编码</th>--}}
+          <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt;">规格</th>
           <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">存货编码</th>
           <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">存货名称</th>
           <th style="font-family:黑体; font-size:10.5pt ; line-height:3.8pt">数量</th>
@@ -103,7 +103,7 @@
                               <td width="8%" style="font-family:黑体; font-size:10.3pt;line-height:6.8pt;word-wrap: break-word; ">{{ ($dats->cWhName) }}</td>
                             <td width="8.9%" style="font-family:黑体; font-size:10.2pt; line-height:6.8pt;word-wrap: break-word;">{{ $dats->cInvStd }}</td>
                             <td width="9.5%" style="font-family:黑体; font-size:11pt;line-height:3.8pt ;word-wrap: break-word;">{{ $dats->cInvcode }}</td>
-                            <td width="34.7%" style="font-family:黑体; font-size:10.5pt;line-height:6.8pt;word-wrap: break-word;">{{ $dats->cInvName }}</td>
+                            <td width="34.7%" style="font-family:黑体; font-size:10.5pt;line-height:8.8pt;word-wrap: break-word;">{{ $dats->cInvName }}</td>
                             <td width="6.5%" style="font-family:黑体; font-size:10.3pt;line-height:3.8pt;word-wrap: break-word;">{{ ($dats->iQuantity*1) }}</td>
                             <td width="6%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->cComUnitName }}</td>
 
@@ -251,8 +251,8 @@
                var pageid ='page'+j;
                 var cdlcode = $("#"+divid+ " input[id='cdlcode']").val();
                 var printtime = new Date();
-                LODOP.ADD_PRINT_HTM(5, '8mm', "RightMargin:1.2cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
-                LODOP.ADD_PRINT_TABLE('52.4mm','8mm', "RightMargin:1.2cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_HTM(5, '8mm', "RightMargin:1.4cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_TABLE('52.4mm','8mm', "RightMargin:1.4cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
                 // LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);//高度溢出缩放
                 LODOP.SET_PRINT_STYLEA(0,"Offset2Top",'-50.4mm'); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
                 LODOP.ADD_PRINT_HTM('0.4mm', '8mm', "RightMargin:3cm", '100%', strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");

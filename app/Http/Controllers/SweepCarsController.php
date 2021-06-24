@@ -799,9 +799,12 @@ if(count($query5)>0)
             t1.created_at
             "))
             ->leftJoin('zzz_cars as t2','t1.car_id','t2.id')
-            ->leftJoin('person as t3','t1.driver_id','t3.cpersoncode');
+            ->leftJoin('bs_gn_wl as t3','t1.driver_id','t3.cpersoncode');
 
-
+ // $drivers = DB::table('bs_gn_wl')
+ //            ->select('cpersoncode as id','cpersonname as name')
+ //            ->where('wlcode','=','04')
+ //            ->get();
             // $drivers = DB::table('bs_gn_wl')
             // ->select('cpersoncode as id','cpersonname as name')
             // ->where('wlcode','=','04')

@@ -1320,6 +1320,10 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
             if($searchKey->cWhCodeKey!='' || $searchKey->cWhCodeKey!=null ){
                 $table->where('t1.cWhCode','=',$searchKey->cWhCodeKey);
             }
+            if($searchKey->csccodeKey!='' || $searchKey->csccodeKey!=null ){
+                $table->where('t1.csccode','=',$searchKey->csccodeKey);
+            }
+
 
             if($searchKey->status =='1' ){
                 $table->where('t1.iPrintCount ','>=','1');
