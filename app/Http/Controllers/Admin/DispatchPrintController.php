@@ -251,6 +251,10 @@ $delete18 = DB::update("update dispatchlist_extradefine set chdefine11=NULL  WHE
                 ->get();
      
      $query5 = DB::select("select ccusdefine6 from customer where cCusCode =?", [$head[0]->cCusCode]);
+      $query55 = DB::select("select chdefine12 from dispatchlist  left join dispatchlist_extradefine on dispatchlist.DLID=dispatchlist_extradefine.DLID where cdlcode=?", [$cdlcode]);
+
+
+
      $check  =  DB::SELECT("select ccuscode,ddate,substring(cdefine10,0,15) as cdefine10 FROM dispatchlist where cdlcode=?",[$cdlcode]);
      $check1 = DB::SELECT("select chdefine11,dispatchlist.DLID,dispatchlist.cdlcode FROM dispatchlist left join dispatchlist_extradefine as t1 on t1.DLID=dispatchlist.DLID where ccuscode=? and isnull(iprintcount,0)=0 and bReturnFlag=0 and substring(cdefine10,0,15)=? and cdlcode!=? ",[$check[0]->ccuscode,$check[0]->cdefine10,$cdlcode]);
      $check2 =DB::SELECT("select DLID,cdlcode FROM dispatchlist where ccuscode=? and isnull(iprintcount,0)>0 and bReturnFlag=0 and substring(cdefine10,0,15)=? and cdlcode!=?",[$check[0]->ccuscode,$check[0]->cdefine10,$cdlcode]);
@@ -319,12 +323,28 @@ $delete18 = DB::update("update dispatchlist_extradefine set chdefine11=NULL  WHE
      }
 
 
-     if($query5[0]->ccusdefine6=='是')
+if($query55[0]->chdefine12=='是')
      {
 
         $head[0]->noprice = '1';
 
-    };
+     }
+     
+     else
+     { 
+         if ($query55[0]->chdefine12=='否')
+     {
+        // $head[0]->noprice = '0';
+     }
+       else if($query5[0]->ccusdefine6=='是')
+     {
+
+        $head[0]->noprice = '1';
+
+     }
+ }
+
+    
 
             $head[0]->divid = 'div'.$m;  //拼div的id
             $head[0]->tableid ='table'.$m;  //拼table对应的div的id

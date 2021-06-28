@@ -92,27 +92,27 @@ class SweepCarsController extends CommonsController
             $i=1;
 
 
-                   foreach($sweep_car_items as $data){
-                       $dis=(substr($data['dispatch_no'],0,4));
+//                    foreach($sweep_car_items as $data){
+//                        $dis=(substr($data['dispatch_no'],0,4));
 
-          if ($dis=='CKDB') {
+//           if ($dis=='CKDB') {
    
- $CHECK1 = DB::select('select cOWhCode from  transvouch Z  where Z.cTVCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+//  $CHECK1 = DB::select('select cOWhCode from  transvouch Z  where Z.cTVCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
 
-$data1[$i] = $CHECK1[0]->cOWhCode;
-}
+// $data1[$i] = $CHECK1[0]->cOWhCode;
+// }
 
-$i++;
-}
- $dis=(substr($data['dispatch_no'],0,4));
+// $i++;
+// }
+//  $dis=(substr($data['dispatch_no'],0,4));
 
-          if ($dis=='CKDB') {
-                if (count(array_unique($data1))>1) {  
+//           if ($dis=='CKDB') {
+//                 if (count(array_unique($data1))>1) {  
 
-     echo json_encode(array('status'=>0,'text'=>'不同转出仓库的调拨单不能做一张装车单！'));
-exit();
-}
-}
+//      echo json_encode(array('status'=>0,'text'=>'不同转出仓库的调拨单不能做一张装车单！'));
+// exit();
+// }
+// }
      
 
 $i=1;

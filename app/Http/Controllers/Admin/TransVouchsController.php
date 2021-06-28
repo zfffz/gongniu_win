@@ -270,7 +270,7 @@ class TransVouchsController extends CommonsController
         //dd($searchKey);
         if($searchKey!=''){
             // if ($searchKey->caridKey!=null || $searchKey->caridKey!=''){
-                $table->where('t1.cowhcode','=',$searchKey->houseoutKey);
+                // $table->where('t1.cowhcode','=',$searchKey->houseoutKey);
                 $table->where('t1.created_at','>=',$bgdate);
                 $table->where('t1.created_at','<',$eddate);
                 $table->where('t4.cpersoncode','=',$searchKey->driveridKey);

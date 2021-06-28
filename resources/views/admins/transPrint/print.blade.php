@@ -53,14 +53,14 @@
                             @foreach ($data[1] as $dats)
 
                                 <tr>
-                                    <td width="8%" style="font-family:黑体; font-size:10pt">{{ $dats->ROWNU }}</td>
-                                    <td width="10%" style="font-family:黑体; font-size:10pt">{{ $dats->csocode }}</td>
-                                    <td width="12%" style="font-family:黑体; font-size:10pt">{{ $dats->dTVDate }}</td>
-                                    <td width="12%" style="font-family:黑体; font-size:10pt">{{ $dats->cDefine2 }}</td>
-                                    <td width="12%" style="font-family:黑体; font-size:10pt;">{{ $dats->cDefine3 }}</td>
-                                    <td width="8%" style="font-family:黑体; font-size:10pt">{{ $dats->cPersonName }}</td>
-                                    <td width="7%" style="font-family:黑体; font-size:10pt">{{ $dats->amount*1 }}</td>
-                                    <td width="15%" style="font-family:黑体; font-size:10pt">{{ $dats->bz }}</td>
+                                    <td width="8%" style="font-family:黑体; font-size:10pt; line-height:3pt;">{{ $dats->ROWNU }}</td>
+                                    <td width="10%" style="font-family:黑体; font-size:10pt; line-height:3pt;">{{ $dats->csocode }}</td>
+                                    <td width="12%" style="font-family:黑体; font-size:10pt; line-height:3pt;">{{ $dats->dTVDate }}</td>
+                                    <td width="12%" style="font-family:黑体; font-size:10pt; line-height:3pt;">{{ $dats->cDefine2 }}</td>
+                                    <td width="12%" style="font-family:黑体; font-size:10pt ; line-height:3pt;">{{ $dats->cDefine3 }}</td>
+                                    <td width="8%" style="font-family:黑体; font-size:10pt ; line-height:3pt;">{{ $dats->cPersonName }}</td>
+                                    <td width="7%" style="font-family:黑体; font-size:10pt ; line-height:3pt;">{{ $dats->amount*1 }}</td>
+                                    <td width="15%" style="font-family:黑体; font-size:10pt ; line-height:3pt;">{{ $dats->bz }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -97,7 +97,7 @@ $('#btn-submit').on('click', function(){
         LODOP.ADD_PRINT_HTM(5, 3, '98%', '93%',strBodyStyle+"<body>"+document.getElementById("card").innerHTML+"</body>");
         
         LODOP.SET_PRINT_STYLEA(0,"LinkedItem",-1);
-         LODOP.ADD_PRINT_HTM('20cm','10mm',300,'8mm',"<font style='font-size:10pt' format='Num'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>"); //打印页码
+         LODOP.ADD_PRINT_HTM("95%","90%",300,'8mm',"<font style='font-size:10pt' format='Num'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>"); //打印页码
          LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
         LODOP.PREVIEW();
 });

@@ -50,7 +50,7 @@
                                 </select>
                         </div>
                     </div>
-                     <div class="col-sm-2">
+                <!--      <div class="col-sm-2">
                         <div class="form-group">
                             <label>调拨出仓库</label>
                                 <select class="form-control" required name="houseout" id="houseout"  style="width: 33mm;">
@@ -61,7 +61,7 @@
 
                                 </select>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="col-sm-2.5">
@@ -359,15 +359,15 @@ var houseout = $('#houseout').val();
         $('#driver_id').focus();
         return false;
     }
-    if(houseout == ''){
-        Toast.fire({
-            type: 'error',
-            title: '请选择调拨出仓库！'
-        });
-        $('#houseout').addClass('is-invalid');
-        $('#houseout').focus();
-        return false;
-    }
+    // if(houseout == ''){
+    //     Toast.fire({
+    //         type: 'error',
+    //         title: '请选择调拨出仓库！'
+    //     });
+    //     $('#houseout').addClass('is-invalid');
+    //     $('#houseout').focus();
+    //     return false;
+    // }
     //  if(csccode == ''){
     //     Toast.fire({
     //         type: 'error',

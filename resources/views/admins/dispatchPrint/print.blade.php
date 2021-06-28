@@ -230,6 +230,7 @@
                     }
   })
  LODOP=getLodop();
+
             LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
             // LODOP.SET_PRINT_MODE("HIDE_PBUTTIN_PREVIEW",1);
             // LODOP.SET_SHOW_MODE("HIDE_QBUTTIN_PREVIEW",0);
