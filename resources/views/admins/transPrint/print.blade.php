@@ -88,6 +88,10 @@
 $('#btn-submit').on('click', function(){
         LODOP=getLodop();  
         LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
+
+        LODOP.SET_PRINTER_INDEX("HP LaserJet Pro M404-M405 [BD8AB6]"); //指定打印机
+            LODOP.SET_PRINT_COPIES(3); //指定份数
+            
         LODOP.SET_PRINT_PAGESIZE(2,0,0,'A4');//定义纸张
         LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示
         LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",1);//打印后自动关闭预览窗口
@@ -99,7 +103,9 @@ $('#btn-submit').on('click', function(){
         LODOP.SET_PRINT_STYLEA(0,"LinkedItem",-1);
          LODOP.ADD_PRINT_HTM("95%","90%",300,'8mm',"<font style='font-size:10pt' format='Num'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>"); //打印页码
          LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
-        LODOP.PREVIEW();
+
+           LODOP.PREVIEW();
+
 });
 
 </script>

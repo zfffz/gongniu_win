@@ -237,6 +237,15 @@
             // LODOP. SET_SHOW_MODE("HIDE_QBUTTIN_PREVIEW",true);
             // LODOP. SET_SHOW_MODE("PREVIEW_NO_MINIMIZE",true);
             // LODOP.SET_SHOW_MODE("SETUP_ENABLESS","11111111100000");
+            // LODOP.SET_PRINT_MODE("RESELECT_PRINTER",true); //允许重选打印机
+            
+            LODOP.SET_PRINTER_INDEX("EPSON LQ-680K II ESC/P2");
+            LODOP.SET_PRINT_COPIES(1);
+
+//             LODOP.SET_PRINT_MODE("RESELECT_ORIENT",true); //允许重选纸张方向
+// LODOP.SET_PRINT_MODE("RESELECT_PAGESIZE",true); //允许重选纸张
+// LODOP.SET_PRINT_MODE("RESELECT_COPIES",true); //允许重选份数
+
             LODOP.SET_SHOW_MODE ("PREVIEW_NO_MINIMIZE",true);//不让最小化
             LODOP.SET_PRINT_PAGESIZE(1,'240mm','139.50mm','');//定义纸张
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示
@@ -252,8 +261,8 @@
                var pageid ='page'+j;
                 var cdlcode = $("#"+divid+ " input[id='cdlcode']").val();
                 var printtime = new Date();
-                LODOP.ADD_PRINT_HTM(5, '8mm', "RightMargin:1.4cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
-                LODOP.ADD_PRINT_TABLE('52.4mm','8mm', "RightMargin:1.4cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_HTM(10, '8mm', "RightMargin:1.4cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_TABLE('55mm','8mm', "RightMargin:1.4cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
                 // LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);//高度溢出缩放
                 LODOP.SET_PRINT_STYLEA(0,"Offset2Top",'-50.4mm'); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
                 LODOP.ADD_PRINT_HTM('0.4mm', '8mm', "RightMargin:3cm", '100%', strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
@@ -266,8 +275,8 @@
                 LODOP.SET_PRINT_STYLEA(0,"ItemType",1);//设置上面的为页眉页脚，每页固定位置输出
                 // LODOP.SET_PRINT_STYLEA(0,"LineSpacing",13);
            //     LODOP.SET_PRINT_STYLEA(0,"LinkedItem",1);
-                LODOP.ADD_PRINT_BARCODE(19,750,80, 80, 'QRCode', cdlcode);  //打印发货单二维码
-                LODOP.ADD_PRINT_TEXT(5,'8mm','50mm','5mm',printtime.toLocaleString( ));
+                LODOP.ADD_PRINT_BARCODE(25,750,80, 80, 'QRCode', cdlcode);  //打印发货单二维码
+                LODOP.ADD_PRINT_TEXT(28,'8mm','50mm','5mm',printtime.toLocaleString( ));
                 LODOP.NewPageA();  //自动分页
                // LODOP.ADD_PRINT_HTM(5, 5, '97%', '100%',strBodyStyle+"<body>"+document.getElementById("div1").innerHTML+"</body>");
             }

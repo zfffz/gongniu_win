@@ -80,7 +80,7 @@
                             <td width="9.5%" style="font-family:黑体; font-size:11pt;line-height:3.8pt ;word-wrap: break-word;">{{ $dats->cInvcode }}</td>
                             <td width="8.9%" style="font-family:黑体; font-size:10.2pt; line-height:6.8pt;word-wrap: break-word;">{{ $dats->cInvStd }}</td>
                            
-                            <td width="35.7%" style="font-family:黑体; font-size:10.5pt;line-height:6.8pt;word-wrap: break-word;">{{ $dats->cInvName }}</td>
+                            <td width="35.7%" style="font-family:黑体; font-size:10.5pt;line-height:8.8pt;word-wrap: break-word;">{{ $dats->cInvName }}</td>
                              <td width="6%" style="font-family:黑体; font-size:11pt;line-height:3.8pt;word-wrap: break-word;">{{ $dats->cComUnitName}}</td>
                             <td width="6.5%" style="font-family:黑体; font-size:10.3pt;line-height:3.8pt;word-wrap: break-word;">{{ ($dats->iTVQuantity*1) }}</td>
                            
@@ -214,6 +214,8 @@
             LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
             // LODOP.SET_PRINT_MODE("HIDE_PBUTTIN_PREVIEW",1);
             // LODOP.SET_SHOW_MODE("HIDE_QBUTTIN_PREVIEW",0);
+            LODOP.SET_PRINTER_INDEX("EPSON LQ-680K II ESC/P2");
+            LODOP.SET_PRINT_COPIES(1);
             // LODOP. SET_SHOW_MODE("HIDE_QBUTTIN_PREVIEW",true);
             // LODOP. SET_SHOW_MODE("PREVIEW_NO_MINIMIZE",true);
             // LODOP.SET_SHOW_MODE("SETUP_ENABLESS","11111111100000");
@@ -232,8 +234,8 @@
                var pageid ='page'+j;
                 var cdlcode = $("#"+divid+ " input[id='cdlcode']").val();
                 var printtime = new Date();
-                LODOP.ADD_PRINT_HTM(5, '10mm', "RightMargin:1cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
-                LODOP.ADD_PRINT_TABLE('43.4mm','10mm', "RightMargin:1cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_HTM(5, '10mm', "RightMargin:1.2cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_TABLE('43.4mm','10mm', "RightMargin:1.2cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
                 // LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);//高度溢出缩放
                 LODOP.SET_PRINT_STYLEA(0,"Offset2Top",'-41.4mm'); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
                 LODOP.ADD_PRINT_HTM('0.4mm', '10mm', "RightMargin:3cm", '100%',strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");

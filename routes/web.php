@@ -173,11 +173,13 @@ Route::get('stockReport1/getInventoryData', 'stockReport1sController@getInventor
      Route::get('/wayPrint/{id}/getPrint', 'WayPrintController@getPrint')->name('wayPrint.getPrint');
     Route::post('wayPrint/getData', 'WayPrintController@getData')->name('wayPrint.getData');
     Route::resource('wayPrint', 'WayPrintController', ['only' => [ 'index']]);
+    Route::post('wayPrint/updPrintstatusfh', 'WayPrintController@updPrintstatusfh')->name('wayPrint.updPrintstatusfh');
 
        //调运单打印
      Route::get('/transPrint/{id}/getPrint', 'TransPrintController@getPrint')->name('transPrint.getPrint');
     Route::post('transPrint/getData', 'TransPrintController@getData')->name('transPrint.getData');
     Route::resource('transPrint', 'TransPrintController', ['only' => [ 'index']]);
+    Route::post('transPrint/updPrintstatusdy', 'TransPrintController@updPrintstatusdy')->name('transPrint.updPrintstatusdy');
 
 
 //权限

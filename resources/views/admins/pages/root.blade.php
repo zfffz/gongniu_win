@@ -56,7 +56,7 @@
                     <div class="inner">
                         <h3>{{ $OUT[0]->count }}</h3>
 
-                        <p>日已打包</p>
+                        <p>日已扫单</p>
                     </div>
               
                     <div class="icon">
@@ -124,7 +124,7 @@
                 <div class="small-box bg-primary">
                     <div class="inner">
                         <h3>{{ $OUTM[0]->count }}</h3>
-                        <p>月已打包</p>
+                        <p>月已扫单</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-shopping-bag"></i>

@@ -14,13 +14,16 @@ class PagesController extends CommonsController
   public function root()
     {
          $CHECK= DB::select('SELECT COUNT(ID) AS count FROM zzz_sweep_checks  where created_at>=convert(varchar(10),Getdate(),120) and created_at<convert(varchar(10),dateadd(d,1,Getdate()),120)  ');
-         $OUT= DB::select('SELECT count(no) as count FROM zzz_sweep_outs  where created_at>=convert(varchar(10),Getdate(),120) and created_at<convert(varchar(10),dateadd(d,1,Getdate()),120)  ');
+         // $OUT= DB::select('SELECT count(no) as count FROM zzz_sweep_outs  where created_at>=convert(varchar(10),Getdate(),120) and created_at<convert(varchar(10),dateadd(d,1,Getdate()),120)  ');
+         $OUT= DB::select('SELECT count(parent_id) as count FROM zzz_sweep_cars b left join zzz_sweep_car_items z on b.id=z.parent_id  where created_at>=convert(varchar(10),Getdate(),120) and created_at<convert(varchar(10),dateadd(d,1,Getdate()),120)  ');
          $CAR= DB::select('SELECT COUNT(ID) AS count FROM zzz_sweep_cars  where created_at>=convert(varchar(10),Getdate(),120) and created_at<convert(varchar(10),dateadd(d,1,Getdate()),120)  ');
           $transport= DB::select('SELECT COUNT(ID) AS count FROM hy_eo_transport  where billdate>=convert(varchar(10),Getdate(),120) and billdate<convert(varchar(10),dateadd(d,1,Getdate()),120)  ');
 
          $CHECKM= DB::select('select COUNT(ID) AS count from zzz_sweep_checks 
              where DATEPART(mm, created_at) = DATEPART(mm, GETDATE()) and DATEPART(yy, created_at) = DATEPART(yy, GETDATE())  ');
-         $OUTM= DB::select('select COUNT(no) AS count from zzz_sweep_outs
+         // $OUTM= DB::select('select COUNT(no) AS count from zzz_sweep_outs
+         //   where DATEPART(mm, created_at) = DATEPART(mm, GETDATE()) and DATEPART(yy, created_at) = DATEPART(yy, GETDATE())  ');
+         $OUTM= DB::select('SELECT count(parent_id) as count FROM zzz_sweep_cars b left join zzz_sweep_car_items z on b.id=z.parent_id
            where DATEPART(mm, created_at) = DATEPART(mm, GETDATE()) and DATEPART(yy, created_at) = DATEPART(yy, GETDATE())  ');
          $CARM= DB::select('select COUNT(ID) AS count from zzz_sweep_cars 
              where DATEPART(mm, created_at) = DATEPART(mm, GETDATE()) and DATEPART(yy, created_at) = DATEPART(yy, GETDATE())  ');

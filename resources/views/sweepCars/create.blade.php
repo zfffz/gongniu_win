@@ -50,7 +50,20 @@
                     </div>
                 </div>
                 <div class="card-header border-transparent">
+               
                     <h3 class="card-title">暂存区</h3>
+
+       
+                <h3 class="card-title">
+                    <td>
+                        <button type="button" id="btn-count" class="btn btn-block btn-info" style="margin-left: 688px;max-width: 106px;line-height:8.5pt;">显示行数</button>
+
+                    </td>
+               </h3>
+<h3 class="card-title">
+     <input type="text"name="CTNS" id="CTNS" class="form control" style="max-width: 96px" readonly/>
+ </h3>
+                   
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
@@ -96,7 +109,19 @@
             showConfirmButton: false,
             timer: 2000
         });
+        const Toast1 = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: true,
+            // timer: 2000
+        });
+$('#btn-count').on('click', function(){
+var tab = document.getElementById("dispatch_table") ;
+var rows = tab.rows.length-1 ;
 
+;
+$('#CTNS').val(rows);
+    });
         function checkRow(dispatch_no){
             //添加之前检查发货单是否重复录入
             var trList = $("#table_body").children("tr");
@@ -120,6 +145,9 @@
 
             //检查发货单是否已经生成过装车单,不允许重复生单
             $.ajax({
+
+
+                
                 url:'checkCdlcode?dispatch_no='+dispatch_no,
                 type:'get',
                 dataType:'json',
@@ -130,10 +158,16 @@
                 },
                 processData:false,
                 cache:false,
-                timeout: 1000,
-                beforeSend:function(){
-                },
+                timeout: 9990000,
+                  beforeSend: function() {
+            // load('审批中');
+        },
                 success:function(t){
+                    // disLoad();
+                     //  if(t.FTranType==0){
+                     //  alert(t.FText);
+                     //  return = false;
+                     // }
                     if(t.status==0){
                         //发货单号红框提示,toast提示
                         $('#notifyAudio')[0].play();
@@ -147,15 +181,63 @@
                         $("#dispatch_no").focus();
                         result = false;
                     }
-                    else if(t.status==2)
+                    else if (t.status==10)
                     {
-                          Toast.fire({
+                        Toast.fire({
                             type: 'error',
-                            title: '单据不存在或者未审核,请检查！'
+                            title: t.text
                         });
                            //清空发货单号
                         $('#dispatch_no').val('');
                         $("#dispatch_no").focus();
+                        result = false;
+                    }
+                    else if (t.status==12)
+                    {
+                        Toast.fire({
+                            type: 'error',
+                            title: t.text
+                        });
+                           //清空发货单号
+                        $('#dispatch_no').val('');
+                        $("#dispatch_no").focus();
+                        result = false;
+                    }
+                    else if(t.status==2)
+                    {
+
+            // Swal.fire({
+            //     title: '调拨单不存在或者未审核,请检查?',
+            //     // text:'共'+length+'条',
+            //     // footer: '车牌号：'+$('#car_id option:selected').text()+' 司机：'+$('#driver_id option:selected').text(),
+            //     type: 'question',
+            //     focusConfirm: false,
+            //     allowEnterKey:false,
+            //     showCancelButton: true,
+            //     confirmButtonColor: '#3085d6',
+            //     cancelButtonColor: '#d33',
+            //     confirmButtonText: '确定',
+            //     cancelButtonText: '取消'
+            // }).then(
+            //     function(n){
+            //         if(n.value){
+            //               $('#dispatch_no').val('');
+            //             // $("#dispatch_no").focus();
+            //             result = false;
+            //         }else{
+            //             $("#dispatch_no").focus();
+            //             return false;
+            //         }
+            //     })
+
+                          Toast1.fire({
+                            type: 'error',
+                            title: '调拨单不存在或者未审核,请检查！'
+                        });
+
+                           //清空发货单号
+                        $('#dispatch_no').val('');
+                        // $("#dispatch_no").focus();
                         result = false;
                     }
                     else if(t.status==5)
@@ -181,6 +263,18 @@
                         $("#dispatch_no").focus();
                         result = false;
                     }
+                     else if(t.status==8)
+                    {
+
+                          Toast.fire({
+                            type: 'error',
+                            title: '不能扫退货单！'
+                        });
+                           //清空发货单号
+                        $('#dispatch_no').val('');
+                        $("#dispatch_no").focus();
+                        result = false;
+                    }
 
                         else if(t.status==1){
                         //如果合法
@@ -191,6 +285,7 @@
                 },
                 error:function(){
                     alert("error");
+
                     result = false;
                 }
 
@@ -431,7 +526,7 @@ var dispatch_no=str+dispatch_no;
                             },
                             processData:false,
                             cache:false,
-                            timeout: 10000,
+                            timeout: 30000,
                             beforeSend: function() {
                             },
                             success:function(t){
@@ -577,6 +672,16 @@ var dispatch_no=str+dispatch_no;
                         if(!result){
                             return false;
                         }
+
+
+                           
+
+
+
+
+
+
+
                         // 先用装车单据，先不卡打包单据,修改共三处，此处为第一处此处把addRow();移到外面()
                         // 判断发货单号合法性，同时获取该单号的默认库位
                         // $.ajax({

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\updateSweepOut;
+set_time_limit (0);
 // use App\Exports\UsersExport;
 // use Maatwebsite\Excel\Facades\Excel;
 
@@ -73,6 +74,7 @@ class SweepCarsController extends CommonsController
      */
     public function store(Request $request)
     {
+
          if (! Auth::user()->can('sweepcars_users')) {
      return view('admins.pages.permission_denied');  
         }
@@ -150,7 +152,14 @@ $i=1;
  
                 
                 $res = DB::select('select cinvcode,cinvname,iquantity,s.location_no from DispatchLists P left join DispatchList Z on P.DLID=Z.DLID left join  zzz_sweep_out_items t on t.dispatch_no=z.cdlcode left join zzz_sweep_outs s on t.parent_id=s.id where Z.cDLCode = :dispatch_no', ['dispatch_no' => $data['dispatch_no']]);
+          
 
+// $stmt = $dbh->prepare(" DECLARE  @cdlcode varchar(99) EXEC  @return_value = z_rebate_list ?,?,?,? SELECT ReturnValue = @return_value ");
+
+//         $stmt->bindParam(1, $data['dispatch_no'], \PDO::PARAM_STR);
+        
+         
+//         $stmt->execute();
 
  //                $cVerifier= 'auser';
  // //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
@@ -704,6 +713,9 @@ foreach ($res as $ress) {
 
     public function dispatch_data(Request $request){
         $dispatch_no = $request->dispatch_no;
+  
+
+       
         $data = DB:: table('zzz_sweep_out_items as t1')
             ->select('t1.dispatch_no')
             ->where('t1.dispatch_no','=',$dispatch_no)->get();
@@ -737,7 +749,8 @@ foreach ($res as $ress) {
             ->count();
 
 
-        $query2 = DB::select("select cdlcode from dispatchlist where ISNULL(cverifier,'') !='' and  cdlCode =?", [$cdlcode]);
+        $query2 = DB::select("select cdlcode from dispatchlist where ISNULL(cverifier,'') !='' and cdlCode =?", [$cdlcode]);
+        $query8 = DB::select("select cdlcode from dispatchlist where breturnflag=1 and cdlCode =?", [$cdlcode]);
          $query3 = DB::select("select ctvcode from transvouch where ISNULL(cverifyperson,'') !='' and  ctvCode =?", [$cdlcode]);
 
          $dis=(substr($cdlcode,0,4)); 
@@ -752,7 +765,78 @@ foreach ($res as $ress) {
         }
 
 
-     if(count($query2)==0&&count($query3)==0)
+  if ($dis=='XSFH' && count($query2)==0 && count($query8)==0) 
+         {
+
+         $cVerifier= Auth::user()->name;
+         // $cVerifier= 'auser';
+ //更新发货单审核信息（审核人、变更人、审核日期、审核时间）
+                $date= date("Y-m-d H:i:s");
+                // DB::update("update dispatchlist set cVerifier= ?,cChanger=NULL,dverifydate=case when ddate>? then ddate else ? end ,dverifysystime=getdate() where cDLCode =?",[$cVerifier,$date,$date,$cdlcode]);
+                //生成销售出库单和更改库存
+                // dd(1);
+                      set_time_limit (0);
+        ini_set('memory_limit','2000M');
+// DB::statement("exec zzz_CCGC32 ?",[$data['dispatch_no']]);
+
+   $dbh = DB::connection()->getPdo();
+    $stmt = $dbh->prepare("EXEC zzz_CCGC32 ?,?");
+    // $code = "BORROWCODE";
+    // $value = "";        //输出参数：编号
+    $stmt->bindParam(1, $cdlcode, \PDO::PARAM_STR);
+    $stmt->bindParam(2, $cVerifier, \PDO::PARAM_STR);
+    // $stmt->bindParam(2, $value, \PDO::PARAM_STR | \PDO::PARAM_INPUT_OUTPUT, 50);
+    $stmt->execute();
+    // var_dump($value);
+ //    $result=DB::select($stmt);
+    $query551 = DB::select("
+select top 1 text  from errortext where cdlcode =? and status=1 order  by time desc", [$cdlcode]);
+$query552 = DB::select("
+select top 1 text  from errortext where cdlcode =? and status=2 order  by time desc", [$cdlcode]);
+
+    if(count($query552)>0)
+     {
+       echo json_encode(array('status'=>12,'text'=>$query552[0]->text));
+       // dd($query551[0]->text);
+       exit();
+     }
+
+     if(count($query551)>0)
+     {
+       echo json_encode(array('status'=>10,'text'=>$query551[0]->text));
+       // dd($query551[0]->text);
+       exit();
+     }
+ // echo json_encode($result[0],JSON_UNESCAPED_UNICODE);
+                               // DB::Update("exec zzz_CCGC32 ?",[$cdlcode]);
+            //dd($cVerifier);   
+// DB::select("exec zzz_CCGC32 ?",[$cdlcode]);
+// DB::select("exec zzz_CCGC32 ?,?",$cdlcode,$cVerifier);
+// DB::select('exec zzz_CCGC32(?,?)',array($cdlcode,$cVerifier));
+// DB::select('exec zzz_CCGC32($cdlcode, "param2",..)');
+// $jg=DB::select("exec zzz_proc_hxlists ?,?,?,?,?,?,?,?",[$conditions['FDeptNumber'],$conditions['FSalesmanNumber'],$conditions['FMainSalesmanNumber'],
+//             $conditions['FParentNumber'],$conditions['FCustNumber'],$conditions['cdriver'],$page,$perPage]);
+// DB::select('exec my_stored_procedure(?,?,..)',array($cdlcode,$cVerifier));
+
+//DB::statement("exec zzz_CCGC32 ?",[$cdlcode]);
+
+// DB::statement('CALL zzz_CCGC32(:cdlcode);',
+//                 array(
+//                     'cdlcode' => $cdlcode,
+                   
+//                 )
+//             );
+
+//1.提示销售出库单号
+        // $data1 = DB:: table('rdrecord32 as t1')
+        // ->select('t1.ccode')
+        // ->where('t1.cbuscode','=',$cdlcode)->get();
+
+        // echo json_encode($data1);
+
+          }
+
+     if($dis=='CKDB'&&count($query3)==0)
      {
         echo json_encode(array('status'=>2));
      }
@@ -776,8 +860,13 @@ if(count($query5)>0)
       {
         echo json_encode(array('status'=>6));
       }
+      if(count($query8)>0)
+      {
+        echo json_encode(array('status'=>8));
+      }
       else{
             echo json_encode(array('status'=>1,'text'=>'success！'));
+
             }
             }
         }
