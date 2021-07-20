@@ -1108,6 +1108,8 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
         $jg4= DB::select('select ISNULL(total,0) from PrintPolicy_VCH where VchID= ?', [$data['cdlcode']]);
 
         $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]);
+
+        $jg5= DB::select('select DLID from dispatchlist where cdlcode= ?', [$data['cdlcode']]);
 // [$dispatch_no,$result,$result]);
         // console.log($jg4);
                 // if ($jg4[0]=0) {
@@ -1129,7 +1131,7 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
                         'PolicyID'=>'01_131460',
                         'lastPrintTime'=>date('Y-m-d H:i:s', time()),
                         'VchID'=>$data['cdlcode'],
-                        'VchUniqueID'=>$data['cdlcode'],
+                        'VchUniqueID'=>$jg5[0]->DLID,
                         'Total'=>'1'
                     ]
                 );

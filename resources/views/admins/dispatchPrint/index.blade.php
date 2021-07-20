@@ -207,7 +207,7 @@
                     <thead>
                     <tr>
                         <th width="5"><input type="checkbox" id="checkAll" class="checkAll" value=""></th>
-                        <th style="font-size:10.3pt ;line-height:1.5pt">发货单号</th>
+                        <th style="font-size:10.3pt ;line-height:1.5pt">单据号</th>
                         <th style="font-size:10.3pt ;line-height:1.5pt">发货日期</th>
                         <th style="font-size:10.3pt ;line-height:1.5pt">销售类型</th>
                         <th style="font-size:10.3pt ;line-height:1.5pt">部门</th>

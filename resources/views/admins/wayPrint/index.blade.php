@@ -337,8 +337,35 @@ var table =
                             '</div>' +
                             '</div>';
                         }
-                    }
-                ]              
+                    },
+  
+
+
+                ],    
+
+columnDefs: [
+                    
+                      {
+                      targets: 2,
+                      data:"ccusadd",
+                      render: function( data, type, full, meta ) {
+                      if(data){
+                        if(data.length>32){
+                       return "<span title='"+data+"'>"+ data.substr(0,32) + "...</span>";
+                                }else{
+                                return data;
+                                    }
+                                 }else{
+                                      return "";
+                                    }
+                                 }
+                     }, 
+
+
+],
+
+
+
 
             });
 

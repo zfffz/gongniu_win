@@ -106,92 +106,54 @@ $drivers = DB::table('bs_gn_wl')
 
 
 
-  //更新发货单打印次数和打印状态
-    public function updPrintstatus(Request $request)
+     //更新发货单打印次数和打印状态
+    public function updPrintstatusdy(Request $request)
     {
-      // dd(1);
-        $updcdlcode = $request->input('items');
-        foreach($updcdlcode as $data){
+ 
+            $updccode = $request[0];
+      
           //  $time=date('Y-m-d h:i:s', time());
             DB::beginTransaction();
             try{
                 //更新发货单打印次数
-                $query1 = \DB::table('dispatchlist')
+                $query1 = \DB::table('hy_eo_transport')
                     ->select(
                         \DB::raw("isnull(iPrintCount,0) as iPrintCount
             "))
-                    ->where('cDLCode','=',$data['cdlcode'])->get();
+                    ->where('ccode','=',$updccode)->get();
 
-                $jg1=DB::table('DispatchList')
-                    ->where('cdlcode','=',$data['cdlcode'])
+                $jg1=DB::table('hy_eo_transport')
+                    ->where('ccode','=',$updccode)
                     ->update(
                         [
                             'iPrintCount'=>$query1[0]->iPrintCount + 1,
                         ]
                     );
 
-                //插入发货单打印日志zzz_print_diary
-                $jg2=DB::table('zzz_print_diary')->insert(
-                    [
-                        'FBillNo'=>$data['cdlcode'],
-                        'FCreateTime'=>date('Y-m-d H:i:s', time()),
-                        'FCreateUserID'=>$request->user()->id
-                    ]
-                );
-                 // $cprintier= Auth::user()->name;
-                  $jg18=DB::table('zzz_print_tj')->insert(
-                    [
-                        'FBillNo'=>$data['cdlcode'],
-                        'FCreateTime'=>date('Y-m-d H:i:s', time()),
-                        'FCreateUserID'=>$request->user()->id,
-                        'FCreateUserName'=>$request->user()->name
 
-                    ]
-                );
+        $jg4= DB::select('select ISNULL(total,0) from PrintPolicy_VCH where VchID= ?', [$updccode]);
+        $jg5= DB::select('select id from hy_eo_transport where ccode=?', [$updccode]);
 
-        $jg4= DB::select('select ISNULL(total,0) from PrintPolicy_VCH where VchID= ?', [$data['cdlcode']]);
-
-        $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]);
-// [$dispatch_no,$result,$result]);
-        // console.log($jg4);
-                // if ($jg4[0]=0) {
-                    # code...
-               // dd($jg4);
-
-            //     $jg4 = \DB::table('PrintPolicy_VCH')
-            //         ->select(
-            //             "Total
-            // "))
-            //         ->where('cDLCode','=',$data['cdlcode'])
-                    // $retVal = ($jg4=) ? a : b ;
 
         if(count($jg4)==0)
         {
                 //插入u8打印日志
                 $jg3=DB::table('PrintPolicy_VCH')->insert(
                     [
-                        'PolicyID'=>'01_131460',
+                        'PolicyID'=>'EO012_131434',
                         'lastPrintTime'=>date('Y-m-d H:i:s', time()),
-                        'VchID'=>$data['cdlcode'],
-                        'VchUniqueID'=>$data['cdlcode'],
+                        'VchID'=>$updccode,
+                        'VchUniqueID'=>$jg5[0]->id,
                         'Total'=>'1'
                     ]
                 );
  }
- // else if ($jg4[0]>0) {
- //    $jg5=DB::table('PrintPolicy_VCH')
- //                    ->where('cdlcode','=',$data['cdlcode'])
- //                    ->update(
- //                        [
- //                            'iPrintCount'=>$query1[0]->iPrintCount + 1,
 
- //                        ]
- //                    );
- // }
+
                 if (!$jg1) {
                     throw new \Exception("2");
                 }
-                if (!$jg2) {
+                if (!$jg5) {
                     throw new \Exception("3");
                 }
                 // if (!$jg3) {
@@ -206,7 +168,7 @@ $drivers = DB::table('bs_gn_wl')
             }
             //将打印信息写入日志
 
-        }
+        
     }
 
 
