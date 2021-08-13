@@ -129,6 +129,26 @@ $i=1;
                     'dispatch_no'=> $data['dispatch_no']
                 ]);
                 $sweep_car_item->save();
+
+
+//           if ($dis=='CKDB') {
+//                 if (count(array_unique($data1))>1) {  
+
+//      echo json_encode(array('status'=>0,'text'=>'不同转出仓库的调拨单不能做一张装车单！'));
+// exit();
+// }
+// }
+
+                    $query555 = DB::select("select id from zzz_sweep_car_items where dispatch_no =?", [$data['dispatch_no']]);
+// dd($data['dispatch_no']);
+if(count($query555)>1)
+     {
+        echo json_encode(array('status'=>0,'text'=>'已经生成装车单,无需再生成！'));
+        exit();
+     }
+
+
+
  $dis=(substr($data['dispatch_no'],0,4));
 
           if ($dis=='CKDB') {
@@ -741,31 +761,81 @@ foreach ($res as $ress) {
     //判断发货单是否已经生成过装车单,不允许重复生单
     public function checkCdlcode(Request $request){
         $cdlcode = $request->dispatch_no;
-        $query = DB:: table('zzz_sweep_car_items as t1')
+
+        $isweepcar = DB:: table('zzz_sweep_car_items as t1')
             ->where('t1.dispatch_no','=',$cdlcode)
             ->count();
-        $query1 = DB:: table('zzz_return_house_items as t1')
+        $ireturnhouse = DB:: table('zzz_return_house_items as t1')
             ->where('t1.dispatch_no','=',$cdlcode)
             ->count();
 
 
-        $query2 = DB::select("select cdlcode from dispatchlist where ISNULL(cverifier,'') !='' and cdlCode =?", [$cdlcode]);
-        $query8 = DB::select("select cdlcode from dispatchlist where breturnflag=1 and cdlCode =?", [$cdlcode]);
-         $query3 = DB::select("select ctvcode from transvouch where ISNULL(cverifyperson,'') !='' and  ctvCode =?", [$cdlcode]);
+        $ifhcverify = DB::select("select cdlcode from dispatchlist where ISNULL(cverifier,'') !='' and cdlCode =?", [$cdlcode]);
+
+        $ifhreturn = DB::select("select cdlcode from dispatchlist where breturnflag=1 and cdlCode =?", [$cdlcode]);
+         $idbcverify = DB::select("select ctvcode from transvouch where ISNULL(cverifyperson,'') !='' and  ctvCode =?", [$cdlcode]);
 
          $dis=(substr($cdlcode,0,4)); 
          if ($dis=='CKDB') 
          {
          //只能扫三个仓库的调拨单 四楼仓、四楼临时仓、发货仓
-         $query6 = DB::select("select cowhcode from transvouch where ctvcode=? and (cowhcode=? or cowhcode=? or cowhcode=?)",[$cdlcode,1,6,13]);
+         $idbhouse = DB::select("select cowhcode from transvouch where ctvcode=? and (cowhcode=? or cowhcode=? or cowhcode=?)",[$cdlcode,1,6,13]);
+          $idb = DB::select("select cowhcode from transvouch where ctvcode=?",[$cdlcode]);
         }
         if ($dis=='XSFH')
         {
-         $query6 = DB::select("select DLID from DISPATCHLIST where cdlcode=?",[$cdlcode]);
+         $ifh = DB::select("select DLID from DISPATCHLIST where cdlcode=?",[$cdlcode]);
         }
+        $itransport = DB::select("select id from hy_eo_transports where csocode =?", [$cdlcode]);
+        $iqb = DB::select("select DLID from DISPATCHLIST where cdlcode=? union all select cowhcode from transvouch where ctvcode=?",[$cdlcode,$cdlcode]);
+
+        //单据是调拨单且未审核且不是退货单
+if ($dis=='CKDB' && count($idbcverify)==0 && count($idbhouse)>0 && count($idb)>0) 
+         {
+         $cVerifier= Auth::user()->name;
+        
+                $date= date("Y-m-d H:i:s");
+            
+                      set_time_limit (0);
+        ini_set('memory_limit','2000M');
+// DB::statement("EXEC zzz_transvouch_verify ?",[$cdlcode]);
+
+   $dbh = DB::connection()->getPdo();
+    $stmt = $dbh->prepare("EXEC zzz_transvouch_verify ?,?");
+    // $code = "BORROWCODE";
+    // $value = "";        //输出参数：编号
+    $stmt->bindParam(1, $cdlcode, \PDO::PARAM_STR);
+    $stmt->bindParam(2, $cVerifier, \PDO::PARAM_STR);
+    // $stmt->bindParam(2, $value, \PDO::PARAM_STR | \PDO::PARAM_INPUT_OUTPUT, 50);
+    $stmt->execute();
+    // var_dump($value);
+    // $result=DB::select($stmt);
+    $query551 = DB::select("
+select top 1 text  from errortext where cdlcode =? and status=1 order  by time desc", [$cdlcode]);
+$query552 = DB::select("
+select top 1 text  from errortext where cdlcode =? and status=2 order  by time desc", [$cdlcode]);
+
+    if(count($query552)>0)
+     {
+       echo json_encode(array('status'=>12,'text'=>$query552[0]->text));
+       exit();
+     }
+
+     if(count($query551)>0)
+     {
+       echo json_encode(array('status'=>10,'text'=>$query551[0]->text));
+       exit();
+     }
+
+          }
 
 
-  if ($dis=='XSFH' && count($query2)==0 && count($query8)==0) 
+
+
+
+
+//单据是发货单且未审核且不是退货单
+  if ($dis=='XSFH' && count($ifhcverify)==0 && count($ifhreturn)==0 && count($ifh)>0) 
          {
 
          $cVerifier= Auth::user()->name;
@@ -835,43 +905,89 @@ select top 1 text  from errortext where cdlcode =? and status=2 order  by time d
         // echo json_encode($data1);
 
           }
-
-     if($dis=='CKDB'&&count($query3)==0)
+          // dd(1);
+          // dd(count($idb));
+    if((count($iqb))==0)
      {
-        echo json_encode(array('status'=>2));
+        echo json_encode(array('status'=>1,'text'=>'单据号不存在,请检查！'));
+        exit();
      }
-            // $query-1>=$query1
-     else
-     {
-        if($query>$query1){
+    // if($dis=='CKDB'&&count($idb)==0)
+    //  {
+    //     echo json_encode(array('status'=>2,'text'=>'调拨单号不存在,请检查！'));
+    //     exit();
+    //  }
+    if($dis=='CKDB'&&count($idbhouse)==0)
+      {
+        echo json_encode(array('status'=>3,'text'=>'装车单只能扫调拨单转出仓库是四楼仓、开关临时仓和发货仓！'));
+        exit();
+      }
+    if($dis=='XSFH'&&count($ifhreturn)>0)
+      {
+        echo json_encode(array('status'=>4,'text'=>'不能扫退货单！'));
+        exit();
+      }
+     if($isweepcar>$ireturnhouse)
+      {
             //装车单只可以比退回单多一次,没保存的时候装车单次数是不能大于退回单次数
-            echo json_encode(array('status'=>0));
-        }else{
-
-            $query5 = DB::select("select id from hy_eo_transports where csocode =?", [$cdlcode]);
-
-if(count($query5)>0)
+        echo json_encode(array('status'=>5,'text'=>'此发货单已经生成装车单了，不允许重复生单！'));
+        exit();
+      }
+      if(count($itransport)>0)
      {
-        echo json_encode(array('status'=>5));
+        echo json_encode(array('status'=>6,'text'=>'此单据已经生成运单，不用再装车！'));
+        exit();
      }
-     else
-     {
-      if(count($query6)==0)
-      {
-        echo json_encode(array('status'=>6));
-      }
-      if(count($query8)>0)
-      {
-        echo json_encode(array('status'=>8));
-      }
-      else{
-            echo json_encode(array('status'=>1,'text'=>'success！'));
+     echo json_encode(array('status'=>7,'text'=>'success！'));
 
-            }
-            }
-        }
 
-    }
+
+
+
+//      if($dis=='CKDB'&&count($idbcverify)==0)
+//      {
+//         echo json_encode(array('status'=>2,'text'=>'调拨单不存在或者未审核,请检查！'));
+//      }
+//             // $query-1>=$query1
+//      else
+//      {
+//         if($isweepcar>$ireturnhouse){
+
+//             //装车单只可以比退回单多一次,没保存的时候装车单次数是不能大于退回单次数
+//             echo json_encode(array('status'=>0,'text'=>'此发货单已经生成装车单了，不允许重复生单！'));
+//         }else{
+
+//             $query5 = DB::select("select id from hy_eo_transports where csocode =?", [$cdlcode]);
+
+// if(count($query5)>0)
+//      {
+//         echo json_encode(array('status'=>5,'text'=>'此单据已经生成运单，不用再装车！'));
+//      }
+//      else
+//      {
+//       if(count($query6)==0)
+//       {
+// echo json_encode(array('status'=>6,'text'=>'装车单只能扫调拨单转出仓库是四楼仓、开关临时仓和发货仓，请检查！'));
+
+//       }
+
+// // if(count($query66)==0)
+// //       {
+// //         echo json_encode(array('status'=>66));
+        
+// //       }
+//       if(count($query8)>0)
+//       {
+//         echo json_encode(array('status'=>8,'text'=>'不能扫退货单！'));
+//       }
+//       else{
+//             echo json_encode(array('status'=>1,'text'=>'success！'));
+
+//             }
+//             }
+//         }
+
+//     }
     }
 
 
@@ -900,7 +1016,7 @@ if(count($query5)>0)
             // ->get();
 
         $data=parent::dataPage($request,$this->condition($builder,$request->searchKey),'desc');
-
+// dd($data);
         return $data;
     }
 

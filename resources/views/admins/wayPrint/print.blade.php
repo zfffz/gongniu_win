@@ -109,7 +109,7 @@ $('#btn-submit').on('click', function(){
         LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_无边线表格");
 
         LODOP.SET_PRINTER_INDEX("HP LaserJet Pro M404-M405 [BD8AB6]"); //指定打印机
-            LODOP.SET_PRINT_COPIES(1); //指定份数
+            LODOP.SET_PRINT_COPIES(3); //指定份数
 
         LODOP.SET_PRINT_PAGESIZE(2,0,0,'A4');//定义纸张
         LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示

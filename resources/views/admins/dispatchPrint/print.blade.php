@@ -58,8 +58,8 @@
                     <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">客户简称:{{ $datas[0]->ccusabbname }}</h5>
                     <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">客户编码:{{ $datas[0]->cCusCode }}</h5>
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">发货单号:{{ $datas[0]->cDLCode}}</h5>
-                       <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:10.5pt; line-height:4.5pt;white-space: nowrap;text-overflow:ellipsis;">收货地址:{{ $datas[0]->cshipaddress }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:4.5pt;white-space: nowrap;">发货日期:{{ $datas[0]->dDate }}</h5>
+                       <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:10.5pt; overflow-x:hidden;white-space: nowrap;text-overflow:ellipsis;margin-bottom:1.2pt;margin-top:1.2pt">收货地址:{{ $datas[0]->cshipaddress }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt;white-space: nowrap;margin-bottom:1.2pt;margin-top:1.2pt">发货日期:{{ $datas[0]->dDate }}</h5>
                      
                       
                       

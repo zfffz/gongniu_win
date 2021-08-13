@@ -168,20 +168,8 @@ $('#CTNS').val(rows);
                      //  alert(t.FText);
                      //  return = false;
                      // }
-                    if(t.status==0){
-                        //发货单号红框提示,toast提示
-                        $('#notifyAudio')[0].play();
-                        $("#dispatch_no").addClass("is-invalid");
-                        Toast.fire({
-                            type: 'error',
-                            title: '此发货单已经生成装车单了，不允许重复生单！'
-                        });
-                        //清空发货单号
-                        $('#dispatch_no').val('');
-                        $("#dispatch_no").focus();
-                        result = false;
-                    }
-                    else if (t.status==10)
+
+                 if (t.status==10)
                     {
                         Toast.fire({
                             type: 'error',
@@ -192,7 +180,7 @@ $('#CTNS').val(rows);
                         $("#dispatch_no").focus();
                         result = false;
                     }
-                    else if (t.status==12)
+                  if (t.status==12)
                     {
                         Toast.fire({
                             type: 'error',
@@ -203,84 +191,224 @@ $('#CTNS').val(rows);
                         $("#dispatch_no").focus();
                         result = false;
                     }
-                    else if(t.status==2)
+                    if (t.status==0)
                     {
-
-            // Swal.fire({
-            //     title: '调拨单不存在或者未审核,请检查?',
-            //     // text:'共'+length+'条',
-            //     // footer: '车牌号：'+$('#car_id option:selected').text()+' 司机：'+$('#driver_id option:selected').text(),
-            //     type: 'question',
-            //     focusConfirm: false,
-            //     allowEnterKey:false,
-            //     showCancelButton: true,
-            //     confirmButtonColor: '#3085d6',
-            //     cancelButtonColor: '#d33',
-            //     confirmButtonText: '确定',
-            //     cancelButtonText: '取消'
-            // }).then(
-            //     function(n){
-            //         if(n.value){
-            //               $('#dispatch_no').val('');
-            //             // $("#dispatch_no").focus();
-            //             result = false;
-            //         }else{
-            //             $("#dispatch_no").focus();
-            //             return false;
-            //         }
-            //     })
-
-                          Toast1.fire({
+                        Toast.fire({
                             type: 'error',
-                            title: '调拨单不存在或者未审核,请检查！'
-                        });
-
-                           //清空发货单号
-                        $('#dispatch_no').val('');
-                        // $("#dispatch_no").focus();
-                        result = false;
-                    }
-                    else if(t.status==5)
-                    {
-                          Toast.fire({
-                            type: 'error',
-                            title: '此单据已经生成运单，不用再装车！'
+                            title: t.text
                         });
                            //清空发货单号
                         $('#dispatch_no').val('');
                         $("#dispatch_no").focus();
                         result = false;
                     }
-                    else if(t.status==6)
+                    if (t.status==1)
                     {
-
-                          Toast.fire({
+                        Toast.fire({
                             type: 'error',
-                            title: '装车单只能扫调拨单转出仓库是四楼仓、开关临时仓和发货仓，请检查！'
+                            title: t.text
                         });
                            //清空发货单号
                         $('#dispatch_no').val('');
                         $("#dispatch_no").focus();
                         result = false;
                     }
-                     else if(t.status==8)
+                    // if (t.status==2)
+                    // {
+                    //     Toast.fire({
+                    //         type: 'error',
+                    //         title: t.text
+                    //     });
+                    //        //清空发货单号
+                    //     $('#dispatch_no').val('');
+                    //     $("#dispatch_no").focus();
+                    //     result = false;
+                    // }
+                    if (t.status==3)
                     {
-
-                          Toast.fire({
+                        Toast.fire({
                             type: 'error',
-                            title: '不能扫退货单！'
+                            title: t.text
                         });
                            //清空发货单号
                         $('#dispatch_no').val('');
                         $("#dispatch_no").focus();
                         result = false;
                     }
-
-                        else if(t.status==1){
+                    if (t.status==4)
+                    {
+                        Toast.fire({
+                            type: 'error',
+                            title: t.text
+                        });
+                           //清空发货单号
+                        $('#dispatch_no').val('');
+                        $("#dispatch_no").focus();
+                        result = false;
+                    }
+                     if (t.status==5)
+                    {
+                        Toast.fire({
+                            type: 'error',
+                            title: t.text
+                        });
+                           //清空发货单号
+                        $('#dispatch_no').val('');
+                        $("#dispatch_no").focus();
+                        result = false;
+                    }
+                     if (t.status==6)
+                    {
+                        Toast.fire({
+                            type: 'error',
+                            title: t.text
+                        });
+                           //清空发货单号
+                        $('#dispatch_no').val('');
+                        $("#dispatch_no").focus();
+                        result = false;
+                    }
+                    if(t.status==7){
                         //如果合法
                         $("#dispatch_no").removeClass("is-invalid");
                         result = true;
                     }
+
+
+
+
+
+
+
+
+
+
+
+
+            //         if(t.status==0){
+            //             //发货单号红框提示,toast提示
+            //             $('#notifyAudio')[0].play();
+            //             $("#dispatch_no").addClass("is-invalid");
+            //             Toast.fire({
+            //                 type: 'error',
+            //                 title: '此发货单已经生成装车单了，不允许重复生单！'
+            //             });
+            //             //清空发货单号
+            //             $('#dispatch_no').val('');
+            //             $("#dispatch_no").focus();
+            //             result = false;
+            //         }
+            //         else if (t.status==10)
+            //         {
+            //             Toast.fire({
+            //                 type: 'error',
+            //                 title: t.text
+            //             });
+            //                //清空发货单号
+            //             $('#dispatch_no').val('');
+            //             $("#dispatch_no").focus();
+            //             result = false;
+            //         }
+            //         else if (t.status==12)
+            //         {
+            //             Toast.fire({
+            //                 type: 'error',
+            //                 title: t.text
+            //             });
+            //                //清空发货单号
+            //             $('#dispatch_no').val('');
+            //             $("#dispatch_no").focus();
+            //             result = false;
+            //         }
+            //         else if(t.status==2)
+            //         {
+
+            // // Swal.fire({
+            // //     title: '调拨单不存在或者未审核,请检查?',
+            // //     // text:'共'+length+'条',
+            // //     // footer: '车牌号：'+$('#car_id option:selected').text()+' 司机：'+$('#driver_id option:selected').text(),
+            // //     type: 'question',
+            // //     focusConfirm: false,
+            // //     allowEnterKey:false,
+            // //     showCancelButton: true,
+            // //     confirmButtonColor: '#3085d6',
+            // //     cancelButtonColor: '#d33',
+            // //     confirmButtonText: '确定',
+            // //     cancelButtonText: '取消'
+            // // }).then(
+            // //     function(n){
+            // //         if(n.value){
+            // //               $('#dispatch_no').val('');
+            // //             // $("#dispatch_no").focus();
+            // //             result = false;
+            // //         }else{
+            // //             $("#dispatch_no").focus();
+            // //             return false;
+            // //         }
+            // //     })
+
+            //               Toast1.fire({
+            //                 type: 'error',
+            //                 title: '调拨单不存在或者未审核,请检查！'
+            //             });
+
+            //                //清空发货单号
+            //             $('#dispatch_no').val('');
+            //             // $("#dispatch_no").focus();
+            //             result = false;
+            //         }
+            //         //  else if(t.status==66)
+            //         // {
+            //         //       Toast.fire({
+            //         //         type: 'error',
+            //         //         title: '发货单号不存在！'
+            //         //     });
+            //         //        //清空发货单号
+            //         //     $('#dispatch_no').val('');
+            //         //     $("#dispatch_no").focus();
+            //         //     result = false;
+            //         // }
+            //         else if(t.status==5)
+            //         {
+            //               Toast.fire({
+            //                 type: 'error',
+            //                 title: '此单据已经生成运单，不用再装车！'
+            //             });
+            //                //清空发货单号
+            //             $('#dispatch_no').val('');
+            //             $("#dispatch_no").focus();
+            //             result = false;
+            //         }
+            //         else if(t.status==6)
+            //         {
+
+            //               Toast.fire({
+            //                 type: 'error',
+            //                 title: '装车单只能扫调拨单转出仓库是四楼仓、开关临时仓和发货仓，请检查！'
+            //             });
+            //                //清空发货单号
+            //             $('#dispatch_no').val('');
+            //             $("#dispatch_no").focus();
+            //             result = false;
+            //         }
+            //          else if(t.status==8)
+            //         {
+
+            //               Toast.fire({
+            //                 type: 'error',
+            //                 title: '不能扫退货单！'
+            //             });
+            //                //清空发货单号
+            //             $('#dispatch_no').val('');
+            //             $("#dispatch_no").focus();
+            //             result = false;
+            //         }
+
+            //             else if(t.status==1){
+            //             //如果合法
+            //             $("#dispatch_no").removeClass("is-invalid");
+            //             result = true;
+            //         }
 
                 },
                 error:function(){
