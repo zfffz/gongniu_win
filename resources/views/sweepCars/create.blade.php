@@ -56,7 +56,7 @@
        
                 <h3 class="card-title">
                     <td>
-                        <button type="button" id="btn-count" class="btn btn-block btn-info" style="margin-left: 688px;max-width: 106px;line-height:8.5pt;">显示行数</button>
+                        <button type="button" id="btn-count" class="btn btn-block btn-info" style="margin-left: 72px;max-width: 90px;line-height:8.5pt;">显示行数</button>
 
                     </td>
                </h3>
@@ -444,7 +444,7 @@ var dispatch_no=str+dispatch_no;
                 '<td>'+dispatch_no+'</td>'+
                 '<td class="text-right py-0 align-middle"><a href="javascript:void(0)" class="btn btn-danger btn-sm" data-toggle="tooltip"  title="删除" onclick="deleteCurrentRow(this)"><i class="fas fa-trash" ></i></a></td>'
             "</tr>";
-            $("#dispatch_table").append(trcomp);
+            $("#dispatch_table").prepend(trcomp);
             //清空发货单号
             $("#dispatch_no").val("");
 

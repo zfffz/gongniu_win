@@ -58,21 +58,27 @@
                     <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">客户简称:{{ $datas[0]->ccusabbname }}</h5>
                     <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">客户编码:{{ $datas[0]->cCusCode }}</h5>
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">发货单号:{{ $datas[0]->cDLCode}}</h5>
-                       <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:10.5pt; overflow-x:hidden;white-space: nowrap;text-overflow:ellipsis;margin-bottom:1.2pt;margin-top:1.2pt">收货地址:{{ $datas[0]->cshipaddress }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt;white-space: nowrap;margin-bottom:1.2pt;margin-top:1.2pt">发货日期:{{ $datas[0]->dDate }}</h5>
-                     
                       
                       
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">联系人:{{ $datas[0]->ccontactname }}</h5>
                      
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">手机:{{ $datas[0]->cmobilephone }}</h5>
                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">电话:{{ $datas[0]->cofficephone }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">业务员:{{ $datas[0]->cpersonname }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">发运方式:{{ $datas[0]->cscname }}</h5>
+                     <!--   <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt;white-space: nowrap;margin-bottom:1.2pt;margin-top:1.2pt">发货日期:{{ $datas[0]->dDate }}</h5> -->
+                     <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt;line-height:2.5pt;white-space: nowrap;">发货日期:{{ $datas[0]->dDate }}</h5>
+
+                       <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">发运方式:{{ $datas[0]->cscname }}</h5>
                       <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">结算方式:{{ $datas[0]->cssname }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">订单号:{{ $datas[0]->csocode }}</h5>
-                      <h5 class="col-md-9 col-sm-9 col-xs-9" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">备注:{{ $datas[0]->cmemo }}</h5>
-                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">区域仓库:{{ $datas[0]->no }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">业务员:{{ $datas[0]->cpersonname }}</h5>
+                     
+                      <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">订单号:{{ $datas[0]->csocode }}</h5>
+                      <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">区域仓库:{{ $datas[0]->no }}</h5>
+
+<!-- 
+                       <h5 class="col-md-12 col-sm-12 col-xs-12" style="font-family:黑体; font-size:10.5pt; overflow-x:hidden;white-space: nowrap;text-overflow:ellipsis;margin-bottom:1.2pt;margin-top:1.2pt">收货地址:{{ $datas[0]->cshipaddress }}</h5> -->
+                       <h5 class="col-md-12 col-sm-12 col-xs-12" style="font-family:黑体; font-size:10.5pt; line-height:8.8pt;margin-bottom:1.5pt;margin-top:1.5pt;">收货地址:{{ $datas[0]->cshipaddress }}</h5>
+                      <h5 class="col-md-12 col-sm-12 col-xs-12" style="font-family:黑体; font-size:10.5pt; line-height:8.8pt;margin-bottom:1.5pt;margin-top:4.5pt;">备注:{{ $datas[0]->cmemo }}</h5>
+                      
                   </div>
                </div>
                <div   id={{$datas[0]->tableid}} >
@@ -262,7 +268,16 @@
                 var cdlcode = $("#"+divid+ " input[id='cdlcode']").val();
                 var printtime = new Date();
                 LODOP.ADD_PRINT_HTM(10, '8mm', "RightMargin:1.4cm", '100%',strBodyStyle+"<body>"+document.getElementById(divid).innerHTML+"</body>");
-                LODOP.ADD_PRINT_TABLE('55mm','8mm', "RightMargin:1.4cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+
+//                 if(document.getElementById(divid).offsetHeight>440){
+// //offsetHeight为实际高度
+// document.getElementById('div2ID').style.display = 'inline';//或者'block'
+// }
+// alert(document.getElementById(divid).offsetHeight);
+                                    //(intTop,intLeft,intWidth,intHeight,strHtml
+                // LODOP.ADD_PRINT_TABLE('55mm','8mm', "RightMargin:1.4cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                var height= (document.getElementById(divid).offsetHeight);
+                LODOP.ADD_PRINT_TABLE((height+85),'8mm', "RightMargin:1.4cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
                 // LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);//高度溢出缩放
                 LODOP.SET_PRINT_STYLEA(0,"Offset2Top",'-50.4mm'); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
                 LODOP.ADD_PRINT_HTM('0.4mm', '8mm', "RightMargin:3cm", '100%', strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
