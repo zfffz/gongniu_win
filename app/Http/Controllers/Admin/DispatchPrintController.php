@@ -310,10 +310,16 @@ $delete18 = DB::update("update dispatchlist_extradefine set chdefine11=NULL  WHE
      }
      
      //有另一单已打印、非退货，dms单号前15位相同，发货单号不等于当前单号认为是拆单的第二张
-     if(count($check2)>0)
+     if((count($check2)>0)&&(count($check2)<2))
      {
         
           $head[0]->bj = '-2';
+     }
+
+      if((count($check2)>1))
+     {
+        
+          $head[0]->bj = '-3';
      }
      //dms单号为空或前两种情况都没有即没有拆单
        if((count($check6)==0)||((count($check1)==0)&&(count($check2)==0)))

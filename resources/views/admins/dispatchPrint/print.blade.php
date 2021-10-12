@@ -49,6 +49,11 @@
                     <span class="col-md-10 text-center"><h3 style="font-family:黑体; font-size:25px">上海公牛电器发货单-2</h3></span>
                      @else
                      @endif
+                     
+                       @if($datas[0]->bj==-3)
+                    <span class="col-md-10 text-center"><h3 style="font-family:黑体; font-size:25px">上海公牛电器发货单-3</h3></span>
+                     @else
+                     @endif
 
 
 
