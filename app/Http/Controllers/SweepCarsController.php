@@ -779,7 +779,7 @@ foreach ($res as $ress) {
          if ($dis=='CKDB') 
          {
          //只能扫三个仓库的调拨单 四楼仓、四楼临时仓、发货仓
-         $idbhouse = DB::select("select cowhcode from transvouch where ctvcode=? and (cowhcode=? or cowhcode=? or cowhcode=?)",[$cdlcode,1,6,13]);
+         $idbhouse = DB::select("select cowhcode from transvouch where ctvcode=? and (cowhcode=? or cowhcode=? or cowhcode=? or cowhcode=?)",[$cdlcode,1,6,13,18]);
           $idb = DB::select("select cowhcode from transvouch where ctvcode=?",[$cdlcode]);
         }
         if ($dis=='XSFH')

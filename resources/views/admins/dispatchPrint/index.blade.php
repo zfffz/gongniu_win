@@ -240,20 +240,46 @@ const Toast = Swal.mixin({
 
 
 $(function () {
+    var date = new Date();
+date.setDate(1);
+var firstDate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
 
     $('#reservation').daterangepicker({
         locale: {
         format: 'YYYY-MM-DD',
         applyLabel: '确定',
         cancelLabel: '取消',
+         
+        // language:"zh-CN",
+        //     minView: "month",// 设置只显示到月份
+        //     todayHighlight: true,
+        //     autoclose: true,
+        //     pickerPosition: 'bottom-left',
+        //     todayBtn: true,
+        //     format: 'yyyy-mm-dd'
+
         fromLabel: "开始时间",
         toLabel: "结束时间",
         customRangeLabel: "自定义",
         daysOfWeek: ["日","一","二","三","四","五","六"],
         monthNames: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
-        }         
+        // setDate: new Date(firstDate)
+        },
+            startDate: firstDate,
+              // setDate: new Date(firstDate),   
     });
+    // $(this).val(picker.startDate.format('MM/DD/YYYY') +' - '+picker.endDate.format('MM/DD/YYYY'));
 
+// $('#reservation').daterangepicker('setDate', new Date(firstDate));
+// $('#reservation').datetimepicker({
+//             language:"zh-CN",
+//             minView: "month",// 设置只显示到月份
+//             todayHighlight: true,
+//             autoclose: true,
+//             pickerPosition: 'bottom-left',
+//             todayBtn: true,
+//             format: 'yyyy-mm-dd'
+//         }).datetimepicker('setDate', new Date(firstDate));
     //table.draw( false );
 
     // $("td.details-control").css ({
