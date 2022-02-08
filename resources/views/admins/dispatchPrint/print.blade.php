@@ -281,8 +281,10 @@
 // alert(document.getElementById(divid).offsetHeight);
                                     //(intTop,intLeft,intWidth,intHeight,strHtml
                 // LODOP.ADD_PRINT_TABLE('55mm','8mm', "RightMargin:1.4cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+
                 var height= (document.getElementById(divid).offsetHeight);
-                LODOP.ADD_PRINT_TABLE((height+85),'8mm', "RightMargin:1.4cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                LODOP.ADD_PRINT_TABLE((height+88),'8mm', "RightMargin:1.4cm",'BottomMargin:9mm',strBodyStyle+"<body>"+document.getElementById(tableid).innerHTML+"</body>");
+                
                 // LODOP.SET_PRINT_MODE("FULL_HEIGHT_FOR_OVERFLOW",true);//高度溢出缩放
                 LODOP.SET_PRINT_STYLEA(0,"Offset2Top",'-50.4mm'); //设置次页开始的上边距偏移量，解决table第二页不顶格的问题
                 LODOP.ADD_PRINT_HTM('0.4mm', '8mm', "RightMargin:3cm", '100%', strBodyStyle+"<body>"+document.getElementById(pageid).innerHTML+"</body>");
