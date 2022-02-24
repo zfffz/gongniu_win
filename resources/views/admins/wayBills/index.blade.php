@@ -32,7 +32,7 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>司机</label>
-                                <select class="form-control" required name="driver_id" id="driver_id" onBlur="txtblur()" style="width: 100%;">
+                                <select class="form-control" required name="driver_id" id="driver_id" onBlur="txtblur() "style="width: 100%;">
                                     <option value="" >请选择</option>
                                      @foreach($drivers as $driver)
                                     <option value="{{$driver->id}}">{{$driver->name}}</option>
@@ -44,7 +44,7 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>状态</label>
-                                <select class="form-control" required name="status" id="status" style="width: 100%;">
+                                <select class="form-control" required name="status" id="status"  style="width: 100%;">
                                     <option value="0" >未生成</option>
                                     <option value="1" >已生成</option>
                                 </select>

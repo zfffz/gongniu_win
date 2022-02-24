@@ -38,7 +38,7 @@
 <div class="col-md-6" >
  <div class="form-group">
                             <label>销售类型</label>
-                                <select class="form-control" required name="cSTName" id="cSTName" style="width: 100%;">
+                                <select class="form-control" required name="cSTName" id="cSTName"  style="width: 100% ;">
                                     <option value="" >请选择</option>
                                     <?php
                                     $jg=\Illuminate\Support\Facades\DB::table('SaleType')
@@ -63,11 +63,12 @@
     </div>
 </div>
 
-
-                    <div class="col-md-2">
+<div class="col-md-4">
+    <div class="row" style="margin-bottom: 5px;">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>部门</label>
-                            <select class="form-control" required name="cDepartment" id="cDepartment" style="width: 100%;">
+                            <select class="form-control" required name="cDepartment" id="cDepartment"  style="width: 100%;">
                                 <option value="" >请选择</option>
                                 <?php
                                 $jg=\Illuminate\Support\Facades\DB::table('Department')
@@ -80,7 +81,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-8">
                         <!-- Date range -->
                         <div class="form-group">
                           <label>日期</label>
@@ -95,29 +96,29 @@
                           <!-- /.input group -->
                         </div>
                     </div>
-
-<div class="col-md-3">
+</div>
+</div>
+<div class="col-md-4">
     <div class="row" style="margin-bottom: 5px;">
-<div class="col-md-6" >
+<div class="col-md-7" >
     <div class="form-group">
-        <label>仓库</label>
-        <select class="form-control" required name="cWhCode" id="cWhCode" style="width: 100%;">
-            <option value="" >请选择</option>
-            <?php
-            $jg=\Illuminate\Support\Facades\DB::table('Warehouse')
-                ->select('cWhCode as FInterID','cWhName as FName')
-                ->get();
-            foreach($jg as $k=>$v){
-                echo ("<option value='$v->FInterID'>".$v->FName."</option>");
-            }
-            ?>
-        </select>
+   
+
+ <label>仓库</label>
+         <select class="form-control" required name="cWhCode" id="cWhCode"  multiple="multiple"  onBlur="txtblur() " style="width: 100%;">
+                                    <option value="" >请选择</option>
+                                     @foreach($houses as $house)
+                                    <option value="{{$house->id}}">{{$house->name}}</option>
+                                      @endforeach
+
+                                </select>
+
     </div>
 </div>
-<div class="col-md-6">
+<div class="col-md-5">
     <div class="form-group">
         <label>发运方式</label>
-        <select class="form-control" required name="csccode" id="csccode" style="width: 100%;">
+        <select class="form-control" required name="csccode" multiple="multiple"  id="csccode" style="width: 100%;">
             <option value="" >请选择</option>
             <?php
             $jg=\Illuminate\Support\Facades\DB::table('ShippingChoice')
@@ -238,8 +239,22 @@ const Toast = Swal.mixin({
     timer: 2000
 });
 
+// $(function () {
+
+// $(function () {
+//     $('#cDepartment').select2({
+//         theme: 'bootstrap4'
+//     });
 
 $(function () {
+
+        $('#cWhCode').select2({
+        theme: 'bootstrap4'
+    });
+              $('#csccode').select2({
+        theme: 'bootstrap4'
+    });
+
     var date = new Date();
 date.setDate(1);
 var firstDate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();

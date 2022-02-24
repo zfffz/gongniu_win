@@ -46,7 +46,11 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
             return view('admins.pages.permission_denied');
         }
 
-        return view('admins.dispatchPrint.index');
+        $houses = DB::table('Warehouse')
+            ->select('cWhCode as id','cWhName as name')
+            ->get();
+
+        return view('admins.dispatchPrint.index',compact('houses'));
     }
 
     public function getDatadb(Request $request)
@@ -1344,12 +1348,14 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
             if($searchKey->cDepartmentKey!='' || $searchKey->cDepartmentKey!=null ){
                 $table->where('t1.cDepCode','=',$searchKey->cDepartmentKey);
             }
-
+             // elseif($key=='FcSCCode'&& is_array($val)){
+             //        $conditions[$key]!='' && $table->whereIn($key, $val);
+             //    }
             if($searchKey->cWhCodeKey!='' || $searchKey->cWhCodeKey!=null ){
-                $table->where('t1.cWhCode','=',$searchKey->cWhCodeKey);
+                $table->wherein('t1.cWhCode',$searchKey->cWhCodeKey);
             }
             if($searchKey->csccodeKey!='' || $searchKey->csccodeKey!=null ){
-                $table->where('t1.csccode','=',$searchKey->csccodeKey);
+                $table->wherein('t1.csccode',$searchKey->csccodeKey);
             }
 
 
