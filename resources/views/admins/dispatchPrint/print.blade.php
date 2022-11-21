@@ -250,7 +250,8 @@
             // LODOP.SET_SHOW_MODE("SETUP_ENABLESS","11111111100000");
             // LODOP.SET_PRINT_MODE("RESELECT_PRINTER",true); //允许重选打印机
 
-            LODOP.SET_PRINTER_INDEX("EPSON LQ-680K II ESC/P2");
+            // LODOP.SET_PRINTER_INDEX("EPSON LQ-680K II ESC/P2");//2022-11-21尝试去除
+            // LODOP.SET_PRINTER_INDEX("EPSON LQ-595KII ESC/P2");
             LODOP.SET_PRINT_COPIES(1);
 
 //             LODOP.SET_PRINT_MODE("RESELECT_ORIENT",true); //允许重选纸张方向
@@ -259,6 +260,9 @@
 
             LODOP.SET_SHOW_MODE ("PREVIEW_NO_MINIMIZE",true);//不让最小化
             LODOP.SET_PRINT_PAGESIZE(1,'240mm','139.50mm','');//定义纸张
+            
+            
+            // LODOP.SET_PRINT_MODE("POS_BASEON_PAPER",true);//设置以纸张边缘为基点
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);//横向时的正向显示
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW",1);//打印后自动关闭预览窗口
             // var strBodyStyle = "<link href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\" rel=\"stylesheet\"><style> .card{color: black}.table-bordered table,.table-bordered tbody tr th,.table-bordered tbody tr td{border: 1px solid  black; color: black/* 整体表格边框 */}</style>";
