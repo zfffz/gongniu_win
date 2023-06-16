@@ -28,11 +28,12 @@ class TransVouchsController extends CommonsController
      return view('admins.pages.permission_denied');
 
         }
-
+  $searchKey='离职';
         $cars= Car::all();
           $drivers = DB::table('bs_gn_wl')
             ->select('cpersoncode as id','cpersonname as name')
             ->where('wlcode','=','04')
+              ->Where('cpersonname','not like','%'.$searchKey.'%')
             ->get();
           $warehouses =  DB::select("select cwhcode as id,cwhname as name from warehouse where dwhenddate is NULL and (cwhname=? or cwhname=? or cwhname=?)",['发货仓','四楼仓','开关临时仓']);
           // ->get();

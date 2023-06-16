@@ -24,12 +24,17 @@ class WayBillsController extends CommonsController
      return view('admins.pages.permission_denied');
   
         }
+        $searchKey='离职';
 
         $cars= Car::all();
           $drivers = DB::table('bs_gn_wl')
             ->select('cpersoncode as id','cpersonname as name')
             ->where('wlcode','=','04')
+            ->Where('cpersonname','not like','%'.$searchKey.'%')
             ->get();
+         // $drivers  = DB::select("select cpersoncode as id,cpersonname as name from bs_gn_wl where wlcode='04' and  cpersonname not like '%?%'", ['离职']);
+ // $table->orWhere('t1.created_at','like','%'.$searchKey.'%');
+
         return view('admins.wayBills.index',compact('cars','drivers'));
     }
 

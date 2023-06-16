@@ -158,6 +158,14 @@
                             </td>
                         </div>
                     </div>
+
+                    <div class="col-sm-2">    
+                        <div class="input-group">
+                            <td>
+                                <button type="button" id="btn-submitorder" class="btn btn-block btn-success fa fa-print"style="background-color: #A0522D ;height:35px; width: 110px;margin-left :-75px">发货单排序打印</button>
+                            </td>
+                        </div>
+                    </div>
 <!-- 
                      <div class="col-sm-2">    
                         <div class="input-group">
@@ -169,14 +177,14 @@
                     <div class="col-sm-2">
                         <div class="input-group">
                             <td>
-                                <button type="button" class="btn btn-block btn-primary fa fa-search"id="selectdb"  style="background-color: #008000;height:35px; width: 110px;margin-left :-95px">调拨单查询</button>
+                                <button type="button" class="btn btn-block btn-primary fa fa-search"id="selectdb"  style="background-color: #008000;height:35px; width: 110px;margin-left :-155px">调拨单查询</button>
                             </td>
                         </div>
                     </div>
                      <div class="col-sm-2">    
                         <div class="input-group">
                             <td>
-                                <button type="button" id="btn-dbsubmit" class="btn btn-block btn-success fa fa-print" style="background-color: #008000;height:35px; width: 110px;margin-left :-155px">调拨单打印</button>
+                                <button type="button" id="btn-dbsubmit" class="btn btn-block btn-success fa fa-print" style="background-color: #008000;height:35px; width: 110px;margin-left :-185px">调拨单打印</button>
                             </td>
                         </div>
                     </div>
@@ -195,10 +203,10 @@
                             </td>
                         </div>
                     </div>
-                       <div class="col-sm-4">    
+                       <div class="col-sm-2">    
                         <div class="input-group">
                             <td>
-                                <button type="button" id="btn-dbdelete" class="btn btn-block btn-danger fa fa-trash" style="height:35px; width: 100px;margin-left :225px">清除锁定</button>
+                                <button type="button" id="btn-dbdelete" class="btn btn-block btn-danger fa fa-trash" style="height:35px; width: 100px;margin-left :-195px">清除锁定</button>
                             </td>
                         </div>
                     </div>
@@ -377,7 +385,7 @@ $('#btn-dbdelete').on('click', function(){
 
                   });
             });
-
+            
 
 $('#btn-submit').on('click', function(){
     var inputs = $("#dispatchlist input[name='ckb-jobid']:checked ").prev();
@@ -450,43 +458,7 @@ $('#btn-submit').on('click', function(){
                     }
 
                 });
-   // window.open("dispatchPrint/getPrint?datas="+datas);
-// myajax3=$.ajax({
-//   data:{data:data},
-//   headers:{
-//     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
-//   },
-//   type: "post",
-//   // async:false,
-//   dataType: "json",
-//   url:"check",
-//             beforeSend:function(){
 
-//             },
-//             success:function(data){
-//               if(data.status==0){
-//                 $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
-//                 $('#notifyAudio')[0].play();
-//                                 //发货单号红框提示,toast提示
-//                              // $("#dispatch_no").addClass("is-invalid");
-//                                 Toast.fire({
-//                                   type: 'error',
-//                                   title: data.text
-//                                 });
-                                 
-//                                }
-//                                else
-//                                {
-                            
-//                                }
-                             
-                               
-//                            }
-//                          })
-    
-
-       
-        // window.location.href = "dispatchPrint/getPrint?datas="+datas;
 
     };
 
@@ -498,7 +470,82 @@ $('#btn-submit').on('click', function(){
 
 
 
+$('#btn-submitorder').on('click', function(){
+    var inputs = $("#dispatchlist input[name='ckb-jobid']:checked ").prev();
+    inputs=inputs.prevObject;
 
+    var len = inputs.length;
+
+    if(len == 0){
+        Toast.fire({
+            type: 'error',
+            title: '请选择要打印的单据！'
+        });
+        return false;
+    }else{
+
+
+ var datas='';
+        inputs.each(function () {
+            datas = datas + $(this).val()+'|';
+        });
+
+
+ var dispatch_no='';
+        inputs.each(function () {
+            dispatch_no = dispatch_no + $(this).val()+'|';
+        });
+
+
+// alert(dispatch_no);
+   $.ajax({
+                    url:'dispatchPrint/checkprint?dispatch_no='+dispatch_no,
+                    type:'get',
+                    dataType:'json',
+                    // async: false,
+                    headers:{
+                        Accept:"application/json",
+                        "Content-Type":"application/json"
+                    },
+                    processData:false,
+                    cache:false,
+                    timeout: 3000,
+                    beforeSend:function(){
+                    },
+                    success:function(t){
+                        if(t.status==0){
+                            //发货单号红框提示,toast提示
+                             $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                             $('#notifyAudio')[0].play();
+                             // $("#dispatch_no").addClass("is-invalid");
+                            Toast.fire({
+                                type: 'error',
+                                title: t.text
+                            });
+                            document.getElementById("select").click();
+                            //清空发货单号
+                            // $('#dispatch_no').val('');
+                            // $("#dispatch_no").focus();
+                            // result = false;
+                        }else{
+                          window.open("dispatchPrint/getPrintorder?datas="+datas);
+                            //如果合法
+                            // $("#dispatch_no").removeClass("is-invalid");
+                            // result = true;
+                        }
+
+                    },
+                    error:function(){
+                        alert("error");
+                        // result = false;
+                    }
+
+                });
+
+
+    };
+
+});
 
 
 

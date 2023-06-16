@@ -55,30 +55,7 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
 
     public function getDatadb(Request $request)
     {
- // $builder = \DB::table('dispatchlist1 as t1')
- //            ->select(
- //                \DB::raw("
- //            t1.cDLCode, 
- //            convert(char(10),t1.dDate,120) as dDate,
- //            t2.cSTName,
- //            t6.cDepname,
- //            t1.cCusName,
- //            t3.cCusAbbName,
- //            t4.cPsn_Name,
- //            t1.cMemo,
- //            t1.cMaker,
- //            t1.bReturnFlag,
- //            t5.cSCName,
- //            case isnull(t1.iPrintCount,0) when 0 then '否' else '是' end as status,
- //            isnull(t1.iPrintCount,0) as iprintCount
- //            "))
- //        ->leftJoin('SaleType as t2','t1.cSTCode','t2.cSTCode')
- //        ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
- //        ->leftJoin('Department as t6','t1.cDepCode','t6.cDepCode')
- //        ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')
- //        ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode');
-        // ->where('t1.bReturnFlag','=',0);
-        // ->leftjoin('dispatchlists as t8','t1.DLID','t8.DLID')
+
 
         $builder2 = \DB::table('transvouch as t1')
             ->select(
@@ -102,18 +79,6 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
         // ->leftJoin('warehouse as t7','t7.cWhCode','t1.cowhcode') 
         ;
 
-
-
-
-        // ->leftJoin('SaleType as t2','t1.cSTCode','t2.cSTCode')
-        // ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
-        
-        
-        // ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode')
-
-         // $builder =$builder1 ->unionALL($builder2);
-        
-        // $data=parent::dataPage3($request,$this->condition($builder,$request),'asc');
      $data=parent::dataPage9($request,$this->condition1($builder2,$request),'asc');
         // $data=$data2->unionALL($data3);
         return $data;
@@ -142,40 +107,9 @@ echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
         ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
         ->leftJoin('Department as t6','t1.cDepCode','t6.cDepCode')
         ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')
-        ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode');
-        // ->where('t1.bReturnFlag','=',0);
-        // ->leftjoin('dispatchlists as t8','t1.DLID','t8.DLID')
-
-        // $builder2 = \DB::table('transvouch as t1')
-        //     ->select(
-        //         \DB::raw("
-        //     t1.ctvcode as cDLCode, 
-        //     convert(char(10),t1.dtvdate,120) as dDate,
-        //     '' as cSTName,
-        //     t6.cDepname,
-        //     t1.cdefine3 as cCusName,
-        //     t1.cdefine3 as cCusAbbName,
-        //     t4.cPsn_Name,
-        //     t1.ctvMemo as cMemo,
-        //     t1.cMaker,
-        //     '0' as bReturnFlag,
-        //     '' as cSCName,
-        //     case isnull(t1.iPrintCount,0) when 0 then '否' else '是' end as status,
-        //     isnull(t1.iPrintCount,0) as iprintCount
-        //     "))
-        // ->leftjoin('hr_hi_person as t4','t1.cPersonCode','t4.cPsn_Num')  
-        // ->leftJoin('Department as t6','t4.cDept_num','t6.cDepCode') ;
-
-
-
-
-        // ->leftJoin('SaleType as t2','t1.cSTCode','t2.cSTCode')
-        // ->leftJoin('Customer as t3','t1.cCusCode','t3.cCusCode')
-        
-        
-        // ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode')
-
-         // $builder =$builder1 ->unionALL($builder2);
+        ->leftjoin('ShippingChoice as t5','t1.cSCCode','t5.cSCCode')
+        ->leftjoin('DispatchList_extradefine as t7','t1.dlid','t7.dlid');
+       
         
         $data=parent::dataPage3($request,$this->condition($builder,$request),'asc');
         // $data=parent::dataPage9($request,$this->condition1($builder2,$request),'asc');
@@ -201,32 +135,6 @@ $delete18 = DB::update("update dispatchlist_extradefine set chdefine11=NULL  WHE
         foreach ($data as $cdlcode){
           
 
-          // $check =  DB::SELECT("select ccuscode,ddate,substring(cdefine10,0,15) as cdefine10 FROM dispatchlist where cdlcode=?",[$cdlcode]);
-
-          //   $check1 = DB::SELECT("select DLID,cdlcode FROM dispatchlist where ccuscode=? and isnull(iprintcount,0)=0 and bReturnFlag=0 and substring(cdefine10,0,15)=? ",[$check[0]->ccuscode,$check[0]->cdefine10]);
-
-// substring(cdefine10,0,15)
-        //     if(count($check1)>1)
-
-        //     { 
-        //         $head = \DB::table('Sales_FHD_H as a')
-        //         ->select(
-        //             \DB::raw("
-        //     '建议合并发货' as tx,a.cDLCode,a.cCusCode,a.ccusabbname,a.cmemo,a.cshipaddress,
-        //     a.cpersonname,a.cscname,a.dDate,d.ccontactname,d.cmobilephone,
-        //     d.cofficephone,d.cssname,a.csocode,c.no,
-        //     a.cmaker,a.cverifier,CONVERT(varchar(10), a.dcreatesystime,23) as createtime, a.dverifydate,
-        //     '' as divid, '' as tableid, '' as pageid
-        //     "))
-        //         ->leftJoin('zzz_customer_locations as b','a.cCusCode','b.customer_no')
-        //         ->leftJoin('zzz_storage_locations as c','b.location_id','c.id')
-        //         ->leftJoin('Sales_FHD_T as d','a.cdlcode','d.cdlcode')
-        //         ->where('a.cDLCode','=',$cdlcode)->get();
-        //     ;
-        // }
-
-// else
-//           { 
             $head = \DB::table('Sales_FHD_H as a')
                 ->select(
                     \DB::raw("
@@ -241,7 +149,7 @@ $delete18 = DB::update("update dispatchlist_extradefine set chdefine11=NULL  WHE
                 ->leftJoin('Sales_FHD_T as d','a.cdlcode','d.cdlcode')
                 ->where('a.cDLCode','=',$cdlcode)->get();
             ;
-// }
+
             $body = \DB::table('Sales_FHD_H as t1')
                 ->select(
     \DB::raw("t2.irowno as ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity, rtrim( Convert(decimal(30,2),t2.iTaxUnitPrice)) as iTaxUnitPrice,rtrim(Convert(decimal(30,2),t2.isum)) as isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5
@@ -382,6 +290,179 @@ if($query55[0]->chdefine12=='是')
     }
 
 
+
+
+    //打印排序发货单
+    public function getPrintorder(Request $request)
+    {
+         if (! Auth::user()->can('dispatchprint_users')) {
+            return view('admins.pages.permission_denied');
+        }
+
+$delete18 = DB::update("update dispatchlist_extradefine set chdefine11=NULL  WHERE CHDEFINE11=1");
+
+        $data = explode('|',substr($request['datas'],0,-1));
+        $n=0;
+        $m=1;
+         $t=0;
+         $f=0;
+         // dd($data);
+        foreach ($data as $cdlcode){
+          
+
+            $head = \DB::table('Sales_FHD_H as a')
+                ->select(
+                    \DB::raw("
+            '' as tx,a.cDLCode,a.cCusCode,a.ccusabbname,a.cmemo,a.cshipaddress,
+            a.cpersonname,a.cscname,a.dDate,d.ccontactname,d.cmobilephone,
+            d.cofficephone,d.cssname,a.csocode,c.no,
+            a.cmaker,a.cverifier,CONVERT(varchar(10), a.dcreatesystime,23) as createtime, a.dverifydate,
+            '' as divid, '' as tableid, '' as pageid,'' as noprice,'' as bj
+            "))
+                ->leftJoin('zzz_customer_locations as b','a.cCusCode','b.customer_no')
+                ->leftJoin('zzz_storage_locations as c','b.location_id','c.id')
+                ->leftJoin('Sales_FHD_T as d','a.cdlcode','d.cdlcode')
+                ->where('a.cDLCode','=',$cdlcode)->get();
+            ;
+
+            $body = \DB::table('Sales_FHD_H as t1')
+                ->select(
+    \DB::raw("t2.irowno as ROWNU,t4.cWhName,t2.cInvcode,t2.cInvName,t2.iQuantity, rtrim( Convert(decimal(30,2),t2.iTaxUnitPrice)) as iTaxUnitPrice,rtrim(Convert(decimal(30,2),t2.isum)) as isum,t3.cInvStd,t5.cComUnitName,t3.cInvDefine5
+            "))
+                ->Join('dispatchlists as t2', 't1.dlid','t2.dlid')
+                ->Join('inventory as t3' ,'t3.cInvCode' , 't2.cInvCode')
+                ->leftJoin('Warehouse as t4' , 't4.cWhCode' , 't2.cWhCode')
+                ->Join('ComputationUnit as t5' , 't5.cComunitCode' , 't3.cComUnitCode')
+                ->where('t1.cDLCode','=',$cdlcode)
+                ->orderby('t3.cInvCCode')
+                ->get();
+     
+     $query5 = DB::select("select ccusdefine6 from customer where cCusCode =?", [$head[0]->cCusCode]);
+      $query55 = DB::select("select chdefine12 from dispatchlist  left join dispatchlist_extradefine on dispatchlist.DLID=dispatchlist_extradefine.DLID where cdlcode=?", [$cdlcode]);
+
+
+
+     $check  =  DB::SELECT("select ccuscode,ddate,substring(cdefine10,0,15) as cdefine10 FROM dispatchlist where cdlcode=?",[$cdlcode]);
+     $check1 = DB::SELECT("select chdefine11,dispatchlist.DLID,dispatchlist.cdlcode FROM dispatchlist left join dispatchlist_extradefine as t1 on t1.DLID=dispatchlist.DLID where ccuscode=? and isnull(iprintcount,0)=0 and bReturnFlag=0 and substring(cdefine10,0,15)=? and cdlcode!=? ",[$check[0]->ccuscode,$check[0]->cdefine10,$cdlcode]);
+     $check2 =DB::SELECT("select DLID,cdlcode FROM dispatchlist where ccuscode=? and isnull(iprintcount,0)>0 and bReturnFlag=0 and substring(cdefine10,0,15)=? and cdlcode!=?",[$check[0]->ccuscode,$check[0]->cdefine10,$cdlcode]);
+     $check6  =  DB::SELECT("select ccuscode FROM dispatchlist where cdlcode=? and isnull(cdefine10,'')!=''",[$cdlcode]);
+
+      // $check8 =  DB::SELECT("select zzz_print.cdlcode from zzz_print left join dispatchlist on zzz_print.cdlcode=dispatchlist.cdlcode where dispatchlist.cdlcode!=? and substring(cdefine10,0,15)=?",[$cdlcode,$check[0]->cdefine10]);
+ //     $query10 =  DB::SELECT("select cdlcode from dispatchlist where substring(cdefine10,0,15)=?",[$check[0]->cdefine10]);
+ //     if(count($query10))
+
+
+
+ // $t=$t+COUNT($query10);
+        // dd($query8);
+     //有另一单未打印、非退货，dms单号前15位相同，发货单号不等于当前单号认为是拆单的第一张
+     if(count($check1)>0)
+     {
+
+         // dd($check1[0]->chdefine11);
+        if($check1[0]->chdefine11 ==1)
+        {
+               $head[0]->bj = '-2';
+        }
+        else
+        {
+
+
+        $delete28 = DB::table('dispatchlist_extradefine as t1')
+                ->join('dispatchlist as t2','t1.DLID','=','t2.DLID')
+                // ->join('zzz_sweep_car_items as t3','t2.cDLCode','=','t3.dispatch_no')
+                ->where('t2.cDLCode','=',$cdlcode)
+                ->update(['t1.chdefine11'=>'1']);
+           // $data18=[];
+//             $data18[0] = $check[0]->cdefine10;
+           
+//              $data28[$f][0]=$data18[0];
+//        $f=$f+1;
+//                foreach ($data28 as $cdlcode28){
+// dd($cdlcode28[0]);
+//                $cdlcode28=$data18[0];
+
+                
+      
+                
+//                }
+
+     // $t=$t+count($check1);
+     // if($t>1)
+     // {
+     //      $head[0]->bj = '-2';
+     // }
+          $head[0]->bj = '-1';
+          }
+     }
+     
+     //有另一单已打印、非退货，dms单号前15位相同，发货单号不等于当前单号认为是拆单的第二张
+     if((count($check2)>0)&&(count($check2)<2))
+     {
+        
+          $head[0]->bj = '-2';
+     }
+
+      if((count($check2)>1))
+     {
+        
+          $head[0]->bj = '-3';
+     }
+     //dms单号为空或前两种情况都没有即没有拆单
+       if((count($check6)==0)||((count($check1)==0)&&(count($check2)==0)))
+     {
+        
+          $head[0]->bj = '0';
+     }
+
+
+if($query55[0]->chdefine12=='是')
+     {
+
+        $head[0]->noprice = '1';
+
+     }
+     
+     else
+     { 
+         if ($query55[0]->chdefine12=='否')
+     {
+        // $head[0]->noprice = '0';
+     }
+       else if($query5[0]->ccusdefine6=='是')
+     {
+
+        $head[0]->noprice = '1';
+
+     }
+ }
+
+    
+
+            $head[0]->divid = 'div'.$m;  //拼div的id
+            $head[0]->tableid ='table'.$m;  //拼table对应的div的id
+            $head[0]->pageid ='page'.$m;   //拼页脚id
+            $data1=[];
+            $data1[0] = $head[0];
+            $count = count($body);
+            if ($count>0) {
+                for($i=0;$i<$count;$i++){
+                    $data1[1][$i] = $body[$i];
+                }
+            }
+            $data2[$n][0]=$data1[0];
+            $data2[$n][1]=$data1[1];
+            $n=$n+1;
+            $m=$m+1;
+        }
+        //echo json_encode(array('status'=>0,'returndata'=>$data2));
+        // dd($data28);
+
+
+        return view('admins.dispatchPrint.print',compact('data2','n'));
+        //return redirect()->route('dispatchPrint.printpage');
+
+    }
 
 
 
@@ -1332,6 +1413,7 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
         $eddate = $bedate[1];
         //dd($searchKey);
         $table->where('t1.bReturnFlag','=',0);
+        $table->whereRaw('ISNULL(t7.chdefine14, 0) != 1');
         if($searchKey!=''){
 
                $table->where('t1.dDate','>=',$bgdate);

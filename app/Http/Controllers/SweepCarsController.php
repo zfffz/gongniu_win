@@ -56,10 +56,12 @@ class SweepCarsController extends CommonsController
      return view('admins.pages.permission_denied');
   
         }
+         $searchKey='离职';
         $cars = Car::all('id','no');
         $drivers = DB::table('bs_gn_wl')
             ->select('cpersoncode as id','cpersonname as name')
             ->where('wlcode','=','04')
+             ->Where('cpersonname','not like','%'.$searchKey.'%')
             ->get();
               
         // $drivers = Driver::all('id','name');

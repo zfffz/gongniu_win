@@ -125,6 +125,7 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::post('dispatchPrint/getData', 'DispatchPrintController@getData')->name('dispatchPrint.getData');
     Route::get('dispatchPrint/getPrint', 'DispatchPrintController@getPrint')->name('dispatchPrint.getPrint');  
     Route::get('dispatchPrint/getPrintwjg', 'DispatchPrintController@getPrintwjg')->name('dispatchPrint.getPrintwjg');  
+    Route::get('dispatchPrint/getPrintorder', 'DispatchPrintController@getPrintorder')->name('dispatchPrint.getPrintorder'); 
 
 
     
