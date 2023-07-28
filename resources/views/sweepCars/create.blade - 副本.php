@@ -783,9 +783,9 @@ $('#CTNS').val(rows);
                       return false;
                                                 }
                                          
-                                                if (parseInt(dispatch_no)>500000) {
+                                                if (parseInt(dispatch_no)>200000) {
 
-                                                     str="XSFH0";
+                                                     str="XSFH00";
                                                 }
                                                 else{
                                                     str="CKDB00";

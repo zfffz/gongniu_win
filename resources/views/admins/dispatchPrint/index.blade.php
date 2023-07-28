@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-3">
     <div class="row" style="margin-bottom: 5px;">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -98,9 +98,9 @@
                     </div>
 </div>
 </div>
-<div class="col-md-4">
+<div class="col-md-5">
     <div class="row" style="margin-bottom: 5px;">
-<div class="col-md-7" >
+<div class="col-md-6" >
     <div class="form-group">
    
 
@@ -115,7 +115,27 @@
 
     </div>
 </div>
-<div class="col-md-5">
+
+<div class="col-md-3" >
+    <div class="form-group">
+ <label>制单人</label>
+ <select class="form-control" required name="cmaker" multiple="multiple"  id="cmaker" style="width: 100%;">
+            <option value="" >请选择</option>
+            <?php
+            $jg=\Illuminate\Support\Facades\DB::table('UA_USER')
+                ->select('cuser_id as FInterID','cuser_name as FName')
+                ->get();
+            foreach($jg as $k=>$v){
+                echo ("<option value='$v->FName'>".$v->FName."</option>");
+            }
+            ?>
+        </select>
+
+    </div>
+</div>
+
+
+<div class="col-md-3">
     <div class="form-group">
         <label>发运方式</label>
         <select class="form-control" required name="csccode" multiple="multiple"  id="csccode" style="width: 100%;">
@@ -162,7 +182,7 @@
                     <div class="col-sm-2">    
                         <div class="input-group">
                             <td>
-                                <button type="button" id="btn-submitorder" class="btn btn-block btn-success fa fa-print"style="background-color: #A0522D ;height:35px; width: 110px;margin-left :-75px">发货单排序打印</button>
+                                <button type="button" id="btn-submitorder" class="btn btn-block btn-success fa fa-print"style="background-color: #A0522D ;height:35px; width: 140px;margin-left :-75px">发货单排序打印</button>
                             </td>
                         </div>
                     </div>
@@ -260,6 +280,9 @@ $(function () {
         theme: 'bootstrap4'
     });
               $('#csccode').select2({
+        theme: 'bootstrap4'
+    });
+    $('#cmaker').select2({
         theme: 'bootstrap4'
     });
 
@@ -994,6 +1017,7 @@ var table =
                     var dateKey = $('#reservation').val();
                     var cDepartmentKey = $('#cDepartment').val();
                     var cWhCodeKey = $('#cWhCode').val();
+                    var cmakerKey = $('#cmaker').val();
                     var status =$('#status').val();
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
@@ -1008,6 +1032,7 @@ var table =
                             dateKey : dateKey,
                             cDepartmentKey : cDepartmentKey,
                             cWhCodeKey : cWhCodeKey,
+                            cmakerKey :cmakerKey,
                             status : status
                         },                       
                         success:function(result){
@@ -1104,6 +1129,7 @@ var table =
                     var cDepartmentKey = $('#cDepartment').val();
                     var cWhCodeKey = $('#cWhCode').val();
                     var csccodeKey = $('#csccode').val();
+                    var cmakerKey = $('#cmaker').val();
                     var status =$('#status').val();
                     $.ajax({
                         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
@@ -1119,6 +1145,7 @@ var table =
                             cDepartmentKey : cDepartmentKey,
                             cWhCodeKey : cWhCodeKey,
                             csccodeKey : csccodeKey,
+                            cmakerKey :cmakerKey,
                             status : status
                         },                       
                         success:function(result){

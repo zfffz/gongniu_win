@@ -1413,7 +1413,7 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
         $eddate = $bedate[1];
         //dd($searchKey);
         $table->where('t1.bReturnFlag','=',0);
-        $table->whereRaw('ISNULL(t7.chdefine14, 0) != 1');
+        //$table->whereRaw('ISNULL(t7.chdefine14, 0) != 1');
         if($searchKey!=''){
 
                $table->where('t1.dDate','>=',$bgdate);
@@ -1439,6 +1439,9 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
             if($searchKey->csccodeKey!='' || $searchKey->csccodeKey!=null ){
                 $table->wherein('t1.csccode',$searchKey->csccodeKey);
             }
+            if($searchKey->cmakerKey!='' || $searchKey->cmakerKey!=null ){
+              $table->wherein('t1.cmaker',$searchKey->cmakerKey);
+          }
 
 
             if($searchKey->status =='1' ){
