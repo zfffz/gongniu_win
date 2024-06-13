@@ -30,7 +30,7 @@
 
 @endsection
 
-@section('content_header')
+@section('content_header')                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
 @endsection
 
