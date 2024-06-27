@@ -1,0 +1,65 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+//@import '~bootstrap/scss/bootstrap';
+
+//admin-lte
+@import "~admin-lte/dist/css/adminlte.min.css";
+
+@import '~admin-lte/plugins/select2/css/select2.min.css';
+@import '~admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css';
+
+@import "~admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css";
+
+@import '~admin-lte/plugins/sweetalert2/sweetalert2.min.css';
+
+@import '~admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css';
+
+@import '~admin-lte/plugins/daterangepicker/daterangepicker.css';
+
+// Fontawesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+.nav-link .user-image {
+  float: left;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-right: .25em;
+  margin-top: -2px;
+  display: inline-block;
+}
+
+.nav-link .user-image-sm {
+  float: left;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: .25em;
+  margin-top: -1px;
+  display: inline-block;
+}
+
+.form-horizontal .control-label {
+  padding-top: 7px;
+  margin-bottom: 0;
+  text-align: right;
+  color: #555;
+}
+
+.label_required:before {
+  content: "*";
+  color: #f56c6c;
+  margin-right: 4px;
+}
+
+.sweepOut-index-page .card-title {
+  float: none
+}
