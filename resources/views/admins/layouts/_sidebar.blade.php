@@ -101,6 +101,14 @@
                             </a>
                         </li>
                         @endcan
+                        @can('signback_users')
+                        <li class="nav-item">
+                            <a href="{{route('signBack.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>扫码签回</p>
+                            </a>
+                        </li>
+                        @endcan
                         @can('returnhouse_users')
                         <li class="nav-item">
                             <a href="{{route('returnhouse.create')}}" class="nav-link">

@@ -136,7 +136,23 @@ protected function dataPage9($request,$builder,$asc='desc'){
         return response()->json($data);
     }
 
-
+    protected function dataPage10($request,$builder,$asc='desc'){
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        // dd($request);
+        // $total = $result->count();
+        // $total = $builder->count();
+        // $results = $builder->get();
+        $total = $builder->get()->count();
+        $list = $builder->orderBy('ccusabbname', $asc)->offset($start)->take($length)->get()->toArray();
+        $data = [];
+        $data["draw"] = $draw;
+        $data["recordsTotal"] = $total;
+        $data["recordsFiltered"] = $total;
+        $data["data"] = $list;
+        return response()->json($data);
+    }
 
 
 

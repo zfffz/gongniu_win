@@ -149,8 +149,17 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
           Route::post('dispatchPrint/updPrintstatusdb', 'DispatchPrintController@updPrintstatusdb')->name('dispatchPrint.updPrintstatusdb');
     //  Route::post('dispatchPrint/printpage', 'DispatchPrintController@printpage')->name('dispatchPrint.printpage');
     Route::resource('dispatchPrint', 'DispatchPrintController', ['only' => [ 'index']]);
+        //自动签回
+        Route::post('signBack/getData', 'SignBackController@getData')->name('signBack.getData');
+        Route::post('signBack/getData1', 'SignBackController@getData1')->name('signBack.getData1');
+        // Route::post('signBack/getDispatchData', 'SignBackController@getDispatchData')->name('signBack/getDispatchData');
+        Route::post('signBack/csocode_data', 'SignBackController@csocode_data')->name('signBack.csocode_data');
+        // Route::post('signBack/delete', 'SignBackController@delete')->name('signBack.delete');
+        Route::post('signBack/store', 'SignBackController@store')->name('signBack.store');
+        Route::post('signBack/destroy', 'SignBackController@destroy')->name('signBack.destroy');
 
-
+        Route::resource('signBack', 'SignBackController', ['only' => [ 'index','store']]);
+        
 
     // 报表
     // 1.发货单：发货单 -> 打包出库 -> 扫码上车
