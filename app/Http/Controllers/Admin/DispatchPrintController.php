@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+// use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 // use PDO;
 
 class DispatchPrintController extends CommonsController
@@ -18,23 +20,75 @@ class DispatchPrintController extends CommonsController
           if (! Auth::user()->can('dispatchprint_users')) {
             return view('admins.pages.permission_denied');
         }
-// dd($request);
-       
-      $user= Auth::id();
-      // dd(Auth);
-       $username= Auth::user()->name;
 
-// dd($username);
-$selected= DB::select("select id from zzz_print where userid=? ",[$user]);
-if (count($selected)==0) 
-{
-echo json_encode(array("status"=>"1","text"=>"当前用户'$username'无正在打印单据！"));
-}
+$user= Auth::id();
+// dd(Auth);
+ $username= Auth::user()->name;
+
+
+  
+    $selected= DB::select("select id from zzz_print where userid=? ",[$user]);
+    if (count($selected)==0) 
+    {
+    echo json_encode(array("status"=>"1","text"=>"当前用户'$username'无正在打印单据！"));
+    }
+    else{
+        try {
+              // 查询数据库获取 id 列表
+    $results = DB::select("select cdlcode from zzz_print where userid=?", [$user]);
+
+    // 提取 id 列表并拼接成逗号分隔的字符串
+    $ids = collect($results)->pluck('cdlcode')->implode(',');
+   
+    // 构建要发送的 JSON 数据
+    $jsonData = [
+        'code' => $ids,
+        'user' => $username
+    ];
+    $client = new Client();
+    // $client=new GuzzleHttp\Client();
+    // dd($response);
+    $response = $client->post('https://gongniu.feishu.cn/base/automation/webhook/event/T2E4aZiTMwjYBehJSmbcOxn6nbn',['json' =>$jsonData]);
+    // dd($response);
+    $responseData = json_decode($response->getBody()->getContents(), true);
+    // dd(1);
+    // dd($responseData['code']);
+    // 处理接口返回的数据
+    if ($responseData['code'] === 0) {
+        // 成功处理的逻辑
+
 if (count($selected)>0) {
-        $deleted= DB::delete("delete from zzz_print where userid=? ",[$user]);
+    $deleted= DB::delete("delete from zzz_print where userid=? ",[$user]);
 echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
 
 }
+
+        // echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
+
+        // dd(1);
+
+
+    } else {
+        // 处理接口返回的错误消息
+        echo json_encode(array("status"=>"2","text"=>"系统出错，请联系管理员！"));
+    }
+
+
+
+} catch (\Exception $e) {
+    // 处理Guzzle请求异常
+    echo json_encode(array("status"=>"2","text"=>"系统出错，请联系管理员！"));
+};
+
+}
+
+// if (count($selected)>0) {
+//     $deleted= DB::delete("delete from zzz_print where userid=? ",[$user]);
+// echo json_encode(array("status"=>"0","text"=>"已清除锁定！"));
+
+// }
+
+
      
         // return $deleted;
     }
@@ -1158,104 +1212,82 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
     public function updPrintstatus(Request $request)
     {
         $updcdlcode = $request->input('items');
-        foreach($updcdlcode as $data){
-          //  $time=date('Y-m-d h:i:s', time());
-            DB::beginTransaction();
-            try{
-                //更新发货单打印次数
-                $query1 = \DB::table('dispatchlist')
-                    ->select(
-                        \DB::raw("isnull(iPrintCount,0) as iPrintCount
-            "))
-                    ->where('cDLCode','=',$data['cdlcode'])->get();
-
-                $jg1=DB::table('DispatchList')
-                    ->where('cdlcode','=',$data['cdlcode'])
-                    ->update(
-                        [
-                            'iPrintCount'=>$query1[0]->iPrintCount + 1,
-                        ]
-                    );
-
-                //插入发货单打印日志zzz_print_diary
-                $jg2=DB::table('zzz_print_diary')->insert(
-                    [
-                        'FBillNo'=>$data['cdlcode'],
-                        'FCreateTime'=>date('Y-m-d H:i:s', time()),
-                        'FCreateUserID'=>$request->user()->id
-                    ]
-                );
-                 // $cprintier= Auth::user()->name;
-                  $jg18=DB::table('zzz_print_tj')->insert(
-                    [
-                        'FBillNo'=>$data['cdlcode'],
-                        'FCreateTime'=>date('Y-m-d H:i:s', time()),
-                        'FCreateUserID'=>$request->user()->id,
-                        'FCreateUserName'=>$request->user()->name
-
-                    ]
-                );
-
-        $jg4= DB::select('select ISNULL(total,0) from PrintPolicy_VCH where VchID= ?', [$data['cdlcode']]);
-
-        $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]);
-
-        $jg5= DB::select('select DLID from dispatchlist where cdlcode= ?', [$data['cdlcode']]);
-// [$dispatch_no,$result,$result]);
-        // console.log($jg4);
-                // if ($jg4[0]=0) {
-                    # code...
-               // dd($jg4);
-
-            //     $jg4 = \DB::table('PrintPolicy_VCH')
-            //         ->select(
-            //             "Total
-            // "))
-            //         ->where('cDLCode','=',$data['cdlcode'])
-                    // $retVal = ($jg4=) ? a : b ;
-
-        if(count($jg4)==0)
-        {
-                //插入u8打印日志
-                $jg3=DB::table('PrintPolicy_VCH')->insert(
-                    [
-                        'PolicyID'=>'01_131460',
-                        'lastPrintTime'=>date('Y-m-d H:i:s', time()),
-                        'VchID'=>$data['cdlcode'],
-                        'VchUniqueID'=>$jg5[0]->DLID,
-                        'Total'=>'1'
-                    ]
-                );
- }
- // else if ($jg4[0]>0) {
- //    $jg5=DB::table('PrintPolicy_VCH')
- //                    ->where('cdlcode','=',$data['cdlcode'])
- //                    ->update(
- //                        [
- //                            'iPrintCount'=>$query1[0]->iPrintCount + 1,
-
- //                        ]
- //                    );
- // }
-                if (!$jg1) {
-                    throw new \Exception("2");
+        foreach ($updcdlcode as $data) {
+            $retryAttempts = 3; // 设置重试次数
+            $attempt = 0;
+            $success = false;
+        
+            while (!$success && $attempt < $retryAttempts) {
+                try {
+                    DB::beginTransaction();
+        
+                    // 更新发货单打印次数
+                    $query1 = \DB::table('dispatchlist')
+                        ->select(
+                            \DB::raw("isnull(iPrintCount,0) as iPrintCount")
+                        )
+                        ->where('cDLCode', '=', $data['cdlcode'])
+                        ->get();
+        
+                    $jg1 = DB::table('DispatchList')
+                        ->where('cdlcode', '=', $data['cdlcode'])
+                        ->update([
+                            'iPrintCount' => $query1[0]->iPrintCount + 1,
+                        ]);
+        
+                    // 插入发货单打印日志 zzz_print_diary
+                    $jg2 = DB::table('zzz_print_diary')->insert([
+                        'FBillNo' => $data['cdlcode'],
+                        'FCreateTime' => date('Y-m-d H:i:s', time()),
+                        'FCreateUserID' => $request->user()->id
+                    ]);
+        
+                    // 插入发货单打印统计日志 zzz_print_tj
+                    $jg18 = DB::table('zzz_print_tj')->insert([
+                        'FBillNo' => $data['cdlcode'],
+                        'FCreateTime' => date('Y-m-d H:i:s', time()),
+                        'FCreateUserID' => $request->user()->id,
+                        'FCreateUserName' => $request->user()->name
+                    ]);
+        
+                    $jg4 = DB::select('select ISNULL(total,0) from PrintPolicy_VCH where VchID= ?', [$data['cdlcode']]);
+                    $deleted = DB::delete("delete from zzz_print where cdlcode=?", [$data['cdlcode']]);
+                    $jg5 = DB::select('select DLID from dispatchlist where cdlcode= ?', [$data['cdlcode']]);
+        
+                    if (count($jg4) == 0) {
+                        // 插入u8打印日志 PrintPolicy_VCH
+                        $jg3 = DB::table('PrintPolicy_VCH')->insert([
+                            'PolicyID' => '01_131460',
+                            'lastPrintTime' => date('Y-m-d H:i:s', time()),
+                            'VchID' => $data['cdlcode'],
+                            'VchUniqueID' => $jg5[0]->DLID,
+                            'Total' => '1'
+                        ]);
+                    }
+        
+                    if (!$jg1) {
+                        throw new \Exception("Failed to update iPrintCount");
+                    }
+                    if (!$jg2) {
+                        throw new \Exception("Failed to insert into zzz_print_diary");
+                    }
+        
+                    DB::commit();
+                    $success = true;
+                    echo json_encode(array("FTranType" => 1, "FText" => '打印更新成功！'), JSON_UNESCAPED_UNICODE);
+                } catch (\Exception $e) {
+                    DB::rollback(); // 事务回滚
+                    echo $e->getMessage();
+                    $attempt++;
+                    if ($attempt == $retryAttempts) {
+                        echo json_encode(array("FTranType" => 0, "FText" => '数据异常，已达到最大重试次数！'), JSON_UNESCAPED_UNICODE);
+                    } else {
+                        sleep(1); // 可选：等待一段时间后重试，避免过度频繁重试
+                    }
                 }
-                if (!$jg2) {
-                    throw new \Exception("3");
-                }
-                // if (!$jg3) {
-                //     throw new \Exception("4");
-                // }
-                DB::commit();
-                echo json_encode(array("FTranType"=>1,"FText"=>'打印更新成功！'),JSON_UNESCAPED_UNICODE);
-            }catch(\Exception $e){
-                DB::rollback();//事务回滚
-                echo $e->getMessage();
-                echo json_encode(array("FTranType"=>0,"FText"=>'数据异常！'),JSON_UNESCAPED_UNICODE);
             }
-            //将打印信息写入日志
-
         }
+        
     }
 
 

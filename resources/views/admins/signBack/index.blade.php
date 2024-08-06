@@ -135,11 +135,15 @@ function getresultinfo(){
               });
 
                $('#ccode').focus();
+               $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+               $('#notifyAudio')[0].play();
                return false;
              }
         
              //如果扫描结果为空,不得离开当前焦点
               if( $('#csocode').val()==''){
+                $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                $('#notifyAudio')[0].play();
                 //发货单号红框提示,toast提示
                     $("#csocode").addClass("is-invalid");
                Toast.fire({
@@ -148,6 +152,7 @@ function getresultinfo(){
               });
 
                $('#csocode').focus();
+               
 
              }
              else
@@ -204,7 +209,10 @@ $.ajax({
                     if (cdlcode==csocode&&parseFloat(issign)==0)  //扫描结果等于明细发货单号且未扫描过
 
                     {
+                        $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+                     $('#successAudio')[0].play();
 
+            
                  // 光标显示到对应行上的验货数量文本框内
                  tb.rows[i].style.backgroundColor='#FFFF00'; //淡黄色
                
@@ -231,7 +239,10 @@ $.ajax({
           }
         
           else if (cdlcode==csocode&&parseFloat(issign)!=0)
-          {  Toast.fire({
+          {
+            $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                    $('#notifyAudio')[0].play();
+            Toast.fire({
                       type: 'error',
                       title:  '发货单号：'+$('#csocode').val()+'  已扫描过,请勿重复扫描'
                     });
@@ -268,13 +279,13 @@ $('#btn-submit1').on('click', function(){
     var icount= $('#icount').val();
     
 
-    if(sign!=icount){
-        Toast.fire({
-            type: 'error',
-            title: '请选择要传输的单据！'
-        });
-        return false;       
-    };
+    // if(sign!=icount){
+    //     Toast.fire({
+    //         type: 'error',
+    //         title: '请选择要传输的单据！'
+    //     });
+    //     return false;       
+    // };
     //考虑一下短位怎么办,短位后台处理
 
 
@@ -376,6 +387,8 @@ function deleteCurrentRow(button) {
     var rowCount = tb.rows.length;
     // console.log(rowCount);
    if (rowCount <=2) {
+    $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+                    $('#notifyAudio')[0].play();
                   Swal.fire({
                           type: 'error',
                           title: '最后一行，不能删除',
@@ -533,9 +546,13 @@ var ccode = $('#ccode').val();
         });
         $('#ccode').addClass('is-invalid');
         $('#ccode').focus();
+       
+        $('<audio id="notifyAudio"><source src="/music/notify.ogg" type="audio/ogg"><source src="/music/notify.mp3" type="audio/mpeg"><source src="/music/notify.wav" type="audio/wav"></audio>').appendTo('body');
+        $('#notifyAudio')[0].play();
         return false;
     }
     else{
+        $('#csocode').focus();
         myajax1=$.ajax({
               data:{ccode:ccode},
               headers:{
@@ -552,7 +569,8 @@ var ccode = $('#ccode').val();
                 //   $('#position').val(result.no);
               }
           })
-
+          $('<audio id="successAudio"><source src="/music/success.ogg" type="audio/ogg"><source src="/music/success.mp3" type="audio/mpeg"><source src="/music/success.wav" type="audio/wav"></audio>').appendTo('body');
+          $('#successAudio')[0].play();
          table.draw( false ) ;
     }
       
