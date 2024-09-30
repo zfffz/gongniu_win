@@ -611,7 +611,7 @@ if($query55[0]->chdefine12=='是')
                 ->select(
                     \DB::raw("
 
-                      a.ctvcode as cDLCode,a.cdefine3 as cxh,CONVERT(varchar(100), a.dtvdate, 23) as dtvdate,w.cWhName as ciwhname,h.cWhName as cowhname,a.cTVMemo,p.cPersonName,a.cdefine1 as djlx,a.cdefine2 as dmsdh, a.cmaker, '' as divid, '' as tableid, '' as pageid 
+                      a.ctvcode as cDLCode,a.cdefine3 as cxh,CONVERT(varchar(100), a.dtvdate, 23) as dtvdate,a.cdefine12,w.cWhName as ciwhname,h.cWhName as cowhname,a.cTVMemo,p.cPersonName,a.cdefine1 as djlx,a.cdefine2 as dmsdh, a.cmaker, '' as divid, '' as tableid, '' as pageid 
 
           
             "))

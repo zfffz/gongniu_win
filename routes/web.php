@@ -109,6 +109,12 @@ Route::group(['middleware' => 'auth','prefix'=>'admin','namespace'=>'Admin'], fu
     Route::post('customerLocation/getData', 'CustomerLocationsController@getData')->name('customerLocation.getData');
     Route::get('customerLocation/getCustomerData', 'CustomerLocationsController@getCustomerData')->name('customerLocation.getCustomerData');
     Route::resource('customerLocation', 'CustomerLocationsController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
+
+      // 车销号对应客户
+      Route::post('vehicleCode/getData', 'VehicleCodesController@getData')->name('vehicleCode.getData');
+      Route::get('vehicleCode/getCustomerData', 'VehicleCodesController@getCustomerData')->name('vehicleCode.getCustomerData');
+      Route::resource('vehicleCode', 'VehicleCodesController', ['only' => [ 'index', 'create', 'store','show','edit','update','destroy']]);
+
     
     //生成发运单
     Route::post('wayBill/getData', 'WayBillsController@getData')->name('wayBill.getData');

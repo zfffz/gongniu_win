@@ -39,16 +39,17 @@
                   </div>
     
                   <div class="row"  >
-                    <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">车销号:{{ $datas[0]->cxh }}</h5>
+                    <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">车销号:{{ $datas[0]->cxh }}</h5>
+                    <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">客户编码:{{ $datas[0]->cdefine12 }}</h5>
                     <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">移库日期:{{ $datas[0]->dtvdate }}</h5>
                     <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">转入仓库:{{ $datas[0]->ciwhname }}</h5>  
                       <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">转出仓库:{{ $datas[0]->cowhname }}</h5>
                        <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">备注:{{ $datas[0]->cTVMemo }}</h5>
                          <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">业务员:{{ $datas[0]->cPersonName }}</h5>
-                         <h5 class="col-md-4 col-sm-4 col-xs-4" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">单据类型:{{ $datas[0]->djlx }}</h5>
-                      <h5 class="col-md-4 col-sm-4 col-xs-4" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">单据号:{{ $datas[0]->cDLCode}}</h5>
+                         <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">单据类型:{{ $datas[0]->djlx }}</h5>
+                      <h5 class="col-md-3 col-sm-3 col-xs-3" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">单据号:{{ $datas[0]->cDLCode}}</h5>
 
-                      <h5 class="col-md-4 col-sm-4 col-xs-4" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">DMS单号:{{ $datas[0]->dmsdh }}</h5>
+                      <h5 class="col-md-6 col-sm-6 col-xs-6" style="font-family:黑体; font-size:10.5pt; line-height:2.5pt;white-space: nowrap;">DMS单号:{{ $datas[0]->dmsdh }}</h5>
                   
                   </div>
                </div>

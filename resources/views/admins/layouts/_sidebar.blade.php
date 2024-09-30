@@ -163,6 +163,12 @@
                                 <p>客户默认库位</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('vehicleCode.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>车销对应客户</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
       @endcan
