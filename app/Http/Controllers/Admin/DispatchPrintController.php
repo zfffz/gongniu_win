@@ -1142,39 +1142,29 @@ foreach ($data as $cdlcode){
         $updcdlcode = $request->input('items');
          $n=0;
          $t=0;
+         $count = 0; 
+         $query2_count = 0; 
         foreach($updcdlcode as $data){
      
-
-   // DB::insert('insert into  zzz_print (cpersoncode,cdlcode,hd,ddate) values (?,?,?,?)', [$checkers[0]->no,$dispatch_no,'对货',$ddate]);
-   //    // $t=0;
-        // dd($data);
-        // foreach ($data as $cdlcode){
-        // dd(1);
-        // $cdlcode = $request->dispatch_no;
-
-        //11.20修改检查发货单是否已经审核过，未审核过要求先审核，在打包,以后检查对货可以直接启用
-        // $query = DB:: table('zzz_sweep_checks as t1')
-        //     ->where('t1.dispatch_no','=',$cdlcode)
-        //     ->count();
-// dverifydate is NOT NULL and
-// DB::insert('insert into  BS_GN_wlstate (cpersoncode,cdlcode,hd,ddate) values (?,?,?,?)', [$checkers[0]->no,$dispatch_no,'对货',$ddate]);
-
-    // $jg2=DB::table('zzz_print')->insert(
-    //                 [
-    //                     'cdlcode'=>$data['cdlcode'],
-    //                     'CreateTime'=>date('Y-m-d h:i:s', time()),
-    //                     'userid'=>$request->user()->id
-    //                 ]
-    //             );
+ $query2 =  DB::SELECT("select cdlcode from dispatchlist where cdlcode=? union all select  ctvcode from transvouch where ctvcode=?",[$data['cdlcode'],$data['cdlcode']]);
  $query1 =  DB::SELECT("select cdlcode from zzz_print where cdlcode=?",[$data['cdlcode']]);
 
  $query =  DB::SELECT("select total from PrintPolicy_VCH where VchID=?",[$data['cdlcode']]);
  $n=$n+COUNT($query);
  $t=$t+COUNT($query1);
-
+ $query2_count += count($query2);
+ $count++;
 }
 // dd($query);
 // dd($n);
+//为了控制单据打印预览界面会被删除的情况
+if($query2_count!=$count)
+{
+    echo json_encode(array('status'=>0,'text'=>'单据已被删除,请回到列表重新选择打印！'));
+    exit();
+}
+else
+{
         if($n == 0 ){
             if ($t == 0) {
                  echo json_encode(array('status'=>1,'text'=>'success！'));
@@ -1190,7 +1180,7 @@ foreach ($data as $cdlcode){
             echo json_encode(array('status'=>0,'text'=>'单据已打印！'));
             exit();
         }
-
+    }
     }
         //预览打印
    public function checkprint2(Request $request){
@@ -1216,7 +1206,10 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
             $retryAttempts = 3; // 设置重试次数
             $attempt = 0;
             $success = false;
-        
+            $query55 =  DB::SELECT("select cdlcode from dispatchlist where cdlcode=?",[$data['cdlcode']]);
+            if(count($query55) > 0)
+            {
+                
             while (!$success && $attempt < $retryAttempts) {
                 try {
                     DB::beginTransaction();
@@ -1286,6 +1279,10 @@ $deleted = DB::delete("delete from zzz_print where cdlcode=?",[$data['cdlcode']]
                     }
                 }
             }
+        }
+        else{
+            echo json_encode(array("FTranType" => 0, "FText" => '打印单据已被删除，请检查！'), JSON_UNESCAPED_UNICODE);
+        }
         }
         
     }
